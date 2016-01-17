@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import TopBar from './components/topbar.jsx'
-import Footer from './components/footer.jsx'
+import TopBar from './topbar.jsx'
+import Footer from './footer.jsx'
 
 
 export default class App extends Component {

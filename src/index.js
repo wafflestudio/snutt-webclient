@@ -3,10 +3,7 @@ import { render } from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 require('../stylesheets/style.scss')
 
-import App from './App.jsx'
-import MakeTimetable from './components/make-timetable.jsx'
-import MyTimetable from './components/my-timetable.jsx'
-import ExportTimetable from './components/export-timetable.jsx'
+import { App, MakeTimetable, MyTimetable, ExportTimetable } from './components'
 
 render((
   <Router history={browserHistory}>
