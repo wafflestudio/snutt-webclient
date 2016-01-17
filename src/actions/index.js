@@ -3,7 +3,7 @@ import sampleResult from '../sampleResult'
 export const SELECT_COURSE = 'SELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
 export const SHOW_RESULT = 'SHOW_RESULT'
-export const ADD_COURSE - 'ADD_COURSE'
+export const ADD_COURSE = 'ADD_COURSE'
 export const CHANGE_TIMETABLE = 'CHANGE_TIMETABLE'
 export const CHANGE_COURSEBOOK = 'CHANGE_COURSEBOOK'
 
