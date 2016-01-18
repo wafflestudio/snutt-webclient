@@ -5,18 +5,25 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute } from 'react-router'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { syncHistory, routeReducer } from 'redux-simple-router'
-import reducers from './reducers'
+import thunkMiddleware from 'redux-thunk'
+import rootReducer from './reducers/index.js'
 
 require('../stylesheets/style.scss')
 import { App, MakeTimetable, MyTimetable, ExportTimetable } from './components'
 
-const reducer = combineReducers(Object.assign({}, reducers, {
+
+var combined = Object.assign({}, rootReducer, {
   routing: routeReducer
-}))
+})
+
+var reducer = combineReducers(combined)
 
 const browserHistory = createBrowserHistory()
 const reduxRouterMiddleware = syncHistory(browserHistory)
-const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore)
+const createStoreWithMiddleware = applyMiddleware(
+  thunkMiddleware,
+  reduxRouterMiddleware
+)(createStore)
 
 const store = createStoreWithMiddleware(reducer)
 

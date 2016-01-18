@@ -14,6 +14,8 @@ export default class TopBar extends Component {
             <li><Link to="/">강의 찾기</Link></li>
             <li><Link to="/my">내 강의 / <b className="badge-info">0학점</b></Link></li>
             <li><Link to="/export">저장하기</Link></li>
+            <li><span>{this.props.courseBook.year}</span></li>
+            <li><span>{this.props.courseBook.semesterIdx}</span></li>
           </ul>
         </div>
       </div>

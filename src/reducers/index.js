@@ -23,10 +23,12 @@ function searchResults(state=[], action) {
   }
 }
 
-function timeTable(state = [], action) {
+function timeTable(state = require('./sampleTimetable'), action) {
   switch(action.type) {
     case ADD_COURSE:
       return _.cloneDeep(state).push(action.course)
+    default:
+      return state
   }
 }
 
@@ -34,12 +36,16 @@ function courseBook(state = {year: 2016, semesterIdx: 1}, action) {
   switch(action.type) {
     case CHANGE_COURSEBOOK:
       return {year: action.year, semesterIdx: action.semesterIdx}
+    default:
+      return state
   }
 }
 
-export default combineReducers({
+const reducer = {
   selectedCourse,
   searchResults,
   timeTable,
   courseBook
-})
+}
+
+export default reducer

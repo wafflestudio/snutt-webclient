@@ -1,4 +1,4 @@
-import sampleResult from '../sampleResult'
+import sampleResult from './sampleResult'
 
 export const SELECT_COURSE = 'SELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
