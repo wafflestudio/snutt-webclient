@@ -15,7 +15,6 @@ import { App, MakeTimetable, MyTimetable, ExportTimetable } from './components'
 var combined = Object.assign({}, rootReducer, {
   routing: routeReducer
 })
-
 var reducer = combineReducers(combined)
 
 const browserHistory = createBrowserHistory()
@@ -26,9 +25,6 @@ const createStoreWithMiddleware = applyMiddleware(
 )(createStore)
 
 const store = createStoreWithMiddleware(reducer)
-
-// Required for replaying actions from devtools to work
-reduxRouterMiddleware.listenForReplays(store)
 
 render((
   <Provider store={store}>

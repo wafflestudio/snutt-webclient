@@ -5,7 +5,7 @@ import {
 } from '../actions'
 import _ from 'lodash'
 
-function selectedCourse(state=null, action) {
+function selectedCourse(state={}, action) {
   switch(action.type) {
     case SELECT_COURSE:
       return action.course

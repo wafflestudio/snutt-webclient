@@ -12,8 +12,9 @@ export function selectCourse(course) {
 }
 
 export function sendQuery(query) {
+  console.log(query)
   return dispatch => {
-    showResult(sampleResult)
+    dispatch(showResult(sampleResult))
   }
 }
 

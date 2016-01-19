@@ -3,16 +3,16 @@ import { connect } from 'react-redux'
 
 import TopBar from './topbar.jsx'
 import Footer from './footer.jsx'
-
+import { sendQuery } from '../actions'
 
 class App extends Component {
   render() {
-    const { selectedCourse, searchResults, timeTable, courseBook } = this.props;
+    const { dispatch, selectedCourse, searchResults, timeTable, courseBook } = this.props;
     return <div>
       <TopBar courseBook={courseBook}/>
       {React.cloneElement(
         this.props.children,
-        { selectedCourse, searchResults, timeTable, courseBook }
+        { dispatch, selectedCourse, searchResults, timeTable, courseBook }
         )}
       <Footer />
     </div>
