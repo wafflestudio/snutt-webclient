@@ -1,24 +1,17 @@
 import React, { Component } from 'react'
-import {Table, Column, Cell} from 'fixed-data-table'
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import sampleResult from '../actions/sampleResult'
+require('react-bootstrap-table/css/react-bootstrap-table-all.css')
 
 export default class Search extends Component {
   constructor() {
     super()
-    this.state = { result: sampleResult }
   }
 
   render() {
-    return (<Table
-      rowHeight={15}
-      rowsCount={10}
-      width={1000}
-      height={300}
-      headerHeight={15}>
-      <Column
-        header={<Cell>Col 1</Cell>}
-        cell={<Cell>Column1 static content</Cell>}
-        width={100}/>
-    </Table>);
+    return (<BootstrapTable data={sampleResult} height="200">
+        <TableHeaderColumn dataField='course_number' isKey='true' height="200">과목번호</TableHeaderColumn>
+        <TableHeaderColumn dataField='course_title'>과목이름</TableHeaderColumn>
+      </BootstrapTable>);
   }
 }
