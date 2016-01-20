@@ -1,4 +1,5 @@
 import sampleResult from './sampleResult'
+import 'isomorphic-fetch'
 
 export const SELECT_COURSE = 'SELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
@@ -13,8 +14,16 @@ export function selectCourse(course) {
 
 export function sendQuery(query) {
   console.log(query)
+  var data = new FormData()
+  data.append('json', JSON.stringify(query))
   return dispatch => {
-    dispatch(showResult(sampleResult))
+    fetch('http://walnut.wafflestudio.com:3000/api/search_query', {
+      method: 'POST',
+      body: data
+    })
+    .then(res => res.json())
+    .then(data => dispatch(showResult(sampleResult)))
+    .catch(err => console.log(err))
   }
 }
 
