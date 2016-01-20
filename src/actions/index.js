@@ -1,5 +1,5 @@
 import sampleResult from './sampleResult'
-import 'isomorphic-fetch'
+import $ from 'jquery'
 
 export const SELECT_COURSE = 'SELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
@@ -13,17 +13,22 @@ export function selectCourse(course) {
 }
 
 export function sendQuery(query) {
-  console.log(query)
-  var data = new FormData()
-  data.append('json', JSON.stringify(query))
-  return dispatch => {
-    fetch('http://walnut.wafflestudio.com:3000/api/search_query', {
-      method: 'POST',
-      body: data
+  query.year = 2016
+  query.semester = 1
+  return function(dispatch) {
+    $.ajax({
+      url: 'http://localhost:3001/api/search_query',
+      type: 'post',
+      dataType: 'json',
+      data: query,
+      success: function(data) {
+        dispatch(showResult(data))
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
     })
-    .then(res => res.json())
-    .then(data => dispatch(showResult(sampleResult)))
-    .catch(err => console.log(err))
   }
 }
 

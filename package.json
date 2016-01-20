@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "history": "^1.17.0",
-    "isomorphic-fetch": "^2.2.1",
+    "jquery": "^2.2.0",
     "react": "^0.14.0",
     "react-bootstrap-table": "^1.4.2",
     "react-dom": "^0.14.0",
