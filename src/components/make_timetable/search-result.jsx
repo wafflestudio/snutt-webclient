@@ -10,7 +10,11 @@ export default class Search extends Component {
   }
 
   handleSelect(row, isSelected) {
-    console.log("select" + row.course_title)
+    if (isSelected) {
+      this.props.onSelect(row)
+    } else {
+      this.props.onSelect(null)
+    }
   }
 
   handleAdd(e) {
@@ -29,10 +33,6 @@ export default class Search extends Component {
     var opt = {
       noDataText: "해당하는 강좌가 없습니다"
     }
-    var format = function(cell, row) {
-      return <span><button onMouseCapture={this.handleAdd} type="button" className="btn btn-default">
-      <span className="glyphicon glyphicon-plus" aria-hidden="true"></span></button>{" "+cell}</span>
-    }
     return (<BootstrapTable
       keyField="_id"
       data={this.props.results}
@@ -41,12 +41,15 @@ export default class Search extends Component {
       hover={true}
       options={opt}>
         <TableHeaderColumn dataField='course_number' width="100">과목번호</TableHeaderColumn>
+        <TableHeaderColumn dataField='lecture_number' width="80">강좌번호</TableHeaderColumn>
         <TableHeaderColumn
           dataField='course_title'
-          width="200"
-          dataFormat={format}>과목이름</TableHeaderColumn>
+          width="200">
+          과목이름
+        </TableHeaderColumn>
         <TableHeaderColumn dataField='department' width='150'>학과</TableHeaderColumn>
-        <TableHeaderColumn dataField='remark' width='300'>비고</TableHeaderColumn>
+        <TableHeaderColumn dataField='class_time' width='150'>시간</TableHeaderColumn>
+        <TableHeaderColumn dataField='remark'>비고</TableHeaderColumn>
       </BootstrapTable>);
   }
 }

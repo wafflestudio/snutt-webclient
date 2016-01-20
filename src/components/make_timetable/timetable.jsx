@@ -5,7 +5,7 @@ class CourseCell extends Component {
     var divStyle = {
       height: `${this.props.length * 100}%`
     }
-    return <div className="course-div" style={divStyle}>
+    return <div className={"course-div" + (this.props.isPreview ? " preview" : "")} style={divStyle}>
       {this.props.title}
     </div>
   }
@@ -14,6 +14,7 @@ class CourseCell extends Component {
 export default class Timetable extends Component {
   constructor() {
     super()
+    this.fillCells = this.fillCells.bind(this)
     this.state = {
       cells: this.emptyCells()
     }
@@ -22,25 +23,36 @@ export default class Timetable extends Component {
   emptyCells() {
     var empty = new Array(6)
     for (var d = 0; d < 6; d++) {
-      empty[d] = new Array(20)
+      empty[d] = new Array(26)
     }
     return empty
   }
 
   componentWillMount() {
-    this.fillCells()
+    this.fillCells(this.props)
   }
 
-  componentWillReceiveProps() {
-    this.fillCells()
+  componentWillReceiveProps(nextProps) {
+    this.fillCells(nextProps)
   }
 
-  fillCells() {
+  fillCells(props) {
     var newCells = this.emptyCells()
-    for (var course of this.props.courses) {
-      for (var day of course.days) {
-        var time = course.time[course.days.indexOf(day)]
-        newCells[day][time.start] = <CourseCell title={course.title} length={time.dur}/>
+    // for (var course of this.props.courses) {
+    //   for (var day of course.days) {
+    //     var time = course.time[course.days.indexOf(day)]
+    //     newCells[day][time.start] = <CourseCell title={course.title} length={time.dur}/>
+    //   }
+    // }
+    // cell for previewed lecture
+    var selected = props.selected
+    if (selected) {
+      for (var lecture of selected.class_time_json) {
+        var day = lecture.day
+        newCells[day][lecture.start * 2] = <CourseCell
+          title={selected.course_title}
+          length={lecture.len * 2}
+          isPreview={true}/>
       }
     }
     this.setState({
@@ -66,7 +78,7 @@ export default class Timetable extends Component {
 
   drawTable() {
     var rows = [];
-    for (var t = 0; t < 20; t++) {
+    for (var t = 0; t < 26; t++) {
       rows.push(<tr key={t}>
         <td>{this.state.cells[0][t]}</td>
         <td>{this.state.cells[1][t]}</td>

@@ -17,7 +17,7 @@ export function sendQuery(query) {
   query.semester = 1
   return function(dispatch) {
     $.ajax({
-      url: 'http://localhost:3001/api/search_query',
+      url: 'http://walnut.wafflestudio.com:3000/api/search_query',
       type: 'post',
       dataType: 'json',
       data: query,

@@ -5,7 +5,7 @@ import {
 } from '../actions'
 import _ from 'lodash'
 
-function selectedCourse(state={}, action) {
+function selectedCourse(state=null, action) {
   switch(action.type) {
     case SELECT_COURSE:
       return action.course
@@ -23,7 +23,7 @@ function searchResults(state=[], action) {
   }
 }
 
-function timeTable(state = require('./sampleTimetable'), action) {
+function timeTable(state = [], action) {
   switch(action.type) {
     case ADD_COURSE:
       return _.cloneDeep(state).push(action.course)

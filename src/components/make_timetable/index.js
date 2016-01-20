@@ -7,12 +7,14 @@ import { selectCourse, sendQuery, showResult, addCourse } from '../../actions'
 
 export default class MakeTimeTable extends Component {
   render() {
-    console.log('draw make_timetable')
-    const { dispatch, searchResults, timeTable} = this.props
+    const { dispatch, selectedCourse, searchResults, timeTable} = this.props
     return <div className="container">
-      <SearchBar handleSearch={query => dispatch(sendQuery(query))}/>
-      <SearchResult results={searchResults}/>
-      <Timetable courses={timeTable}/>
+      <SearchBar
+        handleSearch={query => dispatch(sendQuery(query))}/>
+      <SearchResult
+        results={searchResults}
+        onSelect={course => dispatch(selectCourse(course))}/>
+      <Timetable courses={timeTable} selected={selectedCourse}/>
     </div>
   }
 }
