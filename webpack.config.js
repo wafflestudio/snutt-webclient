@@ -30,6 +30,10 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: ["style", "css"]
+      },
+      {
+        test: require.resolve("jquery"),
+        loader: "expose?jQuery"
       }
     ]
   }
