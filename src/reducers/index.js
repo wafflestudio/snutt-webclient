@@ -23,10 +23,10 @@ function searchResults(state=[], action) {
   }
 }
 
-function timeTable(state = [], action) {
+function timeTable(state = Immutable.List(), action) {
   switch(action.type) {
     case ADD_COURSE:
-      return _.cloneDeep(state).push(action.course)
+      return state.push(action.course)
     default:
       return state
   }

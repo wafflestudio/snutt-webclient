@@ -38,13 +38,16 @@ export default class Timetable extends Component {
 
   fillCells(props) {
     var newCells = this.emptyCells()
-    // for (var course of this.props.courses) {
-    //   for (var day of course.days) {
-    //     var time = course.time[course.days.indexOf(day)]
-    //     newCells[day][time.start] = <CourseCell title={course.title} length={time.dur}/>
-    //   }
-    // }
-    // cell for previewed lecture
+    for (var course of this.props.courses) {
+      for (var lecture of course.class_time_json) {
+        var day = lecture.day
+        newCells[day][lecture.start * 2] = <CourseCell
+          title={course.course_title}
+          length={lecture.len * 2}
+          isPreview={false} />
+      }
+    }
+
     var selected = props.selected
     if (selected) {
       for (var lecture of selected.class_time_json) {
