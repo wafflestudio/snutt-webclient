@@ -13,7 +13,6 @@ export default class Search extends Component {
   }
 
   handleClick(e) {
-    console.log(this.state.text)
     this.props.handleSearch({title: this.state.text})
   }
 

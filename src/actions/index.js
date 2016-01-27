@@ -2,6 +2,7 @@ import sampleResult from './sampleResult'
 import $ from 'jquery'
 
 export const SELECT_COURSE = 'SELECT_COURSE'
+export const UNSELECT_COURSE = 'UNSELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
 export const SHOW_RESULT = 'SHOW_RESULT'
 export const ADD_COURSE = 'ADD_COURSE'
@@ -9,7 +10,11 @@ export const CHANGE_TIMETABLE = 'CHANGE_TIMETABLE'
 export const CHANGE_COURSEBOOK = 'CHANGE_COURSEBOOK'
 
 export function selectCourse(course) {
-  return { type:SELECT_COURSE, course }
+  return { type: SELECT_COURSE, course }
+}
+
+export function unselectCourse() {
+  return { type: UNSELECT_COURSE }
 }
 
 export function sendQuery(query) {
@@ -40,8 +45,8 @@ export function addCourse(course) {
   return { type: ADD_COURSE, course}
 }
 
-export function changeTimetable(timetable) {
-  return { type: CHANGE_TIMETABLE, timetable }
+export function changeTimeTable(newTableIndex) {
+  return { type: CHANGE_TIMETABLE, newTableIndex }
 }
 
 export function changeCoursebook(year, semesterIdx) {

@@ -33,6 +33,7 @@ export default class ResultTable extends Component {
   handleSelect(idx) {
     if (idx == this.state.selectedIdx) {
       this.setState({ selectedIdx: -1 })
+      this.props.handleUnselect()
     } else {
       this.setState({ selectedIdx: idx })
       this.props.handleSelect(this.props.data[idx])
@@ -40,7 +41,6 @@ export default class ResultTable extends Component {
   }
 
   handleAdd(idx) {
-    console.log("added::" + idx)
     this.props.handleAdd(this.props.data[idx])
   }
 

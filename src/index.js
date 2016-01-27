@@ -19,9 +19,10 @@ var reducer = combineReducers(combined)
 
 const browserHistory = createBrowserHistory()
 const reduxRouterMiddleware = syncHistory(browserHistory)
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  reduxRouterMiddleware
+const createStoreWithMiddleware = compose(
+  applyMiddleware(thunkMiddleware),
+  applyMiddleware(reduxRouterMiddleware),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
 const store = createStoreWithMiddleware(reducer)

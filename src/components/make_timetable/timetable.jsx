@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class CourseCell extends Component {
+class CourseDiv extends Component {
   render() {
     var divStyle = {
       height: `${this.props.length * 100}%`
@@ -15,6 +15,7 @@ export default class Timetable extends Component {
   constructor() {
     super()
     this.fillCells = this.fillCells.bind(this)
+    this.countCells = this.countCells.bind(this)
     this.state = {
       cells: this.emptyCells()
     }
@@ -38,24 +39,30 @@ export default class Timetable extends Component {
 
   fillCells(props) {
     var newCells = this.emptyCells()
-    for (var course of this.props.courses) {
+    for (var course of props.courses) {
       for (var lecture of course.class_time_json) {
         var day = lecture.day
-        newCells[day][lecture.start * 2] = <CourseCell
+        newCells[day][lecture.start * 2] = <CourseDiv
           title={course.course_title}
           length={lecture.len * 2}
           isPreview={false} />
       }
     }
-
     var selected = props.selected
     if (selected) {
       for (var lecture of selected.class_time_json) {
         var day = lecture.day
-        newCells[day][lecture.start * 2] = <CourseCell
-          title={selected.course_title}
-          length={lecture.len * 2}
-          isPreview={true}/>
+        var previewDiv = (
+          <CourseDiv
+            title={selected.course_title}
+            length={lecture.len * 2}
+            isPreview={true}
+          />
+        )
+        var existingDiv = newCells[day][lecture.start * 2]
+        newCells[day][lecture.start * 2] = (
+          existingDiv !== undefined ? [ existingDiv, previewDiv ] : previewDiv
+        )
       }
     }
     this.setState({
