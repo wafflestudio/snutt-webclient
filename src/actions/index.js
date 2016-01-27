@@ -1,4 +1,3 @@
-import sampleResult from './sampleResult'
 import $ from 'jquery'
 
 export const SELECT_COURSE = 'SELECT_COURSE'

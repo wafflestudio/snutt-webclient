@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 
-export default class TimeTableSelector extends Component {
-  constructor() {
-    super()
-  }
-
+export default class TimetableSelector extends Component {
   render() {
     var buttons = []
     for (var i = 0; i < this.props.total; i++) {
@@ -19,7 +15,6 @@ export default class TimeTableSelector extends Component {
         </button>
       )
     }
-
     return (
       <div className="btn-group" role="group" aria-label="...">
         {buttons}

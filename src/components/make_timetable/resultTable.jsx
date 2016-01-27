@@ -2,22 +2,26 @@ import React, { Component } from 'react'
 
 class ResultRow extends Component {
   render() {
-    return(<tr onClick={this.props.handleSelect}
-                className={this.props.isSelected ? "info" : ""}>
-      <td>{this.props.course_number}</td>
-      <td>{this.props.lecture_number}</td>
-      <td>
-        {this.props.course_title}
-        {this.props.isSelected ?
-          <button type="button" className="btn btn-success" aria-label="Left Align" onClick={this.props.handleAdd}>
-            <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </button> :
-          null}
-      </td>
-      <td>{this.props.department}</td>
-      <td>{this.props.class_time}</td>
-      <td>{this.props.remark}</td>
-    </tr>
+    return(
+      <tr
+        onClick={this.props.handleSelect}
+        className={this.props.isSelected ? "info" : ""}
+      >
+        <td>{this.props.course_number}</td>
+        <td>{this.props.lecture_number}</td>
+        <td>
+          {this.props.course_title}
+          {this.props.isSelected ?
+            <button type="button" className="btn btn-success" aria-label="Left Align" onClick={this.props.handleAdd}>
+              <span className="glyphicon glyphicon-plus" aria-hidden="true"/>
+            </button> :
+            null
+          }
+        </td>
+        <td>{this.props.department}</td>
+        <td>{this.props.class_time}</td>
+        <td>{this.props.remark}</td>
+      </tr>
     )
   }
 }
@@ -58,11 +62,14 @@ export default class ResultTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.data.map((key, idx) => <ResultRow {...key}
-            key={key._id}
-            handleSelect={this.handleSelect.bind(this, idx)}
-            handleAdd={this.handleAdd.bind(this, idx)}
-            isSelected={this.state.selectedIdx == idx} />)}
+          {this.props.data.map((key, idx) => (
+            <ResultRow {...key}
+              key={key._id}
+              handleSelect={this.handleSelect.bind(this, idx)}
+              handleAdd={this.handleAdd.bind(this, idx)}
+              isSelected={this.state.selectedIdx == idx}
+            />
+          ))}
         </tbody>
       </table>
     </div>)

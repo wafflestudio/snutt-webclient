@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import SearchBar from './search-bar.jsx'
-import ResultTable from './resultTable.jsx'
-import TimeTableSelector from './timeTableSelector.jsx'
-import Timetable from './timetable.jsx'
+import SearchBar from './SearchBar.jsx'
+import ResultTable from './ResultTable.jsx'
+import TimeTableSelector from './TimetableSelector.jsx'
+import Timetable from './Timetable.jsx'
 
 import { selectCourse, unselectCourse, sendQuery, showResult, changeTimeTable, addCourse } from '../../actions'
 

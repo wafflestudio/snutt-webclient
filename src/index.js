@@ -22,7 +22,7 @@ const reduxRouterMiddleware = syncHistory(browserHistory)
 const createStoreWithMiddleware = compose(
   applyMiddleware(thunkMiddleware),
   applyMiddleware(reduxRouterMiddleware),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+  (window.devToolsExtension && process.env.NODE_ENV != 'production') ? window.devToolsExtension() : f => f
 )(createStore)
 
 const store = createStoreWithMiddleware(reducer)

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-
 import TopBar from './topbar.jsx'
 import Footer from './footer.jsx'
-import { sendQuery } from '../actions'
 
 class App extends Component {
   render() {
