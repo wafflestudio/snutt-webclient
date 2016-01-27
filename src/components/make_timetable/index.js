@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchBar from './search-bar.jsx'
-import SearchResult from './search-result.jsx'
+import ResultTable from './resultTable.jsx'
 import Timetable from './timetable.jsx'
 
 import { selectCourse, sendQuery, showResult, addCourse } from '../../actions'
@@ -11,9 +11,11 @@ export default class MakeTimeTable extends Component {
     return <div className="container">
       <SearchBar
         handleSearch={query => dispatch(sendQuery(query))}/>
-      <SearchResult
-        results={searchResults}
-        onSelect={course => dispatch(selectCourse(course))}/>
+      <ResultTable
+        height={200}
+        data={searchResults}
+        handleSelect={course => dispatch(selectCourse(course))}
+        handleAdd={course => dispatch(addCourse(course))}/>
       <Timetable courses={timeTable} selected={selectedCourse}/>
     </div>
   }

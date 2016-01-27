@@ -3,7 +3,7 @@ import {
   SELECT_COURSE, SEND_QUERY, SHOW_RESULT,
   ADD_COURSE, CHANGE_TIMETABLE, CHANGE_COURSEBOOK
 } from '../actions'
-import _ from 'lodash'
+import Immutable from 'immutable'
 
 function selectedCourse(state=null, action) {
   switch(action.type) {
