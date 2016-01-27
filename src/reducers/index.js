@@ -9,6 +9,8 @@ function selectedCourse(state=null, action) {
   switch(action.type) {
     case SELECT_COURSE:
       return action.course
+    case SHOW_RESULT:
+      return null
     default:
       return state
   }
