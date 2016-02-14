@@ -12,11 +12,9 @@ class CourseDiv extends Component {
       >
         {this.props.course.course_title}
         {this.props.onDelete !== undefined ?
-          <button type="button" className="btn btn-default" aria-label="Left Align"
+          <span className="glyphicon glyphicon-remove" aria-hidden="true"
             onClick={() => this.props.onDelete(this.props.course._id)}
-          >
-            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </button>:
+          /> :
           null
         }
       </div>
@@ -60,6 +58,7 @@ export default class Timetable extends Component {
             onDelete={this.props.handleDelete}
             length={lecture.len * 2}
             isPreview={false}
+            key={course._id + day}
           />
         )
       }
@@ -73,6 +72,7 @@ export default class Timetable extends Component {
             course={selected}
             length={lecture.len * 2}
             isPreview={true}
+            key={selected._id + day}
           />
         )
         var existingDiv = newCells[day][lecture.start * 2]

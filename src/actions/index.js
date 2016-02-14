@@ -7,6 +7,8 @@ export const SHOW_RESULT = 'SHOW_RESULT'
 export const ADD_COURSE = 'ADD_COURSE'
 export const DELETE_COURSE = 'DELETE_COURSE'
 export const CHANGE_TIMETABLE = 'CHANGE_TIMETABLE'
+export const ADD_TIMETABLE = 'ADD_TIMETABLE'
+export const DELETE_TIMETABLE = 'DELETE_TIMETABLE'
 export const CHANGE_COURSEBOOK = 'CHANGE_COURSEBOOK'
 
 export function selectCourse(course) {
@@ -51,6 +53,14 @@ export function deleteCourse(courseId) {
 
 export function changeTimeTable(newTableIndex) {
   return { type: CHANGE_TIMETABLE, newTableIndex }
+}
+
+export function addTimeTable() {
+  return { type: ADD_TIMETABLE }
+}
+
+export function deleteTimeTable(index) {
+  return { type: DELETE_TIMETABLE, index }
 }
 
 export function changeCoursebook(year, semesterIdx) {

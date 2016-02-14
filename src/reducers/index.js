@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
 import {
   SELECT_COURSE, UNSELECT_COURSE, SEND_QUERY, SHOW_RESULT,
-  ADD_COURSE, DELETE_COURSE, CHANGE_TIMETABLE, CHANGE_COURSEBOOK
+  ADD_COURSE, DELETE_COURSE, CHANGE_TIMETABLE, ADD_TIMETABLE, DELETE_TIMETABLE,
+  CHANGE_COURSEBOOK
 } from '../actions'
 import Immutable from 'immutable'
 
@@ -47,6 +48,16 @@ function timeTables(state, action) {
     case CHANGE_TIMETABLE:
       return Object.assign({}, state, {
         currentIndex: action.newTableIndex
+      })
+    case ADD_TIMETABLE:
+      return Object.assign({}, state, {
+        tables: tables.push(Immutable.List()),
+        currentIndex: tables.size
+      })
+    case DELETE_TIMETABLE:
+      return Object.assign({}, state, {
+        tables: tables.delete(action.index),
+        currentIndex: 0
       })
     case ADD_COURSE:
       return Object.assign({}, state, {

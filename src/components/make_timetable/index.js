@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar.jsx'
 import ResultTable from './ResultTable.jsx'
-import TimeTableSelector from './TimetableSelector.jsx'
+import TimeTableManager from './TimeTableManager.jsx'
 import Timetable from './Timetable.jsx'
 
-import { selectCourse, unselectCourse, sendQuery, showResult, changeTimeTable, addCourse, deleteCourse } from '../../actions'
+import { sendQuery, showResult,
+  selectCourse, unselectCourse, addCourse, deleteCourse,
+  changeTimeTable, addTimeTable, deleteTimeTable
+} from '../../actions'
 
 export default class MakeTimeTable extends Component {
   render() {
@@ -21,10 +24,12 @@ export default class MakeTimeTable extends Component {
           handleUnselect={() => dispatch(unselectCourse())}
           handleAdd={course => dispatch(addCourse(course))}
         />
-        <TimeTableSelector
+        <TimeTableManager
           currentIndex={timeTables.currentIndex}
           total={timeTables.tables.size}
           handleChange={idx => dispatch(changeTimeTable(idx))}
+          handleAdd={() => dispatch(addTimeTable())}
+          handleDelete={idx => dispatch(deleteTimeTable(idx))}
         />
         <Timetable
           courses={timeTables.tables.get(timeTables.currentIndex)}
