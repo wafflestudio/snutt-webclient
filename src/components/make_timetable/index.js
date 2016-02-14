@@ -4,7 +4,7 @@ import ResultTable from './ResultTable.jsx'
 import TimeTableSelector from './TimetableSelector.jsx'
 import Timetable from './Timetable.jsx'
 
-import { selectCourse, unselectCourse, sendQuery, showResult, changeTimeTable, addCourse } from '../../actions'
+import { selectCourse, unselectCourse, sendQuery, showResult, changeTimeTable, addCourse, deleteCourse } from '../../actions'
 
 export default class MakeTimeTable extends Component {
   render() {
@@ -29,6 +29,7 @@ export default class MakeTimeTable extends Component {
         <Timetable
           courses={timeTables.tables.get(timeTables.currentIndex)}
           selected={selectedCourse}
+          handleDelete={_id => dispatch(deleteCourse(_id))}
         />
       </div>
     )

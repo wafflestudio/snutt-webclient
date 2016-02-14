@@ -5,6 +5,7 @@ export const UNSELECT_COURSE = 'UNSELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
 export const SHOW_RESULT = 'SHOW_RESULT'
 export const ADD_COURSE = 'ADD_COURSE'
+export const DELETE_COURSE = 'DELETE_COURSE'
 export const CHANGE_TIMETABLE = 'CHANGE_TIMETABLE'
 export const CHANGE_COURSEBOOK = 'CHANGE_COURSEBOOK'
 
@@ -42,6 +43,10 @@ export function showResult(courses) {
 
 export function addCourse(course) {
   return { type: ADD_COURSE, course}
+}
+
+export function deleteCourse(courseId) {
+  return { type: DELETE_COURSE, courseId}
 }
 
 export function changeTimeTable(newTableIndex) {

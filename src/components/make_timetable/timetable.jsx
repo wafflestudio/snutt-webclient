@@ -10,7 +10,15 @@ class CourseDiv extends Component {
         className={"course-div" + (this.props.isPreview ? " preview" : "")}
         style={divStyle}
       >
-        {this.props.title}
+        {this.props.course.course_title}
+        {this.props.onDelete !== undefined ?
+          <button type="button" className="btn btn-default" aria-label="Left Align"
+            onClick={() => this.props.onDelete(this.props.course._id)}
+          >
+            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>:
+          null
+        }
       </div>
     )
   }
@@ -48,7 +56,8 @@ export default class Timetable extends Component {
         var day = lecture.day
         newCells[day][lecture.start * 2] = (
           <CourseDiv
-            title={course.course_title}
+            course={course}
+            onDelete={this.props.handleDelete}
             length={lecture.len * 2}
             isPreview={false}
           />
@@ -61,7 +70,7 @@ export default class Timetable extends Component {
         var day = lecture.day
         var previewDiv = (
           <CourseDiv
-            title={selected.course_title}
+            course={selected}
             length={lecture.len * 2}
             isPreview={true}
           />
