@@ -22,7 +22,11 @@ export default class TimetableSelector extends Component {
           onClick={this.props.handleChange.bind(this, i)}
         >
           {i + 1}
-          <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this.onDelete.bind(this, i)}/>
+          <span
+            className="glyphicon glyphicon-remove"
+            aria-hidden="true"
+            onClick={this.onDelete.bind(this, i)}
+          />
         </button>
       )
     }
