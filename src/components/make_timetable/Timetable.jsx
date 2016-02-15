@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
+import update from 'react-addons-update'
 
-class CourseDiv extends Component {
+class LectureBox extends Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(e) {
+    e.stopPropagation()
+  }
+
   render() {
     var divStyle = {
       height: `${this.props.length * 100}%`
@@ -9,6 +19,7 @@ class CourseDiv extends Component {
       <div
         className={"course-div" + (this.props.isPreview ? " preview" : "")}
         style={divStyle}
+        onClick={this.handleClick}
       >
         {this.props.course.course_title}
         {this.props.onDelete !== undefined ?
@@ -22,16 +33,57 @@ class CourseDiv extends Component {
   }
 }
 
+class Cell extends Component {
+  constructor() {
+    super()
+  }
+
+  onMouseDown() {
+    console.log('down')
+    this.props.handleMouseDown(this.props.day, this.props.time)
+  }
+
+  onMouseEnter() {
+    this.props.handleMouseEnter(this.props.day, this.props.time)
+  }
+
+  onMouseUp() {
+    this.props.handleMouseUp(this.props.day, this.props.time)
+  }
+
+  render() {
+    return (
+      <td
+        className={this.props.className}
+        onMouseDown={this.onMouseDown.bind(this)}
+        onMouseEnter={this.onMouseEnter.bind(this)}
+        onMouseUp={this.onMouseUp.bind(this)}
+      >
+        {this.props.content}
+      </td>
+    )
+  }
+}
+
+function update2dArr(arr, row, col, newElement) {
+  return update(arr, {[row]: {[col]: {$set: newElement}}})
+}
+
 export default class Timetable extends Component {
   constructor() {
     super()
-    this.fillCells = this.fillCells.bind(this)
+    this.fillLectures = this.fillLectures.bind(this)
     this.state = {
-      cells: this.emptyCells()
+      lectureBoxes: this.emptyArray(),
+      cellStatus: this.emptyArray(),
+      isSelecting: false,
+      isDragSelecting: false,
+      dragStart: {day: -1, time: -1},
+      dragEnd: {day: -1, time: -1}
     }
   }
 
-  emptyCells() {
+  emptyArray() {
     var empty = new Array(6)
     for (var d = 0; d < 6; d++) {
       empty[d] = new Array(26)
@@ -40,20 +92,20 @@ export default class Timetable extends Component {
   }
 
   componentWillMount() {
-    this.fillCells(this.props)
+    this.fillLectures(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fillCells(nextProps)
+    this.fillLectures(nextProps)
   }
 
-  fillCells(props) {
-    var newCells = this.emptyCells()
+  fillLectures(props) {
+    var boxes = this.emptyArray()
     for (var course of props.courses) {
       for (var lecture of course.class_time_json) {
         var day = lecture.day
-        newCells[day][lecture.start * 2] = (
-          <CourseDiv
+        boxes[day][lecture.start * 2] = (
+          <LectureBox
             course={course}
             onDelete={this.props.handleDelete}
             length={lecture.len * 2}
@@ -68,39 +120,102 @@ export default class Timetable extends Component {
       for (var lecture of selected.class_time_json) {
         var day = lecture.day
         var previewDiv = (
-          <CourseDiv
+          <LectureBox
             course={selected}
             length={lecture.len * 2}
             isPreview={true}
             key={selected._id + day}
           />
         )
-        var existingDiv = newCells[day][lecture.start * 2]
-        newCells[day][lecture.start * 2] = (
+        var existingDiv = boxes[day][lecture.start * 2]
+        boxes[day][lecture.start * 2] = (
           existingDiv !== undefined ? [ existingDiv, previewDiv ] : previewDiv
         )
       }
     }
     this.setState({
-      cells: newCells
+      lectureBoxes: boxes
     })
   }
 
   makeTable() {
     var rows = [];
     for (var t = 0; t < 26; t++) {
-      rows.push(
-        <tr key={t}>
-          <td>{this.state.cells[0][t]}</td>
-          <td>{this.state.cells[1][t]}</td>
-          <td>{this.state.cells[2][t]}</td>
-          <td>{this.state.cells[3][t]}</td>
-          <td>{this.state.cells[4][t]}</td>
-          <td>{this.state.cells[5][t]}</td>
-        </tr>
-      )
+      var cols = []
+      for (var d = 0; d < 6; d++) {
+        var cellStatus = this.state.cellStatus[d][t]
+        var cellClass = ""
+        if (cellStatus == 'SELECTED')
+          cellClass += 'selected'
+        if (this.state.dragStart.day <= d && d<= this.state.dragEnd.day &&
+          this.state.dragStart.time <= t && t<= this.state.dragEnd.time) {
+          cellClass += ' dragged'
+        }
+        cols.push(
+          <Cell
+            className={cellClass.trim()}
+            // content={this.state.lectureBoxes[d][t]}
+            content={d + ' ' + t + ' ' + cellClass}
+            key={d}
+            day={d}
+            time={t}
+            handleMouseDown={this.handleMouseDown.bind(this)}
+            handleMouseEnter={this.handleMouseEnter.bind(this)}
+            handleMouseUp={this.handleMouseUp.bind(this)}
+          />
+        )
+      }
+      rows.push(<tr key={t}>{cols}</tr>)
     }
     return <tbody>{rows}</tbody>
+  }
+
+  handleSelect(day, time) {
+    console.log(day + ' ' + time)
+    var newStatus = 'SELECTED'
+    if (this.state.cellStatus[day][time] == 'SELECTED')
+      newStatus = undefined
+
+    this.setState({
+      cellStatus: update(this.state.cellStatus, {
+        [day]: { [time]: { $set: newStatus } }
+      })
+    })
+  }
+
+  handleMouseDown(day, time) {
+    this.setState({
+      isDragSelecting: true,
+      dragStart: {day, time},
+      dragEnd: {day, time}
+    })
+  }
+
+  handleMouseEnter(day, time) {
+    if (this.state.isDragSelecting) {
+      this.setState({dragEnd: {day, time}})
+    }
+  }
+
+  handleMouseUp(day, time) {
+    var newStatus = this.state.cellStatus
+    var start = this.state.dragStart
+    var end = this.state.dragEnd
+    var deleting = false;
+
+    for (var d = start.day; d <= end.day; d++) {
+      for (var t = start.time; t <= end.time; t++) {
+        if (this.state.cellStatus[d][t] == 'SELECTED')
+          deleting = true;
+        newStatus = update2dArr(newStatus, d, t, (deleting ? undefined : 'SELECTED'))
+      }
+    }
+    this.setState({
+      isDragSelecting: false,
+      cellStatus: newStatus,
+      dragStart: {day: -1, time: -1},
+      dragEnd: {day: -1, time: -1}
+    })
   }
 
   render() {
@@ -108,8 +223,8 @@ export default class Timetable extends Component {
       <table className="table table-bordered timetable">
         <thead>
           <tr>
-            <th>Mon</th>
-            <th>Tue</th>
+            <th>{this.state.dragStart.day + ' ' + this.state.dragStart.time}</th>
+            <th>{this.state.dragEnd.day + ' ' + this.state.dragEnd.time}</th>
             <th>Wed</th>
             <th>Thu</th>
             <th>Fri</th>

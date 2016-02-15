@@ -6,6 +6,14 @@
     // padding: 0px;
     position: relative;
   }
+
+  .selected {
+    background-color: #CADFE6;
+  }
+
+  .dragged {
+    background-color: red
+  }
 }
 
 .course-div {
