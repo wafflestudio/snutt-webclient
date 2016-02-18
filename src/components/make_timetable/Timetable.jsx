@@ -69,6 +69,19 @@ function update2dArr(arr, row, col, newElement) {
   return update(arr, {[row]: {[col]: {$set: newElement}}})
 }
 
+function getLoHi(dragInit, dragEnd) {
+  return {
+    lo: {
+      day: Math.min(dragInit.day, dragEnd.day),
+      time: Math.min(dragInit.time, dragEnd.time)
+    },
+    hi: {
+      day: Math.max(dragInit.day, dragEnd.day),
+      time: Math.max(dragInit.time, dragEnd.time)
+    }
+  }
+}
+
 export default class Timetable extends Component {
   constructor() {
     super()
@@ -78,8 +91,8 @@ export default class Timetable extends Component {
       cellStatus: this.emptyArray(),
       isSelecting: false,
       isDragSelecting: false,
-      dragStart: {day: -1, time: -1},
-      dragEnd: {day: -1, time: -1}
+      dragInit: {day: -1, time: -1},
+      dragEnd: {day: -1, time: -1},
     }
   }
 
@@ -147,8 +160,9 @@ export default class Timetable extends Component {
         var cellClass = ""
         if (cellStatus == 'SELECTED')
           cellClass += 'selected'
-        if (this.state.dragStart.day <= d && d<= this.state.dragEnd.day &&
-          this.state.dragStart.time <= t && t<= this.state.dragEnd.time) {
+        var loHi = getLoHi(this.state.dragInit, this.state.dragEnd)
+        if (loHi.lo.day <= d && d<= loHi.hi.day &&
+          loHi.lo.time <= t && t<= loHi.hi.time) {
           cellClass += ' dragged'
         }
         cols.push(
@@ -186,34 +200,33 @@ export default class Timetable extends Component {
   handleMouseDown(day, time) {
     this.setState({
       isDragSelecting: true,
-      dragStart: {day, time},
-      dragEnd: {day, time}
+      dragInit: {day, time},
+      dragEnd: {day, time},
     })
   }
 
   handleMouseEnter(day, time) {
     if (this.state.isDragSelecting) {
-      this.setState({dragEnd: {day, time}})
+      this.setState({
+        dragEnd: { day, time }
+      })
     }
   }
 
   handleMouseUp(day, time) {
     var newStatus = this.state.cellStatus
-    var start = this.state.dragStart
-    var end = this.state.dragEnd
-    var deleting = false;
+    var loHi = getLoHi(this.state.dragInit, this.state.dragEnd)
+    var deleting = this.state.cellStatus[this.state.dragInit.day][this.state.dragInit.time] == 'SELECTED'
 
-    for (var d = start.day; d <= end.day; d++) {
-      for (var t = start.time; t <= end.time; t++) {
-        if (this.state.cellStatus[d][t] == 'SELECTED')
-          deleting = true;
+    for (var d = loHi.lo.day; d <= loHi.hi.day; d++) {
+      for (var t = loHi.lo.time; t <= loHi.hi.time; t++) {
         newStatus = update2dArr(newStatus, d, t, (deleting ? undefined : 'SELECTED'))
       }
     }
     this.setState({
       isDragSelecting: false,
       cellStatus: newStatus,
-      dragStart: {day: -1, time: -1},
+      dragInit: {day: -1, time: -1},
       dragEnd: {day: -1, time: -1}
     })
   }
@@ -223,7 +236,7 @@ export default class Timetable extends Component {
       <table className="table table-bordered timetable">
         <thead>
           <tr>
-            <th>{this.state.dragStart.day + ' ' + this.state.dragStart.time}</th>
+            <th>{this.state.dragInit.day + ' ' + this.state.dragInit.time}</th>
             <th>{this.state.dragEnd.day + ' ' + this.state.dragEnd.time}</th>
             <th>Wed</th>
             <th>Thu</th>
