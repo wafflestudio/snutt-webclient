@@ -198,6 +198,7 @@ export default class Timetable extends Component {
   }
 
   handleMouseDown(day, time) {
+    this.props.toggleAdd(true)
     this.setState({
       isDragSelecting: true,
       dragInit: {day, time},
