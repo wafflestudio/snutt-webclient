@@ -1,69 +1,7 @@
 import React, { Component } from 'react'
 import update from 'react-addons-update'
-
-class LectureBox extends Component {
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick(e) {
-    e.stopPropagation()
-  }
-
-  render() {
-    var divStyle = {
-      height: `${this.props.length * 100}%`
-    }
-    return (
-      <div
-        className={"course-div" + (this.props.isPreview ? " preview" : "")}
-        style={divStyle}
-        onClick={this.handleClick}
-      >
-        {this.props.course.course_title}
-        {this.props.onDelete !== undefined ?
-          <span className="glyphicon glyphicon-remove" aria-hidden="true"
-            onClick={() => this.props.onDelete(this.props.course._id)}
-          /> :
-          null
-        }
-      </div>
-    )
-  }
-}
-
-class Cell extends Component {
-  constructor() {
-    super()
-  }
-
-  onMouseDown() {
-    console.log('down')
-    this.props.handleMouseDown(this.props.day, this.props.time)
-  }
-
-  onMouseEnter() {
-    this.props.handleMouseEnter(this.props.day, this.props.time)
-  }
-
-  onMouseUp() {
-    this.props.handleMouseUp(this.props.day, this.props.time)
-  }
-
-  render() {
-    return (
-      <td
-        className={this.props.className}
-        onMouseDown={this.onMouseDown.bind(this)}
-        onMouseEnter={this.onMouseEnter.bind(this)}
-        onMouseUp={this.onMouseUp.bind(this)}
-      >
-        {this.props.content}
-      </td>
-    )
-  }
-}
+import LectureBox from './LectureBox.jsx'
+import Cell from './Cell.jsx'
 
 function update2dArr(arr, row, col, newElement) {
   return update(arr, {[row]: {[col]: {$set: newElement}}})
