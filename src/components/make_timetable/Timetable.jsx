@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import update from 'react-addons-update'
 import LectureBox from './LectureBox.jsx'
 import Cell from './Cell.jsx'
+import NewCourseForm from './NewCourseForm.jsx'
 
 function update2dArr(arr, row, col, newElement) {
   return update(arr, {[row]: {[col]: {$set: newElement}}})
@@ -24,13 +25,14 @@ export default class Timetable extends Component {
   constructor() {
     super()
     this.fillLectures = this.fillLectures.bind(this)
+    this.resetDrag = this.resetDrag.bind(this)
     this.state = {
       lectureBoxes: this.emptyArray(),
       cellStatus: this.emptyArray(),
       isSelecting: false,
       isDragSelecting: false,
       dragInit: {day: -1, time: -1},
-      dragEnd: {day: -1, time: -1},
+      dragEnd: {day: -1, time: -1}
     }
   }
 
@@ -47,6 +49,8 @@ export default class Timetable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.currentIndex != nextProps.currentIndex)
+      this.resetDrag()
     this.fillLectures(nextProps)
   }
 
@@ -106,8 +110,8 @@ export default class Timetable extends Component {
         cols.push(
           <Cell
             className={cellClass.trim()}
-            // content={this.state.lectureBoxes[d][t]}
-            content={d + ' ' + t + ' ' + cellClass}
+            content={this.state.lectureBoxes[d][t]}
+            // content={d + ' ' + t + ' ' + cellClass}
             key={d}
             day={d}
             time={t}
@@ -136,8 +140,8 @@ export default class Timetable extends Component {
   }
 
   handleMouseDown(day, time) {
-    this.props.toggleAdd(true)
     this.setState({
+      isSelecting: true,
       isDragSelecting: true,
       dragInit: {day, time},
       dragEnd: {day, time},
@@ -170,21 +174,42 @@ export default class Timetable extends Component {
     })
   }
 
+  resetDrag() {
+    this.setState({
+      isSelecting: false,
+      isDragSelecting: false,
+      cellStatus: this.emptyArray(),
+      dragInit: {day: -1, time: -1},
+      dragEnd: {day: -1, time: -1}
+    })
+  }
+
   render() {
     return (
-      <table className="table table-bordered timetable">
-        <thead>
-          <tr>
-            <th>{this.state.dragInit.day + ' ' + this.state.dragInit.time}</th>
-            <th>{this.state.dragEnd.day + ' ' + this.state.dragEnd.time}</th>
-            <th>Wed</th>
-            <th>Thu</th>
-            <th>Fri</th>
-            <th>Sat</th>
-          </tr>
-        </thead>
-        {this.makeTable()}
-      </table>
+      <div>
+        {this.state.isSelecting ?
+          <NewCourseForm
+            currentCourseBook={this.props.courseBook}
+            cellStatus={this.state.cellStatus}
+            addCourse={this.props.addCourse}
+            stopAdding={()=>this.resetDrag()}
+          /> :
+          null
+        }
+        <table className="table table-bordered timetable">
+          <thead>
+            <tr>
+              <th>Mon</th>
+              <th>Tue</th>
+              <th>Wed</th>
+              <th>Thu</th>
+              <th>Fri</th>
+              <th>Sat</th>
+            </tr>
+          </thead>
+          {this.makeTable()}
+        </table>
+      </div>
     )
   }
 }

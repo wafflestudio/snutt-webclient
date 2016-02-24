@@ -13,9 +13,6 @@ import { sendQuery, showResult,
 export default class MakeTimeTable extends Component {
   constructor() {
     super()
-    this.state = {
-      isAdding: false
-    }
   }
 
   render() {
@@ -32,21 +29,20 @@ export default class MakeTimeTable extends Component {
           handleUnselect={() => dispatch(unselectCourse())}
           handleAdd={course => dispatch(addCourse(course))}
         />
-        {this.state.isAdding ?
-          <NewCourseForm /> :
-          <TimeTableManager
-            currentIndex={timeTables.currentIndex}
-            total={timeTables.tables.size}
-            handleChange={idx => dispatch(changeTimeTable(idx))}
-            handleAdd={() => dispatch(addTimeTable())}
-            handleDelete={idx => dispatch(deleteTimeTable(idx))}
-          />
-        }
+        <TimeTableManager
+          currentIndex={timeTables.currentIndex}
+          total={timeTables.tables.size}
+          handleChange={idx => dispatch(changeTimeTable(idx))}
+          handleAdd={() => dispatch(addTimeTable())}
+          handleDelete={idx => dispatch(deleteTimeTable(idx))}
+        />
         <Timetable
+          currentIndex={timeTables.currentIndex}
+          courseBook={this.props.courseBook}
           courses={timeTables.tables.get(timeTables.currentIndex)}
           selected={selectedCourse}
           handleDelete={_id => dispatch(deleteCourse(_id))}
-          toggleAdd={(bool) => this.setState({ isAdding: bool })}
+          addCourse={course => dispatch(addCourse(course))}
         />
       </div>
     )

@@ -6,7 +6,6 @@ export default class Cell extends Component {
   }
 
   onMouseDown() {
-    console.log('down')
     this.props.handleMouseDown(this.props.day, this.props.time)
   }
 
