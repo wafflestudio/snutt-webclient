@@ -24,10 +24,9 @@ function getLoHi(dragInit, dragEnd) {
 export default class Timetable extends Component {
   constructor() {
     super()
-    this.fillLectures = this.fillLectures.bind(this)
+    this.placeLectures = this.placeLectures.bind(this)
     this.resetDrag = this.resetDrag.bind(this)
     this.state = {
-      lectureBoxes: this.emptyArray(),
       cellStatus: this.emptyArray(),
       isSelecting: false,
       isDragSelecting: false,
@@ -44,19 +43,14 @@ export default class Timetable extends Component {
     return empty
   }
 
-  componentWillMount() {
-    this.fillLectures(this.props)
-  }
-
   componentWillReceiveProps(nextProps) {
     if (this.props.currentIndex != nextProps.currentIndex)
       this.resetDrag()
-    this.fillLectures(nextProps)
   }
 
-  fillLectures(props) {
+  placeLectures() {
     var boxes = this.emptyArray()
-    for (var course of props.courses) {
+    for (var course of this.props.courses) {
       for (var lecture of course.class_time_json) {
         var day = lecture.day
         boxes[day][lecture.start * 2] = (
@@ -70,7 +64,7 @@ export default class Timetable extends Component {
         )
       }
     }
-    var selected = props.selected
+    var selected = this.props.selected
     if (selected) {
       for (var lecture of selected.class_time_json) {
         var day = lecture.day
@@ -88,12 +82,11 @@ export default class Timetable extends Component {
         )
       }
     }
-    this.setState({
-      lectureBoxes: boxes
-    })
+    return boxes
   }
 
   makeTable() {
+    var lectureBoxes = this.placeLectures()
     var rows = [];
     for (var t = 0; t < 26; t++) {
       var cols = []
@@ -107,10 +100,11 @@ export default class Timetable extends Component {
           loHi.lo.time <= t && t<= loHi.hi.time) {
           cellClass += ' dragged'
         }
+
         cols.push(
           <Cell
             className={cellClass.trim()}
-            content={this.state.lectureBoxes[d][t]}
+            content={lectureBoxes[d][t]}
             // content={d + ' ' + t + ' ' + cellClass}
             key={d}
             day={d}
