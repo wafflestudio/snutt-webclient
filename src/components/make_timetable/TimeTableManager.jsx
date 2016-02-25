@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
+import html2canvas from 'html2canvas'
 
 export default class TimetableSelector extends Component {
   constructor() {
     super()
     this.onDelete = this.onDelete.bind(this)
+    this.handleSave = this.handleSave.bind(this)
   }
 
   onDelete(i, e) {
     this.props.handleDelete(i)
     e.stopPropagation()
+  }
+
+  handleSave(e) {
+    var timeTableElement = document.getElementsByClassName('timetable')[0]
+    html2canvas(timeTableElement).then(function(canvas) {
+      var dataURL = canvas.toDataURL('image/png')
+      var pom = document.createElement('a')
+      pom.setAttribute('href', dataURL)
+      pom.setAttribute('download', 'table.png')
+      pom.click()
+    })
   }
 
   render() {
@@ -40,6 +53,16 @@ export default class TimetableSelector extends Component {
       >
         <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </a>
+    )
+    buttons.push(
+      <button
+        className="btn btn-default"
+        aria-label="Left Align"
+        onClick={() => this.handleSave()}
+        key={-2}
+      >
+        <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
+      </button>
     )
     return (
       <div className="btn-group" role="group" aria-label="...">
