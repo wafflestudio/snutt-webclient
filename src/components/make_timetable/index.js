@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar.jsx'
+import SearchFilter from './SearchFilter.jsx'
 import ResultTable from './ResultTable.jsx'
 import TimeTableManager from './TimeTableManager.jsx'
 import NewCourseForm from './NewCourseForm.jsx'
@@ -22,6 +23,7 @@ export default class MakeTimeTable extends Component {
         <SearchBar
           handleSearch={query => dispatch(sendQuery(query))}
         />
+        <SearchFilter />
         <ResultTable
           height={200}
           data={searchResults}
