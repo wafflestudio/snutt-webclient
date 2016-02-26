@@ -1,0 +1,29 @@
+.react-autosuggest__container {
+  display: inline-block;
+}
+
+.react-autosuggest__input {
+  width: 100%;
+}
+
+.react-autosuggest__suggestions-container {
+  width: 80%;
+  list-style-type: none;
+  padding: 0 5px;
+  position: absolute;
+  z-index: 1;
+}
+
+.react-autosuggest__suggestion {
+  border-bottom: 1px solid;
+  border-color: gray;
+  background-color: white;
+}
+
+.react-autosuggest__suggestion--focused {
+  background-color: #b3ecff;
+}
+
+.selected-department {
+  display: inline-block;
+}

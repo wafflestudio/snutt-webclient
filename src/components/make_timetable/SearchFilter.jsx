@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import update from 'react-addons-update'
+import DepartmentSuggestion from './DepartmentSuggestion.jsx'
 
 export default class SearchFilter extends Component {
   constructor() {
@@ -9,14 +10,17 @@ export default class SearchFilter extends Component {
       query: {
         year: 2016,
         semester: 1,
-        credit: []
+        credit: [],
+        department: []
       },
       credit: [false, false, false, false]
     }
   }
 
   handleCreditCheck(index) {
-    var newState = update(this.state.credit, {[index]: {$set: !this.state.credit[index]}})
+    var newState = update(this.state.credit, {
+      [index]: {$set: !this.state.credit[index]}
+    })
     var newQuery = []
     for (var i = 0; i < 4; i++) {
       if (newState[i])  newQuery.push(i+1)
@@ -73,7 +77,17 @@ export default class SearchFilter extends Component {
           <div className='form-group'>
             <label className='col-md-2 control-label'>학과</label>
             <div className="col-md-8">
-              <input type="text" className="form-control" placeholder="학과명을입력하세요" />
+              {this.state.query.department.map((dep, idx) =>
+                <span className='label label-default selected-department' key={idx}>{dep}</span>
+              )}
+              <DepartmentSuggestion
+                selectedDepartments={this.state.query.department}
+                updateDepartments={deps=>this.setState({
+                  query: update(this.state.query, {
+                    department: {$set: deps }
+                  })
+                })}
+              />
             </div>
           </div>
 
@@ -81,7 +95,8 @@ export default class SearchFilter extends Component {
             <label className='col-md-2 control-label'>시간</label>
             <div className='col-md-8'>
               <button className='btn btn-default'>
-                <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>선택하기
+                <span className="glyphicon glyphicon-pencil" aria-hidden="true"/>
+                선택하기
               </button>
             </div>
           </div>
