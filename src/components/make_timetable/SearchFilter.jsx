@@ -2,33 +2,104 @@ import React, { Component } from 'react'
 import update from 'react-addons-update'
 import DepartmentSuggestion from './DepartmentSuggestion.jsx'
 
+// 학점
+var credits = [
+  { name: '1학점', value: 1 },
+  { name: '2학점', value: 2 },
+  { name: '3학점', value: 3 },
+  { name: '4학점', value: 4 }
+]
+
+// 학문의 기초
+var foundations = [
+  { name: '사고와 표현', value: 40 },
+  { name: '외국어', value: 41 },
+  { name: '수량적 분석과 추론', value: 42 },
+  { name: '과학적 사고와 실험', value: 43 },
+  { name: '컴퓨터와 정보 활용', value: 44 }
+]
+
+// 학문의 세계
+var knowledges = [
+  { name: '언어와 문학', value: 45 },
+  { name: '문화와 예술', value: 46 },
+  { name: '역사와 철학', value: 47 },
+  { name: '정치와 경제', value: 48 },
+  { name: '인간과 사회', value: 49 },
+  { name: '자연과 기술', value: 50 },
+  { name: '생명과 환경', value: 51 }
+]
+
+// 선택 교양
+var generals = [
+  { name: '체육', value: 52 },
+  { name: '예술실기', value: 53 },
+  { name: '대학과 리더십', value: 54 },
+  { name: '창의와 융합', value: 55 },
+  { name: '한국의 이해', value: 56 }
+]
+
 export default class SearchFilter extends Component {
   constructor() {
     super()
-    this.handleCreditCheck = this.handleCreditCheck.bind(this)
+    this.handleCreditToggle = this.handleCreditToggle.bind(this)
+    this.handleWorldToggle = this.handleWorldToggle.bind(this)
+    this.worldCheckBoxes = this.worldCheckBoxes.bind(this)
     this.state = {
       query: {
         year: 2016,
         semester: 1,
         credit: [],
-        department: []
+        department: [],
+        world: []
       },
-      credit: [false, false, false, false]
     }
   }
 
-  handleCreditCheck(index) {
-    var newState = update(this.state.credit, {
-      [index]: {$set: !this.state.credit[index]}
-    })
-    var newQuery = []
-    for (var i = 0; i < 4; i++) {
-      if (newState[i])  newQuery.push(i+1)
+  handleCreditToggle(index) {
+    var idx = this.state.query.credit.indexOf(value)
+    if (idx != -1) {
+      this.setState({
+        query: update(this.state.query, { credit: { $splice: [[idx, 1]]}})
+      })
+    } else {
+      this.setState({
+        query: update(this.state.query, { credit: { $push: [value]}})
+      })
     }
-    this.setState({
-      credit: newState,
-      query: update(this.state.query, { credit: { $set: newQuery } })
-    })
+  }
+
+  handleWorldToggle(value) {
+    var idx = this.state.query.world.indexOf(value)
+    if (idx != -1) {
+      this.setState({
+        query: update(this.state.query, { world: { $splice: [[idx, 1]]}})
+      })
+    } else {
+      this.setState({
+        query: update(this.state.query, { world: { $push: [value]}})
+      })
+    }
+  }
+
+  worldCheckBoxes(label, data) {
+    return (
+      <div className='form-group'>
+        <label className='col-md-2 control-label'>{label}</label>
+        <div className='col-md-8'>
+          {data.map(e=>(
+            <label key={e.value} className='checkbox-inline'>
+              <input
+                type='checkbox'
+                checked={this.state.query.world.indexOf(e.value) != -1}
+                onClick={()=>this.handleWorldToggle(e.value)}
+              />
+              {e.name}
+            </label>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   render() {
@@ -39,38 +110,16 @@ export default class SearchFilter extends Component {
           <div className='form-group'>
             <label className='col-md-2 control-label'>학점</label>
             <div className='col-md-8'>
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={this.state.credit[0]}
-                  onClick={()=>this.handleCreditCheck(0)}
-                />
-                1학점
-              </label>
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={this.state.credit[1]}
-                  onClick={()=>this.handleCreditCheck(1)}
-                />
-                2학점
-              </label>
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={this.state.credit[2]}
-                  onClick={()=>this.handleCreditCheck(2)}
-                />
-                3학점
-              </label>
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={this.state.credit[3]}
-                  onClick={()=>this.handleCreditCheck(3)}
-                />
-                4학점 이상
-              </label>
+              {credits.map(f=>(
+                <label key={f.value} className='checkbox-inline'>
+                  <input
+                    type='checkbox'
+                    checked={this.state.query.world.indexOf(f.value) != -1}
+                    onClick={()=>this.handleWorldToggle(f.value)}
+                  />
+                  {f.name}
+                </label>
+              ))}
             </div>
           </div>
 
@@ -100,27 +149,9 @@ export default class SearchFilter extends Component {
               </button>
             </div>
           </div>
-
-          <div className='form-group'>
-            <label className='col-md-2 control-label'>핵심교양</label>
-            <div className='col-md-8'>
-              <label className="checkbox-inline">
-                <input type="checkbox" />문학과 예술
-              </label>
-              <label className="checkbox-inline">
-                <input type="checkbox" />사회와 이념
-              </label>
-              <label className="checkbox-inline">
-                <input type="checkbox" />역사와 철학
-              </label>
-              <label className="checkbox-inline">
-                <input type="checkbox" />생명과 환경
-              </label>
-              <label className="checkbox-inline">
-                <input type="checkbox" />자연과 기술
-              </label>
-            </div>
-          </div>
+          {this.worldCheckBoxes('학문의 기초', foundations)}
+          {this.worldCheckBoxes('학문의 세계', knowledges)}
+          {this.worldCheckBoxes('선택 교양', generals)}
         </form>
       </div>
     )
