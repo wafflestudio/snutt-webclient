@@ -58,18 +58,24 @@ export default class NewCourseForm extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    console.log('add course clicked!')
+    if (this.state.title == '') {
+      alert('과목명은 필수입니다')
+      return;
+    }
     var selectedTime = selectedCellToJson(this.props.cellStatus)
     this.props.addCourse({
       year: this.props.currentCourseBook.year,
       semester: this.props.currentCourseBook.semesterIdx,
       course_title: this.state.title,
+      credit: typeof(Number(this.state.credit)) == 'number' ? this.state.credit : 0,
       class_time_json: selectedTime.map(t =>
         Object.assign(t, { place: this.state.place })
       ),
       class_time_mask: timeJsonToMask(selectedTime),
       remark: this.state.memo
     })
+    this.setState({ title: '', place: '', memo: '' })
+    this.props.stopAdding()
   }
 
   formGroup(field, label) {
@@ -92,14 +98,15 @@ export default class NewCourseForm extends Component {
   render() {
     return(
       <form className='form-inline'>
-        {this.formGroup('title', 'Title')}
-        {this.formGroup('place', 'Place')}
-        {this.formGroup('memo', "Memo")}
+        {this.formGroup('title', '과목명')}
+        {this.formGroup('credit', '학점')}
+        {this.formGroup('place', '장소')}
+        {this.formGroup('memo', "메모")}
         <button
           className='btn btn-primary'
           onClick={this.handleClick}
         >
-          Add
+          추가하기
         </button>
         <span
           className="glyphicon glyphicon-remove"
