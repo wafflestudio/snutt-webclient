@@ -17,7 +17,7 @@ export default class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, selectedCourse, searchResults, timeTables} = this.props
+    const { dispatch, selectedCourse, searchResults, timeTables } = this.props
     return (
       <div className="container">
         <SearchBar

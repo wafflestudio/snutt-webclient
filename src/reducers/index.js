@@ -77,7 +77,7 @@ function timeTables(state, action) {
 function courseBook(state = {year: 2016, semesterIdx: 1}, action) {
   switch(action.type) {
     case CHANGE_COURSEBOOK:
-      return {year: action.year, semesterIdx: action.semesterIdx}
+      return action.newCourseBook
     default:
       return state
   }

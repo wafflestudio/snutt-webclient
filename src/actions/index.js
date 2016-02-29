@@ -63,6 +63,6 @@ export function deleteTimeTable(index) {
   return { type: DELETE_TIMETABLE, index }
 }
 
-export function changeCoursebook(year, semesterIdx) {
-  return { type: CHANGE_COURSEBOOK, year, semesterIdx }
+export function changeCoursebook(newCourseBook) {
+  return { type: CHANGE_COURSEBOOK, newCourseBook }
 }
