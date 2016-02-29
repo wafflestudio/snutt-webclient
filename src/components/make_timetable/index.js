@@ -14,6 +14,15 @@ import { sendQuery, showResult,
 export default class MakeTimeTable extends Component {
   constructor() {
     super()
+    this.composeQuery = this.composeQuery.bind(this)
+  }
+
+  composeQuery(query) {
+    const { dispatch, courseBook } = this.props
+    dispatch(sendQuery(Object.assign(query, {
+      year: courseBook.year,
+      semester: courseBook.semesterIdx
+    })))
   }
 
   render() {
@@ -21,7 +30,7 @@ export default class MakeTimeTable extends Component {
     return (
       <div className="container">
         <SearchBar
-          handleSearch={query => dispatch(sendQuery(query))}
+          handleSearch={query => this.composeQuery(query)}
         />
         <SearchFilter />
         <ResultTable

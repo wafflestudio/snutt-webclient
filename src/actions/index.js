@@ -18,8 +18,6 @@ export function unselectCourse() {
 }
 
 export function sendQuery(query) {
-  query.year = 2016
-  query.semester = 1
   return function(dispatch) {
     fetch('http://walnut.wafflestudio.com:3000/api/search_query', {
       method: 'post',
