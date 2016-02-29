@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 export const SELECT_COURSE = 'SELECT_COURSE'
 export const UNSELECT_COURSE = 'UNSELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
@@ -23,19 +21,16 @@ export function sendQuery(query) {
   query.year = 2016
   query.semester = 1
   return function(dispatch) {
-    $.ajax({
-      url: 'http://walnut.wafflestudio.com:3000/api/search_query',
-      type: 'post',
-      dataType: 'json',
-      data: query,
-      success: function(data) {
-        dispatch(showResult(data))
+    fetch('http://walnut.wafflestudio.com:3000/api/search_query', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
+      body: JSON.stringify(query)
     })
+    .then(resp => resp.json())
+    .then(json => dispatch(showResult(json)))
   }
 }
 

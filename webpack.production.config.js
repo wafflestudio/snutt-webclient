@@ -16,6 +16,9 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
+    }),
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     })
   ],
   module: {
@@ -32,10 +35,6 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: ["style", "css"]
-      },
-      {
-        test: require.resolve("jquery"),
-        loader: "expose?jQuery"
       }
     ]
   }

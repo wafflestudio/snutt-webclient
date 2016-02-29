@@ -36,8 +36,10 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "exports-loader": "^0.6.3",
     "history": "^1.17.0",
     "immutable": "^3.7.6",
+    "imports-loader": "^0.6.5",
     "jquery": "^2.2.0",
     "react": "^0.14.0",
     "react-addons-update": "^0.14.7",
@@ -46,6 +48,7 @@
     "react-redux": "^4.0.6",
     "redux": "^3.0.5",
     "redux-simple-router": "^2.0.3",
-    "redux-thunk": "^1.0.3"
+    "redux-thunk": "^1.0.3",
+    "whatwg-fetch": "^0.11.0"
   }
 }
