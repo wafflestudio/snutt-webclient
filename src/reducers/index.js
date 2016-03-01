@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_COURSE, UNSELECT_COURSE, SEND_QUERY, SHOW_RESULT,
+  SELECT_COURSE, UNSELECT_COURSE, SEND_QUERY, START_QUERY, SHOW_RESULT,
   ADD_COURSE, DELETE_COURSE, CHANGE_TIMETABLE, ADD_TIMETABLE, DELETE_TIMETABLE,
   CHANGE_COURSEBOOK
 } from '../actions'
@@ -83,11 +83,21 @@ function courseBook(state = {year: 2016, semesterIdx: 1}, action) {
   }
 }
 
+function isQuerying(state = false, action) {
+  switch(action.type) {
+    case START_QUERY:
+      return true
+    default:
+      return false
+  }
+}
+
 const reducer = {
   selectedCourse,
   searchResults,
   timeTables,
-  courseBook
+  courseBook,
+  isQuerying
 }
 
 export default reducer

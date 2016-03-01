@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Loading from 'react-loading'
 
 class ResultRow extends Component {
   render() {
@@ -62,6 +63,13 @@ export default class ResultTable extends Component {
           </tr>
         </thead>
         <tbody>
+          {
+            this.props.isQuerying ?
+            <tr>
+              <td colSpan='6'><Loading type='spin' color='#e3e3e3' /></td>
+            </tr> :
+            null
+          }
           {this.props.data.map((key, idx) => (
             <ResultRow {...key}
               key={key._id}

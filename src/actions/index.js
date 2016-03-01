@@ -1,6 +1,7 @@
 export const SELECT_COURSE = 'SELECT_COURSE'
 export const UNSELECT_COURSE = 'UNSELECT_COURSE'
 export const SEND_QUERY = 'SEND_QUERY'
+export const START_QUERY = 'START_QUERY'
 export const SHOW_RESULT = 'SHOW_RESULT'
 export const ADD_COURSE = 'ADD_COURSE'
 export const DELETE_COURSE = 'DELETE_COURSE'
@@ -21,6 +22,7 @@ export function unselectCourse() {
 
 export function sendQuery(query) {
   return function(dispatch) {
+    dispatch(startQuery())
     fetch('http://walnut.wafflestudio.com:3000/api/search_query', {
       method: 'post',
       headers: {
@@ -32,6 +34,10 @@ export function sendQuery(query) {
     .then(resp => resp.json())
     .then(json => dispatch(showResult(json)))
   }
+}
+
+export function startQuery() {
+  return { type: START_QUERY }
 }
 
 export function showResult(courses) {

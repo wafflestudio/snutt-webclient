@@ -5,12 +5,12 @@ import Footer from './footer.jsx'
 
 class App extends Component {
   render() {
-    const { dispatch, selectedCourse, searchResults, timeTables, courseBook } = this.props;
+    const { dispatch, selectedCourse, searchResults, timeTables, courseBook, isQuerying } = this.props;
     return <div>
       <TopBar courseBook={courseBook} dispatch={dispatch}/>
       {React.cloneElement(
         this.props.children,
-        { dispatch, selectedCourse, searchResults, timeTables, courseBook }
+        { dispatch, selectedCourse, searchResults, timeTables, courseBook, isQuerying }
         )}
       <Footer />
     </div>
@@ -18,8 +18,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const { selectedCourse, searchResults, timeTables, courseBook } = state
-  return { selectedCourse, searchResults, timeTables, courseBook }
+  const { selectedCourse, searchResults, timeTables, courseBook, isQuerying } = state
+  return { selectedCourse, searchResults, timeTables, courseBook, isQuerying }
 }
 
 export default connect(mapStateToProps)(App)

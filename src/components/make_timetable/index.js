@@ -26,7 +26,7 @@ export default class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, selectedCourse, searchResults, timeTables } = this.props
+    const { dispatch, selectedCourse, searchResults, timeTables, isQuerying } = this.props
     return (
       <div className="container">
         <SearchBar
@@ -36,6 +36,7 @@ export default class MakeTimeTable extends Component {
         <ResultTable
           height={200}
           data={searchResults}
+          isQuerying={isQuerying}
           handleSelect={course => dispatch(selectCourse(course))}
           handleUnselect={() => dispatch(unselectCourse())}
           handleAdd={course => dispatch(addCourse(course))}
