@@ -9,6 +9,8 @@ export const ADD_TIMETABLE = 'ADD_TIMETABLE'
 export const DELETE_TIMETABLE = 'DELETE_TIMETABLE'
 export const CHANGE_COURSEBOOK = 'CHANGE_COURSEBOOK'
 
+import 'whatwg-fetch'
+
 export function selectCourse(course) {
   return { type: SELECT_COURSE, course }
 }
