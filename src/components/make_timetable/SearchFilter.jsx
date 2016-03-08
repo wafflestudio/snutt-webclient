@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import update from 'react-addons-update'
 import DepartmentSuggestion from './DepartmentSuggestion.jsx'
+import TimeQuerySelector from './TimeQuerySelector.jsx'
 
 // 학점
 var credits = [
@@ -53,6 +54,7 @@ export default class SearchFilter extends Component {
         department: [],
         world: []
       },
+      timeSelecting: false
     }
   }
 
@@ -142,11 +144,18 @@ export default class SearchFilter extends Component {
 
           <div className='form-group'>
             <label className='col-md-2 control-label'>시간</label>
-            <div className='col-md-8'>
-              <button className='btn btn-default'>
+            <div className='col-md-8' id='timeselector-toggle'>
+              <button
+                className='btn btn-default'
+                onClick={e=>{
+                  e.preventDefault()
+                  this.setState({timeSelecting: !this.state.timeSelecting})
+                }}
+              >
                 <span className="glyphicon glyphicon-pencil" aria-hidden="true"/>
                 선택하기
               </button>
+              {this.state.timeSelecting ? <TimeQuerySelector /> : null}
             </div>
           </div>
           {this.worldCheckBoxes('학문의 기초', foundations)}

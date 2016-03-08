@@ -27,3 +27,14 @@
 .selected-department {
   display: inline-block;
 }
+
+#timeselector-toggle {
+  position: relative;
+}
+
+#timeselector-container {
+  position: absolute;
+  background-color: white;
+  z-index: 1;
+  height: 500px;
+}
