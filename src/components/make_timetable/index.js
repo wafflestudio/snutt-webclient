@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+
 import SearchBar from './SearchBar.jsx'
 import SearchFilter from './SearchFilter.jsx'
 import ResultTable from './ResultTable.jsx'
@@ -11,7 +13,7 @@ import { sendQuery, showResult,
   changeTimeTable, addTimeTable, deleteTimeTable
 } from '../../actions'
 
-export default class MakeTimeTable extends Component {
+class MakeTimeTable extends Component {
   constructor() {
     super()
     this.composeQuery = this.composeQuery.bind(this)
@@ -60,3 +62,10 @@ export default class MakeTimeTable extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  const { selectedCourse, searchResults, timeTables, courseBook, isQuerying } = state
+  return { selectedCourse, searchResults, timeTables, courseBook, isQuerying }
+}
+
+export default connect(mapStateToProps)(MakeTimeTable)
