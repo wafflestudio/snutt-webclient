@@ -84,6 +84,11 @@ export default class SearchFilter extends Component {
     }
   }
 
+  // Convert selected cells into bitmask
+  // cells are 6 x 26 2d array
+  handleTimeSelect(arr) {
+  }
+
   worldCheckBoxes(label, data) {
     return (
       <div className='form-group'>
@@ -153,9 +158,14 @@ export default class SearchFilter extends Component {
                 }}
               >
                 <span className="glyphicon glyphicon-pencil" aria-hidden="true"/>
-                선택하기
+                {this.state.timeSelecting ? '확인' : '선택하기' }
               </button>
-              {this.state.timeSelecting ? <TimeQuerySelector /> : null}
+              {this.state.timeSelecting ?
+                <TimeQuerySelector
+                  selectionHook={this.handleTimeselect}
+                />
+                : null
+              }
             </div>
           </div>
           {this.worldCheckBoxes('학문의 기초', foundations)}

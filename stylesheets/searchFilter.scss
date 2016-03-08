@@ -38,3 +38,25 @@
   z-index: 1;
   height: 500px;
 }
+
+#timeselector-container {
+  table {
+    margin-bottom: 3px;
+  }
+  td:hover {
+    background-color: yellow;
+  }
+  .dragged {
+    background-color: lightskyblue;
+  }
+
+  .selected {
+    background-color: blue;
+  }
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
