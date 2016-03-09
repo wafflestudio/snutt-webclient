@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { Router, Link} from 'react-router'
 import CourseBookSelector from './CourseBookSelector.jsx'
 import { changeCoursebook } from '../actions'
 
-export default class TopBar extends Component {
+class TopBar extends Component {
   render() {
     const { dispatch, courseBook } = this.props
     return <div id="bar-top" className="navbar navbar-default navbar-fixed-top">
@@ -26,3 +27,10 @@ export default class TopBar extends Component {
     </div>
   }
 }
+
+function mapStateToProps(state) {
+  const { courseBook } = state
+  return { courseBook }
+}
+
+export default connect(mapStateToProps)(TopBar)
