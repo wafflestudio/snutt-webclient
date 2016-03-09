@@ -28,13 +28,13 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, selectedCourse, searchResults, timeTables, isQuerying } = this.props
+    const { dispatch, selectedCourse, searchResults, timeTables, isQuerying, filterOn } = this.props
     return (
       <div className="container">
         <SearchBar
           handleSearch={query => this.composeQuery(query)}
         />
-        <SearchFilter />
+        { filterOn ? <SearchFilter /> : null }
         <ResultTable
           height={200}
           data={searchResults}
@@ -64,8 +64,8 @@ class MakeTimeTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { selectedCourse, searchResults, timeTables, courseBook, isQuerying } = state
-  return { selectedCourse, searchResults, timeTables, courseBook, isQuerying }
+  const { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn } = state
+  return { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn }
 }
 
 export default connect(mapStateToProps)(MakeTimeTable)

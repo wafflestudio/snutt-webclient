@@ -9,6 +9,7 @@ export const CHANGE_TIMETABLE = 'CHANGE_TIMETABLE'
 export const ADD_TIMETABLE = 'ADD_TIMETABLE'
 export const DELETE_TIMETABLE = 'DELETE_TIMETABLE'
 export const CHANGE_COURSEBOOK = 'CHANGE_COURSEBOOK'
+export const TOGGLE_FILTER = 'TOGGLE_FILTER'
 
 import 'whatwg-fetch'
 
@@ -66,4 +67,8 @@ export function deleteTimeTable(index) {
 
 export function changeCoursebook(newCourseBook) {
   return { type: CHANGE_COURSEBOOK, newCourseBook }
+}
+
+export function toggleFilter() {
+  return { type: TOGGLE_FILTER }
 }

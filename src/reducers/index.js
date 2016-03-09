@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import {
   SELECT_COURSE, UNSELECT_COURSE, SEND_QUERY, START_QUERY, SHOW_RESULT,
   ADD_COURSE, DELETE_COURSE, CHANGE_TIMETABLE, ADD_TIMETABLE, DELETE_TIMETABLE,
-  CHANGE_COURSEBOOK
+  CHANGE_COURSEBOOK, TOGGLE_FILTER
 } from '../actions'
 import Immutable from 'immutable'
 
@@ -92,12 +92,22 @@ function isQuerying(state = false, action) {
   }
 }
 
+function filterOn(state = false, action) {
+  switch(action.type) {
+    case TOGGLE_FILTER:
+      return !state
+    default:
+      return state
+  }
+}
+
 const reducer = {
   selectedCourse,
   searchResults,
   timeTables,
   courseBook,
-  isQuerying
+  isQuerying,
+  filterOn
 }
 
 export default reducer

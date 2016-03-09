@@ -2,8 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute } from 'react-router'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistory, routeReducer } from 'redux-simple-router'
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from './reducers/index.js'
@@ -17,7 +16,6 @@ var combined = Object.assign({}, rootReducer, {
 })
 var reducer = combineReducers(combined)
 
-const browserHistory = createBrowserHistory()
 const reduxRouterMiddleware = syncHistory(browserHistory)
 const createStoreWithMiddleware = compose(
   applyMiddleware(thunkMiddleware),
