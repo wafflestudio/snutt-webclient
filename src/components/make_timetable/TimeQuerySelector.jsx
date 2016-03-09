@@ -64,10 +64,9 @@ export default class TimeQuerySelector extends Component {
   }
 
   emptyArray() {
-    var empty = new Array(this.rows)
-    for (var d = 0; d < this.rows; d++) {
-      empty[d] = new Array(this.cols)
-    }
+    var empty = new Array(this.cols)
+    for (var d = 0; d < this.cols; d++)
+      empty[d] = new Array(this.rows)
     return empty
   }
 
@@ -88,8 +87,8 @@ export default class TimeQuerySelector extends Component {
       isDragging: true,
       dragInit: { r, c },
       dragEnd: { r, c },
-      stateTable: update2dArr(this.state.stateTable, r, c, 0),
-      isDeleting: this.state.stateTable[r][c] == 1
+      stateTable: update2dArr(this.state.stateTable, c, r, 0),
+      isDeleting: this.state.stateTable[c][r] == 1
     })
   }
 
@@ -97,8 +96,8 @@ export default class TimeQuerySelector extends Component {
     // update dragged cell's state
     // issue: N update vs 1 clone ??
     var newStateTable = this.state.stateTable
-    for (var i = 0; i < this.rows; i++) {
-      for (var j = 0; j < this.cols; j++) {
+    for (var i = 0; i < this.cols; i++) {
+      for (var j = 0; j < this.rows; j++) {
         if (newStateTable[i][j] == 0)
           newStateTable = update2dArr(newStateTable, i, j, this.state.isDeleting ? null: 1)
       }
@@ -117,9 +116,9 @@ export default class TimeQuerySelector extends Component {
     if (this.state.isDragging) {
       var {tl, dr} = this.getRange(this.state.dragInit, { r, c } )
       var newStateTable = this.state.stateTable
-      for (var i = 0; i < this.rows; i++) {
-        for (var j = 0; j < this.cols; j++) {
-          if (tl.r <= i && i <= dr.r && tl.c <= j && j <= dr.c)
+      for (var i = 0; i < this.cols; i++) {
+        for (var j = 0; j < this.rows; j++) {
+          if (tl.r <= j && j <= dr.r && tl.c <= i && i <= dr.c)
             newStateTable = update2dArr(newStateTable, i, j, 0)
           else if (newStateTable[i][j] == 1)
             continue;
@@ -142,7 +141,7 @@ export default class TimeQuerySelector extends Component {
       for (var c = 0; c < this.cols; c++) {
         row.push(
           <DraggableCell
-            status={this.state.stateTable[r][c]}
+            status={this.state.stateTable[c][r]}
             key={c}
             row={r}
             col={c}
