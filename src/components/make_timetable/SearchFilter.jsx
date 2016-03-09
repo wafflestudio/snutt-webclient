@@ -46,19 +46,21 @@ export default class SearchFilter extends Component {
     this.handleCreditToggle = this.handleCreditToggle.bind(this)
     this.handleWorldToggle = this.handleWorldToggle.bind(this)
     this.worldCheckBoxes = this.worldCheckBoxes.bind(this)
+    this.handleTimeSelect = this.handleTimeSelect.bind(this)
     this.state = {
       query: {
         year: 2016,
         semester: 1,
         credit: [],
         department: [],
-        world: []
+        world: [],
+        time: []
       },
       timeSelecting: false
     }
   }
 
-  handleCreditToggle(index) {
+  handleCreditToggle(value) {
     var idx = this.state.query.credit.indexOf(value)
     if (idx != -1) {
       this.setState({
@@ -87,6 +89,20 @@ export default class SearchFilter extends Component {
   // Convert selected cells into bitmask
   // cells are 6 x 26 2d array
   handleTimeSelect(arr) {
+    // code from snutt/data/update_lectures.js
+    var timeMasks  = []
+    for (var i = 0; i < 6; i++) {
+      var mask = 0
+      for (var j = 0; j < 25; j++) {
+        if (arr[i][j] == 1)
+          mask = mask + 1
+        mask = mask << 1
+      }
+      timeMasks.push(mask)
+    }
+    this.setState({
+      query: update(this.state.query, { world: { $set: timeMasks }})
+    })
   }
 
   worldCheckBoxes(label, data) {
@@ -162,7 +178,7 @@ export default class SearchFilter extends Component {
               </button>
               {this.state.timeSelecting ?
                 <TimeQuerySelector
-                  selectionHook={this.handleTimeselect}
+                  selectionHook={this.handleTimeSelect}
                 />
                 : null
               }

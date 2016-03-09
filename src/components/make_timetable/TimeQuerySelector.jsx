@@ -102,7 +102,7 @@ export default class TimeQuerySelector extends Component {
           newStateTable = update2dArr(newStateTable, i, j, this.state.isDeleting ? null: 1)
       }
     }
-
+    this.props.selectionHook(newStateTable)
     this.setState({
       isDragging: false,
       dragInit: { r: -1, c: -1 },
