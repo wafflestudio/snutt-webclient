@@ -1,5 +1,11 @@
+@import "navbar";
 @import "timetable";
 @import "resultTable";
 @import "searchFilter";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-body {padding-top:61px;}
+body {
+  padding-top:61px;
+  font-family: 'Nanum Gothic', serif;
+  background-color: #F4F4F4;
+}

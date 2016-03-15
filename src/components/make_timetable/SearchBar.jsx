@@ -31,6 +31,7 @@ class Search extends Component {
         <div className="input-group col-lg-8 col-lg-offset-1">
           <input
             type="text"
+            id="search-form"
             className="form-control"
             placeholder="Course name"
             value={this.state.text}

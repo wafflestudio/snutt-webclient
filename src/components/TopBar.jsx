@@ -18,9 +18,10 @@ class TopBar extends Component {
               currentBook={courseBook}
               handleChange={newBook => dispatch(changeCoursebook(newBook))}
             />
-            <li><Link to="/">강의 찾기</Link></li>
-            <li><Link to="/my">내 강의 / <b className="badge-info">0학점</b></Link></li>
-            <li><Link to="/export">저장하기</Link></li>
+          </ul>
+          <p className="navbar-text">수강편람 업데이트: 3월 14일 13:11</p>
+          <ul className="nav navbar-nav navbar-right">
+            <li><a href="#">로그인</a></li>
           </ul>
         </div>
       </div>
