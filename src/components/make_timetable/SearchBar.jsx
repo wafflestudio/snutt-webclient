@@ -28,7 +28,7 @@ class Search extends Component {
     const { filterOn } = this.props
     return (
       <div className="row">
-        <div className="input-group col-lg-8 col-lg-offset-1">
+        <div id="searchbar-container" className="col-lg-8 col-lg-offset-2">
           <input
             type="text"
             id="search-form"
@@ -37,26 +37,17 @@ class Search extends Component {
             value={this.state.text}
             onChange={this.handleTextChange}
           />
-          <span className="input-group-btn">
-            <button
+          <div id="search-button-container">
+            <span
+              className="glyphicon glyphicon-search"
               onClick={this.handleSearch}
-              type="submit"
-              className="btn btn-default"
-              value="Post"
-            >
-              <span className="glyphicon glyphicon-search" aria-hidden="true"/>
-            </button>
-          </span>
-          <span className="input-group-btn">
-            <button
+            />
+            <span
+              className="glyphicon glyphicon-filter"
+              id={ filterOn ? 'filter-open' : null }
               onClick={this.toggleFilter}
-              type="submit"
-              className={ filterOn ? 'btn btn-primary' : 'btn btn-default' }
-              value="Post"
-            >
-              <span className='glyphicon glyphicon-filter' aria-hidden="true" />
-            </button>
-          </span>
+            />
+          </div>
         </div>
       </div>
     );
