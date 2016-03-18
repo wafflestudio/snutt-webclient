@@ -93,8 +93,8 @@ export default class Timetable extends Component {
       //column
       if (t % 2 == 0) {
         var hrIdx = t/2;
-        cols.push(<td className='label-hour' rowSpan='2'>{hrIdx+9}</td>)
-        cols.push(<td className='label-gyosi' rowSpan='2'>{hrIdx}</td>)
+        cols.push(<td className='label-hour' rowSpan='2' key={-1}>{hrIdx+9}</td>)
+        cols.push(<td className='label-gyosi' rowSpan='2' key={-2}>{hrIdx}</td>)
       }
       for (var d = 0; d < 6; d++) {
         var cellStatus = this.state.cellStatus[d][t]
@@ -121,7 +121,7 @@ export default class Timetable extends Component {
           />
         )
       }
-      cols.push(<td className='blank-right'></td>)
+      cols.push(<td className='blank-right' key={-3}></td>)
       rows.push(<tr key={t}>{cols}</tr>)
     }
     return <tbody>{rows}</tbody>

@@ -1,5 +1,6 @@
 .timetable {
   padding: 0px;
+  border-top-width: 0;
   table-layout: fixed;
   background-color: #FAFAFA;
   td {
@@ -38,7 +39,7 @@
     border-width: 1px 0;
     text-align: center;
     font-weight: normal;
-    font-size: 0.9em;
+    font-size: 0.8em;
     padding: 4px 0;
   }
 

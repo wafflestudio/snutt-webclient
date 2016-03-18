@@ -28,46 +28,91 @@ export default class TimetableSelector extends Component {
     var buttons = []
     for (var i = 0; i < this.props.total; i++) {
       buttons.push(
-        <button
-          type="button"
-          className={"btn btn-default" + (i == this.props.currentIndex ? " btn-primary" : "")}
+        <li
+          className={"tab-button" + (i == this.props.currentIndex ? " active" : "")}
           key={i}
           onClick={this.props.handleChange.bind(this, i)}
         >
-          {i + 1}
+          {i+1}
           <span
             className="glyphicon glyphicon-remove"
             aria-hidden="true"
             onClick={this.onDelete.bind(this, i)}
           />
-        </button>
+        </li>
       )
     }
+    //add button
     buttons.push(
-      <a
-        type="button"
-        className="btn btn-default"
-        aria-label="Left Align"
-        onClick={() => this.props.handleAdd()}
-        key={-1}
+      <li
+        className="tab-button control"
+        key={++i}
+        onClick={this.props.handleAdd}
       >
         <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-      </a>
+      </li>
     )
+    //save button
     buttons.push(
-      <button
-        className="btn btn-default"
-        aria-label="Left Align"
-        onClick={() => this.handleSave()}
-        key={-2}
+      <li
+        className="tab-button control"
+        key={++i}
+        onClick={this.handleSave}
       >
         <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
-      </button>
+      </li>
     )
-    return (
-      <div className="btn-group" role="group" aria-label="...">
+    return(
+      <ul className="tab-list">
         {buttons}
-      </div>
+      </ul>
     )
   }
+
+  // render() {
+  //   var buttons = []
+  //   for (var i = 0; i < this.props.total; i++) {
+  //     buttons.push(
+  //       <button
+  //         type="button"
+  //         className={"btn btn-default" + (i == this.props.currentIndex ? " btn-primary" : "")}
+  //         key={i}
+  //         onClick={this.props.handleChange.bind(this, i)}
+  //       >
+  //         {i + 1}
+  //         <span
+  //           className="glyphicon glyphicon-remove"
+  //           aria-hidden="true"
+  //           onClick={this.onDelete.bind(this, i)}
+  //         />
+  //       </button>
+  //     )
+  //   }
+  //   buttons.push(
+  //     <a
+  //       type="button"
+  //       className="btn btn-default"
+  //       aria-label="Left Align"
+  //       onClick={() => this.props.handleAdd()}
+  //       key={-1}
+  //     >
+  //       <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  //     </a>
+  //   )
+  //   buttons.push(
+  //     <button
+  //       className="btn btn-default"
+  //       aria-label="Left Align"
+  //       onClick={() => this.handleSave()}
+  //       key={-2}
+  //     >
+  //       <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
+  //     </button>
+  //   )
+  //   return (
+  //     <div className="btn-group" role="group" aria-label="...">
+  //       {buttons}
+  //     </div>
+  //   )
+  // }
 }

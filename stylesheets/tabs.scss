@@ -1,0 +1,66 @@
+.tab-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  border-bottom: 1px solid #D9D6DA;
+  height: 21px;
+  font-size: 14px;
+
+  .tab-button {
+    position: relative;
+    float: left;
+    border: 1px solid #D9D6DA;
+    border-bottom: 0;
+    min-width: 80px;
+    text-align: center;
+    background: #E1E1E1;
+    box-sizing: border-box;
+    color: #B7B7B7;
+
+    .glyphicon-remove {
+      position: absolute;
+      top: 3px;
+      right: 2px;
+      display: none;
+    }
+  }
+
+  .control {
+    min-width: 40px;
+    height: 20px;
+  }
+
+  .control:hover { // (.....)
+    color: #4A4A4A;
+  }
+
+  .tab-button:hover:not(.active):not(.control) {
+    color: #4A4A4A;
+    border-top: 1px solid #4A4A4A;
+    .glyphicon-remove {
+      display: inline;
+      color: #D9D6DA;
+    }
+    .glyphicon-remove:hover {
+      color: #4A4A4A;
+    }
+  }
+
+  .active {
+    border: 1px solid #D9D6DA;
+    border-top: 1px solid #4b8edf;
+    border-bottom: transparent;
+    background: #FAFAFA;
+    color: #4b8edf;
+  }
+
+  .active:hover {
+    .glyphicon-remove {
+      display: inline;
+      color: #D9D6DA;
+    }
+    .glyphicon-remove:hover {
+      color: #4b8edf;
+    }
+  }
+}
