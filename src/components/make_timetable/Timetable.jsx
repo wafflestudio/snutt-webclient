@@ -187,7 +187,7 @@ export default class Timetable extends Component {
 
   render() {
     return (
-      <div>
+      <div id='timetable-container'>
         {this.state.isSelecting ?
           <NewCourseForm
             currentCourseBook={this.props.courseBook}

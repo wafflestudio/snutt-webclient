@@ -97,7 +97,7 @@ export default class NewCourseForm extends Component {
 
   render() {
     return(
-      <form className='form-inline'>
+      <form className='form-inline' id='custom-lecture-form'>
         {this.formGroup('title', '과목명')}
         {this.formGroup('credit', '학점')}
         {this.formGroup('place', '장소')}
@@ -106,13 +106,14 @@ export default class NewCourseForm extends Component {
           className='btn btn-primary'
           onClick={this.handleClick}
         >
-          추가하기
+          추가
         </button>
-        <span
-          className="glyphicon glyphicon-remove"
-          aria-hidden="true"
+        <button
+          className='btn btn-default'
           onClick={this.props.stopAdding}
-        />
+        >
+          취소
+        </button>
       </form>
     )
   }

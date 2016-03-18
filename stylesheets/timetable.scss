@@ -74,3 +74,31 @@
   z-index: 1;
   opacity: 0.5;
 }
+
+#timetable-container {
+  position: relative;
+}
+
+#custom-lecture-form {
+  position: absolute;
+  right: 100%;
+  padding: 10px;
+  background-color: rgba(250, 250, 250, 0.9);
+  label {
+    font-size: 1em;
+    font-weight: normal;
+  }
+
+  input {
+    border-radius: 1;
+    margin-bottom: 3px;
+  }
+
+  #memo {
+    margin-bottom: 14px;
+  }
+
+  button {
+    margin-right: 5px;
+  }
+}
