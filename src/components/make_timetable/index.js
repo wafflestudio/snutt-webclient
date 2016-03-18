@@ -35,29 +35,35 @@ class MakeTimeTable extends Component {
           handleSearch={query => this.composeQuery(query)}
         />
         <SearchFilter on={filterOn} />
-        <ResultTable
-          height={200}
-          data={searchResults}
-          isQuerying={isQuerying}
-          handleSelect={course => dispatch(selectCourse(course))}
-          handleUnselect={() => dispatch(unselectCourse())}
-          handleAdd={course => dispatch(addCourse(course))}
-        />
-        <TimeTableManager
-          currentIndex={timeTables.currentIndex}
-          total={timeTables.tables.size}
-          handleChange={idx => dispatch(changeTimeTable(idx))}
-          handleAdd={() => dispatch(addTimeTable())}
-          handleDelete={idx => dispatch(deleteTimeTable(idx))}
-        />
-        <Timetable
-          currentIndex={timeTables.currentIndex}
-          courseBook={this.props.courseBook}
-          courses={timeTables.tables.get(timeTables.currentIndex)}
-          selected={selectedCourse}
-          handleDelete={_id => dispatch(deleteCourse(_id))}
-          addCourse={course => dispatch(addCourse(course))}
-        />
+        <div className="row">
+          <div className="col-lg-6">
+            <ResultTable
+              height={200}
+              data={searchResults}
+              isQuerying={isQuerying}
+              handleSelect={course => dispatch(selectCourse(course))}
+              handleUnselect={() => dispatch(unselectCourse())}
+              handleAdd={course => dispatch(addCourse(course))}
+            />
+          </div>
+          <div className="col-lg-6">
+            <TimeTableManager
+              currentIndex={timeTables.currentIndex}
+              total={timeTables.tables.size}
+              handleChange={idx => dispatch(changeTimeTable(idx))}
+              handleAdd={() => dispatch(addTimeTable())}
+              handleDelete={idx => dispatch(deleteTimeTable(idx))}
+            />
+            <Timetable
+              currentIndex={timeTables.currentIndex}
+              courseBook={this.props.courseBook}
+              courses={timeTables.tables.get(timeTables.currentIndex)}
+              selected={selectedCourse}
+              handleDelete={_id => dispatch(deleteCourse(_id))}
+              addCourse={course => dispatch(addCourse(course))}
+            />
+          </div>
+        </div>
       </div>
     )
   }

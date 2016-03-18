@@ -90,11 +90,17 @@ export default class Timetable extends Component {
     var rows = [];
     for (var t = 0; t < 26; t++) {
       var cols = []
+      //column
+      if (t % 2 == 0) {
+        var hrIdx = t/2;
+        cols.push(<td className='label-hour' rowSpan='2'>{hrIdx+9}</td>)
+        cols.push(<td className='label-gyosi' rowSpan='2'>{hrIdx}</td>)
+      }
       for (var d = 0; d < 6; d++) {
         var cellStatus = this.state.cellStatus[d][t]
-        var cellClass = ""
+        var cellClass = "td-body"
         if (cellStatus == 'SELECTED')
-          cellClass += 'selected'
+          cellClass += ' selected'
         var loHi = getLoHi(this.state.dragInit, this.state.dragEnd)
         if (loHi.lo.day <= d && d<= loHi.hi.day &&
           loHi.lo.time <= t && t<= loHi.hi.time) {
@@ -115,6 +121,7 @@ export default class Timetable extends Component {
           />
         )
       }
+      cols.push(<td className='blank-right'></td>)
       rows.push(<tr key={t}>{cols}</tr>)
     }
     return <tbody>{rows}</tbody>
@@ -193,12 +200,15 @@ export default class Timetable extends Component {
         <table className="table table-bordered timetable">
           <thead>
             <tr>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
+              <th className='label-hour'></th>
+              <th className='label-gyosi'></th>
+              <th className='label-date'>월</th>
+              <th className='label-date'>화</th>
+              <th className='label-date'>수</th>
+              <th className='label-date'>목</th>
+              <th className='label-date'>금</th>
+              <th className='label-date'>토</th>
+              <th className='label-date blank-right'></th>
             </tr>
           </thead>
           {this.makeTable()}

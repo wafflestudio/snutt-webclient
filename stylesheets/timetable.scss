@@ -1,5 +1,7 @@
 .timetable {
   padding: 0px;
+  table-layout: fixed;
+  background-color: #FAFAFA;
   td {
     width: 100px;
     height:20px;
@@ -14,6 +16,40 @@
   .dragged {
     background-color: red
   }
+
+  .label-hour {
+    border-width: 0;
+    width: 2em;
+    padding: 0;
+    text-align: right;
+    font-size: 0.5em;
+    color: #9B9B9B;
+  }
+
+  .label-gyosi {
+    border-width: 1px 0;
+    width: 2em;
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  .label-date {
+    color: #4A4A4A;
+    border-width: 1px 0;
+    text-align: center;
+    font-weight: normal;
+    font-size: 0.9em;
+    padding: 4px 0;
+  }
+
+  .blank-right {
+    width: 1em;
+    border-width: 0;
+  }
+
+  .td-body {
+    border-width: 1px 0;
+  }
 }
 
 .timetable * {
@@ -22,8 +58,6 @@
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* IE/Edge */
-  user-select: none;           /* non-prefixed version, currently
-                                  not supported by any browser */
 }
 
 .course-div {
