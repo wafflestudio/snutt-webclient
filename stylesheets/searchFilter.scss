@@ -1,3 +1,26 @@
+.search-filter {
+  top: 0px;
+  position: relative;
+  max-height: 0;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  padding: 0;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: transparent;
+  transition: max-height 0.3s, border-color 0s linear 0.3s, top 0s linear 0.3s;
+}
+
+#filter-active {
+  top: -1px;
+  max-height: 350px;
+  border-width: 0 0 1px 0;
+  border-color: #4A90E2;
+  border-style: solid;
+  padding: 0 0 10px 0;
+  transition: max-height 0.3s;
+}
+
 .react-autosuggest__container {
   display: inline-block;
 }
@@ -104,8 +127,6 @@
     -webkit-transition: transform 0.3s;
     transition: transform 0.3s;
   }
-  user-drag: none;
-  user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;

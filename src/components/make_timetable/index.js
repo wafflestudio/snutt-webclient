@@ -34,7 +34,7 @@ class MakeTimeTable extends Component {
         <SearchBar
           handleSearch={query => this.composeQuery(query)}
         />
-        { filterOn ? <SearchFilter /> : null }
+        <SearchFilter on={filterOn} />
         <ResultTable
           height={200}
           data={searchResults}
