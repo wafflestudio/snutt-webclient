@@ -93,7 +93,7 @@ export default class Timetable extends Component {
       //column
       if (t % 2 == 0) {
         var hrIdx = t/2;
-        cols.push(<td className='label-hour' rowSpan='2' key={-1}>{hrIdx+9}</td>)
+        cols.push(<td className='label-hour' rowSpan='2' key={-1}>{hrIdx+8}</td>)
         cols.push(<td className='label-gyosi' rowSpan='2' key={-2}>{hrIdx}</td>)
       }
       for (var d = 0; d < 6; d++) {
