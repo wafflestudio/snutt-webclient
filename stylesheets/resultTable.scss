@@ -1,5 +1,44 @@
 .result-wrapper {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 300px;
+  height: 546px;
+  background-color: #fafafa;
+  border: 1px solid #D9D6DA;
+  border-top: 0;
+}
+
+.resultTable {
+  color: #4a4a4a;
+  background-color: #fafafa;
+  padding: 0px;
+
+  border-top: 0;
+  font-size: 0.8em;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+
+  .col-course-no { width: 10%; }
+  .col-lecture-no { width: 5%; }
+  .col-title { width: 20%; }
+  .col-department { width: 15%; }
+  .col-time { width: 22%; }
+  .col-professor { width: 8%; }
+  .col-remark { width: 20%; }
+
+
+  th {
+    padding: 4px 0!important;
+    text-align: center;
+    font-weight: normal;
+    font-size: 13px;
+    border-bottom: 1px solid #D9D6DA!important;
+  }
+
+  td {
+    padding: 8px 2px!important;
+    border: 0px!important;
+    border-bottom: 1px solid #D9D6DA!important;
+    text-overflow: ellipsis;
+  }
 }
