@@ -1,6 +1,14 @@
+.search-filter-wrapper {
+  position: relative;
+  padding: 0;
+}
+
 .search-filter {
   top: 0px;
-  position: relative;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  margin: 0 15px 0 0;
   max-height: 0;
   overflow: hidden;
   background-color: #FFFFFF;

@@ -129,68 +129,70 @@ export default class SearchFilter extends Component {
     return (
       <div className='row'>
         <div className='col-lg-8 col-lg-offset-2'>
-          <form
-            className='form-horizontal search-filter'
-            id={this.props.on ? 'filter-active' : ''}
-          >
-            <div className='form-group'>
-              <label className='col-md-2 control-label'>학점</label>
-              <div className='col-md-8'>
-                {credits.map(f=>(
-                  <label key={f.value} className='checkbox-inline'>
-                    <input
-                      type='checkbox'
-                      checked={this.state.query.world.indexOf(f.value) != -1}
-                      onClick={()=>this.handleWorldToggle(f.value)}
-                    />
-                    {f.name}
-                  </label>
-                ))}
+          <div className="search-filter-wrapper">
+            <form
+              className='form-horizontal search-filter'
+              id={this.props.on ? 'filter-active' : ''}
+            >
+              <div className='form-group'>
+                <label className='col-md-2 control-label'>학점</label>
+                <div className='col-md-8'>
+                  {credits.map(f=>(
+                    <label key={f.value} className='checkbox-inline'>
+                      <input
+                        type='checkbox'
+                        checked={this.state.query.world.indexOf(f.value) != -1}
+                        onClick={()=>this.handleWorldToggle(f.value)}
+                      />
+                      {f.name}
+                    </label>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className='form-group'>
-              <label className='col-md-2 control-label'>학과</label>
-              <div className="col-md-8">
-                {this.state.query.department.map((dep, idx) =>
-                  <span className='label label-default selected-department' key={idx}>{dep}</span>
-                )}
-                <DepartmentSuggestion
-                  selectedDepartments={this.state.query.department}
-                  updateDepartments={deps=>this.setState({
-                    query: update(this.state.query, {
-                      department: {$set: deps }
-                    })
-                  })}
-                />
-              </div>
-            </div>
-
-            <div className='form-group'>
-              <label className='col-md-2 control-label'>시간</label>
-              <div className='col-md-8' id='timeselector-toggle'>
-                <button
-                  className='btn btn-default'
-                  onClick={e=>{
-                    e.preventDefault()
-                    this.setState({timeSelecting: !this.state.timeSelecting})
-                  }}
-                >
-                  <span className="glyphicon glyphicon-pencil" aria-hidden="true"/>
-                  {this.state.timeSelecting ? '확인' : '선택하기' }
-                </button>
-                {this.state.timeSelecting ?
-                  <TimeQuerySelector
-                    selectionHook={this.handleTimeSelect}
+              <div className='form-group'>
+                <label className='col-md-2 control-label'>학과</label>
+                <div className="col-md-8">
+                  {this.state.query.department.map((dep, idx) =>
+                    <span className='label label-default selected-department' key={idx}>{dep}</span>
+                  )}
+                  <DepartmentSuggestion
+                    selectedDepartments={this.state.query.department}
+                    updateDepartments={deps=>this.setState({
+                      query: update(this.state.query, {
+                        department: {$set: deps }
+                      })
+                    })}
                   />
-                  : null
-                }
+                </div>
               </div>
-            </div>
-            {this.worldCheckBoxes('학문의 기초', foundations)}
-            {this.worldCheckBoxes('학문의 세계', knowledges)}
-            {this.worldCheckBoxes('선택 교양', generals)}
-          </form>
+
+              <div className='form-group'>
+                <label className='col-md-2 control-label'>시간</label>
+                <div className='col-md-8' id='timeselector-toggle'>
+                  <button
+                    className='btn btn-default'
+                    onClick={e=>{
+                      e.preventDefault()
+                      this.setState({timeSelecting: !this.state.timeSelecting})
+                    }}
+                  >
+                    <span className="glyphicon glyphicon-pencil" aria-hidden="true"/>
+                    {this.state.timeSelecting ? '확인' : '선택하기' }
+                  </button>
+                  {this.state.timeSelecting ?
+                    <TimeQuerySelector
+                      selectionHook={this.handleTimeSelect}
+                    />
+                    : null
+                  }
+                </div>
+              </div>
+              {this.worldCheckBoxes('학문의 기초', foundations)}
+              {this.worldCheckBoxes('학문의 세계', knowledges)}
+              {this.worldCheckBoxes('선택 교양', generals)}
+            </form>
+          </div>
         </div>
       </div>
     )
