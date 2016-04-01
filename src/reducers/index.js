@@ -4,7 +4,7 @@ import {
   ADD_COURSE, DELETE_COURSE, CHANGE_TIMETABLE, ADD_TIMETABLE, DELETE_TIMETABLE,
   CHANGE_COURSEBOOK, TOGGLE_FILTER
 } from '../actions'
-import Immutable from 'immutable'
+import timeTables from './timetables'
 
 function selectedCourse(state = null, action) {
   switch(action.type) {
@@ -25,50 +25,6 @@ function searchResults(state = [], action) {
   switch(action.type) {
     case SHOW_RESULT:
       return action.courses
-    default:
-      return state
-  }
-}
-
-function timeTables(state, action) {
-  if (typeof state === 'undefined') { // inital state
-    var emptyTables = Immutable.List()
-    for (var i = 0; i < 3; i++) {
-      emptyTables = emptyTables.push(Immutable.List())
-    }
-    return {
-      currentIndex: 0,
-      tables: emptyTables
-    }
-  }
-  const { currentIndex, tables } = state
-  const currentTable = tables.get(currentIndex)
-
-  switch(action.type) {
-    case CHANGE_TIMETABLE:
-      return Object.assign({}, state, {
-        currentIndex: action.newTableIndex
-      })
-    case ADD_TIMETABLE:
-      return Object.assign({}, state, {
-        tables: tables.push(Immutable.List()),
-        currentIndex: tables.size
-      })
-    case DELETE_TIMETABLE:
-      return Object.assign({}, state, {
-        tables: tables.delete(action.index),
-        currentIndex: 0
-      })
-    case ADD_COURSE:
-      return Object.assign({}, state, {
-        tables: tables.set(currentIndex, tables.get(currentIndex).push(action.course))
-      })
-    case DELETE_COURSE:
-      return Object.assign({}, state, {
-        tables: tables.set(currentIndex,
-          currentTable.delete(currentTable.findIndex(val => val._id == action.courseId))
-        )
-      })
     default:
       return state
   }
@@ -104,10 +60,11 @@ function filterOn(state = false, action) {
 const reducer = {
   selectedCourse,
   searchResults,
-  timeTables,
+  timeTables: timeTables,
   courseBook,
   isQuerying,
   filterOn
 }
 
+// This file exports mere object, which is to be combined at src/index.js later.
 export default reducer
