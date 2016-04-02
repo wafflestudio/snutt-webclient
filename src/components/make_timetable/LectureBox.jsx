@@ -13,7 +13,9 @@ export default class LectureBox extends Component {
 
   render() {
     var divStyle = {
-      height: `${this.props.length * 100}%`
+      height: `${this.props.length * 100}%`,
+      color: this.props.course.fgColor,
+      backgroundColor: this.props.course.bgColor
     }
     return (
       <div
