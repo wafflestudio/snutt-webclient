@@ -35,6 +35,14 @@ export default function timeTables(state = DEFAULT_STATE, action) {
           currentTable.delete(currentTable.findIndex(val => val._id == action.courseId))
         )
       })
+    case ACTIONS.MODIFY_COURSE:
+      const courseIndex = currentTable.findIndex(val => val._id == action.courseId)
+      const courseToModify = currentTable.get(courseIndex)
+      return Object.assign({}, state, {
+        tables: tables.set(currentIndex,
+          currentTable.set(courseIndex, Object.assign({}, courseToModify, action.modification))
+        )
+      })
     default:
       return state
   }
