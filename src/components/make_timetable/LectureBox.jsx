@@ -8,6 +8,7 @@ export default class LectureBox extends Component {
 
   handleClick(e) {
     e.stopPropagation()
+    console.log('lecture clicked');
   }
 
   render() {
