@@ -26,6 +26,9 @@ export default class Timetable extends Component {
     super()
     this.placeLectures = this.placeLectures.bind(this)
     this.resetDrag = this.resetDrag.bind(this)
+    this.handleMouseDown = this.handleMouseDown.bind(this)
+    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+    this.handleMouseUp = this.handleMouseUp.bind(this)
     this.state = {
       cellStatus: this.emptyArray(),
       isSelecting: false,
@@ -115,9 +118,9 @@ export default class Timetable extends Component {
             key={d}
             day={d}
             time={t}
-            handleMouseDown={this.handleMouseDown.bind(this)}
-            handleMouseEnter={this.handleMouseEnter.bind(this)}
-            handleMouseUp={this.handleMouseUp.bind(this)}
+            handleMouseDown={this.handleMouseDown}
+            handleMouseEnter={this.handleMouseEnter}
+            handleMouseUp={this.handleMouseUp}
           />
         )
       }
@@ -193,7 +196,7 @@ export default class Timetable extends Component {
             currentCourseBook={this.props.courseBook}
             cellStatus={this.state.cellStatus}
             addCourse={this.props.addCourse}
-            stopAdding={()=>this.resetDrag()}
+            stopAdding={this.resetDrag}
           /> :
           null
         }

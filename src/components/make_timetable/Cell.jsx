@@ -21,9 +21,9 @@ export default class Cell extends Component {
     return (
       <td
         className={this.props.className}
-        onMouseDown={this.onMouseDown.bind(this)}
-        onMouseEnter={this.onMouseEnter.bind(this)}
-        onMouseUp={this.onMouseUp.bind(this)}
+        // onMouseDown={this.onMouseDown.bind(this)}
+        // onMouseEnter={this.onMouseEnter.bind(this)}
+        // onMouseUp={this.onMouseUp.bind(this)}
       >
         {this.props.content}
       </td>
