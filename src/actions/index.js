@@ -34,8 +34,17 @@ export function sendQuery(query) {
       body: JSON.stringify(query)
     })
     .then(resp => resp.json())
+    .then(json => json.map(checkColor))
     .then(json => dispatch(showResult(json)))
   }
+}
+
+function checkColor(val, index) {
+  if (val.bgColor === undefined)
+    val.bgColor = "#B7C7BB"
+  if (val.fgColor === undefined)
+    val.fgColor = "#1A1413"
+  return val;
 }
 
 export function startQuery() {
