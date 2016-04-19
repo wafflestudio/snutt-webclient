@@ -20,7 +20,7 @@ export default class CourseBookSelector extends Component {
 
   handleSelect(selectedSemester) {
     this.setState({
-      opened: false
+      opened: false,
     })
     this.props.handleChange(selectedSemester)
   }

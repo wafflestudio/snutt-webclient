@@ -8,7 +8,7 @@ const departments = [
   '컴퓨터공학부',
   '자유전공학부',
   '연합전공 정보문화학',
-  '경제학부'
+  '경제학부',
 ];
 
 function like(str, option) {
@@ -47,7 +47,7 @@ export default class DepartmentSuggestion extends Component {
 
     this.state = {
       value: '',
-      suggestions: getSuggestions('')
+      suggestions: getSuggestions(''),
     };
 
     this.onKeyDown = this.onKeyDown.bind(this)
@@ -66,13 +66,13 @@ export default class DepartmentSuggestion extends Component {
 
   onChange(event, { newValue }) {
     this.setState({
-      value: newValue
+      value: newValue,
     });
   }
 
   onSuggestionsUpdateRequested({ value }) {
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions: getSuggestions(value),
     });
   }
 
@@ -94,7 +94,7 @@ export default class DepartmentSuggestion extends Component {
       placeholder: 'eg)컴공',
       value,
       onChange: this.onChange,
-      onKeyDown: this.onKeyDown
+      onKeyDown: this.onKeyDown,
     };
 
     return (

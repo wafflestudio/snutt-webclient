@@ -6,7 +6,7 @@ class ResultRow extends Component {
     return(
       <tr
         onClick={this.props.handleSelect}
-        className={this.props.isSelected ? "info" : ""}
+        className={this.props.isSelected ? 'info' : ''}
       >
         <td className='col-course-no'>{this.props.course_number}</td>
         <td className='col-lecture-no'>{this.props.lecture_number}</td>

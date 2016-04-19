@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import {
   SELECT_COURSE, UNSELECT_COURSE, SEND_QUERY, START_QUERY, SHOW_RESULT,
   ADD_COURSE, DELETE_COURSE, CHANGE_TIMETABLE, ADD_TIMETABLE, DELETE_TIMETABLE,
-  CHANGE_COURSEBOOK, TOGGLE_FILTER
+  CHANGE_COURSEBOOK, TOGGLE_FILTER,
 } from '../actions'
 import timeTables from './timetables'
 
@@ -58,13 +58,13 @@ function filterOn(state = false, action) {
 }
 
 const reducer = {
+  timeTables,
   selectedCourse,
   searchResults,
-  timeTables: timeTables,
   courseBook,
   isQuerying,
-  filterOn
+  filterOn,
 }
 
-// This file exports mere object, which is to be combined at src/index.js later.
+// This file exports a mere object, which is to be combined at src/index.js later.
 export default reducer

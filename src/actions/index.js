@@ -29,9 +29,9 @@ export function sendQuery(query) {
       method: 'post',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(query)
+      body: JSON.stringify(query),
     })
     .then(resp => resp.json())
     .then(json => json.map(checkColor))
@@ -41,9 +41,9 @@ export function sendQuery(query) {
 
 function checkColor(val, index) {
   if (val.bgColor === undefined)
-    val.bgColor = "#B7C7BB"
+    val.bgColor = '#B7C7BB'
   if (val.fgColor === undefined)
-    val.fgColor = "#1A1413"
+    val.fgColor = '#1A1413'
   return val;
 }
 

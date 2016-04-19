@@ -4,10 +4,12 @@ import Footer from './footer.jsx'
 
 export default class App extends Component {
   render() {
-    return <div>
-      <TopBar />
-        {this.props.children}
-      <Footer />
-    </div>
+    return (
+      <div>
+        <TopBar />
+          {this.props.children}
+        <Footer />
+      </div>
+    )
   }
 }

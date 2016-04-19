@@ -59,7 +59,7 @@ export default class TimeQuerySelector extends Component {
       dragEnd: { r: -1, c: -1 },
       // null: nothing, 0: dragged, 1: selected
       stateTable: this.emptyArray(),
-      isDeleting: false
+      isDeleting: false,
     }
   }
 
@@ -73,11 +73,11 @@ export default class TimeQuerySelector extends Component {
   getRange(init, end) {
     var tl = {
       r: Math.min(init.r, end.r),
-      c: Math.min(init.c, end.c)
+      c: Math.min(init.c, end.c),
     }
     var dr = {
       r: Math.max(init.r, end.r),
-      c: Math.max(init.c, end.c)
+      c: Math.max(init.c, end.c),
     }
     return { tl, dr }
   }
@@ -88,7 +88,7 @@ export default class TimeQuerySelector extends Component {
       dragInit: { r, c },
       dragEnd: { r, c },
       stateTable: update2dArr(this.state.stateTable, c, r, 0),
-      isDeleting: this.state.stateTable[c][r] == 1
+      isDeleting: this.state.stateTable[c][r] == 1,
     })
   }
 
@@ -108,7 +108,7 @@ export default class TimeQuerySelector extends Component {
       dragInit: { r: -1, c: -1 },
       dragEnd: { r: -1, c: -1 },
       stateTable: newStateTable,
-      isDeleting: false
+      isDeleting: false,
     })
   }
 
@@ -128,7 +128,7 @@ export default class TimeQuerySelector extends Component {
       }
       this.setState({
         dragEnd: { r, c },
-        stateTable: newStateTable
+        stateTable: newStateTable,
       })
     }
   }

@@ -10,7 +10,7 @@ import Timetable from './Timetable.jsx'
 
 import { sendQuery, showResult,
   selectCourse, unselectCourse, addCourse, deleteCourse,
-  changeTimeTable, addTimeTable, deleteTimeTable
+  changeTimeTable, addTimeTable, deleteTimeTable,
 } from '../../actions'
 
 class MakeTimeTable extends Component {
@@ -23,7 +23,7 @@ class MakeTimeTable extends Component {
     const { dispatch, courseBook } = this.props
     dispatch(sendQuery(Object.assign(query, {
       year: courseBook.year,
-      semester: courseBook.semesterIdx
+      semester: courseBook.semesterIdx,
     })))
   }
 

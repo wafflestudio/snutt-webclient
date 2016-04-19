@@ -29,7 +29,7 @@ export default class TimetableSelector extends Component {
     for (var i = 0; i < this.props.total; i++) {
       buttons.push(
         <li
-          className={"tab-button" + (i == this.props.currentIndex ? " active" : "")}
+          className={'tab-button' + (i == this.props.currentIndex ? ' active' : '')}
           key={i}
           onClick={this.props.handleChange.bind(this, i)}
         >

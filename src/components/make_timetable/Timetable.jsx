@@ -12,12 +12,12 @@ function getLoHi(dragInit, dragEnd) {
   return {
     lo: {
       day: Math.min(dragInit.day, dragEnd.day),
-      time: Math.min(dragInit.time, dragEnd.time)
+      time: Math.min(dragInit.time, dragEnd.time),
     },
     hi: {
       day: Math.max(dragInit.day, dragEnd.day),
-      time: Math.max(dragInit.time, dragEnd.time)
-    }
+      time: Math.max(dragInit.time, dragEnd.time),
+    },
   }
 }
 
@@ -34,7 +34,7 @@ export default class Timetable extends Component {
       isSelecting: false,
       isDragSelecting: false,
       dragInit: {day: -1, time: -1},
-      dragEnd: {day: -1, time: -1}
+      dragEnd: {day: -1, time: -1},
     }
   }
 
@@ -101,7 +101,7 @@ export default class Timetable extends Component {
       }
       for (var d = 0; d < 6; d++) {
         var cellStatus = this.state.cellStatus[d][t]
-        var cellClass = "td-body"
+        var cellClass = 'td-body'
         if (cellStatus == 'SELECTED')
           cellClass += ' selected'
         var loHi = getLoHi(this.state.dragInit, this.state.dragEnd)
@@ -138,8 +138,8 @@ export default class Timetable extends Component {
 
     this.setState({
       cellStatus: update(this.state.cellStatus, {
-        [day]: { [time]: { $set: newStatus } }
-      })
+        [day]: { [time]: { $set: newStatus } },
+      }),
     })
   }
 
@@ -155,7 +155,7 @@ export default class Timetable extends Component {
   handleMouseEnter(day, time) {
     if (this.state.isDragSelecting) {
       this.setState({
-        dragEnd: { day, time }
+        dragEnd: { day, time },
       })
     }
   }
@@ -174,7 +174,7 @@ export default class Timetable extends Component {
       isDragSelecting: false,
       cellStatus: newStatus,
       dragInit: {day: -1, time: -1},
-      dragEnd: {day: -1, time: -1}
+      dragEnd: {day: -1, time: -1},
     })
   }
 
@@ -184,7 +184,7 @@ export default class Timetable extends Component {
       isDragSelecting: false,
       cellStatus: this.emptyArray(),
       dragInit: {day: -1, time: -1},
-      dragEnd: {day: -1, time: -1}
+      dragEnd: {day: -1, time: -1},
     })
   }
 

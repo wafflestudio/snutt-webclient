@@ -8,7 +8,7 @@ var credits = [
   { name: '1학점', value: 1 },
   { name: '2학점', value: 2 },
   { name: '3학점', value: 3 },
-  { name: '4학점', value: 4 }
+  { name: '4학점', value: 4 },
 ]
 
 // 학문의 기초
@@ -17,7 +17,7 @@ var foundations = [
   { name: '외국어', value: 41 },
   { name: '수량적 분석과 추론', value: 42 },
   { name: '과학적 사고와 실험', value: 43 },
-  { name: '컴퓨터와 정보 활용', value: 44 }
+  { name: '컴퓨터와 정보 활용', value: 44 },
 ]
 
 // 학문의 세계
@@ -28,7 +28,7 @@ var knowledges = [
   { name: '정치와 경제', value: 48 },
   { name: '인간과 사회', value: 49 },
   { name: '자연과 기술', value: 50 },
-  { name: '생명과 환경', value: 51 }
+  { name: '생명과 환경', value: 51 },
 ]
 
 // 선택 교양
@@ -37,7 +37,7 @@ var generals = [
   { name: '예술실기', value: 53 },
   { name: '대학과 리더십', value: 54 },
   { name: '창의와 융합', value: 55 },
-  { name: '한국의 이해', value: 56 }
+  { name: '한국의 이해', value: 56 },
 ]
 
 export default class SearchFilter extends Component {
@@ -54,9 +54,9 @@ export default class SearchFilter extends Component {
         credit: [],
         department: [],
         world: [],
-        time: []
+        time: [],
       },
-      timeSelecting: false
+      timeSelecting: false,
     }
   }
 
@@ -64,11 +64,11 @@ export default class SearchFilter extends Component {
     var idx = this.state.query.credit.indexOf(value)
     if (idx != -1) {
       this.setState({
-        query: update(this.state.query, { credit: { $splice: [[idx, 1]]}})
+        query: update(this.state.query, { credit: { $splice: [[idx, 1]]}}),
       })
     } else {
       this.setState({
-        query: update(this.state.query, { credit: { $push: [value]}})
+        query: update(this.state.query, { credit: { $push: [value]}}),
       })
     }
   }
@@ -77,11 +77,11 @@ export default class SearchFilter extends Component {
     var idx = this.state.query.world.indexOf(value)
     if (idx != -1) {
       this.setState({
-        query: update(this.state.query, { world: { $splice: [[idx, 1]]}})
+        query: update(this.state.query, { world: { $splice: [[idx, 1]]}}),
       })
     } else {
       this.setState({
-        query: update(this.state.query, { world: { $push: [value]}})
+        query: update(this.state.query, { world: { $push: [value]}}),
       })
     }
   }
@@ -101,7 +101,7 @@ export default class SearchFilter extends Component {
       timeMasks.push(mask)
     }
     this.setState({
-      query: update(this.state.query, { world: { $set: timeMasks }})
+      query: update(this.state.query, { world: { $set: timeMasks }}),
     })
   }
 
@@ -160,8 +160,8 @@ export default class SearchFilter extends Component {
                     selectedDepartments={this.state.query.department}
                     updateDepartments={deps=>this.setState({
                       query: update(this.state.query, {
-                        department: {$set: deps }
-                      })
+                        department: {$set: deps },
+                      }),
                     })}
                   />
                 </div>

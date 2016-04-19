@@ -72,7 +72,7 @@ export default class NewCourseForm extends Component {
         Object.assign(t, { place: this.state.place })
       ),
       class_time_mask: timeJsonToMask(selectedTime),
-      remark: this.state.memo
+      remark: this.state.memo,
     })
     this.setState({ title: '', place: '', memo: '' })
     this.props.stopAdding()
@@ -101,7 +101,7 @@ export default class NewCourseForm extends Component {
         {this.formGroup('title', '과목명')}
         {this.formGroup('credit', '학점')}
         {this.formGroup('place', '장소')}
-        {this.formGroup('memo', "메모")}
+        {this.formGroup('memo', '메모')}
         <button
           className='btn btn-primary'
           onClick={this.handleClick}

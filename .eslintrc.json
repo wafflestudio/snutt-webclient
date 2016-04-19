@@ -11,6 +11,7 @@
   "rules": {
     "quotes": [2, "single"],
     "strict": [2, "never"],
+    "comma-dangle": [1, "always-multiline"],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
