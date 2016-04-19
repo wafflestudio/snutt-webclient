@@ -18,9 +18,11 @@
     "react/jsx-closing-bracket-location": 2,
     "react/no-is-mounted": 2,
     "react/self-closing-comp": 2,
-    "react/wrap-multilines": 2
+    "react/wrap-multilines": 2,
+    "babel/object-shorthand": 1
   },
   "plugins": [
-    "react"
+    "react",
+    "babel"
   ]
 }

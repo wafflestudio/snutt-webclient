@@ -3,31 +3,31 @@ import { render } from 'react-dom'
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { syncHistory, routeReducer } from 'redux-simple-router'
-import thunkMiddleware from 'redux-thunk'
-import rootReducer from './reducers/index.js'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import thunk from 'redux-thunk'
+
+import rootReducer from './reducers'
 
 require('../stylesheets/style.scss')
 import { App, MakeTimetable, MyTimetable, ExportTimetable } from './components'
 
-
-var combined = Object.assign({}, rootReducer, {
-  routing: routeReducer
+var reducer = combineReducers({
+  ...rootReducer,
+  routing: routerReducer,
 })
-var reducer = combineReducers(combined)
 
-const reduxRouterMiddleware = syncHistory(browserHistory)
-const createStoreWithMiddleware = compose(
-  applyMiddleware(thunkMiddleware),
-  applyMiddleware(reduxRouterMiddleware),
-  (window.devToolsExtension && process.env.NODE_ENV != 'production') ? window.devToolsExtension() : f => f
-)(createStore)
-
-const store = createStoreWithMiddleware(reducer)
+const store = createStore(
+  reducer,
+  compose(
+    applyMiddleware(thunk),
+    (window.devToolsExtension && process.env.NODE_ENV != 'production') ? window.devToolsExtension() : f => f,
+  )
+)
+const history = syncHistoryWithStore(browserHistory, store)
 
 render((
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={MakeTimetable} />
         <Route path="my" component={MyTimetable} />
