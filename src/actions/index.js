@@ -1,25 +1,12 @@
-export const SELECT_COURSE = 'SELECT_COURSE'
-export const UNSELECT_COURSE = 'UNSELECT_COURSE'
-export const SEND_QUERY = 'SEND_QUERY'
-export const START_QUERY = 'START_QUERY'
-export const SHOW_RESULT = 'SHOW_RESULT'
-export const ADD_COURSE = 'ADD_COURSE'
-export const DELETE_COURSE = 'DELETE_COURSE'
-export const MODIFY_COURSE = 'MODIFY_COURSE'
-export const CHANGE_TIMETABLE = 'CHANGE_TIMETABLE'
-export const ADD_TIMETABLE = 'ADD_TIMETABLE'
-export const DELETE_TIMETABLE = 'DELETE_TIMETABLE'
-export const CHANGE_COURSEBOOK = 'CHANGE_COURSEBOOK'
-export const TOGGLE_FILTER = 'TOGGLE_FILTER'
-
 import 'whatwg-fetch'
+import * as types from './actionTypes'
 
 export function selectCourse(course) {
-  return { type: SELECT_COURSE, course }
+  return { type: types.SELECT_COURSE, course }
 }
 
 export function unselectCourse() {
-  return { type: UNSELECT_COURSE }
+  return { type: types.UNSELECT_COURSE }
 }
 
 export function sendQuery(query) {
@@ -48,41 +35,41 @@ function checkColor(val, index) {
 }
 
 export function startQuery() {
-  return { type: START_QUERY }
+  return { type: types.START_QUERY }
 }
 
 export function showResult(courses) {
-  return { type: SHOW_RESULT, courses}
+  return { type: types.SHOW_RESULT, courses}
 }
 
 export function addCourse(course) {
-  return { type: ADD_COURSE, course}
+  return { type: types.ADD_COURSE, course}
 }
 
 export function deleteCourse(courseId) {
-  return { type: DELETE_COURSE, courseId}
+  return { type: types.DELETE_COURSE, courseId}
 }
 
 export function modifyCourse(courseId, modification) {
-  return { type: MODIFY_COURSE, courseId, modification}
+  return { type: types.MODIFY_COURSE, courseId, modification}
 }
 
 export function changeTimeTable(newTableIndex) {
-  return { type: CHANGE_TIMETABLE, newTableIndex }
+  return { type: types.CHANGE_TIMETABLE, newTableIndex }
 }
 
 export function addTimeTable() {
-  return { type: ADD_TIMETABLE }
+  return { type: types.ADD_TIMETABLE }
 }
 
 export function deleteTimeTable(index) {
-  return { type: DELETE_TIMETABLE, index }
+  return { type: types.DELETE_TIMETABLE, index }
 }
 
 export function changeCoursebook(newCourseBook) {
-  return { type: CHANGE_COURSEBOOK, newCourseBook }
+  return { type: types.CHANGE_COURSEBOOK, newCourseBook }
 }
 
 export function toggleFilter() {
-  return { type: TOGGLE_FILTER }
+  return { type: types.TOGGLE_FILTER }
 }

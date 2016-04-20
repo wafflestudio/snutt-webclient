@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import * as ACTIONS from '../actions'
+import * as types from '../actions/actionTypes.js'
 
 const DEFAULT_STATE = {
   currentIndex: 0,
@@ -11,31 +11,31 @@ export default function timeTables(state = DEFAULT_STATE, action) {
   const currentTable = tables.get(currentIndex)
 
   switch(action.type) {
-    case ACTIONS.CHANGE_TIMETABLE:
+    case types.CHANGE_TIMETABLE:
       return Object.assign({}, state, {
         currentIndex: action.newTableIndex,
       })
-    case ACTIONS.ADD_TIMETABLE:
+    case types.ADD_TIMETABLE:
       return Object.assign({}, state, {
         tables: tables.push(Immutable.List()),
         currentIndex: tables.size,
       })
-    case ACTIONS.DELETE_TIMETABLE:
+    case types.DELETE_TIMETABLE:
       return Object.assign({}, state, {
         tables: tables.delete(action.index),
         currentIndex: 0,
       })
-    case ACTIONS.ADD_COURSE:
+    case types.ADD_COURSE:
       return Object.assign({}, state, {
         tables: tables.set(currentIndex, tables.get(currentIndex).push(action.course)),
       })
-    case ACTIONS.DELETE_COURSE:
+    case types.DELETE_COURSE:
       return Object.assign({}, state, {
         tables: tables.set(currentIndex,
           currentTable.delete(currentTable.findIndex(val => val._id == action.courseId))
         ),
       })
-    case ACTIONS.MODIFY_COURSE:
+    case types.MODIFY_COURSE:
       const courseIndex = currentTable.findIndex(val => val._id == action.courseId)
       const courseToModify = currentTable.get(courseIndex)
       return Object.assign({}, state, {

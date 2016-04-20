@@ -1,20 +1,16 @@
 import { combineReducers } from 'redux'
-import {
-  SELECT_COURSE, UNSELECT_COURSE, SEND_QUERY, START_QUERY, SHOW_RESULT,
-  ADD_COURSE, DELETE_COURSE, CHANGE_TIMETABLE, ADD_TIMETABLE, DELETE_TIMETABLE,
-  CHANGE_COURSEBOOK, TOGGLE_FILTER,
-} from '../actions'
+import * as types from '../actions/actionTypes'
 import timeTables from './timetables'
 
 function selectedCourse(state = null, action) {
   switch(action.type) {
-    case SELECT_COURSE:
+    case types.SELECT_COURSE:
       return action.course
-    case UNSELECT_COURSE:
+    case types.UNSELECT_COURSE:
       return null
-    case SHOW_RESULT:
+    case types.SHOW_RESULT:
       return null
-    case CHANGE_TIMETABLE:
+    case types.CHANGE_TIMETABLE:
       return null
     default:
       return state
@@ -23,7 +19,7 @@ function selectedCourse(state = null, action) {
 
 function searchResults(state = [], action) {
   switch(action.type) {
-    case SHOW_RESULT:
+    case types.SHOW_RESULT:
       return action.courses
     default:
       return state
@@ -32,7 +28,7 @@ function searchResults(state = [], action) {
 
 function courseBook(state = {year: 2016, semesterIdx: 1}, action) {
   switch(action.type) {
-    case CHANGE_COURSEBOOK:
+    case types.CHANGE_COURSEBOOK:
       return action.newCourseBook
     default:
       return state
@@ -41,7 +37,7 @@ function courseBook(state = {year: 2016, semesterIdx: 1}, action) {
 
 function isQuerying(state = false, action) {
   switch(action.type) {
-    case START_QUERY:
+    case types.START_QUERY:
       return true
     default:
       return false
@@ -50,7 +46,7 @@ function isQuerying(state = false, action) {
 
 function filterOn(state = false, action) {
   switch(action.type) {
-    case TOGGLE_FILTER:
+    case types.TOGGLE_FILTER:
       return !state
     default:
       return state
