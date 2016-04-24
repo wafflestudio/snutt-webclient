@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import SearchBar from './SearchBar.jsx'
 import SearchFilter from './SearchFilter.jsx'
+import ModalWrapper from './ModalWrapper.jsx'
+import CourseEditor from '../courseEditor'
 import ResultTable from './ResultTable.jsx'
 import TimeTableManager from './TimeTableManager.jsx'
 import NewCourseForm from './NewCourseForm.jsx'
@@ -28,7 +30,7 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, selectedCourse, searchResults, timeTables, isQuerying, filterOn } = this.props
+    const { dispatch, selectedCourse, searchResults, timeTables, isQuerying, filterOn, modalOn } = this.props
     return (
       <div className="container">
         <SearchBar
@@ -37,6 +39,9 @@ class MakeTimeTable extends Component {
         <SearchFilter on={filterOn} />
         <div className="row">
           <div className="col-lg-6">
+            <ModalWrapper>
+              <CourseEditor />
+            </ModalWrapper>
             <ResultTable
               height={200}
               data={searchResults}
@@ -70,8 +75,8 @@ class MakeTimeTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn } = state
-  return { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn }
+  const { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn } = state
+  return { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn }
 }
 
 export default connect(mapStateToProps)(MakeTimeTable)

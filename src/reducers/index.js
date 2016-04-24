@@ -53,6 +53,15 @@ function filterOn(state = false, action) {
   }
 }
 
+function modalOn(state = false, action) {
+  switch(action.type) {
+    case types.TOGGLE_MODAL:
+      return !state
+    default:
+      return state
+  }
+}
+
 const reducer = {
   timeTables,
   selectedCourse,

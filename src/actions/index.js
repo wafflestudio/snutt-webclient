@@ -73,3 +73,7 @@ export function changeCoursebook(newCourseBook) {
 export function toggleFilter() {
   return { type: types.TOGGLE_FILTER }
 }
+
+export function toggleModal() {
+  return { type: types.TOGGLE_MODAL }
+}
