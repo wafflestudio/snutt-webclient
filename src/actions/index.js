@@ -26,7 +26,7 @@ export function sendQuery(query) {
   }
 }
 
-function checkColor(val, index) {
+function checkColor(val) {
   if (val.bgColor === undefined)
     val.bgColor = '#B7C7BB'
   if (val.fgColor === undefined)
@@ -50,8 +50,20 @@ export function deleteCourse(courseId) {
   return { type: types.DELETE_COURSE, courseId}
 }
 
-export function modifyCourse(courseId, modification) {
-  return { type: types.MODIFY_COURSE, courseId, modification}
+export function modifyCourse(courseId, modified) {
+  return { type: types.MODIFY_COURSE, courseId, modified}
+}
+
+export function openCourse(course) {
+  return { type: types.OPEN_COURSE, course }
+}
+
+export function closeCourse(save, modified) {
+  return function(dispatch) {
+    dispatch(toggleModal())
+    if (save)
+      dispatch(modifyCourse(modified._id, modified))
+  }
 }
 
 export function changeTimeTable(newTableIndex) {

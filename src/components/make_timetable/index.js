@@ -7,11 +7,9 @@ import ModalWrapper from './ModalWrapper.jsx'
 import CourseEditor from '../courseEditor'
 import ResultTable from './ResultTable.jsx'
 import TimeTableManager from './TimeTableManager.jsx'
-import NewCourseForm from './NewCourseForm.jsx'
 import Timetable from './Timetable.jsx'
 
-import { sendQuery, showResult,
-  selectCourse, unselectCourse, addCourse, deleteCourse,
+import { sendQuery, selectCourse, unselectCourse, addCourse, deleteCourse,
   changeTimeTable, addTimeTable, deleteTimeTable,
 } from '../../actions'
 
@@ -39,9 +37,12 @@ class MakeTimeTable extends Component {
         <SearchFilter on={filterOn} />
         <div className="row">
           <div className="col-lg-6">
-            <ModalWrapper>
-              <CourseEditor />
-            </ModalWrapper>
+            { modalOn ?
+              <ModalWrapper>
+                <CourseEditor />
+              </ModalWrapper>:
+              null
+            }
             <ResultTable
               height={200}
               data={searchResults}

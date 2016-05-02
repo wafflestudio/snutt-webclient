@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class LectureBox extends Component {
+import { openCourse } from '../../actions'
+
+class LectureBox extends Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
@@ -12,7 +15,8 @@ export default class LectureBox extends Component {
   }
 
   render() {
-    var divStyle = {
+    const { dispatch } = this.props
+    const divStyle = {
       height: `${this.props.length * 100}%`,
       color: this.props.course.fgColor,
       backgroundColor: this.props.course.bgColor,
@@ -25,12 +29,21 @@ export default class LectureBox extends Component {
       >
         {this.props.course.course_title}
         {this.props.onDelete !== undefined ?
-          <span className='glyphicon glyphicon-remove' aria-hidden='true'
+          <span
+            className='glyphicon glyphicon-remove'
+            aria-hidden='true'
             onClick={() => this.props.onDelete(this.props.course._id)}
           /> :
           null
         }
+        <span
+          className='glyphicon glyphicon-pencil'
+          aria-hidden='true'
+          onClick={() => dispatch(openCourse(this.props.course))}
+        />
       </div>
     )
   }
 }
+
+export default connect()(LectureBox)

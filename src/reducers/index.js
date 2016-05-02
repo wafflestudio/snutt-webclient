@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import * as types from '../actions/actionTypes'
 import timeTables from './timetables'
 
@@ -11,6 +10,17 @@ function selectedCourse(state = null, action) {
     case types.SHOW_RESULT:
       return null
     case types.CHANGE_TIMETABLE:
+      return null
+    default:
+      return state
+  }
+}
+
+function editingCourse(state = null, action) {
+  switch(action.type) {
+    case types.OPEN_COURSE:
+      return action.course
+    case types.CLOSE_COURSE:
       return null
     default:
       return state
@@ -57,6 +67,8 @@ function modalOn(state = false, action) {
   switch(action.type) {
     case types.TOGGLE_MODAL:
       return !state
+    case types.OPEN_COURSE:
+      return true
     default:
       return state
   }
@@ -65,10 +77,12 @@ function modalOn(state = false, action) {
 const reducer = {
   timeTables,
   selectedCourse,
+  editingCourse,
   searchResults,
   courseBook,
   isQuerying,
   filterOn,
+  modalOn,
 }
 
 // This file exports a mere object, which is to be combined at src/index.js later.

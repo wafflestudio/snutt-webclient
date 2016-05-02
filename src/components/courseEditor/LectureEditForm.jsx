@@ -1,10 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class LectureEditForm extends Component {
+import { closeCourse } from '../../actions'
+
+class LectureEditForm extends Component {
   constructor() {
     super()
+    this.handleSave = this.handleSave.bind(this)
+    this.handleClose = this.handleClose.bind(this)
     this.handleProfChange = this.handleProfChange.bind(this)
     this.handleRemarkChange = this.handleRemarkChange.bind(this)
+  }
+
+  handleSave(e) {
+    e.preventDefault()
+    this.props.dispatch(closeCourse(true, this.props.course))
+  }
+
+  handleClose(e) {
+    e.preventDefault()
+    this.props.dispatch(closeCourse(false))
   }
 
   handleProfChange(e) {
@@ -56,12 +71,24 @@ export default class LectureEditForm extends Component {
             className='col-sm-offset-3 col-sm-9'
             style={{'textAlign': 'left'}}
           >
-            <button className='btn btn-primary'>수정</button>
+            <button
+              className='btn btn-primary'
+              onClick={this.handleSave}
+            >
+              수정
+            </button>
             <span> </span>
-            <button className='btn btn-default'>취소</button>
+            <button
+              className='btn btn-default'
+              onClick={this.handleClose}
+            >
+              취소
+            </button>
           </div>
         </div>
       </form>
     )
   }
 }
+
+export default connect()(LectureEditForm)

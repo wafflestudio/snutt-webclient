@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import ColorPreview from './ColorPreview.jsx'
 import LectureEditForm from './LectureEditForm.jsx'
 import ColorManager from './ColorManager.jsx'
-import sampleCourse from '../../samples/sampleCourse'
 
 class CourseEditor extends Component {
   constructor(props) {
@@ -98,8 +97,7 @@ const hrStyle = {
 }
 
 function mapStateToProps(state) {
-  const course = sampleCourse
-  return { course }
+  return { course: state.editingCourse }
 }
 
 export default connect(mapStateToProps)(CourseEditor)

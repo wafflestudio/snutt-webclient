@@ -40,7 +40,7 @@ export default function timeTables(state = DEFAULT_STATE, action) {
       const courseToModify = currentTable.get(courseIndex)
       return Object.assign({}, state, {
         tables: tables.set(currentIndex,
-          currentTable.set(courseIndex, Object.assign({}, courseToModify, action.modification))
+          currentTable.set(courseIndex, Object.assign({}, courseToModify, action.modified))
         ),
       })
     default:
