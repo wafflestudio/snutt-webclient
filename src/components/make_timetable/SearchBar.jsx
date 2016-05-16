@@ -7,8 +7,15 @@ class Search extends Component {
     super()
     this.state = { text: '' }
     this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.toggleFilter = this.toggleFilter.bind(this)
+  }
+
+  handleKeyDown(e) {
+    if (this.state.text.length > 1 && e.keyCode == 13) {
+      this.handleSearch()
+    }
   }
 
   handleTextChange(e) {
@@ -36,6 +43,7 @@ class Search extends Component {
             placeholder="Course name"
             value={this.state.text}
             onChange={this.handleTextChange}
+            onKeyDown={this.handleKeyDown}
           />
           <div id="search-button-container">
             <span
