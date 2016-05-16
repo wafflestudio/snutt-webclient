@@ -75,8 +75,16 @@
 }
 
 #timeselector-container {
+  left: 100px;
+  top: -80px;
   table {
     margin-bottom: 3px;
+  }
+  tr {
+    td {
+      height: 11px;
+      padding: 0;
+    }
   }
   td:hover {
     background-color: yellow;
