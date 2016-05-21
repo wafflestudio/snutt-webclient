@@ -26,6 +26,24 @@
   .col-professor { width: 8%; }
   .col-remark { width: 20%; }
 
+  .tr-result:hover {
+    background-color: #DDF3FF;
+    border-bottom: hidden;
+  }
+  .tr-result.hovered {
+    background-color: #ddf3ff;
+    border-bottom: hidden;
+  }
+
+  .tr-detail {
+    width: 100%;
+    background-color: #DDF3FF;
+    border-top: hidden;
+  }
+  .tr-detail:hover {
+    background-color: #DDF3FF;
+    border-top: hidden;
+  }
 
   th {
     padding: 4px 0!important;

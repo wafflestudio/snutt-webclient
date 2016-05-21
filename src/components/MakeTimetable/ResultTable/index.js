@@ -4,6 +4,7 @@ import Loading from 'react-loading'
 
 import ResultTabs from './ResultTabs.jsx'
 import ResultRow from './ResultRow.jsx'
+import DetailRow from './DetailRow.jsx'
 import { selectCourse, unselectCourse, addCourse } from '../../../actions'
 
 class ResultTable extends Component {
@@ -12,7 +13,9 @@ class ResultTable extends Component {
     this.handleAdd = this.handleAdd.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
+    this.updateHover = this.updateHover.bind(this)
     this.state = {
+      hoveredIdx: -1,
       selectedIdx: -1,
       searching: true,
     }
@@ -37,11 +40,34 @@ class ResultTable extends Component {
     this.setState({ searching: !this.state.searching })
   }
 
-  render() {
-    const { searching } = this.state
-    const { searchResults, timeTables } = this.props
-    let data = (searching ? searchResults : timeTables.tables.get(timeTables.currentIndex).toArray())
+  updateHover(n) {
+    this.setState({ hoveredIdx: n })
+  }
 
+  render() {
+    const { hoveredIdx, searching } = this.state
+    const { searchResults, timeTables } = this.props
+    const data = (searching ? searchResults : timeTables.tables.get(timeTables.currentIndex).toArray())
+    let rows = data.map((key, idx) => (
+      <ResultRow {...key}
+        rowIndex={idx}
+        hovereComputed={idx == this.state.hoveredIdx}
+        key={key._id}
+        handleSelect={this.handleSelect.bind(this, idx)}
+        handleAdd={this.handleAdd.bind(this, idx)}
+        updateHover={this.updateHover}
+        isSelected={this.state.selectedIdx == idx}
+      />
+    ))
+    if (hoveredIdx != -1)
+      rows.splice(hoveredIdx+1, 0,
+        <DetailRow
+          key={0}
+          course={data[0]}
+          rowIndex={hoveredIdx}
+          updateHover={this.updateHover}
+        />
+      )
     return(
       <div>
         <ResultTabs
@@ -69,16 +95,7 @@ class ResultTable extends Component {
                 </tr> :
                 null
               }
-              {
-                data.map((key, idx) => (
-                  <ResultRow {...key}
-                    key={key._id}
-                    handleSelect={this.handleSelect.bind(this, idx)}
-                    handleAdd={this.handleAdd.bind(this, idx)}
-                    isSelected={this.state.selectedIdx == idx}
-                  />
-                ))
-              }
+              {rows}
             </tbody>
           </table>
         </div>
