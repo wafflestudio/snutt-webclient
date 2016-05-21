@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { toggleFilter } from '../../actions'
+import { toggleFilter } from '../../../actions'
 
 class Search extends Component {
   constructor() {

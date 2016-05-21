@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { closeCourse } from '../../actions'
+import { closeCourse } from '../../../actions'
 
 class LectureEditForm extends Component {
   constructor() {

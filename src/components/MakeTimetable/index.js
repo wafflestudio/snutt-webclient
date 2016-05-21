@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import SearchBar from './SearchBar.jsx'
-import SearchFilter from './SearchFilter.jsx'
-import ModalWrapper from './ModalWrapper.jsx'
-import CourseEditor from '../courseEditor'
-import ResultTable from './ResultTable.jsx'
-import TimeTableManager from './TimeTableManager.jsx'
-import Timetable from './Timetable.jsx'
+import SearchBar from './Search/SearchBar.jsx'
+import SearchFilter from './Search/SearchFilter.jsx'
+import ModalWrapper from './Common/ModalWrapper.jsx'
+import CourseEditor from './CourseEditor'
+import ResultTable from './ResultTable'
+import TimeTableManager from './Timetable/TimeTableManager.jsx'
+import Timetable from './Timetable'
 
 import { sendQuery, selectCourse, unselectCourse, addCourse, deleteCourse,
   changeTimeTable, addTimeTable, deleteTimeTable,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { openCourse } from '../../actions'
+import { openCourse } from '../../../actions'
 
 class LectureBox extends Component {
   constructor() {

@@ -9,7 +9,7 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 
 require('../stylesheets/style.scss')
-import { App, MakeTimetable, MyTimetable, ExportTimetable } from './components'
+import { App, MakeTimetable } from './components'
 
 var reducer = combineReducers({
   ...rootReducer,
@@ -30,8 +30,6 @@ render((
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={MakeTimetable} />
-        <Route path="my" component={MyTimetable} />
-        <Route path="export" component={ExportTimetable} />
       </Route>
     </Router>
   </Provider>
