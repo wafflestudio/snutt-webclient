@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Loading from 'react-loading'
 
 import ResultRow from './ResultRow.jsx'
+import { selectCourse, unselectCourse, addCourse } from '../../../actions'
 
-export default class ResultTable extends Component {
-  constructor() {
-    super()
+class ResultTable extends Component {
+  constructor(props) {
+    super(props)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.state = {
@@ -15,17 +17,18 @@ export default class ResultTable extends Component {
   }
 
   handleSelect(idx) {
+    const { dispatch } = this.props
     if (idx == this.state.selectedIdx) {
       this.setState({ selectedIdx: -1 })
-      this.props.handleUnselect()
+      dispatch(unselectCourse())
     } else {
       this.setState({ selectedIdx: idx })
-      this.props.handleSelect(this.props.data[idx])
+      dispatch(selectCourse(this.props.data[idx]))
     }
   }
 
   handleAdd(idx) {
-    this.props.handleAdd(this.props.data[idx])
+    this.props.dispatch(addCourse(this.props.data[idx]))
   }
 
   tabs() {
@@ -84,3 +87,10 @@ export default class ResultTable extends Component {
     </div>)
   }
 }
+
+function mapStateToProps(state) {
+  const { searchResults, isQuerying }  = state;
+  return { data: searchResults, isQuerying }
+}
+
+export default connect(mapStateToProps)(ResultTable)

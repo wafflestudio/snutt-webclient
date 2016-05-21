@@ -9,8 +9,7 @@ import ResultTable from './ResultTable'
 import TimeTableManager from './Timetable/TimeTableManager.jsx'
 import Timetable from './Timetable'
 
-import { sendQuery, selectCourse, unselectCourse, addCourse, deleteCourse,
-  changeTimeTable, addTimeTable, deleteTimeTable,
+import { sendQuery, addCourse, deleteCourse, changeTimeTable, addTimeTable, deleteTimeTable,
 } from '../../actions'
 
 class MakeTimeTable extends Component {
@@ -28,7 +27,7 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, selectedCourse, searchResults, timeTables, isQuerying, filterOn, modalOn } = this.props
+    const { dispatch, selectedCourse, timeTables, filterOn, modalOn } = this.props
     return (
       <div className="container">
         <SearchBar
@@ -43,14 +42,7 @@ class MakeTimeTable extends Component {
               </ModalWrapper>:
               null
             }
-            <ResultTable
-              height={200}
-              data={searchResults}
-              isQuerying={isQuerying}
-              handleSelect={course => dispatch(selectCourse(course))}
-              handleUnselect={() => dispatch(unselectCourse())}
-              handleAdd={course => dispatch(addCourse(course))}
-            />
+            <ResultTable />
           </div>
           <div className="col-lg-6">
             <TimeTableManager
