@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import ResultRow from './ResultRow.jsx'
 import { addCourse, deleteCourse, openCourse } from '../../../actions'
+import showCourseDetail from './showCourseDetail.js'
 
 class DetailRow extends ResultRow {
   constructor() {
@@ -10,10 +11,17 @@ class DetailRow extends ResultRow {
     this.handleAdd = this.handleAdd.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
+    this.handleOpenDetail = this.handleOpenDetail.bind(this)
   }
 
   handleAdd() {
     this.props.dispatch(addCourse(this.props.course))
+  }
+
+  handleOpenDetail() {
+    const { year, semesterStr } = this.props
+    const { course_number, lecture_number } = this.props.course
+    showCourseDetail(year, semesterStr, course_number, lecture_number)
   }
 
   handleDelete() {
@@ -37,7 +45,12 @@ class DetailRow extends ResultRow {
           <span>{this.props.course.course_title}</span>
           { searching ?
             <div className='buttons'>
-              <button className="btn btn-info">수강편람</button>
+              <button
+                className="btn btn-info"
+                onClick={this.handleOpenDetail}
+              >
+                수강편람
+              </button>
               <button
                 className='btn btn-primary'
                 onClick={this.handleAdd}
@@ -68,7 +81,9 @@ class DetailRow extends ResultRow {
 }
 
 function mapStateToProps(state) {
-  return { searching: state.leftTabSearching }
+  const { year, semesterIdx } = state.courseBook
+  const semesterStr = [, '1', 'S', '2', 'W'][semesterIdx]
+  return { searching: state.leftTabSearching, year, semesterStr }
 }
 
 export default connect(mapStateToProps)(DetailRow)
