@@ -67,4 +67,8 @@ class DetailRow extends ResultRow {
   }
 }
 
-export default connect()(DetailRow)
+function mapStateToProps(state) {
+  return { searching: state.leftTabSearching }
+}
+
+export default connect(mapStateToProps)(DetailRow)

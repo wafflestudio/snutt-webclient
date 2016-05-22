@@ -29,6 +29,8 @@ function editingCourse(state = null, action) {
 
 function searchResults(state = [], action) {
   switch(action.type) {
+    case types.START_QUERY:
+      return []
     case types.SHOW_RESULT:
       return action.courses
     default:
@@ -74,6 +76,17 @@ function modalOn(state = false, action) {
   }
 }
 
+function leftTabSearching(state = true, action) {
+  switch(action.type) {
+    case types.SET_LEFT_TAB:
+      return action.searching
+    case types.START_QUERY:
+      return true
+    default:
+      return state
+  }
+}
+
 const reducer = {
   timeTables,
   selectedCourse,
@@ -83,6 +96,7 @@ const reducer = {
   isQuerying,
   filterOn,
   modalOn,
+  leftTabSearching,
 }
 
 // This file exports a mere object, which is to be combined at src/index.js later.

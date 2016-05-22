@@ -89,3 +89,7 @@ export function toggleFilter() {
 export function toggleModal() {
   return { type: types.TOGGLE_MODAL }
 }
+
+export function setLeftTab(searching) {
+  return { type: types.SET_LEFT_TAB, searching }
+}

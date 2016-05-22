@@ -5,7 +5,7 @@ import Loading from 'react-loading'
 import ResultTabs from './ResultTabs.jsx'
 import ResultRow from './ResultRow.jsx'
 import DetailRow from './DetailRow.jsx'
-import { selectCourse, unselectCourse } from '../../../actions'
+import { selectCourse, unselectCourse, setLeftTab } from '../../../actions'
 
 class ResultTable extends Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class ResultTable extends Component {
     this.state = {
       hoveredIdx: -1,
       selectedIdx: -1,
-      searching: true,
     }
   }
 
@@ -32,7 +31,7 @@ class ResultTable extends Component {
   }
 
   handleToggle() {
-    this.setState({ searching: !this.state.searching })
+    this.props.dispatch(setLeftTab(!this.props.searching))
   }
 
   updateHover(n) {
@@ -40,8 +39,8 @@ class ResultTable extends Component {
   }
 
   render() {
-    const { hoveredIdx, searching } = this.state
-    const { searchResults, timeTables } = this.props
+    const { hoveredIdx } = this.state
+    const { searching, searchResults, timeTables } = this.props
     const data = (searching ? searchResults : timeTables.tables.get(timeTables.currentIndex).toArray())
     let rows = data.map((key, idx) => (
       <ResultRow {...key}
@@ -59,14 +58,13 @@ class ResultTable extends Component {
           key={0}
           course={data[hoveredIdx]}
           rowIndex={hoveredIdx}
-          searching={searching}
           updateHover={this.updateHover}
         />
       )
     return(
       <div>
         <ResultTabs
-          searching={this.state.searching}
+          searching={searching}
           handleToggle={this.handleToggle}
         />
         <div className='result-wrapper'>
@@ -100,8 +98,8 @@ class ResultTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { isQuerying, searchResults, timeTables }  = state;
-  return { isQuerying, searchResults, timeTables }
+  const { isQuerying, searchResults, timeTables, leftTabSearching }  = state;
+  return { isQuerying, searchResults, timeTables, searching: leftTabSearching }
 }
 
 export default connect(mapStateToProps)(ResultTable)
