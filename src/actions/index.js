@@ -1,12 +1,12 @@
 import 'whatwg-fetch'
 import * as types from './actionTypes'
 
-export function selectCourse(course) {
-  return { type: types.SELECT_COURSE, course }
+export function hoverCourse(course) {
+  return { type: types.HOVER_COURSE, course }
 }
 
-export function unselectCourse() {
-  return { type: types.UNSELECT_COURSE }
+export function unhoverCourse() {
+  return { type: types.UNHOVER_COURSE }
 }
 
 export function sendQuery(query) {

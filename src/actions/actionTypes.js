@@ -1,5 +1,5 @@
-export const SELECT_COURSE = 'SELECT_COURSE'
-export const UNSELECT_COURSE = 'UNSELECT_COURSE'
+export const HOVER_COURSE = 'HOVER_COURSE'
+export const UNHOVER_COURSE = 'UNHOVER_COURSE'
 
 export const SEND_QUERY = 'SEND_QUERY'
 export const START_QUERY = 'START_QUERY'

@@ -1,15 +1,11 @@
 import * as types from '../actions/actionTypes'
 import timeTables from './timetables'
 
-function selectedCourse(state = null, action) {
+function hoveredCourse(state = null, action) {
   switch(action.type) {
-    case types.SELECT_COURSE:
+    case types.HOVER_COURSE:
       return action.course
-    case types.UNSELECT_COURSE:
-      return null
-    case types.SHOW_RESULT:
-      return null
-    case types.CHANGE_TIMETABLE:
+    case types.UNHOVER_COURSE:
       return null
     default:
       return state
@@ -89,7 +85,7 @@ function leftTabSearching(state = true, action) {
 
 const reducer = {
   timeTables,
-  selectedCourse,
+  hoveredCourse,
   editingCourse,
   searchResults,
   courseBook,

@@ -19,15 +19,10 @@ export default class ResultRow extends Component {
   }
 
   render() {
-    let cssClass = 'tr-result'
-    if (this.props.isSelected)
-      cssClass += ' info'
-    else if (this.props.hovereComputed)
-      cssClass += ' hovered'
+    const cssClass = `tr-result${this.props.hoverComputed ? ' hovered' : ''}`
 
     return(
       <tr
-        onClick={this.props.handleSelect}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         className={cssClass}

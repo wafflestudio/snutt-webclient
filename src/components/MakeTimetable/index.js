@@ -27,7 +27,7 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, selectedCourse, timeTables, filterOn, modalOn } = this.props
+    const { dispatch, hoveredCourse, timeTables, filterOn, modalOn } = this.props
     return (
       <div className="container">
         <SearchBar
@@ -56,7 +56,7 @@ class MakeTimeTable extends Component {
               currentIndex={timeTables.currentIndex}
               courseBook={this.props.courseBook}
               courses={timeTables.tables.get(timeTables.currentIndex)}
-              selected={selectedCourse}
+              previewed={hoveredCourse}
               handleDelete={_id => dispatch(deleteCourse(_id))}
               addCourse={course => dispatch(addCourse(course))}
             />
@@ -68,8 +68,8 @@ class MakeTimeTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn } = state
-  return { selectedCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn }
+  const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn } = state
+  return { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn }
 }
 
 export default connect(mapStateToProps)(MakeTimeTable)

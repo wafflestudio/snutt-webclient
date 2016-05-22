@@ -5,7 +5,7 @@ import Loading from 'react-loading'
 import ResultTabs from './ResultTabs.jsx'
 import ResultRow from './ResultRow.jsx'
 import DetailRow from './DetailRow.jsx'
-import { selectCourse, unselectCourse, setLeftTab } from '../../../actions'
+import { selectCourse, unselectCourse, setLeftTab, hoverCourse, unhoverCourse } from '../../../actions'
 
 class ResultTable extends Component {
   constructor(props) {
@@ -35,6 +35,11 @@ class ResultTable extends Component {
   }
 
   updateHover(n) {
+    const { dispatch } = this.props
+    if (n != -1)
+      dispatch(hoverCourse(this.props.searchResults[n]))
+    else
+      dispatch(unhoverCourse())
     this.setState({ hoveredIdx: n })
   }
 
@@ -45,9 +50,8 @@ class ResultTable extends Component {
     let rows = data.map((key, idx) => (
       <ResultRow {...key}
         rowIndex={idx}
-        hovereComputed={idx == this.state.hoveredIdx}
+        hoverComputed={idx == this.state.hoveredIdx}
         key={key._id}
-        handleSelect={this.handleSelect.bind(this, idx)}
         updateHover={this.updateHover}
         isSelected={this.state.selectedIdx == idx}
       />

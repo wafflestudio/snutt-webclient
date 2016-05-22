@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import update from 'react-addons-update'
+
 import LectureBox from './LectureBox.jsx'
 import Cell from './Cell.jsx'
 import NewCourseForm from './NewCourseForm.jsx'
@@ -67,16 +68,16 @@ export default class Timetable extends Component {
         )
       }
     }
-    var selected = this.props.selected
-    if (selected) {
-      for (var lecture of selected.class_time_json) {
+    var previewed = this.props.previewed
+    if (previewed) {
+      for (var lecture of previewed.class_time_json) {
         var day = lecture.day
         var previewDiv = (
           <LectureBox
-            course={selected}
+            course={previewed}
             length={lecture.len * 2}
             isPreview={true}
-            key={selected._id + day}
+            key={previewed._id + day}
           />
         )
         var existingDiv = boxes[day][lecture.start * 2]
@@ -102,8 +103,8 @@ export default class Timetable extends Component {
       for (var d = 0; d < 6; d++) {
         var cellStatus = this.state.cellStatus[d][t]
         var cellClass = 'td-body'
-        if (cellStatus == 'SELECTED')
-          cellClass += ' selected'
+        if (cellStatus == 'PREVIEWED')
+          cellClass += ' previewed'
         var loHi = getLoHi(this.state.dragInit, this.state.dragEnd)
         if (loHi.lo.day <= d && d<= loHi.hi.day &&
           loHi.lo.time <= t && t<= loHi.hi.time) {
@@ -132,8 +133,8 @@ export default class Timetable extends Component {
 
   handleSelect(day, time) {
     console.log(day + ' ' + time)
-    var newStatus = 'SELECTED'
-    if (this.state.cellStatus[day][time] == 'SELECTED')
+    var newStatus = 'PREVIEWED'
+    if (this.state.cellStatus[day][time] == 'PREVIEWED')
       newStatus = undefined
 
     this.setState({
@@ -163,11 +164,11 @@ export default class Timetable extends Component {
   handleMouseUp(day, time) {
     var newStatus = this.state.cellStatus
     var loHi = getLoHi(this.state.dragInit, this.state.dragEnd)
-    var deleting = this.state.cellStatus[this.state.dragInit.day][this.state.dragInit.time] == 'SELECTED'
+    var deleting = this.state.cellStatus[this.state.dragInit.day][this.state.dragInit.time] == 'PREVIEWED'
 
     for (var d = loHi.lo.day; d <= loHi.hi.day; d++) {
       for (var t = loHi.lo.time; t <= loHi.hi.time; t++) {
-        newStatus = update2dArr(newStatus, d, t, (deleting ? undefined : 'SELECTED'))
+        newStatus = update2dArr(newStatus, d, t, (deleting ? undefined : 'PREVIEWED'))
       }
     }
     this.setState({
@@ -219,4 +220,8 @@ export default class Timetable extends Component {
       </div>
     )
   }
+}
+
+function mapStateToProps(state) {
+
 }
