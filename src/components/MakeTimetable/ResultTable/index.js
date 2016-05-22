@@ -5,12 +5,11 @@ import Loading from 'react-loading'
 import ResultTabs from './ResultTabs.jsx'
 import ResultRow from './ResultRow.jsx'
 import DetailRow from './DetailRow.jsx'
-import { selectCourse, unselectCourse, addCourse } from '../../../actions'
+import { selectCourse, unselectCourse } from '../../../actions'
 
 class ResultTable extends Component {
   constructor(props) {
     super(props)
-    this.handleAdd = this.handleAdd.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
     this.updateHover = this.updateHover.bind(this)
@@ -19,10 +18,6 @@ class ResultTable extends Component {
       selectedIdx: -1,
       searching: true,
     }
-  }
-
-  handleAdd(idx) {
-    this.props.dispatch(addCourse(this.props.searchResults[idx]))
   }
 
   handleSelect(idx) {
@@ -54,7 +49,6 @@ class ResultTable extends Component {
         hovereComputed={idx == this.state.hoveredIdx}
         key={key._id}
         handleSelect={this.handleSelect.bind(this, idx)}
-        handleAdd={this.handleAdd.bind(this, idx)}
         updateHover={this.updateHover}
         isSelected={this.state.selectedIdx == idx}
       />
@@ -63,8 +57,9 @@ class ResultTable extends Component {
       rows.splice(hoveredIdx+1, 0,
         <DetailRow
           key={0}
-          course={data[0]}
+          course={data[hoveredIdx]}
           rowIndex={hoveredIdx}
+          searching={searching}
           updateHover={this.updateHover}
         />
       )
