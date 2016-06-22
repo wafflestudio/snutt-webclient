@@ -6,7 +6,6 @@
   td {
     width: 100px;
     height:20px;
-    // padding: 0px;
     position: relative;
   }
 
@@ -48,8 +47,13 @@
     border-width: 0;
   }
 
-  .td-body {
-    border-width: 1px 0;
+  .even .td-body {
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  .odd .td-body {
+    border: none;
+    border-top: 1px dashed #ddd;
   }
 }
 

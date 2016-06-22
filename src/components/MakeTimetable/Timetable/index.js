@@ -126,7 +126,7 @@ export default class Timetable extends Component {
         )
       }
       cols.push(<td className='blank-right' key={-3}></td>)
-      rows.push(<tr key={t}>{cols}</tr>)
+      rows.push(<tr key={t} className={t % 2 == 0 ? 'even' : 'odd'}>{cols}</tr>)
     }
     return <tbody>{rows}</tbody>
   }
