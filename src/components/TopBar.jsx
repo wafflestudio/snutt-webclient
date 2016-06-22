@@ -11,7 +11,7 @@ class TopBar extends Component {
         <div id="bar-top" className="navbar navbar-default navbar-fixed-top">
         <div className="container">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#" id="brand_button"><b>SNUTT</b></a>
+            <Link className="navbar-brand" to="/" id="brand_button"><b>SNUTT</b></Link>
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav" id="main_navigation">
@@ -22,7 +22,7 @@ class TopBar extends Component {
             </ul>
             <p className="navbar-text">수강편람 업데이트: 3월 14일 13:11</p>
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">로그인</a></li>
+              <li><Link to="/login">로그인</Link></li>
             </ul>
           </div>
         </div>
