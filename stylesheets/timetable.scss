@@ -55,7 +55,40 @@
     border: none;
     border-top: 1px dashed #ddd;
   }
+
+  .course-div {
+    background-color: pink;
+    height:100%;
+    position: absolute; top: 0px; left: 0px;
+    width:100%;
+    border-radius: 5px;
+    z-index: 1;
+    padding: 0 2px;
+    text-align: center;
+    .title-box {
+      position: relative;
+      transform: translateY(-50%);
+      top: 50%;
+      font-size: 0.7em;
+      line-height: normal;
+    }
+    .tool-box {
+      position: absolute;
+      right: 1px;
+      top: 1px;
+      font-size: 0.7em;
+      span { margin-left: 2px}
+    }
+  }
+
+  .preview {
+    background-color: #D7DEE0;
+    z-index: 2;
+    opacity: 0.5;
+  }
 }
+
+
 
 .timetable * {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -63,21 +96,6 @@
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* IE/Edge */
-}
-
-.course-div {
-  background-color: pink;
-  height:100%;
-  position: absolute; top: 0px; left: 0px;
-  width:100%;
-  border-radius: 5px;
-  z-index: 1;
-}
-
-.course-div.preview {
-  background-color: #D7DEE0;
-  z-index: 2;
-  opacity: 0.5;
 }
 
 #timetable-container {

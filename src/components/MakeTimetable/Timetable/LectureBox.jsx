@@ -27,20 +27,22 @@ class LectureBox extends Component {
         style={divStyle}
         onClick={this.handleClick}
       >
-        {this.props.course.course_title}
-        {this.props.onDelete !== undefined ?
+        <div className='title-box'>{this.props.course.course_title}</div>
+        <div className='tool-box'>
+          {this.props.onDelete !== undefined ?
+            <span
+              className='glyphicon glyphicon-remove'
+              aria-hidden='true'
+              onClick={() => this.props.onDelete(this.props.course._id)}
+            /> :
+            null
+          }
           <span
-            className='glyphicon glyphicon-remove'
+            className='glyphicon glyphicon-pencil'
             aria-hidden='true'
-            onClick={() => this.props.onDelete(this.props.course._id)}
-          /> :
-          null
-        }
-        <span
-          className='glyphicon glyphicon-pencil'
-          aria-hidden='true'
-          onClick={() => dispatch(openCourse(this.props.course))}
-        />
+            onClick={() => dispatch(openCourse(this.props.course))}
+          />
+        </div>
       </div>
     )
   }
