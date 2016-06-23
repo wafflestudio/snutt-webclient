@@ -1,0 +1,86 @@
+$font-size: 13px;
+$input-height: 29px;
+
+.login-box {
+  width: 392px;
+  height: 270px;
+  margin: 80px auto;
+  text-align: center;
+  font-size: $font-size;
+
+  .title {
+    font-size: 35px;
+    margin: 0 0 35px 0;
+  }
+
+  .login-group {
+    width: 100%;
+    height: 32px;
+    text-align: left;
+    position: relative;
+
+    .label {
+      font-size: $font-size;
+      line-height: 28px;
+      vertical-align: middle;
+      position: absolute;
+      top: 0px;
+      left: 6px;
+      color: #4a4a4a;
+    }
+
+    input {
+      position: absolute;
+      top: 0px;
+      left: 91px;
+      width: 220px;
+      height: $input-height;
+      &:focus {
+        border: 1px solid #4A90E2;
+      }
+    }
+
+    .button {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      width: 59px;
+      height: $input-height;
+      line-height: $input-height;
+      vertical-align: middle;
+      color: #ffffff;
+      text-align: center;
+    }
+    .login { background-color: #4a90e2; }
+    .join { background-color: #7ed321; }
+  }
+  .find-password {
+    position: relative;
+    display: inline-block;
+    left: 80px;
+    margin: 0 0 5px 0;
+  }
+
+  hr {
+    width: 100%;
+    border: solid 1px #d9d6da;
+    margin: 10px 0;
+  }
+
+  .button-sns {
+    display: inline-block;
+    margin: 5px;
+    $button-size: 40px;
+    width: $button-size;
+    height: $button-size;
+    border-radius: 8px;
+    color: white;
+    line-height: $button-size;
+    vertical-align: middle;
+    background-color: #3b5998;
+  }
+
+  .g {
+    background-color: #d0021b;
+  }
+}

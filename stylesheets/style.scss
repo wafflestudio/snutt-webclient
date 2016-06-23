@@ -3,10 +3,15 @@
 @import "resultTable";
 @import "searchFilter";
 @import "tabs.scss";
+@import "login.scss";
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 body {
   padding-top:61px;
   font-family: 'Nanum Gothic', serif;
   background-color: #F4F4F4;
+}
+
+input:focus {
+  outline: none;
 }
