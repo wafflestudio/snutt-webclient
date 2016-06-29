@@ -6,9 +6,17 @@ export default class Login extends Component {
   constructor() {
     super()
     this.state = {
+      email: '',
       password: '',
+      passwordAgain: '',
     }
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
+
+  handleUpdate(where, e) {
+    this.setState({ [where]: e.target.value})
+  }
+
   render() {
     return (
       <div className='login-box'>
@@ -19,6 +27,8 @@ export default class Login extends Component {
               placeholder: '메일주소',
               type: 'email',
               tabIndex: 1,
+              value: this.state.email,
+              onChange: this.handleUpdate.bind(this, 'email'),
             }}
           />
         </div>
@@ -28,6 +38,8 @@ export default class Login extends Component {
               placeholder: '비밀번호',
               type: 'password',
               tabIndex: 2,
+              value: this.state.password,
+              onChange: this.handleUpdate.bind(this, 'password'),
             }}
           />
           <div className='button login'>로그인</div>
@@ -44,6 +56,8 @@ export default class Login extends Component {
               placeholder: '새 비밀번호',
               type: 'password',
               tabIndex: 3,
+              value: this.state.passwordAgain,
+              onChange: this.handleUpdate.bind(this, 'passwordAgain'),
             }}
           />
           <div className='button join'>회원가입</div>
