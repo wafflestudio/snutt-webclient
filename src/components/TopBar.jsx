@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Router, Link} from 'react-router'
+import { Link } from 'react-router'
 import CourseBookSelector from './CourseBookSelector.jsx'
 import { changeCoursebook } from '../actions'
 

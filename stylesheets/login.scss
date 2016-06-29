@@ -1,8 +1,9 @@
 $font-size: 13px;
-$input-height: 29px;
+$input-width: 330px;
+$input-height: 40px;
 
 .login-box {
-  width: 392px;
+  width: 500px;
   height: 270px;
   margin: 80px auto;
   text-align: center;
@@ -13,30 +14,44 @@ $input-height: 29px;
     margin: 0 0 35px 0;
   }
 
-  .login-group {
+  .input-row {
     width: 100%;
-    height: 32px;
     text-align: left;
     position: relative;
 
-    .label {
-      font-size: $font-size;
-      line-height: 28px;
-      vertical-align: middle;
-      position: absolute;
-      top: 0px;
-      left: 6px;
-      color: #4a4a4a;
-    }
+    .input-group {
+      width: 100%;
+      height: $input-height + 4px;
 
-    input {
-      position: absolute;
-      top: 0px;
-      left: 91px;
-      width: 220px;
-      height: $input-height;
-      &:focus {
-        border: 1px solid #4A90E2;
+      .label {
+        font-size: $font-size;
+        line-height: 28px;
+        vertical-align: middle;
+        position: absolute;
+        top: 4px;
+        left: 40px;
+        color: #4a4a4a;
+        opacity: 0;
+        transition: opacity 200ms ease, transform 200ms ease, color 200ms ease;
+        &.typed {
+          opacity: 1;
+          transform: translateX(-30px);
+        }
+        &.focused {
+          color: #4a90e2;
+        }
+      }
+
+      input {
+        position: absolute;
+        top: 0px;
+        left: 91px;
+        width: $input-width;
+        height: $input-height;
+        padding-left: 5px;
+        &:focus {
+          border: 1px solid #4A90E2;
+        }
       }
     }
 
@@ -50,15 +65,25 @@ $input-height: 29px;
       vertical-align: middle;
       color: #ffffff;
       text-align: center;
+      cursor: pointer;
     }
     .login { background-color: #4a90e2; }
     .join { background-color: #7ed321; }
   }
   .find-password {
-    position: relative;
-    display: inline-block;
-    left: 80px;
-    margin: 0 0 5px 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: $input-width + 20px;
+    color: gainsboro;
+    &:hover {
+      color: #4A90E2;
+    }
+  }
+
+  .warning {
+    height: 20px;
+    text-align: center;
   }
 
   hr {
