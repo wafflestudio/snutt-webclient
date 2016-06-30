@@ -1,39 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import SearchBar from './Search/SearchBar.jsx'
-import SearchFilter from './Search/SearchFilter.jsx'
+import Search from './Search'
 import ModalWrapper from './Common/ModalWrapper.jsx'
 import CourseEditor from './CourseEditor'
 import ResultTable from './ResultTable'
 import TimeTableManager from './Timetable/TimeTableManager.jsx'
 import Timetable from './Timetable'
 
-import { sendQuery, addCourse, deleteCourse, changeTimeTable, addTimeTable, deleteTimeTable,
+import { addCourse, deleteCourse, changeTimeTable, addTimeTable, deleteTimeTable,
 } from '../../actions'
 
 class MakeTimeTable extends Component {
   constructor() {
     super()
-    this.composeQuery = this.composeQuery.bind(this)
-  }
-
-  composeQuery(query) {
-    const { dispatch, courseBook } = this.props
-    dispatch(sendQuery(Object.assign(query, {
-      year: courseBook.year,
-      semester: courseBook.semesterIdx,
-    })))
   }
 
   render() {
-    const { dispatch, hoveredCourse, timeTables, filterOn, modalOn } = this.props
+    const { dispatch, hoveredCourse, timeTables, modalOn } = this.props
     return (
       <div className="container">
-        <SearchBar
-          handleSearch={query => this.composeQuery(query)}
-        />
-        <SearchFilter on={filterOn} />
+        <Search />
         <div className="row">
           <div className="col-lg-6">
             { modalOn ?
@@ -68,8 +55,8 @@ class MakeTimeTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn } = state
-  return { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, filterOn, modalOn }
+  const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, modalOn } = state
+  return { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, modalOn }
 }
 
 export default connect(mapStateToProps)(MakeTimeTable)
