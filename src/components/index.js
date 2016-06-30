@@ -1,4 +1,4 @@
-export App from './App.jsx'
+export App from './Layout/App.jsx'
 export About from './About'
 export Login from './Login'
 export FindPassword from './Login/findPassword.jsx'
