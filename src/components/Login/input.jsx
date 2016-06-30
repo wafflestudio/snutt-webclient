@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
+import PureRenderComponent from '../../PureRenderComponent.jsx'
 
-export default class Input extends Component {
+export default class Input extends PureRenderComponent {
   constructor() {
     super()
     this.state = {
