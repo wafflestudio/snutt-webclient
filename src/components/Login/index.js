@@ -13,6 +13,16 @@ export default class Login extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
   }
 
+  validateId(id) {
+    let idRegex = /^[a-z0-9]{4,32}$/i
+    return idRegex.test(id)
+  }
+
+  validatePassword(pass) {
+    let passRegex = /^(?=.*\d)(?=.*[a-z])\S{6,20}$/i
+    return passRegex.test(pass)
+  }
+
   handleUpdate(where, e) {
     this.setState({ [where]: e.target.value})
   }
@@ -30,6 +40,7 @@ export default class Login extends Component {
               value: this.state.email,
               onChange: this.handleUpdate.bind(this, 'email'),
             }}
+            validator={this.validateId}
           />
         </div>
         <div className='input-row'>

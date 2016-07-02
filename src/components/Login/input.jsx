@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderComponent from '../../PureRenderComponent.jsx'
+import PureRenderComponent from '../PureRenderComponent.jsx'
 
 export default class Input extends PureRenderComponent {
   constructor() {
@@ -7,11 +7,9 @@ export default class Input extends PureRenderComponent {
     this.state = {
       blank: true,
       focus: false,
-      input: '',
     }
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
   }
 
   handleFocus() {

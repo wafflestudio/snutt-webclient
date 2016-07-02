@@ -4,11 +4,14 @@ import { connect } from 'react-redux'
 import { sendQuery } from '../../../actions'
 import SearchBar from './SearchBar.jsx'
 import SearchFilter from './SearchFilter.jsx'
+import ModalWrapper from '../Common/ModalWrapper.jsx'
+import TimeQuerySelector from './TimeQuerySelector.jsx'
 
 class Search extends Component {
   constructor() {
     super()
     this.composeQuery = this.composeQuery.bind(this)
+    this.state = { selectingTime: true }
   }
 
   composeQuery(query) {
@@ -23,6 +26,12 @@ class Search extends Component {
     const { filterOn } = this.props
     return(
       <div>
+        { this.state.selectingTime ?
+          <ModalWrapper fullscreen={true}>
+            <TimeQuerySelector />
+          </ModalWrapper> :
+          null
+        }
         <SearchBar
           handleSearch={query => this.composeQuery(query)}
         />
