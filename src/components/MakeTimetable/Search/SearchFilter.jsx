@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import update from 'react-addons-update'
 import DepartmentSuggestion from './DepartmentSuggestion.jsx'
-import TimeQuerySelector from './TimeQuerySelector.jsx'
+import TimeQuery from './TimeQuery.jsx'
 
 // 학점
 var credits = [
@@ -181,7 +181,7 @@ export default class SearchFilter extends Component {
                     {this.state.timeSelecting ? '확인' : '선택하기' }
                   </button>
                   {this.state.timeSelecting ?
-                    <TimeQuerySelector
+                    <TimeQuery
                       selectionHook={this.handleTimeSelect}
                     />
                     : null

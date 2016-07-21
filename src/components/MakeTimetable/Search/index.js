@@ -5,7 +5,7 @@ import { sendQuery } from '../../../actions'
 import SearchBar from './SearchBar.jsx'
 import SearchFilter from './SearchFilter.jsx'
 import ModalWrapper from '../Common/ModalWrapper.jsx'
-import TimeQuerySelector from './TimeQuerySelector.jsx'
+import TimeQuery from './TimeQuery.jsx'
 
 class Search extends Component {
   constructor() {
@@ -27,8 +27,8 @@ class Search extends Component {
     return(
       <div>
         { this.state.selectingTime ?
-          <ModalWrapper fullscreen={true}>
-            <TimeQuerySelector />
+          <ModalWrapper fullScreen={true}>
+            <TimeQuery />
           </ModalWrapper> :
           null
         }

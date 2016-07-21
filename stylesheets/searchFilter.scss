@@ -63,45 +63,6 @@
   background: #FAFAFA;
 }
 
-#timeselector-toggle {
-  position: relative;
-}
-
-#timeselector-container {
-  position: absolute;
-  background-color: white;
-  z-index: 1;
-  height: 500px;
-}
-
-#timeselector-container {
-  left: 100px;
-  top: -80px;
-  table {
-    margin-bottom: 3px;
-  }
-  tr {
-    td {
-      height: 11px;
-      padding: 0;
-    }
-  }
-  td:hover {
-    background-color: yellow;
-  }
-  .dragged {
-    background-color: lightskyblue;
-  }
-
-  .selected {
-    background-color: blue;
-  }
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-}
-
 #search-form {
   // background-color: #FAFAFA;
   background-color: #FFFFFF;

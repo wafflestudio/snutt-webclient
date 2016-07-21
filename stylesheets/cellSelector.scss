@@ -1,0 +1,27 @@
+.cell-selector {
+  @include unselectable;
+  width: 90%;
+  margin: auto;
+  th {
+    width: 14.286%;
+    text-align: center;
+  }
+  td {
+    border: 1px solid;
+    text-align: center;
+  }
+  .draggable {
+    &.SELECTED {
+      background-color: green;
+    }
+    &.SELECTING {
+      background-color: blue;
+    }
+    &.DELETING {
+      background-color: red;
+    }
+    &:hover {
+      background-color: yellow;
+    }
+  }
+}

@@ -1,9 +1,18 @@
+@mixin unselectable {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
 @import "navbar";
 @import "timetable";
 @import "resultTable";
 @import "searchFilter";
 @import "tabs.scss";
 @import "login.scss";
+@import "cellSelector.scss";
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 body {

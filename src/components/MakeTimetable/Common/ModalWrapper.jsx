@@ -33,9 +33,10 @@ class ModalWrapper extends Component {
       bgStyle.backgroundColor = 'rba(0, 0, 0, 0)';
     if (this.props.fullScreen) {
       Object.assign(bgStyle, {
-        position: 'fixed',
         top: '0px',
         left: '0px',
+        paddingTop: '50px',
+        height: '130%'
       })
     }
     return(
