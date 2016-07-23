@@ -1,27 +1,57 @@
+.time-query {
+  width: 40%;
+  padding: 20px;
+  margin-left: 85px;
+  margin-top: 20px;
+  background-color: white;
+  text-align: left;
+
+  .btns {
+    float: right;
+    position: relative;
+    top: -4px;
+  }
+  .btns .btn {
+    margin-left: 3px;
+  }
+}
+
 .cell-selector {
   @include unselectable;
-  width: 90%;
+  width: 100%;
   margin: auto;
+  margin-top: 15px;
+  text-align: center;
+
   th {
-    width: 14.286%;
     text-align: center;
+    font-weight: normal;
+    &:nth-child(1) { width: 3%; }
+    width: 13.8571%;
+    width: calc(97% /7); //FYI: IE9+
   }
-  td {
-    border: 1px solid;
-    text-align: center;
+
+  tbody tr:nth-child(odd) td { border-top: 1px solid #ddd; }
+  tbody tr:nth-child(even) td { border-top: 1px dashed #ddd; }
+  tbody tr:last-child td {border-bottom: 1px solid #ddd; }
+  tbody tr {
+    height: 20px;
+    font-size: 12px;
+    td:nth-child(1) { border: none; }
   }
+
   .draggable {
     &.SELECTED {
-      background-color: green;
+      background-color: #4A90E2;
     }
     &.SELECTING {
-      background-color: blue;
+      background-color: #3367d6;
     }
     &.DELETING {
-      background-color: red;
+      background-color: #d13d37;
     }
     &:hover {
-      background-color: yellow;
+      background-color: #ddf3ff;
     }
   }
 }

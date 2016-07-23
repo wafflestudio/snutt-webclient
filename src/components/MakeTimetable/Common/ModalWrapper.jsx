@@ -36,7 +36,7 @@ class ModalWrapper extends Component {
         top: '0px',
         left: '0px',
         paddingTop: '50px',
-        height: '130%'
+        height: '130%',
       })
     }
     return(
