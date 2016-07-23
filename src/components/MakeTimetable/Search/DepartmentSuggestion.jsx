@@ -2,14 +2,7 @@ import React, { Component } from 'react'
 import update from 'react-addons-update'
 import Autosuggest from 'react-autosuggest';
 
-const departments = [
-  '컴퓨터사이언스',
-  '컴뮤니케이',
-  '컴퓨터공학부',
-  '자유전공학부',
-  '연합전공 정보문화학',
-  '경제학부',
-];
+import { departments } from './options'
 
 function like(str, option) {
   if (option === undefined)

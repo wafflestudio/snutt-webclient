@@ -11,7 +11,7 @@ class Search extends Component {
   constructor() {
     super()
     this.composeQuery = this.composeQuery.bind(this)
-    this.state = { selectingTime: true }
+    this.state = { selectingTime: false }
   }
 
   composeQuery(query) {
