@@ -33,7 +33,7 @@
 
   tbody tr:nth-child(odd) td { border-top: 1px solid #ddd; }
   tbody tr:nth-child(even) td { border-top: 1px dashed #ddd; }
-  tbody tr:last-child td {border-bottom: 1px solid #ddd; }
+  tbody tr:last-child td { border-bottom: 1px solid #ddd; }
   tbody tr {
     height: 20px;
     font-size: 12px;

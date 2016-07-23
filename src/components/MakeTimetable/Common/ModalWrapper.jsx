@@ -22,7 +22,9 @@ class ModalWrapper extends Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this)
   }
 
-  handleOutsideClick() {
+  handleOutsideClick(e) {
+    e.preventDefault()
+    if (e.target !== this)  return;
     if (this.props.handleClose) {
       this.props.handleClose()
     }

@@ -9,6 +9,23 @@ export function unhoverCourse() {
   return { type: types.UNHOVER_COURSE }
 }
 
+export function addQuery(member, item) {
+  return { type: types.ADD_QUERY, member, item }
+}
+
+export function setQuery(member, item) {
+  return { type: types.SET_QUERY, member, item}
+}
+
+export function removeQuery(member, item) {
+  return { type: types.REMOVE_QUERY, member, item }
+}
+
+export function resetQuery() {
+  return { type: types.RESET_QUERY }
+}
+
+
 export function sendQuery(query) {
   return function(dispatch) {
     dispatch(startQuery())

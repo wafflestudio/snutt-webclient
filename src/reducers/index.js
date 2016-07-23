@@ -1,3 +1,4 @@
+import Immutable from 'immutable'
 import * as types from '../actions/actionTypes'
 import timeTables from './timetables'
 
@@ -18,6 +19,35 @@ function editingCourse(state = null, action) {
       return action.course
     case types.CLOSE_COURSE:
       return null
+    default:
+      return state
+  }
+}
+
+// Must be convereted to plain JS when queried
+const defaultQuery = Immutable.Map({
+  year: 2016,
+  semester: 1,
+  title: '',
+  classification: Immutable.Set(),
+  credit: Immutable.Set(),
+  academic_year: Immutable.Set(),
+  instructor: Immutable.Set(),
+  department: Immutable.Set(),
+  category: Immutable.Set(),
+  time_mask: Immutable.Set(),
+})
+function query(state = defaultQuery, action) {
+  const { member, item } = action
+  switch(action.type) {
+    case types.ADD_QUERY:
+      return state.update(member, l => l.add(item))
+    case types.REMOVE_QUERY:
+      return state.update(member, l => l.delete(item))
+    case types.SET_QUERY:
+      return state.set(member, item)
+    case types.RESET_QUERY:
+      return defaultQuery
     default:
       return state
   }
@@ -87,6 +117,7 @@ const reducer = {
   timeTables,
   hoveredCourse,
   editingCourse,
+  query,
   searchResults,
   courseBook,
   isQuerying,

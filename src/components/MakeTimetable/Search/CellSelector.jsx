@@ -19,18 +19,26 @@ class DraggableCell extends PureRenderComponent {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
     this.onMouseEnter = this.onMouseEnter.bind(this)
+    this.onClick = this.onClick.bind(this)
   }
 
-  onMouseDown() {
+  onMouseDown(e) {
+    e.stopPropagation()
     this.props.handleMouseDown(this.props.row, this.props.col)
   }
 
-  onMouseUp() {
+  onMouseUp(e) {
+    e.stopPropagation()
     this.props.handleMouseUp(this.props.row, this.props.col)
   }
 
-  onMouseEnter() {
+  onMouseEnter(e) {
+    e.stopPropagation()
     this.props.handleMouseEnter(this.props.row, this.props.col)
+  }
+
+  onClick(e) {
+    e.stopPropagation()
   }
 
   render() {
@@ -44,6 +52,7 @@ class DraggableCell extends PureRenderComponent {
         onMouseDown={this.onMouseDown}
         onMouseUp={this.onMouseUp}
         onMouseEnter={this.onMouseEnter}
+        onClick={this.onClick}
       >
       </td>
     )

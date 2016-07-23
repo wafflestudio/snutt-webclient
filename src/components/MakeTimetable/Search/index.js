@@ -27,7 +27,10 @@ class Search extends Component {
     return(
       <div>
         { this.state.selectingTime ?
-          <ModalWrapper fullScreen={true}>
+          <ModalWrapper
+            fullScreen={true}
+            handleClose={()=> this.setState({selectingTime: false})}
+          >
             <TimeQuery />
           </ModalWrapper> :
           null

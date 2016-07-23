@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import update from 'react-addons-update'
 import DepartmentSuggestion from './DepartmentSuggestion.jsx'
 import TimeQuery from './TimeQuery.jsx'
@@ -40,7 +42,7 @@ var generals = [
   { name: '한국의 이해', value: 56 },
 ]
 
-export default class SearchFilter extends Component {
+class SearchFilter extends Component {
   constructor() {
     super()
     this.handleCreditToggle = this.handleCreditToggle.bind(this)
@@ -134,6 +136,7 @@ export default class SearchFilter extends Component {
               className='form-horizontal search-filter'
               id={this.props.on ? 'filter-active' : ''}
             >
+              //credit
               <div className='form-group'>
                 <label className='col-md-2 control-label'>학점</label>
                 <div className='col-md-8'>
@@ -198,3 +201,11 @@ export default class SearchFilter extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return { query: state.query }
+}
+
+export default connect(mapStateToProps)(SearchFilter)
+
+

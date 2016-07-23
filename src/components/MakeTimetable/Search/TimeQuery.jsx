@@ -15,7 +15,7 @@ export default class TimeQuery extends Component {
           row={28}
           col={6}
           rowLabels={new Array(28).fill().map((val, idx) =>
-            idx % 2 === 0 ? idx + 8 : ' '
+            idx % 2 === 0 ? idx/2 + 8 : ' '
           )}
           colLabels={['월', '화', '수', '목', '금', '토']}
         />
