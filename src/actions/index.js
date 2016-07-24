@@ -13,8 +13,8 @@ export function addQuery(member, item) {
   return { type: types.ADD_QUERY, member, item }
 }
 
-export function setQuery(member, item) {
-  return { type: types.SET_QUERY, member, item}
+export function updateQuery(member, func) {
+  return { type: types.UPDATE_QUERY, member, func}
 }
 
 export function removeQuery(member, item) {

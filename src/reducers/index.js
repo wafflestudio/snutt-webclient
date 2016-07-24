@@ -33,19 +33,19 @@ const defaultQuery = Immutable.Map({
   credit: Immutable.Set(),
   academic_year: Immutable.Set(),
   instructor: Immutable.Set(),
-  department: Immutable.Set(),
+  department: Immutable.List(),
   category: Immutable.Set(),
   time_mask: Immutable.Set(),
 })
 function query(state = defaultQuery, action) {
-  const { member, item } = action
+  const { member, item, func } = action
   switch(action.type) {
     case types.ADD_QUERY:
       return state.update(member, l => l.add(item))
     case types.REMOVE_QUERY:
       return state.update(member, l => l.delete(item))
-    case types.SET_QUERY:
-      return state.set(member, item)
+    case types.UPDATE_QUERY:
+      return state.update(member, i => func(i))
     case types.RESET_QUERY:
       return defaultQuery
     default:

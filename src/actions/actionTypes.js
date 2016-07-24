@@ -2,7 +2,7 @@ export const HOVER_COURSE = 'HOVER_COURSE'
 export const UNHOVER_COURSE = 'UNHOVER_COURSE'
 
 export const ADD_QUERY = 'ADD_QUERY'
-export const SET_QUERY = 'SET_QUERY'
+export const UPDATE_QUERY = 'SET_QUERY'
 export const REMOVE_QUERY = 'REMOVE_QUERY'
 export const RESET_QUERY = 'RESET_QUERY'
 export const SEND_QUERY = 'SEND_QUERY'

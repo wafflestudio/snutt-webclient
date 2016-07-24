@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Immutable from 'Immutable'
 
 import DepartmentSuggestion from './DepartmentSuggestion.jsx'
 import TimeQuery from './TimeQuery.jsx'
-import { addQuery, removeQuery, setQue } from '../../../actions'
+import { addQuery, removeQuery } from '../../../actions'
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options'
 
@@ -51,22 +50,16 @@ class SearchFilter extends Component {
     )
   }
 
-  renderDepartment() {
-    return(
-      <div className='form-group'>
-        <label className='col-md-2 control-label'>학과</label>
-        <div className="col-md-8">
-          {this.props.query.get('department').map((dep, idx) =>
-            <span className='label label-default selected-department' key={idx}>{dep}</span>
-          )}
-          <DepartmentSuggestion
-            selectedDepartments={this.props.query.department}
-            updateDepartments={deps =>this.dispatch(setQuery('department', Immutable.Set(deps)))}
-          />
-        </div>
-      </div>
-    )
-  }
+  // renderDepartment() {
+  //   return(
+  //     <div className='form-group'>
+  //       <label className='col-md-2 control-label'>학과</label>
+  //       <div className="col-md-8">
+  //         <DepartmentSuggestion />
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   render() {
     return (
