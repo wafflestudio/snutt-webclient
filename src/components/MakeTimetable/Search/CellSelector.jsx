@@ -98,13 +98,11 @@ export default class CellSelector extends Component {
       tableState: TableState.CALM,
       dragInit: {row: -1, col: -1},
       dragEnd: {row: -1, col: -1},
-      cellStateTable: new Array(this.props.row).fill(
-        new Array(this.props.col).fill(CellState.EMPTY)),
     }
   }
 
   handleMouseDown(r, c) {
-    const prevCellState = this.state.cellStateTable[r][c]
+    const prevCellState = this.props.cells[r][c]
     const nextTableState = prevCellState === CellState.EMPTY ?
                             TableState.SELECTING : TableState.DELETING
     const here = {row: r, col: c}
@@ -130,8 +128,8 @@ export default class CellSelector extends Component {
     const here = {row: _r, col: _c}
     let newCellState = (tableState === TableState.SELECTING ? CellState.SELECTED : CellState.EMPTY)
 
-    this.setState({cellStateTable:
-      update2dArr(this.state.cellStateTable, dragInit, here, newCellState),
+    this.props.handleUpdate(update2dArr(this.props.cells, dragInit, here, newCellState))
+    this.setState({
       dragInit: {row: -1, col: -1},
       dragEnd: {row: -1, col: -1},
       tableState: TableState.CALM,
@@ -139,33 +137,35 @@ export default class CellSelector extends Component {
   }
 
   renderHeader() {
-    const labels = this.props.colLabels.map((label, index) => <th key={index}>{label}</th>)
+    const labels = this.props.colLabels.map((label, index) =>
+      <th key={index}>{label}</th>)
     return <tr>{[<th key={-1}></th>].concat(labels)}</tr>
   }
 
   renderBody() {
-    const labels = this.props.rowLabels.map((label, index) => <td key={index}>{label}</td>)
-    const cellStateTable = this.state.cellStateTable
+    const labels = this.props.rowLabels.map((label, index) =>
+      <td key={index}>{label}</td>)
+    const cellStateTable = this.props.cells
     const {tl, dr} = getRange(this.state.dragInit, this.state.dragEnd)
     return cellStateTable.map((row, rowIndex) => {
-        const cols = row.map((col, colIndex) =>
-          <DraggableCell
-            row={rowIndex}
-            col={colIndex}
-            handleMouseDown={this.handleMouseDown}
-            handleMouseEnter={this.handleMouseEnter}
-            handleMouseUp={this.handleMouseUp}
-            status={cellStateTable[rowIndex][colIndex]}
-            tableState={this.state.tableState}
-            dragged={isInRange(rowIndex, colIndex, tl, dr)}
-          />
-        )
-        return (
-          <tr key={rowIndex}>
-            {[labels[rowIndex]].concat(cols)}
-          </tr>
-        )
-      })
+      const cols = row.map((col, colIndex) =>
+        <DraggableCell
+          row={rowIndex}
+          col={colIndex}
+          handleMouseDown={this.handleMouseDown}
+          handleMouseEnter={this.handleMouseEnter}
+          handleMouseUp={this.handleMouseUp}
+          status={cellStateTable[rowIndex][colIndex]}
+          tableState={this.state.tableState}
+          dragged={isInRange(rowIndex, colIndex, tl, dr)}
+        />
+      )
+      return (
+        <tr key={rowIndex}>
+          {[labels[rowIndex]].concat(cols)}
+        </tr>
+      )
+    })
   }
 
   render() {

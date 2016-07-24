@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import DepartmentSuggestion from './DepartmentSuggestion.jsx'
 import TimeQuery from './TimeQuery.jsx'
-import { addQuery, removeQuery } from '../../../actions'
+import { addQuery, removeQuery, toggleTimeselect } from '../../../actions'
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options'
 
@@ -12,8 +12,9 @@ class SearchFilter extends Component {
   constructor() {
     super()
     this.toggleQuery = this.toggleQuery.bind(this)
+    this.toggleTimeselect = this.toggleTimeselect.bind(this)
     this.renderCheckBoxes = this.renderCheckBoxes.bind(this)
-    this.renderDepartment = this.renderDepartment.bind(this)
+    this.renderTimeSelect = this.renderTimeSelect.bind(this)
   }
 
   toggleQuery(memberName, value, checked) {
@@ -22,6 +23,12 @@ class SearchFilter extends Component {
       dispatch(removeQuery(memberName, value))
     else
       dispatch(addQuery(memberName, value))
+  }
+
+  toggleTimeselect(e) {
+    const { dispatch } = this.props
+    e.stopPropagation()
+    dispatch(toggleTimeselect())
   }
 
   renderCheckBoxes(label, items, memberName) {
@@ -50,16 +57,22 @@ class SearchFilter extends Component {
     )
   }
 
-  // renderDepartment() {
-  //   return(
-  //     <div className='form-group'>
-  //       <label className='col-md-2 control-label'>학과</label>
-  //       <div className="col-md-8">
-  //         <DepartmentSuggestion />
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  renderTimeSelect() {
+    return(
+      <div className='form-group'>
+        <label className='col-md-2 control-label'>시간대 검색</label>
+        <div className='col-md-8'>
+          <div
+            className="btn btn-default"
+            onClick={this.toggleTimeselect}
+          >
+            시간대 선택하기
+            <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   render() {
     return (
@@ -72,7 +85,7 @@ class SearchFilter extends Component {
             >
               {this.renderCheckBoxes('학점', credits, 'credit')}
               {this.renderCheckBoxes('학년', academicYears, 'academic_year')}
-              {this.renderDepartment()}
+              {this.renderTimeSelect()}
               {this.renderCheckBoxes('구분', classifications, 'classification')}
               {this.renderCheckBoxes('학문의 기초', foundations, 'category')}
               {this.renderCheckBoxes('학문의 세계', knowledges, 'category')}

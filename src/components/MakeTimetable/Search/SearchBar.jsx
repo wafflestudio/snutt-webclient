@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { toggleFilter } from '../../../actions'
+import { toggleSearchPanel } from '../../../actions'
 
-class Search extends Component {
+class SearchBar extends Component {
   constructor() {
     super()
     this.state = { text: '' }
@@ -28,7 +28,7 @@ class Search extends Component {
 
   toggleFilter() {
     const { dispatch } = this.props
-    dispatch(toggleFilter())
+    dispatch(toggleSearchPanel())
   }
 
   render() {
@@ -63,8 +63,8 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
-  const { filterOn } = state
+  const filterOn = state.filter.panel
   return { filterOn }
 }
 
-export default connect(mapStateToProps)(Search)
+export default connect(mapStateToProps)(SearchBar)

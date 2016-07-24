@@ -35,8 +35,9 @@ const defaultQuery = Immutable.Map({
   instructor: Immutable.Set(),
   department: Immutable.List(),
   category: Immutable.Set(),
-  time_mask: Immutable.Set(),
+  time_mask: Immutable.List([0, 0, 0, 0, 0, 0]),
 })
+
 function query(state = defaultQuery, action) {
   const { member, item, func } = action
   switch(action.type) {
@@ -82,10 +83,13 @@ function isQuerying(state = false, action) {
   }
 }
 
-function filterOn(state = false, action) {
+function filter(state = { panel: false, time: false}, action) {
+  const { panel, time } = state
   switch(action.type) {
-    case types.TOGGLE_FILTER:
-      return !state
+    case types.TOGGLE_SEARCHPANEL:
+      return { panel: !panel, time: false }
+    case types.TOGGLE_TIMESELECT:
+      return { panel: !panel, time: !time }
     default:
       return state
   }
@@ -121,7 +125,7 @@ const reducer = {
   searchResults,
   courseBook,
   isQuerying,
-  filterOn,
+  filter,
   modalOn,
   leftTabSearching,
 }

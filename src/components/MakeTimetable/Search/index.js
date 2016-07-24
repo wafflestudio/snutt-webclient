@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { sendQuery } from '../../../actions'
+import { sendQuery, toggleTimeselect } from '../../../actions'
 import SearchBar from './SearchBar.jsx'
 import SearchFilter from './SearchFilter.jsx'
 import ModalWrapper from '../Common/ModalWrapper.jsx'
@@ -11,7 +11,7 @@ class Search extends Component {
   constructor() {
     super()
     this.composeQuery = this.composeQuery.bind(this)
-    this.state = { selectingTime: false }
+    this.toggleTimeselect = this.toggleTimeselect.bind(this)
   }
 
   composeQuery(query) {
@@ -22,14 +22,18 @@ class Search extends Component {
     })))
   }
 
+  toggleTimeselect() {
+    this.props.dispatch(toggleTimeselect())
+  }
+
   render() {
-    const { filterOn } = this.props
+    const { filterOn, selectingTime } = this.props
     return(
       <div>
-        { this.state.selectingTime ?
+        { selectingTime ?
           <ModalWrapper
             fullScreen={true}
-            handleClose={()=> this.setState({selectingTime: false})}
+            handleClose={this.toggleTimeselect}
           >
             <TimeQuery />
           </ModalWrapper> :
@@ -38,15 +42,18 @@ class Search extends Component {
         <SearchBar
           handleSearch={query => this.composeQuery(query)}
         />
-        <SearchFilter on={filterOn} />
+        <SearchFilter
+          on={filterOn}
+        />
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const { dispatch, courseBook, filterOn } = state
-  return { dispatch, courseBook, filterOn }
+  const { dispatch, courseBook,
+          filter: { panel: filterOn, time: selectingTime } } = state
+  return { dispatch, courseBook, filterOn, selectingTime }
 }
 
 export default connect(mapStateToProps)(Search)

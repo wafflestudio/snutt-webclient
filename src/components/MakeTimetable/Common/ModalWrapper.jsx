@@ -23,9 +23,9 @@ class ModalWrapper extends Component {
   }
 
   handleOutsideClick(e) {
-    e.preventDefault()
-    if (e.target !== this)  return;
-    if (this.props.handleClose) {
+    e.stopPropagation()
+    if (e.target.className === 'snutt-modal-bg' && this.props.handleClose) {
+      console.log('outside click')
       this.props.handleClose()
     }
   }
@@ -43,6 +43,7 @@ class ModalWrapper extends Component {
     }
     return(
       <div
+        className='snutt-modal-bg'
         style={bgStyle}
         onClick={this.handleOutsideClick}
       >

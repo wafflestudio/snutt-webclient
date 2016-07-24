@@ -99,8 +99,12 @@ export function changeCoursebook(newCourseBook) {
   return { type: types.CHANGE_COURSEBOOK, newCourseBook }
 }
 
-export function toggleFilter() {
-  return { type: types.TOGGLE_FILTER }
+export function toggleSearchPanel() {
+  return { type: types.TOGGLE_SEARCHPANEL }
+}
+
+export function toggleTimeselect() {
+  return { type: types.TOGGLE_TIMESELECT }
 }
 
 export function toggleModal() {
