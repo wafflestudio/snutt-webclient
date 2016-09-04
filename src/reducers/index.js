@@ -65,10 +65,16 @@ function searchResults(state = [], action) {
   }
 }
 
-function courseBook(state = {year: 2016, semesterIdx: 1}, action) {
+const defaultCoursebook = Immutable.fromJS({
+  available: [],
+  current: null,
+})
+function courseBook(state = defaultCoursebook, action) {
   switch(action.type) {
+    case types.FETCH_COURSEBOOK:
+      return state.set('available', action.courseBooks).set('current', action.courseBooks[0])
     case types.CHANGE_COURSEBOOK:
-      return action.newCourseBook
+      return state.set('current', action.newCourseBook)
     default:
       return state
   }

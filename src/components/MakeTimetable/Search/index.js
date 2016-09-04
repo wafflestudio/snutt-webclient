@@ -15,10 +15,10 @@ class Search extends Component {
   }
 
   composeQuery(query) {
-    const { dispatch, courseBook } = this.props
+    const { dispatch, current } = this.props
     dispatch(sendQuery(Object.assign(query, {
-      year: courseBook.year,
-      semester: courseBook.semesterIdx,
+      year: current.year,
+      semester: current.semester,
     })))
   }
 
@@ -53,7 +53,7 @@ class Search extends Component {
 function mapStateToProps(state) {
   const { dispatch, courseBook,
           filter: { panel: filterOn, time: selectingTime } } = state
-  return { dispatch, courseBook, filterOn, selectingTime }
+  return { dispatch, current: courseBook.get('current'), filterOn, selectingTime }
 }
 
 export default connect(mapStateToProps)(Search)

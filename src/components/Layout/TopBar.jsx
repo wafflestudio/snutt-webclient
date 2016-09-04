@@ -5,8 +5,17 @@ import CourseBookSelector from './CourseBookSelector.jsx'
 import { changeCoursebook } from '../../actions'
 
 class TopBar extends Component {
+
+  printTime() {
+    const currentBook = this.props.currentBook
+    if (currentBook == null)
+      return '로딩중'
+
+    const date = new Date(currentBook.updated_at)
+    return '수강편람 업데이트:' + date.toLocaleString()
+  }
+
   render() {
-    const { dispatch, courseBook } = this.props
     return (
         <div id="bar-top" className="navbar navbar-default navbar-fixed-top">
         <div className="container">
@@ -15,12 +24,9 @@ class TopBar extends Component {
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav" id="main_navigation">
-              <CourseBookSelector
-                currentBook={courseBook}
-                handleChange={newBook => dispatch(changeCoursebook(newBook))}
-              />
+              <CourseBookSelector />
             </ul>
-            <p className="navbar-text">수강편람 업데이트: 3월 14일 13:11</p>
+            <p className="navbar-text">{this.printTime()}</p>
             <ul className="nav navbar-nav navbar-right">
               <li><Link to="/login">로그인</Link></li>
             </ul>
@@ -33,7 +39,7 @@ class TopBar extends Component {
 
 function mapStateToProps(state) {
   const { courseBook } = state
-  return { courseBook }
+  return { currentBook: courseBook.get('current') }
 }
 
 export default connect(mapStateToProps)(TopBar)

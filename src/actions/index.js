@@ -1,5 +1,6 @@
 import 'whatwg-fetch'
 import * as types from './actionTypes'
+import { apiKey } from '../samples/sampleKey.js'
 
 export function hoverCourse(course) {
   return { type: types.HOVER_COURSE, course }
@@ -33,6 +34,7 @@ export function sendQuery(query) {
       method: 'post',
       headers: {
         'Accept': 'application/json',
+        'x-access-apikey': apiKey,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(query),
@@ -93,6 +95,25 @@ export function addTimeTable() {
 
 export function deleteTimeTable(index) {
   return { type: types.DELETE_TIMETABLE, index }
+}
+
+export function updateCoursebook() {
+  return function(dispatch) {
+    fetch('http://walnut.wafflestudio.com:3000/api/course_books/', {
+      method: 'get',
+      headers: {
+        'x-access-apikey': apiKey,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(resp => resp.json())
+    .catch(ex => console.log("Request failed", ex))
+    .then(json => dispatch(fetchCoursebook(json)))
+  }
+}
+
+export function fetchCoursebook(courseBooks) {
+  return { type: types.FETCH_COURSEBOOK, courseBooks }
 }
 
 export function changeCoursebook(newCourseBook) {
