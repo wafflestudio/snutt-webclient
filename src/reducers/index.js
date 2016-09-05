@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import * as types from '../actions/actionTypes'
 import timeTables from './timetables'
+import user from './user'
 
 function hoveredCourse(state = null, action) {
   switch(action.type) {
@@ -134,6 +135,7 @@ const reducer = {
   filter,
   modalOn,
   leftTabSearching,
+  user,
 }
 
 // This file exports a mere object, which is to be combined at src/index.js later.

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 import Input from './input.jsx'
+import { loginLocal, registerUser } from '../../actions/userActions'
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super()
     this.state = {
-      email: '',
+      id: '',
       password: '',
       passwordAgain: '',
     }
     this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
   validateId(id) {
@@ -27,18 +30,24 @@ export default class Login extends Component {
     this.setState({ [where]: e.target.value})
   }
 
+  handleLogin(e) {
+    e.preventDefault()
+    this.props.dispatch(loginLocal(this.state.id, this.state.password))
+  }
+
   render() {
+    const { user } = this.props
     return (
       <div className='login-box'>
         <h1 className="title">시작하기</h1>
         <div className='input-row'>
           <Input
             inputProps={{
-              placeholder: '메일주소',
-              type: 'email',
+              placeholder: '아이디',
+              type: 'id',
               tabIndex: 1,
-              value: this.state.email,
-              onChange: this.handleUpdate.bind(this, 'email'),
+              value: this.state.id,
+              onChange: this.handleUpdate.bind(this, 'id'),
             }}
             validator={this.validateId}
           />
@@ -53,12 +62,13 @@ export default class Login extends Component {
               onChange: this.handleUpdate.bind(this, 'password'),
             }}
           />
-          <div className='button login'>로그인</div>
+          <div className='button login' onClick={this.handleLogin}>로그인</div>
           <Link to='/findPassword'>
             <small className='find-password'>비밀번호 찾기</small>
           </Link>
         </div>
         <div className='input-row warning'>
+          {user.message}
         </div>
         <div className='input-row'>
           <Input
@@ -82,3 +92,9 @@ export default class Login extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { user: state.user }
+}
+
+export default connect(mapStateToProps)(Login)
