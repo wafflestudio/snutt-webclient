@@ -1,1 +1,3 @@
 src/samples/sampleKey.js
+dist/*.js*
+
