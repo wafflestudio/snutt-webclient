@@ -1,11 +1,17 @@
 import 'whatwg-fetch'
 import * as types from './actionTypes'
 import { apiKey, baseUrl } from '../samples/sampleKey.js'
+import { push } from 'react-router-redux'
 
 const headers = {
   'x-access-apikey': apiKey,
-  'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+  'Content-Type': 'application/x-www-form-urlencoded',
 }
+
+// Code snippet from https://github.com/github/fetch/issues/263
+const encodeParams = params => Object.keys(params).map(key =>
+  encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+).join('&');
 
 export function registerUser(_id, _pass) {
   return function(dispatch) {
@@ -18,20 +24,17 @@ export function registerUser(_id, _pass) {
       }
     })
     .then(resp => resp.json())
-    .catch(e => dispatch({type: types.REGISTER_FAILURE, message: e}))
+    .catch(e => dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)}))
     .then(json => dispatch(loginLocal(_id, _pass)))
   }
 }
 
 export function loginLocal(_id, _pass) {
-  let form = new FormData()
-  form.append('id', _id)
-  form.append('password', _pass)
   return function(dispatch) {
     fetch(baseUrl + 'auth/login_local/', {
       method: 'post',
       headers,
-      body: form
+      body: encodeParams({id: _id, password: _pass}),
     })
     .then(resp => {
       console.log(resp)
@@ -41,7 +44,10 @@ export function loginLocal(_id, _pass) {
     .then(json => {
       if(json.token === undefined)
         dispatch(failLogin(json))
-      dispatch(successLogin(_id, json.token))
+      else {
+        dispatch(successLogin(_id, json.token))
+        dispatch(push('/')) //Redirect to home
+      }
     })
   }
 }
@@ -52,9 +58,9 @@ export function logout() {
 
 export function successLogin(id, token) {
   localStorage.setItem('id_toekn', id, token)
-  return { type: types.LOGIN_SUCCESS }
+  return { type: types.LOGIN_SUCCESS, id }
 }
 
-export function failLogin(message) {
-  return { type: types.LOGIN_FAILURE, message }
+export function failLogin(error) {
+  return { type: types.LOGIN_FAILURE, message: error.message }
 }

@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
-      return Object.assign({}, state, {'loggedIn': true, 'id': action.id})
+      return Object.assign({}, state, {'loggedIn': true, 'id': action.id, 'hadError': false})
     case types.LOGIN_FAILURE:
       return Object.assign({}, state, {'loggedIn': false, hadError: true, message: action.message})
     case types.LOGOUT_SUCCESS:
