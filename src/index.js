@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { syncHistoryWithStore, routerReducer, routerMiddleware} from 'react-router-redux'
 import thunk from 'redux-thunk'
 
 import rootReducer from './reducers'
@@ -16,10 +16,14 @@ var reducer = combineReducers({
   routing: routerReducer,
 })
 
+const middleware = applyMiddleware(
+  routerMiddleware(browserHistory),
+  thunk,
+)
 const store = createStore(
   reducer,
   compose(
-    applyMiddleware(thunk),
+    middleware,
     (window.devToolsExtension && process.env.NODE_ENV != 'production') ? window.devToolsExtension() : f => f,
   )
 )
