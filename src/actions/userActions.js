@@ -37,7 +37,6 @@ export function loginLocal(_id, _pass) {
       body: encodeParams({id: _id, password: _pass}),
     })
     .then(resp => {
-      console.log(resp)
       return resp.json()
     })
     .catch(e => dispatch(failLogin(e)))
@@ -53,7 +52,11 @@ export function loginLocal(_id, _pass) {
 }
 
 export function logout() {
-  return { type: types.LOGOUT_SUCCESS }
+  return function(dispatch) {
+    localStorage.removeItem('id_token')
+    dispatch(push('/'))
+    return dispatch({ type: types.LOGOUT_SUCCESS })
+  }
 }
 
 export function successLogin(id, token) {

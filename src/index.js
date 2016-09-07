@@ -9,7 +9,8 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 
 require('../stylesheets/style.scss')
-import { App, MakeTimetable, About, Login, MyPage, FindPassword } from './components'
+import { App, MakeTimetable, About, Login, MyPage, FindPassword, MustLoggedIn
+   } from './components'
 
 var reducer = combineReducers({
   ...rootReducer,
@@ -28,7 +29,6 @@ const store = createStore(
   )
 )
 const history = syncHistoryWithStore(browserHistory, store)
-
 render((
   <Provider store={store}>
     <Router history={history}>
@@ -37,7 +37,7 @@ render((
         <Route path="about" component={About} />
         <Route path="login" component={Login} />
         <Route path="findPassword" component={FindPassword} />
-        <Route path="myPage" component={MyPage} />
+        <Route path="myPage" component={MustLoggedIn(MyPage)} />
       </Route>
     </Router>
   </Provider>

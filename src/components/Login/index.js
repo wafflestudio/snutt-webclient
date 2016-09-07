@@ -85,8 +85,13 @@ class Login extends Component {
         </div>
         <hr />
         <div className='sns-group'>
-          <div className='fb button-sns'>f</div>
-          <div className='g button-sns'>g</div>
+          <FBLogin
+            appId={fbAppId}
+            autoload
+            callback={this.responseFB}
+            icon="fa-facebook"
+          >
+          </FBLogin>
         </div>
       </div>
     );

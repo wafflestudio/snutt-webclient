@@ -15,7 +15,7 @@ export default function user(state = INITIAL_STATE, action) {
     case types.LOGIN_FAILURE:
       return Object.assign({}, state, {'loggedIn': false, hadError: true, message: action.message})
     case types.LOGOUT_SUCCESS:
-      return Object.assign({}, state, {'loggedIn': false, hadError: false})
+      return INITIAL_STATE
     case types.REGISTER_FAILURE:
       return Object.assign({}, state, {'loggedIn': false, hadError: true, message: action.message})
     default:
