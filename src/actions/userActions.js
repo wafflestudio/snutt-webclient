@@ -57,7 +57,7 @@ export function logout() {
 }
 
 export function successLogin(id, token) {
-  localStorage.setItem('id_toekn', id, token)
+  localStorage.setItem('id_token', token)
   return { type: types.LOGIN_SUCCESS, id }
 }
 

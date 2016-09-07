@@ -5,6 +5,10 @@ import CourseBookSelector from './CourseBookSelector.jsx'
 import { changeCoursebook } from '../../actions'
 
 class TopBar extends Component {
+  constructor() {
+    super()
+    this.renderLoginButton = this.renderLoginButton.bind(this)
+  }
 
   printTime() {
     const currentBook = this.props.currentBook
@@ -13,6 +17,15 @@ class TopBar extends Component {
 
     const date = new Date(currentBook.updated_at)
     return '수강편람 업데이트:' + date.toLocaleString()
+  }
+
+  renderLoginButton() {
+    const { loggedIn, id } = this.props
+    if (loggedIn) {
+      return (<li><Link to="/myPage">{`${id}님 안녕하세요`}</Link></li>)
+    } else {
+      return (<li><Link to="/login">로그인</Link></li>)
+    }
   }
 
   render() {
@@ -28,7 +41,7 @@ class TopBar extends Component {
             </ul>
             <p className="navbar-text">{this.printTime()}</p>
             <ul className="nav navbar-nav navbar-right">
-              <li><Link to="/login">로그인</Link></li>
+              {this.renderLoginButton()}
             </ul>
           </div>
         </div>
@@ -38,8 +51,9 @@ class TopBar extends Component {
 }
 
 function mapStateToProps(state) {
-  const { courseBook } = state
-  return { currentBook: courseBook.get('current') }
+  const { courseBook, user } = state
+  const { loggedIn, id } = user
+  return { currentBook: courseBook.get('current'), loggedIn, id }
 }
 
 export default connect(mapStateToProps)(TopBar)

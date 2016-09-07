@@ -9,7 +9,7 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 
 require('../stylesheets/style.scss')
-import { App, MakeTimetable, About, Login, FindPassword } from './components'
+import { App, MakeTimetable, About, Login, MyPage, FindPassword } from './components'
 
 var reducer = combineReducers({
   ...rootReducer,
@@ -37,6 +37,7 @@ render((
         <Route path="about" component={About} />
         <Route path="login" component={Login} />
         <Route path="findPassword" component={FindPassword} />
+        <Route path="myPage" component={MyPage} />
       </Route>
     </Router>
   </Provider>

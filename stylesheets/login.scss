@@ -111,3 +111,16 @@ $input-height: 40px;
     background-color: #d0021b;
   }
 }
+
+// For myPage.jsx
+.snutt__setting.container {
+  margin: 50px 0;
+}
+
+.snutt__setting label {
+  text-align: right;
+}
+
+.snutt__setting .new-password {
+  input { margin-bottom: 5px; }
+}
