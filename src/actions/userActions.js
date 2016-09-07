@@ -6,6 +6,7 @@ import { push } from 'react-router-redux'
 const headers = {
   'x-access-apikey': apiKey,
   'Content-Type': 'application/x-www-form-urlencoded',
+  'x-access-token': localStorage.getItem('id_token'),
 }
 
 // Code snippet from https://github.com/github/fetch/issues/263
@@ -41,7 +42,7 @@ export function loginLocal(_id, _pass) {
     })
     .catch(e => dispatch(failLogin(e)))
     .then(json => {
-      if(json.token === undefined)
+      if (json.token === undefined)
         dispatch(failLogin(json))
       else {
         dispatch(successLogin(_id, json.token))
@@ -66,4 +67,32 @@ export function successLogin(id, token) {
 
 export function failLogin(error) {
   return { type: types.LOGIN_FAILURE, message: error.message }
+}
+
+export function changePassword(newPassword) {
+  return function(dispatch) {
+    fetch(baseUrl + 'user/password', {
+      method: 'put',
+      headers,
+      body: encodeParams({password: newPassword})
+    })
+    .catch(e => console.log(e))
+    .then(json => {
+      if (json.token === undefined)
+        dispatch(failLogin(json))
+      else
+        dispatch(successLogin(_id, json.token))
+    })
+  }
+}
+
+export function deleteAccount() {
+  return function(dispatch) {
+    fetch(baseUrl + 'user/account', {
+      method: 'delete',
+      headers,
+    })
+    .catch(e => console.log(e))
+    .then(dispatch(push('/')))
+  }
 }
