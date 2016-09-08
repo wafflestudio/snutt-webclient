@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+import FBLogin from 'react-facebook-login'
 import Input from './input.jsx'
-import { loginLocal, registerUser } from '../../actions/userActions'
+import { loginLocal, loginFacebook, registerUser } from '../../actions/userActions'
+import { fbAppId } from '../../samples/sampleKey'
 
 class Login extends Component {
   constructor() {
@@ -14,6 +16,7 @@ class Login extends Component {
     }
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
+    this.responseFB = this.responseFB.bind(this)
   }
 
   validateId(id) {
@@ -33,6 +36,10 @@ class Login extends Component {
   handleLogin(e) {
     e.preventDefault()
     this.props.dispatch(loginLocal(this.state.id, this.state.password))
+  }
+
+  responseFB(response) {
+    this.props.dispatch(loginFacebook(response.id, response.accessToken))
   }
 
   render() {

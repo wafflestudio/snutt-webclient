@@ -52,6 +52,29 @@ export function loginLocal(_id, _pass) {
   }
 }
 
+export function loginFacebook(fb_id, fb_token) {
+  return function(dispatch) {
+    fetch(baseUrl + 'auth/login_fb/', {
+      method: 'post',
+      headers,
+      body: encodeParams({fb_id, fb_token}),
+    })
+    .then(resp => {
+      console.log(resp)
+      return resp.json()
+    })
+    .catch(e => dispatch(failLogin(e)))
+    .then(json => {
+      if (json.token === undefined)
+        dispatch(failLogin(json))
+      else {
+        dispatch(successLogin(_id, json.token))
+        dispatch(push('/')) //Redirect to home
+      }
+    })
+  }
+}
+
 export function logout() {
   return function(dispatch) {
     localStorage.removeItem('id_token')
