@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware} from 'react-router-redux'
 import thunk from 'redux-thunk'
 
+import api from './middleware/api'
 import rootReducer from './reducers'
 
 require('../stylesheets/style.scss')
@@ -20,7 +21,9 @@ var reducer = combineReducers({
 const middleware = applyMiddleware(
   routerMiddleware(browserHistory),
   thunk,
+  api,
 )
+
 const store = createStore(
   reducer,
   compose(
@@ -28,6 +31,7 @@ const store = createStore(
     (window.devToolsExtension && process.env.NODE_ENV != 'production') ? window.devToolsExtension() : f => f,
   )
 )
+
 const history = syncHistoryWithStore(browserHistory, store)
 render((
   <Provider store={store}>
