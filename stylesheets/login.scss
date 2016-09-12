@@ -4,7 +4,6 @@ $input-height: 40px;
 
 .login-box {
   width: 500px;
-  height: 270px;
   margin: 80px auto;
   text-align: center;
   font-size: $font-size;
@@ -35,10 +34,13 @@ $input-height: 40px;
         transition: opacity 200ms ease, transform 200ms ease, color 200ms ease;
         &.typed {
           opacity: 1;
-          transform: translateX(-30px);
+          transform: translateX(-40px);
         }
         &.focused {
           color: #4a90e2;
+        }
+        &.invalid {
+          color: #D13D37;
         }
       }
 
@@ -67,6 +69,7 @@ $input-height: 40px;
       color: #ffffff;
       text-align: center;
       cursor: pointer;
+      background-color: gray;
     }
     .login { background-color: #4a90e2; }
     .join { background-color: #7ed321; }
@@ -83,10 +86,11 @@ $input-height: 40px;
   }
 
   .warning {
-    height: 20px;
-    text-align: center;
     color: #D13D37;
+    text-align: center;
+    min-height: 20px;
   }
+  .warning p { margin-bottom: 5px; }
 
   hr {
     width: 100%;

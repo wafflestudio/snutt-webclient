@@ -23,6 +23,7 @@ export default class Input extends PureRenderComponent {
   render() {
     let spanClassName = 'label'
     if (this.props.inputProps.value != '') spanClassName += ' typed'
+    if (this.props.isInvalid) spanClassName += ' invalid'
     if (this.state.focus) spanClassName += ' focused'
     const inputProps = {
       ...this.props.inputProps,
