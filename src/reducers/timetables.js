@@ -6,7 +6,7 @@ const DEFAULT_STATE = {
   tables: Immutable.List([Immutable.List(), Immutable.List(), Immutable.List()]),
 }
 
-export default function timeTables(state = DEFAULT_STATE, action) {
+export function timeTables(state = DEFAULT_STATE, action) {
   const { currentIndex, tables } = state
   const currentTable = tables.get(currentIndex)
 
@@ -43,6 +43,15 @@ export default function timeTables(state = DEFAULT_STATE, action) {
           currentTable.set(courseIndex, Object.assign({}, courseToModify, action.modified))
         ),
       })
+    default:
+      return state
+  }
+}
+
+export function tableList(state = [], action) {
+  switch (action.type) {
+    case types.GET_TABLELIST:
+      return JSON.parse(action.response)
     default:
       return state
   }

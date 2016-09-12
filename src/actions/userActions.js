@@ -2,6 +2,7 @@ import 'whatwg-fetch'
 import * as types from './actionTypes'
 import { apiKey, baseUrl } from '../samples/sampleKey.js'
 import { push } from 'react-router-redux'
+import { fetchTableList } from './tableActions'
 
 const headers = {
   'x-access-apikey': apiKey,
@@ -84,8 +85,11 @@ export function logout() {
 }
 
 export function successLogin(id, token) {
-  localStorage.setItem('id_token', token)
-  return { type: types.LOGIN_SUCCESS, id }
+  return dispatch => {
+    localStorage.setItem('id_token', token)
+    dispatch(fetchTableList())
+    return dispatch({ type: types.LOGIN_SUCCESS, id })
+  }
 }
 
 export function failLogin(error) {
