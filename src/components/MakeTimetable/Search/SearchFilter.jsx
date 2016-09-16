@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import Immutable from 'immutable'
 import DepartmentSuggestion from './DepartmentSuggestion.jsx'
 import TimeQuery from './TimeQuery.jsx'
-import { addQuery, removeQuery, toggleTimeselect } from '../../../actions'
+import { addQuery, removeQuery, updateQuery, toggleTimeselect } from '../../../actions'
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options'
-
+import { complement } from './TimeQuery.jsx'
 
 class SearchFilter extends Component {
   constructor() {
     super()
     this.toggleQuery = this.toggleQuery.bind(this)
     this.toggleTimeselect = this.toggleTimeselect.bind(this)
+    this.freeslotsOnly = this.freeslotsOnly.bind(this)
     this.renderCheckBoxes = this.renderCheckBoxes.bind(this)
     this.renderTimeSelect = this.renderTimeSelect.bind(this)
+    this.state = { freeslotsOnly: false }
   }
 
   toggleQuery(memberName, value, checked) {
@@ -29,6 +31,18 @@ class SearchFilter extends Component {
     const { dispatch } = this.props
     e.stopPropagation()
     dispatch(toggleTimeselect())
+  }
+
+  freeslotsOnly(e) {
+    const { dispatch, currentTable } = this.props
+    const { freeslotsOnly: prevState } = this.state
+    if (!prevState) {
+      const masks = currentTable.map(val => val.class_time_mask)
+      dispatch(updateQuery('time_mask', () => Immutable.List(complement(masks))))
+    } else {
+      dispatch(updateQuery('time_mask', () => Immutable.List([0,0,0,0,0,0])))
+    }
+    this.setState({freeslotsOnly: !this.state.freeslotsOnly})
   }
 
   renderCheckBoxes(label, items, memberName) {
@@ -69,6 +83,15 @@ class SearchFilter extends Component {
             시간대 선택하기
             <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
           </div>
+          <span>&nbsp;&nbsp;&nbsp;</span>
+          <label className='checkbox-inline'>
+            <input
+              type='checkbox'
+              onClick={this.freeslotsOnly}
+              checked={this.state.freeslotsOnly}
+            />
+            빈 시간에서만 검색하기
+          </label>
         </div>
       </div>
     )
@@ -99,9 +122,10 @@ class SearchFilter extends Component {
 }
 
 function mapStateToProps(state) {
-  return { query: state.query }
+  const { timeTables, query } = state
+  const { currentIndex, tables } = timeTables
+
+  return { query, currentTable: tables.get(currentIndex).toArray() }
 }
 
 export default connect(mapStateToProps)(SearchFilter)
-
-
