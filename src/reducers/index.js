@@ -25,11 +25,8 @@ function editingCourse(state = null, action) {
   }
 }
 
-// Must be convereted to plain JS when queried
-const defaultQuery = Immutable.Map({
-  year: 2016,
-  semester: 1,
-  title: '',
+// It's something more like filter...I have to rename all the variables someday
+export const defaultQuery = Immutable.Map({
   classification: Immutable.Set(),
   credit: Immutable.Set(),
   academic_year: Immutable.Set(),
@@ -97,6 +94,8 @@ function filter(state = { panel: false, time: false}, action) {
       return { panel: !panel, time: false }
     case types.TOGGLE_TIMESELECT:
       return { panel: !panel, time: !time }
+    case types.SHOW_RESULT:
+      return { panel: false, time: false }
     default:
       return state
   }

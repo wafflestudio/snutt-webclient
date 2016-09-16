@@ -98,9 +98,11 @@
   }
   #filter-open{
     transform: rotate(180deg);
-    color: #1F4BFF;
     -webkit-transition: transform 0.3s;
     transition: transform 0.3s;
+  }
+  .filter-valid {
+    color: #1F4BFF;
   }
   -moz-user-select: none;
   -webkit-user-drag: none;

@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { toggleSearchPanel } from '../../../actions'
+import { toggleSearchPanel, resetQuery } from '../../../actions'
+import { defaultQuery } from '../../../reducers'
 
 class SearchBar extends Component {
   constructor() {
     super()
     this.state = { text: '' }
     this.handleTextChange = this.handleTextChange.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.captureEnter = this.captureEnter.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.toggleFilter = this.toggleFilter.bind(this)
+    this.resetFilter = this.resetFilter.bind(this)
   }
 
-  handleKeyDown(e) {
+  captureEnter(e) {
     if (this.state.text.length > 1 && e.keyCode == 13) {
-      this.handleSearch()
+      this.handleSearch(e)
     }
   }
 
@@ -23,16 +25,24 @@ class SearchBar extends Component {
   }
 
   handleSearch(e) {
+    e.preventDefault()
     this.props.handleSearch(this.state.text)
   }
 
-  toggleFilter() {
+  toggleFilter(e) {
+    e.preventDefault()
     const { dispatch } = this.props
     dispatch(toggleSearchPanel())
   }
 
+  resetFilter(e) {
+    e.preventDefault()
+    const { dispatch } = this.props
+    dispatch(resetQuery())
+  }
+
   render() {
-    const { filterOn } = this.props
+    const { filterOn, filterValid } = this.props
     return (
       <div className="row">
         <div id="searchbar-container" className="col-lg-8 col-lg-offset-2">
@@ -43,7 +53,7 @@ class SearchBar extends Component {
             placeholder="Course name"
             value={this.state.text}
             onChange={this.handleTextChange}
-            onKeyDown={this.handleKeyDown}
+            onKeyDown={this.captureEnter}
           />
           <div id="search-button-container">
             <span
@@ -51,9 +61,13 @@ class SearchBar extends Component {
               onClick={this.handleSearch}
             />
             <span
-              className="glyphicon glyphicon-filter"
+              className={`glyphicon glyphicon-filter ${filterValid ? 'filter-valid' : ''}`}
               id={ filterOn ? 'filter-open' : null }
               onClick={this.toggleFilter}
+            />
+            <span
+              className="glyphicon glyphicon-refresh"
+              onClick={this.resetFilter}
             />
           </div>
         </div>
@@ -64,7 +78,8 @@ class SearchBar extends Component {
 
 function mapStateToProps(state) {
   const filterOn = state.filter.panel
-  return { filterOn }
+  const filterValid = !defaultQuery.equals(state.query)
+  return { filterOn, filterValid }
 }
 
 export default connect(mapStateToProps)(SearchBar)
