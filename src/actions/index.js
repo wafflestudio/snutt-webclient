@@ -1,6 +1,6 @@
 import 'whatwg-fetch'
 import * as types from './actionTypes'
-import { apiKey } from '../samples/sampleKey.js'
+import { apiKey, baseUrl } from '../samples/sampleKey.js'
 
 export function hoverCourse(course) {
   return { type: types.HOVER_COURSE, course }
@@ -26,11 +26,10 @@ export function resetQuery() {
   return { type: types.RESET_QUERY }
 }
 
-
 export function sendQuery(query) {
   return function(dispatch) {
-    dispatch(startQuery())
-    fetch('http://walnut.wafflestudio.com:3000/api/search_query', {
+    dispatch(startQuery(query))
+    fetch(baseUrl + 'search_query/', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -53,8 +52,8 @@ function checkColor(val) {
   return val;
 }
 
-export function startQuery() {
-  return { type: types.START_QUERY }
+export function startQuery(query) {
+  return { type: types.START_QUERY, sent: query }
 }
 
 export function showResult(courses) {
@@ -99,7 +98,7 @@ export function deleteTimeTable(index) {
 
 export function updateCoursebook() {
   return function(dispatch) {
-    fetch('http://walnut.wafflestudio.com:3000/api/course_books/', {
+    fetch(baseUrl + 'course_books/', {
       method: 'get',
       headers: {
         'x-access-apikey': apiKey,

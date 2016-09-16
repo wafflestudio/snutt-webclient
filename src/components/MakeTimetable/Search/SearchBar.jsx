@@ -23,7 +23,7 @@ class SearchBar extends Component {
   }
 
   handleSearch(e) {
-    this.props.handleSearch({title: this.state.text})
+    this.props.handleSearch(this.state.text)
   }
 
   toggleFilter() {

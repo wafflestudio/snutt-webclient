@@ -14,12 +14,20 @@ class Search extends Component {
     this.toggleTimeselect = this.toggleTimeselect.bind(this)
   }
 
-  composeQuery(query) {
-    const { dispatch, current } = this.props
-    dispatch(sendQuery(Object.assign(query, {
-      year: current.year,
-      semester: current.semester,
-    })))
+  composeQuery(txt) {
+    let { dispatch, current, queries } = this.props
+    const query = { year: current.year, semester: current.semester, title: txt }
+
+    // Add valid(?) fields to query
+    for (let key in queries) {
+      const value = queries[key]
+      if (typeof(value) === "object" && value.length > 0)
+        query[key] = value
+    }
+    if (query.time_mask.filter(mask => mask !== 0).length === 0)
+      delete query.time_mask
+
+    dispatch(sendQuery(query))
   }
 
   toggleTimeselect() {
@@ -40,7 +48,7 @@ class Search extends Component {
           null
         }
         <SearchBar
-          handleSearch={query => this.composeQuery(query)}
+          handleSearch={txt => this.composeQuery(txt)}
         />
         <SearchFilter
           on={filterOn}
@@ -51,9 +59,10 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
-  const { dispatch, courseBook,
+  const { dispatch, courseBook, query,
           filter: { panel: filterOn, time: selectingTime } } = state
-  return { dispatch, current: courseBook.get('current'), filterOn, selectingTime }
+  return { dispatch, current: courseBook.get('current'), filterOn, selectingTime,
+          queries: query.toJS() }
 }
 
 export default connect(mapStateToProps)(Search)
