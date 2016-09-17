@@ -56,3 +56,12 @@ export function tableList(state = [], action) {
       return state
   }
 }
+
+export function tagList(state = {}, action) {
+  switch (action.type) {
+    case types.GET_TAG:
+      return JSON.parse(action.response)
+    default:
+      return state
+  }
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import CourseBookSelector from './CourseBookSelector.jsx'
-import { changeCoursebook } from '../../actions'
+import { changeCoursebook } from '../../actions/fetchingActions'
 
 class TopBar extends Component {
   constructor() {

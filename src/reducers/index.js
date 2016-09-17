@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import * as types from '../actions/actionTypes'
-import { timeTables, tableList } from './timetables'
+import { timeTables, tableList, tagList } from './timetables'
 import user from './user'
 
 function hoveredCourse(state = null, action) {
@@ -70,7 +70,7 @@ const defaultCoursebook = Immutable.fromJS({
 function courseBook(state = defaultCoursebook, action) {
   switch(action.type) {
     case types.FETCH_COURSEBOOK:
-      return state.set('available', action.courseBooks).set('current', action.courseBooks[0])
+      return state.set('available', action.courseBooks)
     case types.CHANGE_COURSEBOOK:
       return state.set('current', action.newCourseBook)
     default:
@@ -135,7 +135,8 @@ const reducer = {
   modalOn,
   leftTabSearching,
   user,
-  tableList
+  tableList,
+  tagList,
 }
 
 // This file exports a mere object, which is to be combined at src/index.js later.

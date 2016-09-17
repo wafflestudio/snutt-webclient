@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { updateCoursebook, changeCoursebook } from '../../actions'
+import { updateCoursebook, changeCoursebook } from '../../actions/fetchingActions'
 
 var semesters = [
   { year: 2016, semesterIdx: 1 },
@@ -48,7 +48,6 @@ class CourseBookSelector extends Component {
           {courseBooks.map((e, i) => (
             <li key={i}>
               <a
-                href='#'
                 onClick={()=>this.handleSelect(e)}
               >
                 {`${e.year}-${idxToString[e.semester]}`}

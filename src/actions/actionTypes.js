@@ -37,3 +37,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const REQUEST_TABLELIST = 'REQUEST_TABLELIST'
 export const GET_TABLELIST = 'GET_TABLELIST'
 export const FAIL_TABLELIST = 'FAIL_TABLELIST'
+
+export const REQUEST_TAG = 'REQUEST_TAG'
+export const GET_TAG = 'GET_TAG'
+export const FAIL_TAG = 'FAIL_TAG'

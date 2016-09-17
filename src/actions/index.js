@@ -96,29 +96,6 @@ export function deleteTimeTable(index) {
   return { type: types.DELETE_TIMETABLE, index }
 }
 
-export function updateCoursebook() {
-  return function(dispatch) {
-    fetch(baseUrl + 'course_books/', {
-      method: 'get',
-      headers: {
-        'x-access-apikey': apiKey,
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(resp => resp.json())
-    .catch(ex => console.log("Request failed", ex))
-    .then(json => dispatch(fetchCoursebook(json)))
-  }
-}
-
-export function fetchCoursebook(courseBooks) {
-  return { type: types.FETCH_COURSEBOOK, courseBooks }
-}
-
-export function changeCoursebook(newCourseBook) {
-  return { type: types.CHANGE_COURSEBOOK, newCourseBook }
-}
-
 export function toggleSearchPanel() {
   return { type: types.TOGGLE_SEARCHPANEL }
 }
