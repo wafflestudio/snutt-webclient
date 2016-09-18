@@ -10,6 +10,7 @@ import Timetable from './Timetable'
 
 import { addCourse, deleteCourse, changeTimeTable, addTimeTable, deleteTimeTable,
 } from '../../actions'
+import { deleteLecture } from '../../actions/tableActions'
 
 class MakeTimeTable extends Component {
   constructor() {
@@ -45,7 +46,7 @@ class MakeTimeTable extends Component {
               courseBook={courseBook}
               courses={currentTable.lecture_list || []}
               previewed={hoveredCourse}
-              handleDelete={_id => dispatch(deleteCourse(_id))}
+              handleDelete={_id => dispatch(deleteLecture(_id))}
               addCourse={course => dispatch(addCourse(course))}
             />
           </div>

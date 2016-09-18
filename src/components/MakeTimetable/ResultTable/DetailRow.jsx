@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import ResultRow from './ResultRow.jsx'
-import { addCourse, deleteCourse, openCourse } from '../../../actions'
+import { openCourse } from '../../../actions'
+import { addLecture, deleteLecture } from '../../../actions/tableActions'
 import showCourseDetail from './showCourseDetail.js'
 
 class DetailRow extends ResultRow {
@@ -15,7 +16,7 @@ class DetailRow extends ResultRow {
   }
 
   handleAdd() {
-    this.props.dispatch(addCourse(this.props.course))
+    this.props.dispatch(addLecture(this.props.course))
   }
 
   handleOpenDetail() {
@@ -26,7 +27,7 @@ class DetailRow extends ResultRow {
 
   handleDelete() {
     this.props.updateHover(-1)
-    this.props.dispatch(deleteCourse(this.props.course._id))
+    this.props.dispatch(deleteLecture(this.props.course._id))
   }
 
   handleEdit() {
@@ -81,8 +82,8 @@ class DetailRow extends ResultRow {
 }
 
 function mapStateToProps(state) {
-  const { year, semesterIdx } = state.courseBook
-  const semesterStr = [, '1', 'S', '2', 'W'][semesterIdx]
+  const { year, semester } = state.courseBook.get('current')
+  const semesterStr = [, '1', 'S', '2', 'W'][semester]
   return { searching: state.leftTabSearching, year, semesterStr }
 }
 

@@ -1,4 +1,6 @@
+// I'm planning to stop using Immutable.js
 import Immutable from 'immutable'
+import update from 'react-addons-update'
 import * as types from '../actions/actionTypes.js'
 
 const DEFAULT_TIMETABLE = {
@@ -63,10 +65,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     case types.ADD_LECTURE_OK:
       return {
         ...state,
-        tables: {
-          ...tables,
-          [currentIndex]: JSON.parse(action.response)
-        }
+        tables: update(tables, {[currentIndex]: {$set: JSON.parse(action.response)}})
+      }
+    case types.DELETE_LECTURE_OK:
+      return {
+        ...state,
+        tables: update(tables, {[currentIndex]: {$set: JSON.parse(action.response)}})
       }
     default:
       return state
