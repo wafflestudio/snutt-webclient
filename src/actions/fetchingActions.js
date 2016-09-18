@@ -4,7 +4,7 @@ import * as types from './actionTypes'
 import { CALL_API } from '../middleware/api'
 import { FETCH_TAG, GET_TAG, FAIL_TAG } from './actionTypes'
 import { baseUrl, apiKey } from '../samples/sampleKey'
-
+import { fetchTableList } from './tableActions'
 
 export function updateCoursebook() {
   return function(dispatch) {
@@ -30,10 +30,12 @@ export function fetchCoursebook(courseBooks) {
   }
 }
 
+// Set of actions that should be along with new coursebook
 export function changeCoursebook(newCourseBook) {
   return function(dispatch) {
     const { year: newYear, semester: newSemester } = newCourseBook
     dispatch(updateTag(newYear, newSemester))
+    dispatch(fetchTableList(newYear, newSemester))
     dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook })
   }
 }

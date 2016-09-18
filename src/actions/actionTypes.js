@@ -41,3 +41,7 @@ export const FAIL_TABLELIST = 'FAIL_TABLELIST'
 export const REQUEST_TAG = 'REQUEST_TAG'
 export const GET_TAG = 'GET_TAG'
 export const FAIL_TAG = 'FAIL_TAG'
+
+export const ADD_LECTURE_START ='ADD_LECTURE_START'
+export const ADD_LECTURE_OK = 'ADD_LECTURE_OK'
+export const ADD_LECTURE_FAIL = 'ADD_LECTURE_FAIL'

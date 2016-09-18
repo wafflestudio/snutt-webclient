@@ -17,7 +17,8 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, hoveredCourse, timeTables, modalOn } = this.props
+    const { dispatch, hoveredCourse, timeTables, modalOn, tableList,
+      currentTable, currentIndex, courseBook } = this.props
     return (
       <div className="container">
         <Search />
@@ -33,16 +34,16 @@ class MakeTimeTable extends Component {
           </div>
           <div className="col-lg-6">
             <TimeTableManager
-              currentIndex={timeTables.currentIndex}
-              total={timeTables.tables.size}
+              currentIndex={currentIndex}
+              total={tableList.tables.length}
               handleChange={idx => dispatch(changeTimeTable(idx))}
               handleAdd={() => dispatch(addTimeTable())}
               handleDelete={idx => dispatch(deleteTimeTable(idx))}
             />
             <Timetable
-              currentIndex={timeTables.currentIndex}
-              courseBook={this.props.courseBook}
-              courses={timeTables.tables.get(timeTables.currentIndex)}
+              currentIndex={currentIndex}
+              courseBook={courseBook}
+              courses={currentTable.lecture_list || []}
               previewed={hoveredCourse}
               handleDelete={_id => dispatch(deleteCourse(_id))}
               addCourse={course => dispatch(addCourse(course))}
@@ -55,8 +56,11 @@ class MakeTimeTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, modalOn } = state
-  return { hoveredCourse, searchResults, timeTables, courseBook, isQuerying, modalOn }
+  const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
+    modalOn, tableList, tableList: { currentIndex } } = state
+  const currentTable = tableList.tables[currentIndex]
+  return { hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
+    modalOn, tableList, currentTable, currentIndex }
 }
 
 export default connect(mapStateToProps)(MakeTimeTable)

@@ -85,9 +85,10 @@ export function logout() {
 }
 
 export function successLogin(id, token) {
-  return dispatch => {
+  return (dispatch, getState) => {
     localStorage.setItem('id_token', token)
-    dispatch(fetchTableList())
+    const { year, semester } = getState().courseBook.get('current')
+    dispatch(fetchTableList(year, semester))
     return dispatch({ type: types.LOGIN_SUCCESS, id })
   }
 }

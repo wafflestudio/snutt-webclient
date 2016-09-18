@@ -1,12 +1,12 @@
 import Immutable from 'immutable'
 import * as types from '../actions/actionTypes.js'
 
-const DEFAULT_STATE = {
+const DEFAULT_TIMETABLE = {
   currentIndex: 0,
   tables: Immutable.List([Immutable.List(), Immutable.List(), Immutable.List()]),
 }
 
-export function timeTables(state = DEFAULT_STATE, action) {
+export function timeTables(state = DEFAULT_TIMETABLE, action) {
   const { currentIndex, tables } = state
   const currentTable = tables.get(currentIndex)
 
@@ -48,10 +48,26 @@ export function timeTables(state = DEFAULT_STATE, action) {
   }
 }
 
-export function tableList(state = [], action) {
+const DEFAULT_TABLELIST = ({
+  currentIndex: 0,
+  tables: [[],[],[]],
+})
+export function tableList(state = DEFAULT_TABLELIST, action) {
+  const { currentIndex, tables } = state
   switch (action.type) {
     case types.GET_TABLELIST:
-      return JSON.parse(action.response)
+      return {
+        ...state,
+        tables: JSON.parse(action.response)
+      }
+    case types.ADD_LECTURE_OK:
+      return {
+        ...state,
+        tables: {
+          ...tables,
+          [currentIndex]: JSON.parse(action.response)
+        }
+      }
     default:
       return state
   }
