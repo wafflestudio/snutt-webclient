@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint 'src/**'",
-    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js"
+    "build": "NODE_ENV=production webpack --config webpack.production.config.js --profile --json > dist/stat.json"
   },
   "repository": {
     "type": "git",
