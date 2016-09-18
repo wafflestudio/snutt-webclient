@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import ColorPicker from 'react-color'
+// import ColorPicker from 'react-color'
+var ColorPicker = require.ensure(["react-color"], function(require) {
+  console.log("getting Color picker")
+})
 
 import ColorPreview from './ColorPreview.jsx'
 
