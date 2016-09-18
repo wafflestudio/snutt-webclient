@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import html2canvas from 'html2canvas'
 
 export default class TimetableSelector extends Component {
   constructor() {
@@ -14,14 +13,7 @@ export default class TimetableSelector extends Component {
   }
 
   handleSave(e) {
-    var timeTableElement = document.getElementsByClassName('timetable')[0]
-    html2canvas(timeTableElement).then(function(canvas) {
-      var dataURL = canvas.toDataURL('image/png')
-      var pom = document.createElement('a')
-      pom.setAttribute('href', dataURL)
-      pom.setAttribute('download', 'table.png')
-      pom.click()
-    })
+    console.log("Coming soon")
   }
 
   render() {
