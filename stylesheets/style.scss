@@ -13,14 +13,14 @@
 @import "tabs.scss";
 @import "login.scss";
 @import "cellSelector.scss";
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 body {
   padding-top:61px;
-  font-family: 'Nanum Gothic', serif;
+  font-family: 'Nanum Gothic', Sans-Serif;
   background-color: #F4F4F4;
 }
 
 input:focus {
   outline: none;
 }
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint 'src/**'",
-    "build": "NODE_ENV=production webpack --config webpack.production.config.js --profile --json > dist/stat.json"
+    "profile": "NODE_ENV=production webpack --config webpack.production.config.js --profile --json > dist/stat.json",
+    "build": "NODE_ENV=production webpack --config webpack.production.config.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
   },
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "history": "^1.17.0",
     "immutable": "^3.7.6",
     "react": "^15.1.0",
