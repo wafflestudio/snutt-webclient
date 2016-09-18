@@ -52,7 +52,7 @@ class Login extends Component {
   }
 
   responseFB(response) {
-    this.props.dispatch(loginFacebook(response.id, response.accessToken))
+    this.props.dispatch(loginFacebook(response.id, response.accessToken, response.name))
   }
 
   renderError() {

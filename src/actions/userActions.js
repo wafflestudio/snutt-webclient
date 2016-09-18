@@ -53,7 +53,7 @@ export function loginLocal(_id, _pass) {
   }
 }
 
-export function loginFacebook(fb_id, fb_token) {
+export function loginFacebook(fb_id, fb_token, fb_name) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/login_fb/', {
       method: 'post',
@@ -69,7 +69,7 @@ export function loginFacebook(fb_id, fb_token) {
       if (json.token === undefined)
         dispatch(failLogin(json))
       else {
-        dispatch(successLogin(_id, json.token))
+        dispatch(successLogin(fb_name, json.token))
         dispatch(push('/')) //Redirect to home
       }
     })
