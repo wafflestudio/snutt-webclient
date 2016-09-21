@@ -37,11 +37,13 @@ class LectureBox extends Component {
             /> :
             null
           }
-          <span
-            className='glyphicon glyphicon-pencil'
-            aria-hidden='true'
-            onClick={() => dispatch(openCourse(this.props.course))}
-          />
+          {
+          // <span
+          //   className='glyphicon glyphicon-pencil'
+          //   aria-hidden='true'
+          //   onClick={() => dispatch(openCourse(this.props.course))}
+          // />
+          }
         </div>
       </div>
     )

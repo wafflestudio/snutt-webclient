@@ -73,11 +73,15 @@
       line-height: normal;
     }
     .tool-box {
+      visibility: hidden;
       position: absolute;
       right: 1px;
       top: 1px;
       font-size: 0.7em;
       span { margin-left: 2px}
+    }
+    &:hover .tool-box {
+      visibility: visible;
     }
   }
 

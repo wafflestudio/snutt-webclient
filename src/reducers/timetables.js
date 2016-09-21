@@ -47,6 +47,14 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         tableIndex: update(tableIndex, {$set: newIndex})
       }
     }
+    case types.UPDATE_LECTURE_OK: {
+      const updatedTable = JSON.parse(action.response)
+      const updatedId = updatedTable._id
+      return {
+        ...state,
+        tableMap: update(tableMap, {[updatedId]: {$set: updatedTable}})
+      }
+    }
     case types.CREATE_TABLE_OK: {
       const { year, semester } = state.tableMap[state.currentId]
       const newIndex = JSON.parse(action.response).filter(val =>

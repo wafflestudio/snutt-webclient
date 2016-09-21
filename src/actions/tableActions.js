@@ -2,6 +2,7 @@ import { CALL_API } from '../middleware/api'
 import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
   ADD_LECTURE_OK, ADD_LECTURE_FAIL, DELETE_LECTURE_START, DELETE_LECTURE_OK,
   DELETE_LECTURE_FAIL, UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL,
+  UPDATE_LECTURE_START, UPDATE_LECTURE_OK, UPDATE_LECTURE_FAIL,
   CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL,
   DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL,
   SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL,
@@ -20,11 +21,10 @@ export function fetchTableList(year, semester) {
 
 export function addLecture(lecture) {
   return function (dispatch, getState) {
-    const { tableList: { currentIndex, tables } } = getState()
-    const currentTableId = tables[currentIndex]._id
+    const { currentId } = getState().tableList
     dispatch({
       [CALL_API]: {
-        endpoint: `tables/${currentTableId}/lecture`,
+        endpoint: `tables/${currentId}/lecture`,
         config: {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
@@ -48,6 +48,24 @@ export function deleteLecture(lectureId) {
         },
         authenticated: true,
         types: [ DELETE_LECTURE_START, DELETE_LECTURE_OK, DELETE_LECTURE_FAIL ],
+      }
+    })
+  }
+}
+
+export function updateLecture(lecutreId, updatedPart) {
+  return function (dispatch, getState) {
+    const { currentTableId } = getState().tableList
+    dispatch({
+      [CALL_API]: {
+        endpoint: `tables/${currentTableId}/lecture/${lectureId}`,
+        config: {
+          method: 'put',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedPart),
+        },
+        authenticated: true,
+        types: [ UPDATE_LECTURE_START, UPDATE_LECTURE_OK, UPDATE_LECTURE_FAIL ],
       }
     })
   }

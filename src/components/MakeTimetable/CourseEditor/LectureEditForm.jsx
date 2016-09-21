@@ -13,12 +13,12 @@ class LectureEditForm extends Component {
   }
 
   handleSave(e) {
-    e.preventDefault()
+    e.stopPropagation()
     this.props.dispatch(closeCourse(true, this.props.course))
   }
 
   handleClose(e) {
-    e.preventDefault()
+    e.stopPropagation()
     this.props.dispatch(closeCourse(false))
   }
 
