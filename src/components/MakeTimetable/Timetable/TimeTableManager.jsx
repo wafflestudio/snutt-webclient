@@ -10,8 +10,8 @@ export default class TimetableSelector extends Component {
     this.handleTitleUpdate = this.handleTitleUpdate.bind(this)
   }
 
-  onDelete(i, e) {
-    this.props.handleDelete(i)
+  onDelete(id, e) {
+    this.props.handleDelete(id)
     e.stopPropagation()
   }
 
@@ -36,25 +36,28 @@ export default class TimetableSelector extends Component {
 
   render() {
     const { currentId, tables } = this.props
-    let buttons = tables.map((table, i) =>
-      <li
-        className={'tab-button' + (table._id == this.props.currentId ? ' active' : '')}
-        key={i}
-        onClick={this.props.handleChange.bind(this, i)}
-      >
-        <span
-          onClick={this.handleTitleUpdate}
-          className='table-title'
+    let buttons = tables.map((table, i) => {
+      const isActive = table._id == this.props.currentId
+      return (
+        <li
+          className={'tab-button' + (isActive ? ' active' : '')}
+          key={i}
+          onClick={this.props.handleChange.bind(this, table._id)}
         >
-          <nobr>{table.title}</nobr>
-        </span>
-        <span
-          className="glyphicon glyphicon-remove"
-          aria-hidden="true"
-          onClick={this.onDelete.bind(this, i)}
-        />
-      </li>
-    )
+          <span
+            onClick={isActive ? this.handleTitleUpdate : null}
+            className='table-title'
+          >
+            <nobr>{table.title}</nobr>
+          </span>
+          <span
+            className="glyphicon glyphicon-remove"
+            aria-hidden="true"
+            onClick={this.onDelete.bind(this, table._id)}
+          />
+        </li>
+      )
+    })
     //add button
     buttons.push(
       <li

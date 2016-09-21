@@ -8,9 +8,10 @@ import ResultTable from './ResultTable'
 import TimeTableManager from './Timetable/TimeTableManager.jsx'
 import Timetable from './Timetable'
 
-import { addCourse, deleteCourse, changeTimeTable, deleteTimeTable,
+import { addCourse,
 } from '../../actions'
-import { deleteLecture, updateTitle, createTable } from '../../actions/tableActions'
+import { deleteLecture, updateTitle, createTable, switchTable, deleteTable
+  } from '../../actions/tableActions'
 
 class MakeTimeTable extends Component {
   constructor() {
@@ -37,9 +38,9 @@ class MakeTimeTable extends Component {
             <TimeTableManager
               currentId={currentId}
               tables={tableIndex}
-              handleChange={id => dispatch(changeTimeTable(id))}
+              handleChange={id => dispatch(switchTable(id))}
               handleAdd={title => dispatch(createTable(title))}
-              handleDelete={idx => dispatch(deleteTimeTable(idx))}
+              handleDelete={id => dispatch(deleteTable(id))}
               handleTitleUpdate={title => dispatch(updateTitle(title))}
             />
             <Timetable
