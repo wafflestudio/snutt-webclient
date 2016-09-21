@@ -8,9 +8,9 @@ import ResultTable from './ResultTable'
 import TimeTableManager from './Timetable/TimeTableManager.jsx'
 import Timetable from './Timetable'
 
-import { addCourse, deleteCourse, changeTimeTable, addTimeTable, deleteTimeTable,
+import { addCourse, deleteCourse, changeTimeTable, deleteTimeTable,
 } from '../../actions'
-import { deleteLecture, updateTitle } from '../../actions/tableActions'
+import { deleteLecture, updateTitle, createTable } from '../../actions/tableActions'
 
 class MakeTimeTable extends Component {
   constructor() {
@@ -38,7 +38,7 @@ class MakeTimeTable extends Component {
               currentIndex={currentIndex}
               titles={tableList.tables.map(val => val.title)}
               handleChange={idx => dispatch(changeTimeTable(idx))}
-              handleAdd={() => dispatch(addTimeTable())}
+              handleAdd={title => dispatch(createTable(title))}
               handleDelete={idx => dispatch(deleteTimeTable(idx))}
               handleTitleUpdate={title => dispatch(updateTitle(title))}
             />

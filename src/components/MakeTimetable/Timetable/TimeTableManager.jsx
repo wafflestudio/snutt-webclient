@@ -5,6 +5,7 @@ export default class TimetableSelector extends Component {
   constructor() {
     super()
     this.onDelete = this.onDelete.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleTitleUpdate = this.handleTitleUpdate.bind(this)
   }
@@ -12,6 +13,14 @@ export default class TimetableSelector extends Component {
   onDelete(i, e) {
     this.props.handleDelete(i)
     e.stopPropagation()
+  }
+
+  handleAdd(e) {
+    e.preventDefault()
+    const newTitle = prompt("새 시간표의 제목을 입력해 주세요")
+    console.log(newTitle)
+    if (newTitle)
+      this.props.handleAdd(newTitle)
   }
 
   handleSave(e) {
@@ -50,7 +59,7 @@ export default class TimetableSelector extends Component {
       <li
         className="tab-button control"
         key={-1}
-        onClick={this.props.handleAdd}
+        onClick={this.handleAdd}
       >
         <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </li>

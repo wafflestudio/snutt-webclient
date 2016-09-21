@@ -78,8 +78,15 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         ...state,
         tables: update(tables, {[currentIndex]: {title: {$set: newTitle}}})
       }
-    default:
-      return state
+    case types.CREATE_TABLE_OK:
+      const { year, semester} = state.tables[0]
+      const newTableList = JSON.parse(action.response).filter(val =>
+        val.year === year && val.semester === semester
+      )
+      return {
+        ...state,
+        tables: Object.assign(newTableList, state.tables)
+      }
   }
 }
 

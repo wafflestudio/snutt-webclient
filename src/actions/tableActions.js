@@ -1,7 +1,9 @@
 import { CALL_API } from '../middleware/api'
 import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
   ADD_LECTURE_OK, ADD_LECTURE_FAIL, DELETE_LECTURE_START, DELETE_LECTURE_OK,
-  DELETE_LECTURE_FAIL, UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL
+  DELETE_LECTURE_FAIL, UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL,
+  CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL,
+  DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL,
 } from './actionTypes'
 
 export function fetchTableList(year, semester) {
@@ -65,6 +67,30 @@ export function updateTitle(newTitle) {
         },
         authenticated: true,
         types: [ UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL ],
+      }
+    })
+  }
+}
+
+export function createTable(newTitle) {
+  return function (dispatch, getState) {
+    const currentBook = getState().courseBook.get('current')
+    const { year , semester } = currentBook
+
+    dispatch({
+      [CALL_API]: {
+        endpoint: `tables/`,
+        config: {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: newTitle,
+            year: year,
+            semester: semester,
+          }),
+        },
+        authenticated: true,
+        types: [ CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL ],
       }
     })
   }
