@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import * as types from '../actions/actionTypes'
-import { timeTables, tableList, tagList } from './timetables'
+import { tableList, tagList } from './timetables'
 import user from './user'
 
 function hoveredCourse(state = null, action) {
@@ -124,7 +124,6 @@ function leftTabSearching(state = true, action) {
 }
 
 const reducer = {
-  timeTables,
   hoveredCourse,
   editingCourse,
   query,

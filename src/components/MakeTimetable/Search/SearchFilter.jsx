@@ -34,10 +34,10 @@ class SearchFilter extends Component {
   }
 
   freeslotsOnly(e) {
-    const { dispatch, currentTable } = this.props
+    const { dispatch, currentLectures } = this.props
     const { freeslotsOnly: prevState } = this.state
     if (!prevState) {
-      const masks = currentTable.map(val => val.class_time_mask)
+      const masks = currentLectures.map(val => val.class_time_mask)
       dispatch(updateQuery('time_mask', () => Immutable.List(complement(masks))))
     } else {
       dispatch(updateQuery('time_mask', () => Immutable.List([0,0,0,0,0,0])))
@@ -122,10 +122,9 @@ class SearchFilter extends Component {
 }
 
 function mapStateToProps(state) {
-  const { timeTables, query } = state
-  const { currentIndex, tables } = timeTables
-
-  return { query, currentTable: tables.get(currentIndex).toArray() }
+  const { tableList: { currentId, tableMap }, query } = state
+  const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list
+  return { query, currentLectures }
 }
 
 export default connect(mapStateToProps)(SearchFilter)

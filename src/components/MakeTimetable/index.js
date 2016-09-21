@@ -18,8 +18,8 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, hoveredCourse, timeTables, modalOn, tableList,
-      currentTable, currentIndex, courseBook } = this.props
+    const { dispatch, hoveredCourse, timeTables, modalOn, tableList: { tableIndex, currentId },
+      currentLectures, currentIndex, courseBook } = this.props
     return (
       <div className="container">
         <Search />
@@ -35,9 +35,9 @@ class MakeTimeTable extends Component {
           </div>
           <div className="col-lg-6">
             <TimeTableManager
-              currentIndex={currentIndex}
-              titles={tableList.tables.map(val => val.title)}
-              handleChange={idx => dispatch(changeTimeTable(idx))}
+              currentId={currentId}
+              tables={tableIndex}
+              handleChange={id => dispatch(changeTimeTable(id))}
               handleAdd={title => dispatch(createTable(title))}
               handleDelete={idx => dispatch(deleteTimeTable(idx))}
               handleTitleUpdate={title => dispatch(updateTitle(title))}
@@ -45,7 +45,7 @@ class MakeTimeTable extends Component {
             <Timetable
               currentIndex={currentIndex}
               courseBook={courseBook}
-              courses={currentTable.lecture_list || []}
+              courses={currentLectures || []}
               previewed={hoveredCourse}
               handleDelete={_id => dispatch(deleteLecture(_id))}
               addCourse={course => dispatch(addCourse(course))}
@@ -59,10 +59,11 @@ class MakeTimeTable extends Component {
 
 function mapStateToProps(state) {
   const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
-    modalOn, tableList, tableList: { currentIndex } } = state
-  const currentTable = tableList.tables[currentIndex]
+    modalOn, tableList } = state
+  const { currentId, tableMap } = tableList
+  const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list
   return { hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
-    modalOn, tableList, currentTable, currentIndex }
+    modalOn, tableList, currentLectures }
 }
 
 export default connect(mapStateToProps)(MakeTimeTable)

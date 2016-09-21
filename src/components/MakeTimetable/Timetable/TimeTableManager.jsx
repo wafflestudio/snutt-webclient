@@ -16,7 +16,7 @@ export default class TimetableSelector extends Component {
   }
 
   handleAdd(e) {
-    e.preventDefault()
+    e.stopPropagation()
     const newTitle = prompt("새 시간표의 제목을 입력해 주세요")
     console.log(newTitle)
     if (newTitle)
@@ -28,16 +28,17 @@ export default class TimetableSelector extends Component {
   }
 
   handleTitleUpdate(e) {
-    e.preventDefault()
+    e.stopPropagation()
     const input = prompt("새 제목을 입력해 주세요")
     if (input)
       this.props.handleTitleUpdate(input)
   }
 
   render() {
-    let buttons = this.props.titles.map((title, i) =>
+    const { currentId, tables } = this.props
+    let buttons = tables.map((table, i) =>
       <li
-        className={'tab-button' + (i == this.props.currentIndex ? ' active' : '')}
+        className={'tab-button' + (table._id == this.props.currentId ? ' active' : '')}
         key={i}
         onClick={this.props.handleChange.bind(this, i)}
       >
@@ -45,7 +46,7 @@ export default class TimetableSelector extends Component {
           onClick={this.handleTitleUpdate}
           className='table-title'
         >
-          <nobr>{title}</nobr>
+          <nobr>{table.title}</nobr>
         </span>
         <span
           className="glyphicon glyphicon-remove"

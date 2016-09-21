@@ -3,90 +3,79 @@ import Immutable from 'immutable'
 import update from 'react-addons-update'
 import * as types from '../actions/actionTypes.js'
 
-const DEFAULT_TIMETABLE = {
-  currentIndex: 0,
-  tables: Immutable.List([Immutable.List(), Immutable.List(), Immutable.List()]),
+const DEFAULT_TABLELIST = {
+  currentId: null,
+  tableIndex: [],
+  tableMap: {},
 }
 
-export function timeTables(state = DEFAULT_TIMETABLE, action) {
-  const { currentIndex, tables } = state
-  const currentTable = tables.get(currentIndex)
-
-  switch(action.type) {
-    case types.CHANGE_TIMETABLE:
-      return Object.assign({}, state, {
-        currentIndex: action.newTableIndex,
-      })
-    case types.ADD_TIMETABLE:
-      return Object.assign({}, state, {
-        tables: tables.push(Immutable.List()),
-        currentIndex: tables.size,
-      })
-    case types.DELETE_TIMETABLE:
-      return Object.assign({}, state, {
-        tables: tables.delete(action.index),
-        currentIndex: 0,
-      })
-    case types.ADD_COURSE:
-      return Object.assign({}, state, {
-        tables: tables.set(currentIndex, tables.get(currentIndex).push(action.course)),
-      })
-    case types.DELETE_COURSE:
-      return Object.assign({}, state, {
-        tables: tables.set(currentIndex,
-          currentTable.delete(currentTable.findIndex(val => val._id == action.courseId))
-        ),
-      })
-    case types.MODIFY_COURSE:
-      const courseIndex = currentTable.findIndex(val => val._id == action.courseId)
-      const courseToModify = currentTable.get(courseIndex)
-      return Object.assign({}, state, {
-        tables: tables.set(currentIndex,
-          currentTable.set(courseIndex, Object.assign({}, courseToModify, action.modified))
-        ),
-      })
-    default:
-      return state
-  }
-}
-
-const DEFAULT_TABLELIST = ({
-  currentIndex: 0,
-  tables: [[],[],[]],
-})
 export function tableList(state = DEFAULT_TABLELIST, action) {
-  const { currentIndex, tables } = state
+  const { currentIndex, tableMap, tableIndex } = state
   switch (action.type) {
     case types.GET_TABLELIST:
+      const tableArray = JSON.parse(action.response)
+      const mapped = tableArray.reduce((obj, current)=> {
+        obj[current._id] = current
+        return obj
+      }, {})
+      return {
+        currentId: tableArray[0]._id,
+        tableIndex: tableArray,
+        tableMap: mapped,
+      }
+    case types.ADD_LECTURE_OK: {
+      const updated = JSON.parse(action.response)
       return {
         ...state,
-        tables: JSON.parse(action.response)
+        tableMap: update(tableMap, {[updated._id]: {$set: updated}})
       }
-    case types.ADD_LECTURE_OK:
+    }
+    case types.DELETE_LECTURE_OK: {
+      const updated = JSON.parse(action.response)
       return {
         ...state,
-        tables: update(tables, {[currentIndex]: {$set: JSON.parse(action.response)}})
+        tableMap: update(tableMap, {[updated._id]: {$set: updated}})
       }
-    case types.DELETE_LECTURE_OK:
-      return {
-        ...state,
-        tables: update(tables, {[currentIndex]: {$set: JSON.parse(action.response)}})
-      }
-    case types.UPDATE_TITLE_OK:
-      const newTitle = JSON.parse(action.response)[currentIndex].title
-      return {
-        ...state,
-        tables: update(tables, {[currentIndex]: {title: {$set: newTitle}}})
-      }
-    case types.CREATE_TABLE_OK:
-      const { year, semester} = state.tables[0]
-      const newTableList = JSON.parse(action.response).filter(val =>
+    }
+    case types.UPDATE_TITLE_OK: {
+      const { year, semester } = state.tableMap[state.currentId]
+      const newIndex = JSON.parse(action.response).filter(val =>
         val.year === year && val.semester === semester
       )
       return {
         ...state,
-        tables: Object.assign(newTableList, state.tables)
+        tableIndex: update(tableIndex, {$set: newIndex})
       }
+    }
+    case types.CREATE_TABLE_OK: {
+      const { year, semester } = state.tableMap[state.currentId]
+      const newIndex = JSON.parse(action.response).filter(val =>
+        val.year === year && val.semester === semester
+      )
+      return {
+        ...state,
+        tableIndex: update(tableIndex, {$set: newIndex})
+      }
+    }
+    case types.DELETE_TIMETABLE_OK: {
+      const newIndex = JSON.parse(action.response).filter(val =>
+        val.year === year && val.semester === semester
+      )
+      return {
+        ...state,
+        currentId: newIndex[0]._id,
+        tableIndex: update(tableIndex, {$set: newIndex})
+      }
+    }
+    case types.SWITH_TIMETABLE_OK: {
+      const updatedTable = JSON.parse(action.response)
+      return {
+        ...state,
+        currentId: action.id,
+        tableMap: update(tableMap, {[action.id]: {$set: updatedTable}})
+      }
+    default:
+      return state
   }
 }
 

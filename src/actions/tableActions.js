@@ -3,7 +3,7 @@ import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
   ADD_LECTURE_OK, ADD_LECTURE_FAIL, DELETE_LECTURE_START, DELETE_LECTURE_OK,
   DELETE_LECTURE_FAIL, UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL,
   CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL,
-  DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL,
+  DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL, SWITCH_TIMETABLE
 } from './actionTypes'
 
 export function fetchTableList(year, semester) {
@@ -38,11 +38,10 @@ export function addLecture(lecture) {
 
 export function deleteLecture(lectureId) {
   return function (dispatch, getState) {
-    const { tableList: { currentIndex, tables } } = getState()
-    const currentTableId = tables[currentIndex]._id
+    const { currentId } = getState().tableList
     dispatch({
       [CALL_API]: {
-        endpoint: `tables/${currentTableId}/lecture/${lectureId}`,
+        endpoint: `tables/${currentId}/lecture/${lectureId}`,
         config: {
           method: 'delete',
         },
@@ -55,11 +54,10 @@ export function deleteLecture(lectureId) {
 
 export function updateTitle(newTitle) {
   return function (dispatch, getState) {
-    const { tableList: { currentIndex, tables } } = getState()
-    const currentTableId = tables[currentIndex]._id
+    const { currentId } = getState().tableList
     dispatch({
       [CALL_API]: {
-        endpoint: `tables/${currentTableId}/`,
+        endpoint: `tables/${currentId}/`,
         config: {
           method: 'put',
           headers: { 'Content-Type': 'application/json' },
@@ -93,5 +91,35 @@ export function createTable(newTitle) {
         types: [ CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL ],
       }
     })
+  }
+}
+
+export function deleteTable(_id) {
+  return function (dispatch, getState) {
+    dispatch({
+      [CALL_API]: {
+        endpoint: `tables/${_id}`,
+        config: {
+          method: 'delete',
+        },
+        authenticated: true,
+        types: [ DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL ],
+      }
+    })
+  }
+}
+
+export function switchTable(_id) {
+    return function (dispatch) {
+      dispatch({
+        [CALL_API]: {
+          endpoint: `tables/${_id}`,
+          config: {
+            method: 'get',
+          },
+          authenticated: true,
+          types: [ SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL ],
+        }
+      })
   }
 }
