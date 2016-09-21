@@ -16,6 +16,15 @@
     background: #E1E1E1;
     box-sizing: border-box;
     color: #B7B7B7;
+    padding: 0 5px;
+
+    .table-title {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100px;
+      margin-right: 10px;
+    }
 
     .glyphicon-remove {
       position: absolute;

@@ -10,7 +10,7 @@ import Timetable from './Timetable'
 
 import { addCourse, deleteCourse, changeTimeTable, addTimeTable, deleteTimeTable,
 } from '../../actions'
-import { deleteLecture } from '../../actions/tableActions'
+import { deleteLecture, updateTitle } from '../../actions/tableActions'
 
 class MakeTimeTable extends Component {
   constructor() {
@@ -36,10 +36,11 @@ class MakeTimeTable extends Component {
           <div className="col-lg-6">
             <TimeTableManager
               currentIndex={currentIndex}
-              total={tableList.tables.length}
+              titles={tableList.tables.map(val => val.title)}
               handleChange={idx => dispatch(changeTimeTable(idx))}
               handleAdd={() => dispatch(addTimeTable())}
               handleDelete={idx => dispatch(deleteTimeTable(idx))}
+              handleTitleUpdate={title => dispatch(updateTitle(title))}
             />
             <Timetable
               currentIndex={currentIndex}

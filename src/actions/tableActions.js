@@ -1,7 +1,8 @@
 import { CALL_API } from '../middleware/api'
 import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
   ADD_LECTURE_OK, ADD_LECTURE_FAIL, DELETE_LECTURE_START, DELETE_LECTURE_OK,
-  DELETE_LECTURE_FAIL  } from './actionTypes'
+  DELETE_LECTURE_FAIL, UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL
+} from './actionTypes'
 
 export function fetchTableList(year, semester) {
   return {
@@ -44,7 +45,26 @@ export function deleteLecture(lectureId) {
           method: 'delete',
         },
         authenticated: true,
-        types: [ DELETE_LECTURE_START, DELETE_LECTURE_OK, DELETE_LECTURE_FAIL ]
+        types: [ DELETE_LECTURE_START, DELETE_LECTURE_OK, DELETE_LECTURE_FAIL ],
+      }
+    })
+  }
+}
+
+export function updateTitle(newTitle) {
+  return function (dispatch, getState) {
+    const { tableList: { currentIndex, tables } } = getState()
+    const currentTableId = tables[currentIndex]._id
+    dispatch({
+      [CALL_API]: {
+        endpoint: `tables/${currentTableId}/`,
+        config: {
+          method: 'put',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({title: newTitle}),
+        },
+        authenticated: true,
+        types: [ UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL ],
       }
     })
   }

@@ -72,6 +72,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         ...state,
         tables: update(tables, {[currentIndex]: {$set: JSON.parse(action.response)}})
       }
+    case types.UPDATE_TITLE_OK:
+      const newTitle = JSON.parse(action.response)[currentIndex].title
+      return {
+        ...state,
+        tables: update(tables, {[currentIndex]: {title: {$set: newTitle}}})
+      }
     default:
       return state
   }

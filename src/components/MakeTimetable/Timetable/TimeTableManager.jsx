@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import InlineEdit from 'react-edit-inline'
 
 export default class TimetableSelector extends Component {
   constructor() {
     super()
     this.onDelete = this.onDelete.bind(this)
     this.handleSave = this.handleSave.bind(this)
+    this.handleTitleUpdate = this.handleTitleUpdate.bind(this)
   }
 
   onDelete(i, e) {
@@ -16,29 +18,38 @@ export default class TimetableSelector extends Component {
     console.log("Coming soon")
   }
 
+  handleTitleUpdate(e) {
+    e.preventDefault()
+    const input = prompt("새 제목을 입력해 주세요")
+    if (input)
+      this.props.handleTitleUpdate(input)
+  }
+
   render() {
-    var buttons = []
-    for (var i = 0; i < this.props.total; i++) {
-      buttons.push(
-        <li
-          className={'tab-button' + (i == this.props.currentIndex ? ' active' : '')}
-          key={i}
-          onClick={this.props.handleChange.bind(this, i)}
+    let buttons = this.props.titles.map((title, i) =>
+      <li
+        className={'tab-button' + (i == this.props.currentIndex ? ' active' : '')}
+        key={i}
+        onClick={this.props.handleChange.bind(this, i)}
+      >
+        <span
+          onClick={this.handleTitleUpdate}
+          className='table-title'
         >
-          {i+1}
-          <span
-            className="glyphicon glyphicon-remove"
-            aria-hidden="true"
-            onClick={this.onDelete.bind(this, i)}
-          />
-        </li>
-      )
-    }
+          <nobr>{title}</nobr>
+        </span>
+        <span
+          className="glyphicon glyphicon-remove"
+          aria-hidden="true"
+          onClick={this.onDelete.bind(this, i)}
+        />
+      </li>
+    )
     //add button
     buttons.push(
       <li
         className="tab-button control"
-        key={++i}
+        key={-1}
         onClick={this.props.handleAdd}
       >
         <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -48,7 +59,7 @@ export default class TimetableSelector extends Component {
     buttons.push(
       <li
         className="tab-button control"
-        key={++i}
+        key={-2}
         onClick={this.handleSave}
       >
         <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
