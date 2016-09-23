@@ -18,8 +18,9 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         obj[current._id] = current
         return obj
       }, {})
-      return {
-        currentId: tableArray[0]._id,
+      const currentId = tableArray.length > 0 ? tableArray[0]._id : null
+     return {
+        currentId,
         tableIndex: tableArray,
         tableMap: mapped,
       }
@@ -85,6 +86,8 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         tableMap: update(tableMap, {[updatedId]: {$set: updatedTable}})
       }
     }
+    case types.LOGOUT_SUCCESS:
+      return DEFAULT_TABLELIST
     default:
       return state
   }

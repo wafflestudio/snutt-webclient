@@ -32,10 +32,11 @@ export function fetchCoursebook(courseBooks) {
 
 // Set of actions that should be along with new coursebook
 export function changeCoursebook(newCourseBook) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
     const { year: newYear, semester: newSemester } = newCourseBook
     dispatch(updateTag(newYear, newSemester))
-    dispatch(fetchTableList(newYear, newSemester))
+    if (getState().user.loggedIn)
+      dispatch(fetchTableList(newYear, newSemester))
     dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook })
   }
 }
