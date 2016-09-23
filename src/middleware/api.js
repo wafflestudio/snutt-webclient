@@ -5,15 +5,17 @@ import { baseUrl, apiKey } from '../samples/sampleKey'
 
 
 function callApi(endpoint, config, authenticated) {
-  let token = localStorage.getItem('id_token') || null
+  let token = sessionStorage.getItem('id_token') || null
   if (!config.headers) config.headers = {}
   Object.assign(config.headers, { 'x-access-apikey': apiKey })
 
   if (authenticated) {
     if (token)
       Object.assign(config.headers, {'x-access-token': token})
-    else
+    else{
+      console.log(endpoint, config, authenticated)
       throw "No token saved!"
+    }
   }
 
   return fetch(baseUrl + endpoint, config)

@@ -7,7 +7,7 @@ import { fetchTableList } from './tableActions'
 const headers = {
   'x-access-apikey': apiKey,
   'Content-Type': 'application/x-www-form-urlencoded',
-  'x-access-token': localStorage.getItem('id_token'),
+  'x-access-token': sessionStorage.getItem('id_token'),
 }
 
 // Code snippet from https://github.com/github/fetch/issues/263
@@ -78,7 +78,7 @@ export function loginFacebook(fb_id, fb_token, fb_name) {
 
 export function logout() {
   return function(dispatch) {
-    localStorage.removeItem('id_token')
+    sessionStorage.removeItem('id_token')
     dispatch(push('/'))
     return dispatch({ type: types.LOGOUT_SUCCESS })
   }
@@ -86,7 +86,7 @@ export function logout() {
 
 export function successLogin(id, token) {
   return (dispatch, getState) => {
-    localStorage.setItem('id_token', token)
+    sessionStorage.setItem('id_token', token)
     const { year, semester } = getState().courseBook.get('current')
     dispatch(fetchTableList(year, semester))
     return dispatch({ type: types.LOGIN_SUCCESS, id })
