@@ -9,10 +9,6 @@
     position: relative;
   }
 
-  .previewed {
-    background-color: #CADFE6;
-  }
-
   .dragged {
     background-color: red
   }
@@ -67,10 +63,13 @@
     text-align: center;
     .title-box {
       position: relative;
-      transform: translateY(-50%);
-      top: 50%;
+      transform: translateY(-33%);
+      top: 33%;
       font-size: 0.7em;
       line-height: normal;
+    }
+    .title-box p {
+      margin-bottom: 3px;
     }
     .tool-box {
       visibility: hidden;
@@ -88,7 +87,7 @@
   .preview {
     background-color: #D7DEE0;
     z-index: 2;
-    opacity: 0.5;
+    opacity: 0.9;
   }
 }
 

@@ -11,6 +11,7 @@
   color: #4a4a4a;
   background-color: #fafafa;
   padding: 0px;
+  table-layout: fixed;
 
   border-top: 0;
   font-size: 0.8em;
@@ -27,18 +28,21 @@
   }
 
   .col-course-no { width: 10%; }
-  .col-lecture-no { width: 5%; }
   .col-title { width: 20%; }
-  .col-department { width: 15%; }
-  .col-time { width: 22%; }
-  .col-professor { width: 8%; }
-  .col-remark { width: 20%; }
+  .col-credit {width: 5%; } //35
+  .col-department { width: 10%; }
+  .col-time { width: 13%; }
+  .col-location { width: 10%; }
+  .col-professor { width: 10%; } //77
+  .col-remark { width: 23%; }
 
   td {
     padding: 8px 2px!important;
     border: 0px!important;
     border-bottom: 1px solid #D9D6DA!important;
     text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
   }
 
   .tr-result:hover, .tr-result.hovered {
@@ -64,6 +68,10 @@
       float: right;
       margin-right: 3px;
     }
+  }
+
+  .time-string {
+    margin: 0;
   }
 
 }

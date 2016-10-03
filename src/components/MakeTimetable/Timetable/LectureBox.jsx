@@ -27,7 +27,10 @@ class LectureBox extends Component {
         style={divStyle}
         onClick={this.handleClick}
       >
-        <div className='title-box'>{this.props.course.course_title}</div>
+        <div className='title-box'>
+          <p>{this.props.course.course_title}</p>
+          <p>{this.props.classroom}</p>
+        </div>
         <div className='tool-box'>
           {this.props.onDelete !== undefined ?
             <span

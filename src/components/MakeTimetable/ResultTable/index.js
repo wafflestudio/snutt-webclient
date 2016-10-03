@@ -75,11 +75,12 @@ class ResultTable extends Component {
           <table className="table table-hover resultTable">
             <thead>
               <tr>
-                <th className='col-course-no'>과목</th>
-                <th className='col-lecture-no'>강좌</th>
+                <th className='col-course-no'>번호</th>
                 <th className='col-title'>이름</th>
+                <th className='col-credit'>학점</th>
                 <th className='col-department'>학과</th>
                 <th className='col-time'>시간</th>
+                <th className='col-location'>장소</th>
                 <th className='col-professor'>교수</th>
                 <th className='col-remark'>비고</th>
               </tr>

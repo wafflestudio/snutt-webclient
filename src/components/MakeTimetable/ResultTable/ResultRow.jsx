@@ -27,16 +27,31 @@ export default class ResultRow extends Component {
         onMouseLeave={this.handleMouseLeave}
         className={cssClass}
       >
-        <td className='col-course-no'>
-          {this.props.course_number}
-         </td>
-        <td className='col-lecture-no'>{this.props.lecture_number}</td>
-        <td className='col-title'>{this.props.course_title}</td>
-        <td className='col-department'>{this.props.department}</td>
-        <td className='col-time'>{this.props.class_time}</td>
-        <td className='col-professor'>{this.props.professor}</td>
-        <td className='col-remark'>{this.props.remark}</td>
+        <td>
+          <p className='time-string'>{this.props.course_number}</p>
+          <p className='time-string'>{this.props.lecture_number}</p>
+        </td>
+        <td>{this.props.course_title}</td>
+        <td>{this.props.credit}</td>
+        <td><nobr>{this.props.department}</nobr></td>
+        <td>{printTime(this.props.class_time)}</td>
+        <td>{printPlace(this.props.class_time_json)}</td>
+        <td>{this.props.instructor}</td>
+        <td><nobr>{this.props.remark}</nobr></td>
       </tr>
     )
   }
 }
+
+const printTime = timeString => {
+  let days = timeString.split('/').map(val => {
+    const day = val.split('(')[0]
+    const start = Number(val.split('(')[1].split('-')[0]) + 8
+    return day + start
+  })
+  return [...new Set(days)].join('-')
+}
+
+const printPlace = timeJson => (
+  [...new Set(timeJson.map(val => Number(val.place.split('-')[0])))].join('&')
+)

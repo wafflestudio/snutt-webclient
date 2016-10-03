@@ -63,6 +63,7 @@ export default class Timetable extends Component {
             onDelete={this.props.handleDelete}
             length={lecture.len * 2}
             isPreview={false}
+            classroom={lecture.place}
             key={course._id + day}
           />
         )
@@ -78,6 +79,7 @@ export default class Timetable extends Component {
             length={lecture.len * 2}
             isPreview={true}
             key={previewed._id + day}
+            classroom={lecture.place}
           />
         )
         var existingDiv = boxes[day][lecture.start * 2]
