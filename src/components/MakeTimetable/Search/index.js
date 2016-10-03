@@ -16,7 +16,7 @@ class Search extends Component {
 
   composeQuery(txt) {
     let { dispatch, current, queries } = this.props
-    const query = { year: current.year, semester: current.semester, title: txt }
+    const query = { year: current.year, semester: current.semester, title: txt, limit: 200 }
 
     // Add valid(?) fields to query
     for (let key in queries) {
