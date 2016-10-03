@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Immutable from 'immutable'
-import DepartmentSuggestion from './DepartmentSuggestion.jsx'
+import DepartmentForm from './DepartmentForm.jsx'
 import TimeQuery from './TimeQuery.jsx'
 import { addQuery, removeQuery, updateQuery, toggleTimeselect } from '../../../actions'
 import { credits, academicYears, foundations, knowledges,
@@ -16,7 +16,12 @@ class SearchFilter extends Component {
     this.freeslotsOnly = this.freeslotsOnly.bind(this)
     this.renderCheckBoxes = this.renderCheckBoxes.bind(this)
     this.renderTimeSelect = this.renderTimeSelect.bind(this)
+    this.renderDepartment = this.renderDepartment.bind(this)
     this.state = { freeslotsOnly: false }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
   }
 
   toggleQuery(memberName, value, checked) {
@@ -97,6 +102,18 @@ class SearchFilter extends Component {
     )
   }
 
+  renderDepartment() {
+    const { departmentTags } = this.props
+    return (
+      <div className='form-group'>
+        <label className='col-md-2 control-label'>학과명 선택</label>
+        <div className='col-md-8'>
+          <DepartmentForm />
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className='row'>
@@ -105,10 +122,12 @@ class SearchFilter extends Component {
             <form
               className='form-horizontal search-filter'
               id={this.props.on ? 'filter-active' : ''}
+              onSubmit={this.handleSubmit}
             >
               {this.renderCheckBoxes('학점', credits, 'credit')}
               {this.renderCheckBoxes('학년', academicYears, 'academic_year')}
               {this.renderTimeSelect()}
+              {this.renderDepartment()}
               {this.renderCheckBoxes('구분', classifications, 'classification')}
               {this.renderCheckBoxes('학문의 기초', foundations, 'category')}
               {this.renderCheckBoxes('학문의 세계', knowledges, 'category')}
@@ -122,7 +141,7 @@ class SearchFilter extends Component {
 }
 
 function mapStateToProps(state) {
-  const { tableList: { currentId, tableMap }, query } = state
+  const { tableList: { currentId, tableMap }, query} = state
   const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list
   return { query, currentLectures }
 }

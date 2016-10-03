@@ -29,36 +29,6 @@
   transition: max-height 0.3s;
 }
 
-.react-autosuggest__container {
-  display: inline-block;
-}
-
-.react-autosuggest__input {
-  width: 100%;
-}
-
-.react-autosuggest__suggestions-container {
-  width: 80%;
-  list-style-type: none;
-  padding: 0 5px;
-  position: absolute;
-  z-index: 4;
-}
-
-.react-autosuggest__suggestion {
-  border-bottom: 1px solid;
-  border-color: gray;
-  background-color: white;
-}
-
-.react-autosuggest__suggestion--focused {
-  background-color: #b3ecff;
-}
-
-.selected-department {
-  display: inline-block;
-}
-
 #search-form {
   background: #FAFAFA;
 }
@@ -108,4 +78,10 @@
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+.tag-selected { margin-right: 3px; }
+.tag-selected:hover {
+  background-color: #d9534f;
+  border-color: #d43f3a;
 }

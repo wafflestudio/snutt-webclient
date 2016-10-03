@@ -79,8 +79,6 @@ export function openCourse(course) {
 export function closeCourse(save, modified) {
   return function(dispatch) {
     dispatch(toggleModal())
-    // if (save)
-    //   dispatch(modifyCourse(modified._id, modified))
   }
 }
 
