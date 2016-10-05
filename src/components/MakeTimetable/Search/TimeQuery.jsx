@@ -26,9 +26,8 @@ export function complement(masks) {
 * 1 -> 'SELECTED',
 * 0 -> 'EMPTY'
 */
-function maskToCells(masks) {
-  //Immutable.List() -> JS array
-  let plainMasks = masks.toJS()
+export function maskToCells(plainMasks) {
+  // Convert to plainJS before putting into function
   let cells = new Array(30).fill().map(() =>new Array(6).fill('EMPTY'))
   for (let d = 0; d < 6; d++) {
     for (let t = 29; t >= 0; t--) {
@@ -45,7 +44,7 @@ function maskToCells(masks) {
 /**
  * Converts 30 x 6 2d array into 6 integer
  */
-function cellsToMask(arr) {
+export function cellsToMask(arr) {
   let masks = [0, 0, 0, 0, 0, 0]
 
   for (let t = 0; t < 30; t++) {
@@ -55,7 +54,7 @@ function cellsToMask(arr) {
       if (t != 29) masks[d] <<= 1
     }
   }
-  return Immutable.List(masks)
+  return masks
 }
 
 
@@ -65,14 +64,14 @@ class TimeQuery extends Component {
     this.handleCancel = this.handleCancel.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
-    this.state = { cells: maskToCells(props.masks) }
+    this.state = { cells: maskToCells(props.masks.toJS()) }
   }
 
   handleSave(e) {
     e.stopPropagation()
     const { dispatch } = this.props
     const newMasks = cellsToMask(this.state.cells)
-    dispatch(updateQuery('time_mask', () => newMasks))
+    dispatch(updateQuery('time_mask', () => Immutable.List(newMasks)))
     dispatch(toggleTimeselect())
   }
 
@@ -89,7 +88,7 @@ class TimeQuery extends Component {
   render() {
     return (
       <div className='time-query'>
-        <span><strong>검색하고 싶은 시간대들을 드래그하세요</strong></span>
+        <span><strong>검색하고 싶은 시간들을 드래그하세요</strong></span>
         <div className='btns'>
           <div
             className='btn btn-primary btn-sm'

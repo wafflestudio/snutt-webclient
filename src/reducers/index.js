@@ -14,17 +14,6 @@ function hoveredCourse(state = null, action) {
   }
 }
 
-function editingCourse(state = null, action) {
-  switch(action.type) {
-    case types.OPEN_COURSE:
-      return action.course
-    case types.CLOSE_COURSE:
-      return null
-    default:
-      return state
-  }
-}
-
 // It's something more like filter...I have to rename all the variables someday
 export const defaultQuery = Immutable.Map({
   classification: Immutable.Set(),
@@ -93,20 +82,9 @@ function filter(state = { panel: false, time: false}, action) {
     case types.TOGGLE_SEARCHPANEL:
       return { panel: !panel, time: false }
     case types.TOGGLE_TIMESELECT:
-      return { panel: !panel, time: !time }
+      return { panel, time: !time }
     case types.SHOW_RESULT:
       return { panel: false, time: false }
-    default:
-      return state
-  }
-}
-
-function modalOn(state = false, action) {
-  switch(action.type) {
-    case types.TOGGLE_MODAL:
-      return !state
-    case types.OPEN_COURSE:
-      return true
     default:
       return state
   }
@@ -123,19 +101,34 @@ function leftTabSearching(state = true, action) {
   }
 }
 
+const courseEditorDefault = {
+  isOpen: false,
+  course: null,
+}
+function courseEditor(state = courseEditorDefault, action) {
+  switch(action.type) {
+    case types.EDIT_COURSE:
+      return { isOpen: true, course: action.course }
+    case types.UPDATE_LECTURE_OK:
+    case types.CLOSE_COURSE:
+      return courseEditorDefault
+    default:
+      return state
+  }
+}
+
 const reducer = {
   hoveredCourse,
-  editingCourse,
   query,
   searchResults,
   courseBook,
   isQuerying,
   filter,
-  modalOn,
   leftTabSearching,
   user,
   tableList,
   tagList,
+  courseEditor,
 }
 
 // This file exports a mere object, which is to be combined at src/index.js later.

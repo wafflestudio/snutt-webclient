@@ -68,20 +68,6 @@ export function deleteCourse(courseId) {
   return { type: types.DELETE_COURSE, courseId}
 }
 
-export function modifyCourse(courseId, modified) {
-  return { type: types.MODIFY_COURSE, courseId, modified}
-}
-
-export function openCourse(course) {
-  return { type: types.OPEN_COURSE, course }
-}
-
-export function closeCourse(save, modified) {
-  return function(dispatch) {
-    dispatch(toggleModal())
-  }
-}
-
 export function changeTimeTable(newTableIndex) {
   return { type: types.CHANGE_TIMETABLE, newTableIndex }
 }

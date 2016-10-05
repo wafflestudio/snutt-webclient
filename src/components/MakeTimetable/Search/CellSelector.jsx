@@ -150,6 +150,7 @@ export default class CellSelector extends Component {
     return cellStateTable.map((row, rowIndex) => {
       const cols = row.map((col, colIndex) =>
         <DraggableCell
+          key={`${colIndex}${rowIndex}`}
           row={rowIndex}
           col={colIndex}
           handleMouseDown={this.handleMouseDown}

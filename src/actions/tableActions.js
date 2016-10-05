@@ -6,6 +6,7 @@ import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
   CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL,
   DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL,
   SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL,
+  EDIT_COURSE, CLOSE_COURSE
 } from './actionTypes'
 
 export function fetchTableList(year, semester) {
@@ -52,10 +53,11 @@ export function deleteLecture(lectureId) {
     })
   }
 }
-
-export function updateLecture(lecutreId, updatedPart) {
+export const editCourse = (course) => ({ type: EDIT_COURSE, course })
+export const closeCourse = (course) => ({ type: CLOSE_COURSE })
+export function updateLecture(lectureId, updatedPart) {
   return function (dispatch, getState) {
-    const { currentTableId } = getState().tableList
+    const { currentId: currentTableId } = getState().tableList
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${currentTableId}/lecture/${lectureId}`,

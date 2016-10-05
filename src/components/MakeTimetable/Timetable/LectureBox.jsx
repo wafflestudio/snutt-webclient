@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { openCourse } from '../../../actions'
+import { editCourse } from '../../../actions/tableActions'
 
 class LectureBox extends Component {
   constructor() {
@@ -15,11 +15,13 @@ class LectureBox extends Component {
   }
 
   render() {
-    const { dispatch } = this.props
+    const { dispatch, length, course } = this.props
+    if (!course.color)
+      course.color = { fg: "#1579C2", bg: "#94E6FE" }
     const divStyle = {
-      height: `${this.props.length * 100}%`,
-      color: this.props.course.fgColor,
-      backgroundColor: this.props.course.bgColor,
+      height: `${length * 100}%`,
+      color: course.color.fg,
+      backgroundColor: course.color.bg,
     }
     return (
       <div
@@ -41,11 +43,11 @@ class LectureBox extends Component {
             null
           }
           {
-          // <span
-          //   className='glyphicon glyphicon-pencil'
-          //   aria-hidden='true'
-          //   onClick={() => dispatch(openCourse(this.props.course))}
-          // />
+          <span
+            className='glyphicon glyphicon-pencil'
+            aria-hidden='true'
+            onClick={() => dispatch(editCourse(this.props.course))}
+          />
           }
         </div>
       </div>

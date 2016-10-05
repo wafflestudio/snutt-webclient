@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { sendQuery, toggleTimeselect } from '../../../actions'
 import SearchBar from './SearchBar.jsx'
 import SearchFilter from './SearchFilter.jsx'
-import ModalWrapper from '../Common/ModalWrapper.jsx'
+import Modal from 'react-modal'
 import TimeQuery from './TimeQuery.jsx'
 
 class Search extends Component {
@@ -39,12 +39,13 @@ class Search extends Component {
     return(
       <div>
         { selectingTime ?
-          <ModalWrapper
-            fullScreen={true}
-            handleClose={this.toggleTimeselect}
+          <Modal
+            isOpen={true}
+            className='snutt__modal'
+            overlayClassName='snutt__modal-overlay'
           >
             <TimeQuery />
-          </ModalWrapper> :
+          </Modal> :
           null
         }
         <SearchBar

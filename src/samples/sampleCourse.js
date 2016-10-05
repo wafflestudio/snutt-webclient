@@ -17,6 +17,8 @@ module.exports = {
         {'day':4,'start':3,'len':2,'place':'020-103/020-104',
         '_id':'5700a5624dc242222dbf6d2b'}],
     '__v':0,
-    'bgColor':'#B7C7BB',
-    'fgColor':'#1A1413',
+    'color' : {
+        'bg':'#B7C7BB',
+        'fg':'#1A1413',
+    },
 }

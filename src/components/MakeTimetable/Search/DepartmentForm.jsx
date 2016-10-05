@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Autocomplete from 'react-autocomplete'
-import Immutable from 'immutable'
 import { addQuery, removeQuery } from '../../../actions'
 
 const MAX_DEPARTMENT = 3

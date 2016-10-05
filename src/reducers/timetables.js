@@ -1,5 +1,3 @@
-// I'm planning to stop using Immutable.js
-import Immutable from 'immutable'
 import update from 'react-addons-update'
 import * as types from '../actions/actionTypes.js'
 
