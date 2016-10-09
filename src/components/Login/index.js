@@ -17,14 +17,18 @@ class Login extends Component {
         id: true,
         password: true,
         passwordAgain: true,
-      }
+      },
+      keepLogin: false,
     }
+    this.handleCheck = this.handleCheck.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.responseFB = this.responseFB.bind(this)
     this.validator = this.validator.bind(this)
     this.renderError = this.renderError.bind(this)
   }
+
+  handleCheck(e) { this.setState({keepLogin: e.target.value})}
 
   validator(which, input) {
     const regex = {
@@ -48,7 +52,8 @@ class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault()
-    this.props.dispatch(loginLocal(this.state.id, this.state.password))
+    const {id, password, keepLogin} = this.state
+    this.props.dispatch(loginLocal(id, password, keepLogin))
   }
 
   responseFB(response) {
@@ -109,6 +114,15 @@ class Login extends Component {
           <Link to='/findPassword'>
             <small className='find-password'>비밀번호 찾기</small>
           </Link>
+        </div>
+        <div className='keep-login'>
+          <label>
+            <input
+              type='checkbox'
+              value={this.state.keepLogin}
+              onChange={this.handleCheck}
+            /> 로그인 유지
+          </label>
         </div>
         <div className='warning'>
           {isRegistering ? this.renderError() : null}

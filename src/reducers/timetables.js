@@ -10,18 +10,19 @@ const DEFAULT_TABLELIST = {
 export function tableList(state = DEFAULT_TABLELIST, action) {
   const { currentIndex, tableMap, tableIndex } = state
   switch (action.type) {
-    case types.GET_TABLELIST:
+    case types.GET_TABLELIST: {
       const tableArray = JSON.parse(action.response)
       const mapped = tableArray.reduce((obj, current)=> {
         obj[current._id] = current
         return obj
       }, {})
       const currentId = tableArray.length > 0 ? tableArray[0]._id : null
-     return {
+      return {
         currentId,
         tableIndex: tableArray,
         tableMap: mapped,
       }
+    }
     case types.ADD_LECTURE_OK: {
       const updated = JSON.parse(action.response)
       return {

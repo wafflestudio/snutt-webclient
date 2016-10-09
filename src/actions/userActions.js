@@ -31,7 +31,7 @@ export function registerUser(_id, _pass) {
   }
 }
 
-export function loginLocal(_id, _pass) {
+export function loginLocal(_id, _pass, keepLogin) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/login_local/', {
       method: 'post',
@@ -46,7 +46,7 @@ export function loginLocal(_id, _pass) {
       if (json.token === undefined)
         dispatch(failLogin(json))
       else {
-        dispatch(successLogin(_id, json.token))
+        dispatch(successLogin(_id, json.token, keepLogin))
         dispatch(push('/')) //Redirect to home
       }
     })
@@ -78,15 +78,21 @@ export function loginFacebook(fb_id, fb_token, fb_name) {
 
 export function logout() {
   return function(dispatch) {
-    sessionStorage.removeItem('id_token')
+    sessionStorage.removeItem('snutt_id')
+    sessionStorage.removeItem('snutt_token')
+    localStorage.removeItem('snutt_id')
+    localStorage.removeItem('snutt_token')
     dispatch(push('/'))
     return dispatch({ type: types.LOGOUT_SUCCESS })
   }
 }
 
-export function successLogin(id, token) {
+export function successLogin(id, token, keepLogin = false) {
   return (dispatch, getState) => {
-    sessionStorage.setItem('id_token', token)
+    const storage = keepLogin ? localStorage : sessionStorage
+    storage.setItem('snutt_id', id)
+    storage.setItem('snutt_token', token)
+
     const { year, semester } = getState().courseBook.get('current')
     dispatch(fetchTableList(year, semester))
     return dispatch({ type: types.LOGIN_SUCCESS, id })

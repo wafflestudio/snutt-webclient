@@ -2,13 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { updateCoursebook, changeCoursebook } from '../../actions/fetchingActions'
 
-var semesters = [
-  { year: 2016, semesterIdx: 1 },
-  { year: 2015, semesterIdx: 4 },
-  { year: 2015, semesterIdx: 3 },
-  { year: 2015, semesterIdx: 2 },
-  { year: 2015, semesterIdx: 1 },
-]
 var idxToString = [ null, '1', 'S', '2', 'W' ]
 
 class CourseBookSelector extends Component {

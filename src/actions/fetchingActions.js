@@ -5,6 +5,7 @@ import { CALL_API } from '../middleware/api'
 import { FETCH_TAG, GET_TAG, FAIL_TAG } from './actionTypes'
 import { baseUrl, apiKey } from '../samples/sampleKey'
 import { fetchTableList } from './tableActions'
+import { successLogin } from './userActions'
 
 export function updateCoursebook() {
   return function(dispatch) {
@@ -35,9 +36,16 @@ export function changeCoursebook(newCourseBook) {
   return function(dispatch, getState) {
     const { year: newYear, semester: newSemester } = newCourseBook
     dispatch(updateTag(newYear, newSemester))
+    dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook })
+
     if (getState().user.loggedIn)
       dispatch(fetchTableList(newYear, newSemester))
-    dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook })
+    else if (localStorage.getItem('snutt_token'))
+      dispatch(successLogin(
+        localStorage.getItem('snutt_id'),
+        localStorage.getItem('snutt_token'),
+        true
+      ))
   }
 }
 

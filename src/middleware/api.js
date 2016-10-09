@@ -5,7 +5,8 @@ import { baseUrl, apiKey } from '../samples/sampleKey'
 
 
 function callApi(endpoint, config, authenticated) {
-  let token = sessionStorage.getItem('id_token') || null
+  let token = sessionStorage.getItem('snutt_token') ||
+    localStorage.getItem('snutt_token') || null
   if (!config.headers) config.headers = {}
   Object.assign(config.headers, { 'x-access-apikey': apiKey })
 
