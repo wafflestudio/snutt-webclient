@@ -24,4 +24,7 @@ body {
 input:focus {
   outline: none;
 }
+// At SPA, there's no page change, so focus when clicked is preserved :(
+.navbar-nav>li>a:focus { color: white!important }
+
 @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
