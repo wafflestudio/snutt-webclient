@@ -1,131 +1,95 @@
-$font-size: 13px;
-$input-width: 330px;
-$input-height: 40px;
+.snutt__login {
+    background: white;
+    padding: 20px;
+    margin: 40px 0;
+}
 
-.login-box {
-  width: 500px;
-  margin: 80px auto;
-  text-align: center;
-  font-size: $font-size;
-
-  .title {
-    font-size: 35px;
-    margin: 0 0 35px 0;
-  }
-
-  .input-row {
-    width: 100%;
-    text-align: left;
+.snutt__inputWrapper {
     position: relative;
+    padding-top: 30px;
+}
 
-    .input-group {
-      width: 100%;
-      height: $input-height + 4px;
+.snutt__inputWrapper input {
+    width: 100%;
+    height: 40px;
+    border: 0;
+    border-bottom: 1px solid #bcb5b9;
+}
 
-      .label {
-        font-size: $font-size;
-        line-height: 28px;
-        vertical-align: middle;
-        position: absolute;
-        top: 4px;
-        left: 40px;
-        color: #4a4a4a;
-        opacity: 0;
-        transition: opacity 200ms ease, transform 200ms ease, color 200ms ease;
-        &.typed {
-          opacity: 1;
-          transform: translateX(-40px);
-        }
-        &.focused {
-          color: #4a90e2;
-        }
-        &.invalid {
-          color: #D13D37;
-        }
-      }
+.snutt__inputWrapper input:focus {
+    border-bottom: 1px solid rgb(51, 103, 214);
+}
 
-      input {
-        position: absolute;
-        top: 0px;
-        left: 91px;
-        width: $input-width;
-        height: $input-height;
-        padding-left: 5px;
-        &:focus {
-          border: 1px solid #4A90E2;
-        }
-      }
-    }
-    .warning { color: #D13D37; }
-
-    .button {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      width: 59px;
-      height: $input-height;
-      line-height: $input-height;
-      vertical-align: middle;
-      color: #ffffff;
-      text-align: center;
-      cursor: pointer;
-      background-color: gray;
-    }
-    .login { background-color: #4a90e2; }
-    .join { background-color: #7ed321; }
-  }
-  .find-password {
+.snutt__labelWrapper {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: $input-width + 20px;
-    color: gainsboro;
-    &:hover {
-      color: #4A90E2;
-    }
-  }
+    top: 30px;
+    color: #bcb5b9;
+    transition: color 200ms ease, transform 200ms ease;
+    z-index: -1;
+}
 
-  .warning {
+.snutt__inputWrapper input:focus+.snutt__labelWrapper {
+    color: RGB(51, 103, 214);
+}
+
+.typed+.snutt__labelWrapper {
+    transform: translateY(-10px) scale(0.8);
+    transform-origin: left top;
+    opacity: 1;
+    z-index: 1
+}
+
+#snutt__findPass {
+    text-align: right;
+    color: #bcb5b9;
+}
+
+.snutt__login #keep-login {
+    color: black;
+    font-weight: normal;
+}
+
+.snutt__login .error {
     color: #D13D37;
     text-align: center;
-    min-height: 20px;
-  }
-  .warning p { margin-bottom: 5px; }
+    margin: 20px 0;
+}
 
-  hr {
-    width: 100%;
-    border: solid 1px #d9d6da;
-    margin: 10px 0;
-  }
-
-  .button-sns {
-    display: inline-block;
-    margin: 5px;
-    $button-size: 40px;
-    width: $button-size;
-    height: $button-size;
-    border-radius: 8px;
+.snutt__login .btn {
+    border-radius: 0;
+    border: 0;
     color: white;
-    line-height: $button-size;
-    vertical-align: middle;
-    background-color: #3b5998;
-    cursor: pointer;
-  }
+    width: 100%;
+    margin-top: 5px;
+}
 
-  .g {
-    background-color: #d0021b;
-  }
+.snutt__login .btn.login {
+    background-color: #4A90E2;
+}
+
+.snutt__login .btn.login-fb {
+    background-color: #365899;
+}
+
+.snutt__login .btn.join {
+    background-color: #5cb85c;
+}
+
+.snutt__login i.fa-facebook {
+    margin-right: 4px;
 }
 
 // For myPage.jsx
 .snutt__setting.container {
-  margin: 50px 0;
+    margin: 50px 0;
 }
 
 .snutt__setting label {
-  text-align: right;
+    text-align: right;
 }
 
 .snutt__setting .new-password {
-  input { margin-bottom: 5px; }
+    input {
+        margin-bottom: 5px;
+    }
 }

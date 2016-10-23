@@ -1,6 +1,6 @@
 export App from './Layout/App.jsx'
 export About from './About'
-export Login from './Login'
+export Login from './Login/login2.js'
 export FindPassword from './Login/findPassword.jsx'
 export MyPage from './Login/myPage.jsx'
 export MakeTimetable from './MakeTimetable'
