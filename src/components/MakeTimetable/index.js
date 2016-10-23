@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import Search from './Search'
-var CourseEditor = require.ensure(['./CourseEditor'], function(require) {
-  console.log('getting course editor')
-})
+import CourseEditorLoader from './CourseEditor/Loader'
 import ResultTable from './ResultTable'
 import TimeTableManager from './Timetable/TimeTableManager.jsx'
 import Timetable from './Timetable'
 
-import { addCourse,
-} from '../../actions'
+import { addCourse } from '../../actions'
 import { deleteLecture, updateTitle, createTable, switchTable, deleteTable
   } from '../../actions/tableActions'
 
@@ -19,9 +16,18 @@ class MakeTimeTable extends Component {
     super()
   }
 
+  componentWillMount() {
+    CourseEditorLoader().then(loaded => {
+      console.log('course editor loaded')
+      this.CourseEditor = loaded.CourseEditor.default
+      this.forceUpdate();
+    })
+  }
+
   render() {
     const { dispatch, hoveredCourse, timeTables, tableList: { tableIndex, currentId },
       currentLectures, currentIndex, courseBook, courseEditorOpen } = this.props
+
     return (
       <div className="container">
         <Search />
@@ -47,7 +53,7 @@ class MakeTimeTable extends Component {
               addCourse={course => dispatch(addCourse(course))}
             />
           </div>
-          { courseEditorOpen ? <CourseEditor /> : null }
+          { courseEditorOpen ? <this.CourseEditor /> : null }
         </div>
       </div>
     )
@@ -59,8 +65,10 @@ function mapStateToProps(state) {
     modalOn, tableList, courseEditor } = state
   const { currentId, tableMap } = tableList
   const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list
-  return { hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
-    modalOn, tableList, currentLectures, courseEditorOpen: courseEditor.isOpen }
+  return {
+    hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
+    modalOn, tableList, currentLectures, courseEditorOpen: courseEditor.isOpen
+  }
 }
 
 export default connect(mapStateToProps)(MakeTimeTable)
