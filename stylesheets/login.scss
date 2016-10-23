@@ -6,7 +6,7 @@
 
 .snutt__inputWrapper {
     position: relative;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .snutt__inputWrapper input {
@@ -22,7 +22,7 @@
 
 .snutt__labelWrapper {
     position: absolute;
-    top: 30px;
+    top: 20px;
     color: #bcb5b9;
     transition: color 200ms ease, transform 200ms ease;
     z-index: -1;
@@ -39,10 +39,9 @@
     z-index: 1
 }
 
-#snutt__findPass {
-    text-align: right;
-    color: #bcb5b9;
-}
+#snutt__findPass { text-align: right; }
+#snutt__findPass a { color: #bcb5b9; }
+#snutt__findPass a:hover { color: rgb(51, 103, 214); }
 
 .snutt__login #keep-login {
     color: black;
@@ -62,22 +61,26 @@
     width: 100%;
     margin-top: 5px;
 }
-
-.snutt__login .btn.login {
-    background-color: #4A90E2;
-}
-
-.snutt__login .btn.login-fb {
-    background-color: #365899;
-}
-
-.snutt__login .btn.join {
-    background-color: #5cb85c;
-}
+.snutt__login .btn { background-color: #bcb5b9; }
+.snutt__login .btn.login { background-color: #4A90E2; }
+.snutt__login .btn.login-fb { background-color: #365899; }
+.snutt__login .btn.join { background-color: #5cb85c; }
 
 .snutt__login i.fa-facebook {
     margin-right: 4px;
 }
+
+
+// For signup - Valid or invalid should be shown after input is done
+.snutt__inputError { opacity: 0; }
+.invalid:not(:focus) { border-bottom-color: #D13D37; }
+.invalid:not(:focus)~.snutt__inputError {
+    color: #D13D37;
+    opacity: 1;
+}
+.valid:not(:focus) { border-bottom-color: green; }
+.valid:not(:focus)+.snutt__labelWrapper { color: green; }
+.snutt__login .btn.signup { background-color: #5cb85c; }
 
 // For myPage.jsx
 .snutt__setting.container {

@@ -20,14 +20,19 @@ export function registerUser(_id, _pass) {
     fetch(baseUrl + 'auth/register_local/', {
       method: 'post',
       headers,
-      body: {
-        id: _id,
-        pass: _pass,
-      }
+      body: encodeParams({ id: _id, password: _pass })
     })
     .then(resp => resp.json())
-    .catch(e => dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)}))
-    .then(json => dispatch(loginLocal(_id, _pass)))
+    .catch(e => {
+      console.log("fail register")
+      dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
+    })
+    .then(json => {
+      if (json.message == "ok")
+        dispatch(loginLocal(_id, _pass))
+      else
+        dispatch({type: types.REGISTER_FAILURE, message: json.message})
+    })
   }
 }
 

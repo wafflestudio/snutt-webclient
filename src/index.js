@@ -10,7 +10,7 @@ import api from './middleware/api'
 import rootReducer from './reducers'
 
 require('../stylesheets/style.scss')
-import { App, MakeTimetable, About, Login, MyPage, FindPassword, MustLoggedIn
+import { App, MakeTimetable, About, Login, SignUp, MyPage, FindPassword, MustLoggedIn
    } from './components'
 
 var reducer = combineReducers({
@@ -36,12 +36,13 @@ const history = syncHistoryWithStore(browserHistory, store)
 render((
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App}>
+      <Route path='/' component={App}>
         <IndexRoute component={MakeTimetable} />
-        <Route path="about" component={About} />
-        <Route path="login" component={Login} />
-        <Route path="findPassword" component={FindPassword} />
-        <Route path="myPage" component={MustLoggedIn(MyPage)} />
+        <Route path='about' component={About} />
+        <Route path='login' component={Login} />
+        <Route path='signup' component={SignUp} />
+        <Route path='findPassword' component={FindPassword} />
+        <Route path='myPage' component={MustLoggedIn(MyPage)} />
       </Route>
     </Router>
   </Provider>
