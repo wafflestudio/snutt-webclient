@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import InlineEdit from 'react-edit-inline'
 
 export default class TimetableSelector extends Component {
   constructor() {
