@@ -14,8 +14,9 @@ function callApi(endpoint, config, authenticated) {
     if (token)
       Object.assign(config.headers, {'x-access-token': token})
     else{
-      console.log(endpoint, config, authenticated)
-      throw "No token saved!"
+      // console.log(endpoint, config, authenticated)
+      // throw "No token saved!"
+      alert("로그인 후 사용할 수 있습니다")
     }
   }
 

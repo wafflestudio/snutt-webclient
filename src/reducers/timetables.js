@@ -1,6 +1,11 @@
 import update from 'react-addons-update'
 import * as types from '../actions/actionTypes.js'
 
+/**
+ * currentId: '_id' field of current timetable object
+ * tableIndex: { id, year, semester, title } of tables
+ * tableMap: object of whole tables
+ */
 const DEFAULT_TABLELIST = {
   currentId: null,
   tableIndex: [],
