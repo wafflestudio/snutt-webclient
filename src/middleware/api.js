@@ -40,7 +40,7 @@ export default store => next => action => {
   if (typeof callAPI === 'undefined')
     return next(action)
 
-  let { endpoint, types, config, authenticated = false } = callAPI
+  let { endpoint, types, config, authenticated = false, payload } = callAPI
   const [ requestType, successType, errorType ] = types
 
   return callApi(endpoint, config, authenticated).then(
@@ -48,6 +48,7 @@ export default store => next => action => {
       next({
         response,
         authenticated,
+        payload,
         type: successType,
       }),
     error => next({

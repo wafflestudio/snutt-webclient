@@ -16,6 +16,7 @@ export function fetchTableList(year, semester) {
       config: { method: 'get', },
       authenticated: true,
       types: [ REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST ],
+      payload: { year, semester },
     }
   }
 }

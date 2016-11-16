@@ -10,6 +10,8 @@ const DEFAULT_TABLELIST = {
   currentId: null,
   tableIndex: [],
   tableMap: {},
+  year: null,
+  semester: null,
 }
 
 export function tableList(state = DEFAULT_TABLELIST, action) {
@@ -22,10 +24,13 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         return obj
       }, {})
       const currentId = tableArray.length > 0 ? tableArray[0]._id : null
+      const { year , semester } = action.payload
       return {
         currentId,
         tableIndex: tableArray,
         tableMap: mapped,
+        year,
+        semester,
       }
     }
     case types.ADD_LECTURE_OK: {
@@ -61,7 +66,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       }
     }
     case types.CREATE_TABLE_OK: {
-      const { year, semester } = state.tableMap[state.currentId]
+      const { year, semester } = state
       const newIndex = JSON.parse(action.response).filter(val =>
         val.year === year && val.semester === semester
       )
@@ -71,13 +76,13 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       }
     }
     case types.DELETE_TABLE_OK: {
-      const { year, semester } = state.tableMap[state.currentId]
+      const { year, semester } = state
       const newIndex = JSON.parse(action.response).filter(val =>
         val.year === year && val.semester === semester
       )
       return {
         ...state,
-        currentId: newIndex[0]._id,
+        currentId: newIndex.length === 0 ? null : newIndex[0]._id,
         tableIndex: update(tableIndex, {$set: newIndex})
       }
     }

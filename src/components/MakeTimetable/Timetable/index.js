@@ -92,7 +92,6 @@ export default class Timetable extends Component {
   }
 
   render() {
-    var lectureBoxes = this.placeLectures()
     return (
       <div id='timetable-container'>
         <table className="table table-bordered timetable">
@@ -110,13 +109,16 @@ export default class Timetable extends Component {
               <th className='label-date blank-right'></th>
             </tr>
           </thead>
-          {this.makeTable(lectureBoxes)}
+          {this.props.courses ?
+            this.makeTable(this.placeLectures()) :
+            <tbody>
+              <tr>
+                <td colSpan='10'><h3 style={{textAlign:'center'}}>시간표를 추가해주세요</h3></td>
+              </tr>
+            </tbody>
+          }
         </table>
       </div>
     )
   }
-}
-
-function mapStateToProps(state) {
-
 }
