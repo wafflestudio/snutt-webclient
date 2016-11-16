@@ -45,9 +45,12 @@ export default class ResultRow extends Component {
 
 const printTime = timeString => {
   let days = timeString.split('/').map(val => {
-    const day = val.split('(')[0]
-    const start = Number(val.split('(')[1].split('-')[0]) + 8
-    return day + start
+    try {
+      const day = val.split('(')[0]
+      const start = Number(val.split('(')[1].split('-')[0]) + 8
+      return day + start
+    } catch(ex) {
+    }
   })
   return [...new Set(days)].join('-')
 }
