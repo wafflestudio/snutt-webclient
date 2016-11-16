@@ -3,16 +3,17 @@ import React, { Component } from 'react'
 import LectureBox from './LectureBox.jsx'
 import Cell from './Cell.jsx'
 
-const NUM_DAY = 7
 const NUM_SLOTS = 28
 
 export default class Timetable extends Component {
   constructor() {
     super()
     this.placeLectures = this.placeLectures.bind(this)
+    this.makeTable = this.makeTable.bind(this)
   }
 
   emptyArray() {
+    const NUM_DAY = 7
     var empty = new Array(NUM_DAY)
     for (var d = 0; d < NUM_DAY; d++) {
       empty[d] = new Array(NUM_SLOTS)
@@ -59,8 +60,9 @@ export default class Timetable extends Component {
     return boxes
   }
 
-  makeTable(lectureBoxes) {
+  makeTable(lectureBoxes, hasSunday) {
     var rows = [];
+    var numDay = hasSunday ? 7 : 6
     for (var t = 0; t < NUM_SLOTS; t++) {
       var cols = []
       //column
@@ -69,7 +71,7 @@ export default class Timetable extends Component {
         cols.push(<td className='label-hour' rowSpan='2' key={-1}>{hrIdx+8}</td>)
         cols.push(<td className='label-gyosi' rowSpan='2' key={-2}>{hrIdx}</td>)
       }
-      for (var d = 0; d < NUM_DAY; d++) {
+      for (var d = 0; d < numDay; d++) {
         var cellClass = 'td-body'
 
         cols.push(
@@ -91,32 +93,41 @@ export default class Timetable extends Component {
     return <tbody>{rows}</tbody>
   }
 
+  renderHead(hasSunday) {
+    let days = ['월', '화', '수', '목', '금', '토']
+    if (hasSunday) days.push('일')
+    return (
+      <thead>
+        <tr>
+          <th className='label-hour'></th>
+          <th className='label-gyosi'></th>
+          {days.map((v, i) => (<th className='label-date' key={i}>{v}</th>))}
+          <th className='label-date blank-right'></th>
+        </tr>
+      </thead>
+    )
+  }
+
   render() {
+    let hasSunday = false;
+    let tableContent = (
+      <tbody>
+        <tr>
+          <td colSpan='10'><h3 style={{textAlign:'center'}}>시간표를 추가해주세요</h3></td>
+        </tr>
+      </tbody>
+    )
+    if (this.props.courses) {
+      const lectures = this.placeLectures()
+      hasSunday = lectures[6].filter(v => Boolean(v)).length > 0
+      tableContent = this.makeTable(lectures, hasSunday)
+    }
+
     return (
       <div id='timetable-container'>
         <table className="table table-bordered timetable">
-          <thead>
-            <tr>
-              <th className='label-hour'></th>
-              <th className='label-gyosi'></th>
-              <th className='label-date'>월</th>
-              <th className='label-date'>화</th>
-              <th className='label-date'>수</th>
-              <th className='label-date'>목</th>
-              <th className='label-date'>금</th>
-              <th className='label-date'>토</th>
-              <th className='label-date'>일</th>
-              <th className='label-date blank-right'></th>
-            </tr>
-          </thead>
-          {this.props.courses ?
-            this.makeTable(this.placeLectures()) :
-            <tbody>
-              <tr>
-                <td colSpan='10'><h3 style={{textAlign:'center'}}>시간표를 추가해주세요</h3></td>
-              </tr>
-            </tbody>
-          }
+          {this.renderHead(hasSunday)}
+          {tableContent}
         </table>
       </div>
     )
