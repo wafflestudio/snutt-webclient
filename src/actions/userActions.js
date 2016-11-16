@@ -15,6 +15,31 @@ const encodeParams = params => Object.keys(params).map(key =>
   encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
 ).join('&');
 
+export function createTemporaryUser() {
+  const timestamp = new Date().getTime().toString()
+  const tempId = 'webTemp' + timestamp
+  const tempPass = 'webTemp' + timestamp
+
+  return function(dispatch) {
+    fetch(baseUrl + 'auth/register_local/', {
+      method: 'post',
+      headers,
+      body: encodeParams({ id: tempId, password: tempPass })
+    })
+    .then(resp => resp.json())
+    .catch(e => {
+      console.log("fail register")
+      dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
+    })
+    .then(json => {
+      if (json.message == "ok")
+        dispatch(loginLocal(tempId, tempPass, true, true))
+      else
+        dispatch({type: types.REGISTER_FAILURE, message: json.message})
+    })
+  }
+}
+
 export function registerUser(_id, _pass) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/register_local/', {
@@ -36,7 +61,7 @@ export function registerUser(_id, _pass) {
   }
 }
 
-export function loginLocal(_id, _pass, keepLogin) {
+export function loginLocal(_id, _pass, keepLogin = false, isTemp = false) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/login_local/', {
       method: 'post',
@@ -51,7 +76,7 @@ export function loginLocal(_id, _pass, keepLogin) {
       if (json.token === undefined)
         dispatch(failLogin(json))
       else {
-        dispatch(successLogin(_id, json.token, keepLogin))
+        dispatch(successLogin(_id, json.token, keepLogin, isTemp))
         dispatch(push('/')) //Redirect to home
       }
     })
@@ -81,26 +106,34 @@ export function loginFacebook(fb_id, fb_token, fb_name) {
   }
 }
 
+function clearStorage() {
+  sessionStorage.removeItem('snutt_id')
+  sessionStorage.removeItem('snutt_token')
+  localStorage.removeItem('snutt_id')
+  localStorage.removeItem('snutt_token')
+}
+
 export function logout() {
   return function(dispatch) {
-    sessionStorage.removeItem('snutt_id')
-    sessionStorage.removeItem('snutt_token')
-    localStorage.removeItem('snutt_id')
-    localStorage.removeItem('snutt_token')
+    clearStorage()
     dispatch(push('/'))
     return dispatch({ type: types.LOGOUT_SUCCESS })
   }
 }
 
-export function successLogin(id, token, keepLogin = false) {
+export function successLogin(id, token, keepLogin = true, isTemp = false) {
   return (dispatch, getState) => {
+    clearStorage()
     const storage = keepLogin ? localStorage : sessionStorage
     storage.setItem('snutt_id', id)
     storage.setItem('snutt_token', token)
 
     const { year, semester } = getState().courseBook.get('current')
     dispatch(fetchTableList(year, semester))
-    return dispatch({ type: types.LOGIN_SUCCESS, id })
+    if (isTemp)
+      return dispatch({ type: types.LOGIN_TEMP, id})
+    else
+      return dispatch({ type: types.LOGIN_SUCCESS, id })
   }
 }
 
