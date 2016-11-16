@@ -35,18 +35,18 @@ class ResultTable extends Component {
   }
 
   updateHover(n) {
-    const { dispatch } = this.props
-    if (n != -1)
-      dispatch(hoverCourse(this.props.searchResults[n]))
-    else
+    const { dispatch, searching, searchResults } = this.props
+    if (searching && n != -1)
+      dispatch(hoverCourse(searchResults[n]))
+    else if (searching)
       dispatch(unhoverCourse())
     this.setState({ hoveredIdx: n })
   }
 
   render() {
     const { hoveredIdx } = this.state
-    const { searching, searchResults, timeTables } = this.props
-    const data = (searching ? searchResults : timeTables.tables.get(timeTables.currentIndex).toArray())
+    const { searching, searchResults, addedLectures } = this.props
+    const data = (searching ? searchResults : addedLectures)
     let rows = data.map((key, idx) => (
       <ResultRow {...key}
         rowIndex={idx}
@@ -103,8 +103,10 @@ class ResultTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { isQuerying, searchResults, timeTables, leftTabSearching }  = state;
-  return { isQuerying, searchResults, timeTables, searching: leftTabSearching }
+  const { isQuerying, searchResults, tableList, leftTabSearching,
+    tableList: { currentId, tableMap } } = state;
+  const addedLectures = currentId ? tableMap[currentId].lecture_list : []
+  return { isQuerying, searchResults, addedLectures, searching: leftTabSearching }
 }
 
 export default connect(mapStateToProps)(ResultTable)

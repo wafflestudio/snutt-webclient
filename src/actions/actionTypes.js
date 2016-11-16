@@ -1,5 +1,6 @@
 export const HOVER_COURSE = 'HOVER_COURSE'
 export const UNHOVER_COURSE = 'UNHOVER_COURSE'
+export const SET_LEFT_TAB = 'SET_LEFT_TAB'
 
 export const ADD_QUERY = 'ADD_QUERY'
 export const UPDATE_QUERY = 'UPDATE_QUERY'

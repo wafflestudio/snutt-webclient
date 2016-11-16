@@ -2,8 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import ResultRow from './ResultRow.jsx'
-import { openCourse } from '../../../actions'
-import { addLecture, deleteLecture } from '../../../actions/tableActions'
+import { addLecture, deleteLecture, editCourse } from '../../../actions/tableActions'
 import showCourseDetail from './showCourseDetail.js'
 
 class DetailRow extends ResultRow {
@@ -31,7 +30,7 @@ class DetailRow extends ResultRow {
   }
 
   handleEdit() {
-    this.props.dispatch(openCourse(this.props.course))
+    this.props.dispatch(editCourse(this.props.course))
   }
 
   render() {
@@ -60,7 +59,12 @@ class DetailRow extends ResultRow {
               </button>
             </div> :
             <div className='buttons'>
-            <button className="btn btn-info">수강편람</button>
+              <button
+                className="btn btn-info"
+                onClick={this.handleOpenDetail}
+              >
+                수강편람
+              </button>
               <button
                 className='btn btn-warning'
                 onClick={this.handleEdit}

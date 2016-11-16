@@ -73,7 +73,6 @@ export default class Timetable extends Component {
       }
       for (var d = 0; d < numDay; d++) {
         var cellClass = 'td-body'
-
         cols.push(
           <Cell
             className={cellClass.trim()}
