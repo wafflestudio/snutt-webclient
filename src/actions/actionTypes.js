@@ -11,6 +11,7 @@ export const SEND_QUERY = 'SEND_QUERY'
 export const START_QUERY = 'START_QUERY'
 export const SHOW_RESULT = 'SHOW_RESULT'
 
+export const CREATE_COURSE = 'CREATE_COURSE'
 export const ADD_COURSE = 'ADD_COURSE'
 export const DELETE_COURSE = 'DELETE_COURSE'
 export const EDIT_COURSE = 'EDIT_COURSE'

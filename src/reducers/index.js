@@ -107,8 +107,10 @@ const courseEditorDefault = {
 }
 function courseEditor(state = courseEditorDefault, action) {
   switch(action.type) {
+    case types.CREATE_COURSE:
     case types.EDIT_COURSE:
       return { isOpen: true, course: action.course }
+    case types.ADD_LECTURE_OK:
     case types.UPDATE_LECTURE_OK:
     case types.CLOSE_COURSE:
       return courseEditorDefault

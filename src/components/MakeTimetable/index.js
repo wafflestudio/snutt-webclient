@@ -8,7 +8,7 @@ import TimeTableManager from './Timetable/TimeTableManager.jsx'
 import Timetable from './Timetable'
 
 import { addCourse } from '../../actions'
-import { deleteLecture, updateTitle, createTable, switchTable, deleteTable
+import { createCourse, deleteLecture, updateTitle, createTable, switchTable, deleteTable
   } from '../../actions/tableActions'
 
 class MakeTimeTable extends Component {
@@ -51,6 +51,7 @@ class MakeTimeTable extends Component {
               previewed={hoveredCourse}
               handleDelete={_id => dispatch(deleteLecture(_id))}
               addCourse={course => dispatch(addCourse(course))}
+              openCourse={() => dispatch(createCourse())}
             />
           </div>
           { courseEditorOpen ? <this.CourseEditor /> : null }

@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import { CirclePicker } from 'react-color'
 import TimeSelector from './TimeSelector.jsx'
 import { contrast, timeJsonToMask } from './util'
-import { updateLecture, closeCourse } from '../../../actions/tableActions'
+import { addLecture, updateLecture, closeCourse } from '../../../actions/tableActions'
 import JsonEditor from './JsonEditor.jsx'
 
 class CourseEditor extends Component {
@@ -13,33 +13,19 @@ class CourseEditor extends Component {
     this.handleSave = this.handleSave.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleColorSelect = this.handleColorSelect.bind(this)
-    this.toggleTimeselect = this.toggleTimeselect.bind(this)
-    this.handleSaveTime = this.handleSaveTime.bind(this)
     this.renderInput = this.renderInput.bind(this)
 
     const defaultColor = { fg: "#1579C2", bg: "#94E6FE" }
     this.state = {
-      _id: props.course._id,
+      isNew: Boolean(Object.keys(props.course).length)
+      _id: props.course._id || '',
       course_title: props.course.course_title || '',
       instructor: props.course.instructor || '',
       class_time_mask: props.course.class_time_mask || '',
       class_time_json: props.course.class_time_json || [],
       remark: props.course.remark || '',
       color: props.course.color || defaultColor,
-      selectingTime: false,
     }
-  }
-
-  toggleTimeselect = (e) => {
-    e.preventDefault()
-    this.setState({selectingTime: !this.state.selectingTime})
-  }
-
-  handleSaveTime(masks) {
-    this.setState({
-      class_time_mask: masks,
-      selectingTime: false,
-    })
   }
 
   handleColorSelect = (chosenColor) => {
@@ -54,15 +40,21 @@ class CourseEditor extends Component {
   handleSave(e) {
     e.preventDefault()
     console.log('handle save')
+    const { dispatch } = this.props
     const { course_title, instructor, class_time_json, remark, color } = this.state
-    this.props.dispatch(updateLecture(this.state._id, {
+    const editedLecuture = {
       course_title,
       instructor,
       class_time_mask: timeJsonToMask(class_time_json),
       class_time_json,
       remark,
       color,
-    }))
+    }
+    if (this.state.isNew) { //add new course
+      dispatch(addLecture(editedLecuture))
+    } else {
+      dispatch(updateLecture(this.state._id, editedLecuture))
+    }
   }
 
   handleClose(e) {

@@ -91,8 +91,6 @@
   }
 }
 
-
-
 .timetable * {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -105,26 +103,26 @@
   position: relative;
 }
 
-#custom-lecture-form {
-  position: absolute;
-  right: 100%;
-  padding: 10px;
-  background-color: rgba(250, 250, 250, 0.9);
-  label {
-    font-size: 1em;
-    font-weight: normal;
-  }
+#add-button {
+    background-color: #448AFF;
+    color: white;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    cursor: pointer;
+}
 
-  input {
-    border-radius: 1;
-    margin-bottom: 3px;
-  }
+#add-button:hover {
+    background-color: #03A9F4;
+}
 
-  #memo {
-    margin-bottom: 14px;
-  }
-
-  button {
-    margin-right: 5px;
-  }
+#add-button span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }

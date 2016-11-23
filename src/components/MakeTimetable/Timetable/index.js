@@ -3,13 +3,14 @@ import React, { Component } from 'react'
 import LectureBox from './LectureBox.jsx'
 import Cell from './Cell.jsx'
 
-const NUM_SLOTS = 28
+const NUM_SLOTS = 30
 
 export default class Timetable extends Component {
   constructor() {
     super()
     this.placeLectures = this.placeLectures.bind(this)
     this.makeTable = this.makeTable.bind(this)
+    this.createAndEditCourse = this.createAndEditCourse.bind(this)
   }
 
   emptyArray() {
@@ -92,6 +93,11 @@ export default class Timetable extends Component {
     return <tbody>{rows}</tbody>
   }
 
+  createAndEditCourse(e) {
+    e.preventDefault()
+    this.props.openCourse()
+  }
+
   renderHead(hasSunday) {
     let days = ['월', '화', '수', '목', '금', '토']
     if (hasSunday) days.push('일')
@@ -128,6 +134,9 @@ export default class Timetable extends Component {
           {this.renderHead(hasSunday)}
           {tableContent}
         </table>
+        <div id='add-button' onClick={this.createAndEditCourse}>
+          <span>+</span>
+        </div>
       </div>
     )
   }

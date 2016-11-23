@@ -6,7 +6,7 @@ import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
   CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL,
   DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL,
   SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL,
-  EDIT_COURSE, CLOSE_COURSE
+  CREATE_COURSE, EDIT_COURSE, CLOSE_COURSE
 } from './actionTypes'
 
 export function fetchTableList(year, semester) {
@@ -21,6 +21,7 @@ export function fetchTableList(year, semester) {
   }
 }
 
+export const createCourse = () => ({ type: CREATE_COURSE, course: {} })
 export function addLecture(lecture) {
   return function (dispatch, getState) {
     const { currentId } = getState().tableList
