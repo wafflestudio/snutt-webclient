@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import Modal from 'react-modal'
 import { CirclePicker } from 'react-color'
 import TimeSelector from './TimeSelector.jsx'
-import contrast from './colorInvertor'
+import { contrast, timeJsonToMask } from './util'
 import { updateLecture, closeCourse } from '../../../actions/tableActions'
-import { maskToCells } from '../Search/TimeQuery.jsx'
+import JsonEditor from './JsonEditor.jsx'
 
 class CourseEditor extends Component {
   constructor(props) {
@@ -49,14 +49,17 @@ class CourseEditor extends Component {
     }})
   }
 
+  handleJsonUpdate = (updatedJson) => this.setState({class_time_json: updatedJson})
+
   handleSave(e) {
     e.preventDefault()
     console.log('handle save')
-    const { course_title, instructor, class_time_mask, remark, color } = this.state
+    const { course_title, instructor, class_time_json, remark, color } = this.state
     this.props.dispatch(updateLecture(this.state._id, {
       course_title,
       instructor,
-      class_time_mask,
+      class_time_mask: timeJsonToMask(class_time_json),
+      class_time_json,
       remark,
       color,
     }))
@@ -115,20 +118,10 @@ class CourseEditor extends Component {
           <div className='form-group'>
             <label className='col-sm-2 control-label'>시간</label>
             <div className='col-sm-7'>
-              <button
-                className='btn btn-default'
-                onClick={this.toggleTimeselect}
-              >
-                시간선택하기
-              </button>
-              { this.state.selectingTime ?
-                <TimeSelector
-                  masks={this.state.class_time_mask}
-                  handleSave={this.handleSaveTime}
-                  handleCancel={this.toggleTimeselect}
-                /> :
-                null
-              }
+              <JsonEditor
+                updateJson={this.handleJsonUpdate}
+                class_time_json={this.state.class_time_json}
+              />
             </div>
           </div>
           {this.renderInput('비고', 'remark')}
