@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PureRenderComponent from '../../PureRenderComponent.jsx'
 import update from 'react-addons-update'
 
 const daysKorean = ['월', '화', '수', '목', '금', '토', '일']
@@ -9,7 +10,7 @@ const hhmms = times.map(gyosi => {
   return `${hh}:${mm}`
 })
 
-class ClassTimeRow extends Component {
+class ClassTimeRow extends PureRenderComponent {
   constructor(props) {
     super(props)
     this.updateDay = this.updateDay.bind(this)
@@ -55,7 +56,7 @@ class ClassTimeRow extends Component {
   }
 }
 
-class JsonEditor extends Component {
+class JsonEditor extends PureRenderComponent {
   constructor(props) {
     super(props)
     this.addRow = this.addRow.bind(this)

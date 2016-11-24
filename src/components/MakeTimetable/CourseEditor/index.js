@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PureRenderComponent from '../../PureRenderComponent.jsx'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
 import { CirclePicker } from 'react-color'
@@ -7,7 +8,7 @@ import { contrast, timeJsonToMask } from './util'
 import { addLecture, updateLecture, closeCourse } from '../../../actions/tableActions'
 import JsonEditor from './JsonEditor.jsx'
 
-class CourseEditor extends Component {
+class CourseEditor extends PureRenderComponent {
   constructor(props) {
     super(props)
     this.handleSave = this.handleSave.bind(this)
@@ -16,15 +17,16 @@ class CourseEditor extends Component {
     this.renderInput = this.renderInput.bind(this)
 
     const defaultColor = { fg: "#1579C2", bg: "#94E6FE" }
+    const { course } = props
     this.state = {
-      isNew: Boolean(Object.keys(props.course).length)
-      _id: props.course._id || '',
-      course_title: props.course.course_title || '',
-      instructor: props.course.instructor || '',
-      class_time_mask: props.course.class_time_mask || '',
-      class_time_json: props.course.class_time_json || [],
-      remark: props.course.remark || '',
-      color: props.course.color || defaultColor,
+      isNew: Boolean(Object.keys(course).length),
+      _id: course._id || '', // || for new course
+      course_title: course.course_title || '',
+      instructor: course.instructor || '',
+      class_time_mask: course.class_time_mask || '',
+      class_time_json: course.class_time_json || [],
+      remark: course.remark || '',
+      color: course.color || defaultColor,
     }
   }
 
