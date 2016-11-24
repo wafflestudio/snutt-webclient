@@ -9,6 +9,9 @@ import thunk from 'redux-thunk'
 import api from './middleware/api'
 import rootReducer from './reducers'
 
+if (process.env.NODE_ENV != 'production')
+  window.Perf = require('react-addons-perf')
+
 require('../stylesheets/style.scss')
 import { App, MakeTimetable, About, Login, SignUp, MyPage, FindPassword, MustLoggedIn
    } from './components'

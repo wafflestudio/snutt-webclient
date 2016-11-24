@@ -2,8 +2,7 @@ import React from 'react'
 import PureRenderComponent from '../../PureRenderComponent.jsx'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
-import { CirclePicker } from 'react-color'
-import TimeSelector from './TimeSelector.jsx'
+import ColorPickerWrapper from './ColorPickerWrapper.jsx'
 import { contrast, timeJsonToMask } from './util'
 import { addLecture, updateLecture, closeCourse } from '../../../actions/tableActions'
 import JsonEditor from './JsonEditor.jsx'
@@ -97,12 +96,10 @@ class CourseEditor extends PureRenderComponent {
         }}}
       >
         <h3>강의 편집</h3>
-        <div className='snutt__colorpicker'>
-          <CirclePicker
-            color={ this.state.bgColor }
-            onChange={ this.handleColorSelect }
-          />
-        </div>
+        <ColorPickerWrapper
+          color={this.state.bgColor}
+          onChange={this.handleColorSelect}
+        />
         <form
           className='form-horizontal'
           onSubmit={this.handleSave}
