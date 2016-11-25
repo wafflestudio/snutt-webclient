@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var WebpackStrip = require('strip-loader');
 
 module.exports = {
   entry: [
@@ -41,7 +42,7 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
+        loaders: ['babel', WebpackStrip.loader('debug', 'console.log')],
         include: path.join(__dirname, 'src')
       },
       {
