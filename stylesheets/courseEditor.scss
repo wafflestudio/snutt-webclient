@@ -36,12 +36,13 @@
     padding: 3px;
 }
 
-.snutt__json_container #btn_plus {
-    left: 50%;
+.snutt__json_container #btn-plus {
+    left: 40%;
 }
 
 .snutt__json_row {
     margin-bottom: 5px;
+    display: table;
 }
 
 .snutt__json_row select {
@@ -54,5 +55,10 @@
 
 .snutt__json_row input {
     color: black;
-    width: 100px;
+    width: 105px;
+}
+
+.snutt__json_row .glyphicon {
+    display: table-cell;
+    vertical-align: middle;
 }
