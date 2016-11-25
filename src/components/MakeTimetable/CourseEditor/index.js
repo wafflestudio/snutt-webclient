@@ -18,7 +18,7 @@ class CourseEditor extends PureRenderComponent {
     const defaultColor = { fg: "#1579C2", bg: "#94E6FE" }
     const { course } = props
     this.state = {
-      isNew: Boolean(Object.keys(course).length),
+      isNew: Object.keys(course).length === 0,
       _id: course._id || '', // || for new course
       course_title: course.course_title || '',
       instructor: course.instructor || '',
@@ -40,7 +40,6 @@ class CourseEditor extends PureRenderComponent {
 
   handleSave(e) {
     e.preventDefault()
-    console.log('handle save')
     const { dispatch } = this.props
     const { course_title, instructor, class_time_json, remark, color } = this.state
     const editedLecuture = {
@@ -60,7 +59,6 @@ class CourseEditor extends PureRenderComponent {
 
   handleClose(e) {
     e.preventDefault()
-    console.log('handle close')
     this.props.dispatch(closeCourse())
   }
 
@@ -84,6 +82,8 @@ class CourseEditor extends PureRenderComponent {
   }
 
   render() {
+    const { color, bgColor, class_time_json, isNew } = this.state
+    const title = isNew ? '내 강의 추가' : '강의 편집'
     return (
       <Modal
         isOpen={true}
@@ -95,7 +95,7 @@ class CourseEditor extends PureRenderComponent {
           color: this.state.color.fg
         }}}
       >
-        <h3>강의 편집</h3>
+        <h3>{title}</h3>
         <ColorPickerWrapper
           color={this.state.bgColor}
           onChange={this.handleColorSelect}
