@@ -32,7 +32,7 @@ class MakeTimeTable extends Component {
       <div className="container">
         <Search />
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-6 col-search">
             <ResultTable />
           </div>
           <div className="col-lg-6">

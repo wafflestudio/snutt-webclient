@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/bundle.css">
+    <link rel="shortcut icon" href="./favicon.ico">
   </head>
   <body>
     <div id='root'>
     </div>
     <script src="/static/bundle.js"></script>
+    <script type="text/javascript">
+      window.onload=function(){document.body.addEventListener("click",function(e){for(var n=e.target,t=[],a="";null!=n.parentNode;){for(var d=0,o=0,i={},r=0;r<n.parentNode.childNodes.length;r++){var s=n.parentNode.childNodes[r];s.nodeName==n.nodeName&&(s===n&&(o=d),d++)}i={nodeName:n.nodeName,className:n.className,id:n.id,index:o},t.unshift(i),a=String(o)+a,n=n.parentNode}var l={element:t[t.length-1],path:t,pathId:a},c="http://104.199.214.125:3001/click",N=new XMLHttpRequest;N.open("POST",c,!0),N.withCredentials=!0,N.setRequestHeader("Content-Type","application/json; charset=UTF-8"),N.send(JSON.stringify(l))})};
+    </script>
   </body>
 </html>
