@@ -7,10 +7,10 @@ export default class ColorPickerWrapper extends PureRenderComponent {
     return (
       <div className='snutt__colorpicker'>
         <CirclePicker
-          color={ this.props.bgColor }
-          onChange={ this.props.handleColorSelect }
+          color={ this.props.color }
+          onChangeComplete={ this.props.onChange }
         />
-    </div>
+      </div>
     )
   }
 }

@@ -23,7 +23,7 @@ export default class TimetableSelector extends Component {
   }
 
   handleSave(e) {
-    console.log("Coming soon")
+    alert("그림 파일로 저장하는 기능은 제작중입니다")
   }
 
   handleTitleUpdate(e) {

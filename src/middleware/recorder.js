@@ -7,7 +7,6 @@ const anonymize = action => {
 }
 
 export const logger = store => next => action => {
-  console.log(anonymize(action))
   upload(anonymize(action), 'action')
   return next(action)
 }

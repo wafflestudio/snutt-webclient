@@ -97,7 +97,7 @@ class CourseEditor extends PureRenderComponent {
       >
         <h3>{title}</h3>
         <ColorPickerWrapper
-          color={this.state.bgColor}
+          color={this.state.color.bg}
           onChange={this.handleColorSelect}
         />
         <form

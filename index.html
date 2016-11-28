@@ -4,13 +4,30 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/bundle.css">
+    <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
   </head>
   <body>
     <div id='root'>
     </div>
     <script src="/static/bundle.js"></script>
-    <!--<script type="text/javascript">
-      window.onload=function(){document.body.addEventListener("click",function(e){for(var n=e.target,t=[],a="";null!=n.parentNode;){for(var d=0,o=0,i={},r=0;r<n.parentNode.childNodes.length;r++){var s=n.parentNode.childNodes[r];s.nodeName==n.nodeName&&(s===n&&(o=d),d++)}i={nodeName:n.nodeName,className:n.className,id:n.id,index:o},t.unshift(i),a=String(o)+a,n=n.parentNode}var l={element:t[t.length-1],path:t,pathId:a},c="http://104.199.214.125:3001/click",N=new XMLHttpRequest;N.open("POST",c,!0),N.withCredentials=!0,N.setRequestHeader("Content-Type","application/json; charset=UTF-8"),N.send(JSON.stringify(l))})};
-    </script>-->
+    <script type="text/javascript">
+      // Mount doorbell addon
+      window.doorbellOptions = {
+          appKey: '6tS3g5TpC1hTniH8lNa4zd5kwaDAaghKut3o03JfSCzwkNuEiOKfigGxvfL1TK5v'
+      };
+      (function(w, d, t) {
+          var hasLoaded = false;
+          function l() { if (hasLoaded) { return; } hasLoaded = true; window.doorbellOptions.windowLoaded = true; var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/4904?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g); }
+          if (w.attachEvent) { w.attachEvent('onload', l); } else if (w.addEventListener) { w.addEventListener('load', l, false); } else { l(); }
+          if (d.readyState == 'complete') { l(); }
+      }(window, document, 'script'));
+
+      // Welcome message for beta testers
+      alert(
+        "SNUTT 베타버전을 방문해주셔서 감사합니다! \n" +
+        "여름으로 돌아가 이번 학기 시간표를 짠다고 생각하시고 과목을 하나씩 넣어주시면 감사하겠습니다 \n" +
+        "현재 연결이 암호화되있지 않으니 혹시 회원가입을 해보실 경우 평소 쓰시지않는 조합을 사용해 주세요."
+      )
+    </script>
   </body>
 </html>
