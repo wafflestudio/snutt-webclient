@@ -2,6 +2,7 @@ import 'whatwg-fetch'
 import * as types from './actionTypes'
 import { apiKey, baseUrl } from '../samples/sampleKey.js'
 import { push } from 'react-router-redux'
+import { updateCoursebook } from './fetchingActions'
 import { fetchTableList } from './tableActions'
 
 const headers = {
@@ -116,6 +117,7 @@ function clearStorage() {
 export function logout() {
   return function(dispatch) {
     clearStorage()
+    dispatch(updateCoursebook())
     dispatch(push('/'))
     return dispatch({ type: types.LOGOUT_SUCCESS })
   }

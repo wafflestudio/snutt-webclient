@@ -7,7 +7,11 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware} from 'react-rout
 import thunk from 'redux-thunk'
 
 import api from './middleware/api'
+import { logger, crashReporter } from './middleware/recorder'
+import { initClickCollect } from './logger/clickCollector'
 import rootReducer from './reducers'
+
+initClickCollect()
 
 if (process.env.NODE_ENV != 'production')
   window.Perf = require('react-addons-perf')
@@ -25,6 +29,8 @@ const middleware = applyMiddleware(
   routerMiddleware(browserHistory),
   thunk,
   api,
+  logger,
+  crashReporter
 )
 
 const store = createStore(
