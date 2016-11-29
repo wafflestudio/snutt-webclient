@@ -33,22 +33,26 @@ class LectureBox extends Component {
           <p>{this.props.course.course_title}</p>
           <p>{this.props.classroom}</p>
         </div>
-        <div className='tool-box'>
-          {this.props.onDelete !== undefined ?
+        <div className='tool-box-wrapper'>
+          <div
+            className='tool-box'
+            style={{ color: course.color.bg }}
+          >
             <span
-              className='glyphicon glyphicon-remove'
+              className='glyphicon glyphicon-pencil'
               aria-hidden='true'
-              onClick={() => this.props.onDelete(this.props.course._id)}
-            /> :
-            null
-          }
-          {
-          <span
-            className='glyphicon glyphicon-pencil'
-            aria-hidden='true'
-            onClick={() => dispatch(editCourse(this.props.course))}
-          />
-          }
+              onClick={() => dispatch(editCourse(this.props.course))}
+            />
+            {this.props.onDelete !== undefined ?
+              <span
+                className='glyphicon glyphicon-remove'
+                aria-hidden='true'
+                onClick={() => this.props.onDelete(this.props.course._id)}
+              /> :
+              null
+            }
+
+          </div>
         </div>
       </div>
     )

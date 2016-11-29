@@ -71,15 +71,24 @@
     .title-box p {
       margin-bottom: 3px;
     }
-    .tool-box {
-      visibility: hidden;
-      position: absolute;
-      right: 1px;
-      top: 1px;
-      font-size: 0.7em;
-      span { margin-left: 2px}
+
+    .tool-box-wrapper {
+        visibility: hidden;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        font-size: 20px;
+        background-color: rgba(255,255,255,0.7);
     }
-    &:hover .tool-box {
+    .tool-box {
+      position: relative;
+      transform: translateY(-50%);
+      top: 50%;
+      span { margin: 0 5px; }
+    }
+    &:hover .tool-box-wrapper {
       visibility: visible;
     }
   }
