@@ -26,13 +26,15 @@ export function initClickCollect() {
         pathId = String(sibIndex) + pathId
         el = el.parentNode;
       }
-      var click = { element: path[path.length -1], path: path, pathId: pathId }
+      var click = { element: path[path.length -1], path: path, pathId: pathId}
       upload(click)
     })
   }
 }
 
 export function upload(payload, path='click') {
+  payload.clientTime = new Date()
+  debugger;
   var endpoint = `http://104.199.214.125:3001/${path}`
   var request = new XMLHttpRequest();
   request.open('POST', endpoint , true)
