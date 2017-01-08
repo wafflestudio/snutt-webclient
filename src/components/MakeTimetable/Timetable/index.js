@@ -11,6 +11,9 @@ export default class Timetable extends Component {
     this.placeLectures = this.placeLectures.bind(this)
     this.makeTable = this.makeTable.bind(this)
     this.createAndEditCourse = this.createAndEditCourse.bind(this)
+    this.state = {
+      hoveredId: null,
+    }
   }
 
   emptyArray() {
@@ -35,6 +38,8 @@ export default class Timetable extends Component {
             isPreview={false}
             classroom={lecture.place}
             key={course._id + day}
+            isHovered={course._id === this.state.hoveredId}
+            setHoveredId={this.setHoveredId}
           />
         )
       }
@@ -97,6 +102,8 @@ export default class Timetable extends Component {
     e.preventDefault()
     this.props.openCourse()
   }
+
+  setHoveredId = (newId) => {this.setState({hoveredId: newId})}
 
   renderHead(hasSunday) {
     let days = ['월', '화', '수', '목', '금', '토']

@@ -88,7 +88,7 @@
       top: 50%;
       span { margin: 0 5px; }
     }
-    &:hover .tool-box-wrapper {
+    &.hovered .tool-box-wrapper {
       visibility: visible;
     }
   }

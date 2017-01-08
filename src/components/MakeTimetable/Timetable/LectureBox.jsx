@@ -14,8 +14,11 @@ class LectureBox extends Component {
     console.log('lecture clicked');
   }
 
+  handleMouseEnter = (e) => {this.props.setHoveredId(this.props.course._id)}
+  handleMouseLeave = (e) => {this.props.setHoveredId(null)}
+
   render() {
-    const { dispatch, length, course } = this.props
+    const { dispatch, length, course, isPreview, isHovered } = this.props
     if (!course.color)
       course.color = { fg: "#1579C2", bg: "#94E6FE" }
     const divStyle = {
@@ -25,9 +28,13 @@ class LectureBox extends Component {
     }
     return (
       <div
-        className={'course-div' + (this.props.isPreview ? ' preview' : '')}
+        className={'course-div' +
+          (isPreview ? ' preview' : '') +
+          (isHovered ? ' hovered' : '')}
         style={divStyle}
         onClick={this.handleClick}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
       >
         <div className='title-box'>
           <p>{this.props.course.course_title}</p>
