@@ -40,6 +40,7 @@ export function addLecture(lecture) {
   }
 }
 
+// TODO: Change name to deleteCourse
 export function deleteLecture(lectureId) {
   return function (dispatch, getState) {
     const { currentId } = getState().tableList

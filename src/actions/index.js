@@ -1,6 +1,7 @@
 import 'whatwg-fetch'
 import * as types from './actionTypes'
 import { apiKey, baseUrl } from '../samples/sampleKey.js'
+import colorList from '../utils/colorList'
 
 export function hoverCourse(course) {
   return { type: types.HOVER_COURSE, course }
@@ -39,17 +40,18 @@ export function sendQuery(query) {
       body: JSON.stringify(query),
     })
     .then(resp => resp.json())
-    .then(json => json.map(checkColor))
+    .then(json => json.map(checkAndAssignColor))
     .then(json => dispatch(showResult(json)))
   }
 }
 
-function checkColor(val) {
-  if (val.bgColor === undefined)
-    val.bgColor = '#B7C7BB'
-  if (val.fgColor === undefined)
-    val.fgColor = '#1A1413'
-  return val;
+function checkAndAssignColor(course) {
+  if (course.bgColor === undefined && course.fgColor === undefined) {
+    const randomIndex = Math.floor(Math.random() * colorList.length)
+    const assignedColor = colorList[randomIndex]
+    course.color = assignedColor
+  }
+  return course;
 }
 
 export function startQuery(query) {
