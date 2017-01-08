@@ -94,9 +94,10 @@
   }
 
   .preview {
-    background-color: #D7DEE0;
+    background-color: #D7DEE0 !important;
+    color: gray !important;
     z-index: 2;
-    opacity: 0.9;
+    opacity: 0.5;
   }
 }
 
