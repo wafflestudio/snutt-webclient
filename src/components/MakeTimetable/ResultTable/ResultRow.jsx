@@ -55,6 +55,11 @@ const printTime = timeString => {
   return [...new Set(days)].join('-')
 }
 
-const printPlace = timeJson => (
-  [...new Set(timeJson.map(val => Number(val.place.split('-')[0])))].join('&')
-)
+const printPlace = timeJson => {
+  try {
+    var parsed = [...new Set(timeJson.map(val => Number(val.place.split('-')[0])))].join('&')
+    return parsed
+  } catch(ex) {
+  }
+  return ''
+}
