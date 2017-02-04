@@ -25,6 +25,24 @@ export const createCourse = () => ({ type: CREATE_COURSE, course: {} })
 export function addLecture(lecture) {
   return function (dispatch, getState) {
     const { currentId } = getState().tableList
+    const _id = lecture._id
+    dispatch({
+      [CALL_API]: {
+        endpoint: `tables/${currentId}/lecture/${_id}`,
+        config: {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+        },
+        authenticated: true,
+        types: [ ADD_LECTURE_START, ADD_LECTURE_OK, ADD_LECTURE_FAIL ]
+      }
+    })
+  }
+}
+
+export function addCustomLecture(lecture) {
+  return function (dispatch, getState) {
+    const { currentId } = getState().tableList
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${currentId}/lecture`,

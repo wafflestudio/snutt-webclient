@@ -5,7 +5,7 @@ import Modal from 'react-modal'
 import ColorPickerWrapper from './ColorPickerWrapper.jsx'
 import timeJsonToMask from './maskConverter'
 import contrast from '../../../utils/colorInvertor.js'
-import { addLecture, updateLecture, closeCourse } from '../../../actions/tableActions'
+import { addCustomLecture, updateLecture, closeCourse } from '../../../actions/tableActions'
 import JsonEditor from './JsonEditor.jsx'
 
 class CourseEditor extends PureRenderComponent {
@@ -52,7 +52,7 @@ class CourseEditor extends PureRenderComponent {
       color,
     }
     if (this.state.isNew) { //add new course
-      dispatch(addLecture(editedLecuture))
+      dispatch(addCustomLecture(editedLecuture))
     } else {
       dispatch(updateLecture(this.state._id, editedLecuture))
     }
