@@ -19,13 +19,10 @@ const encodeParams = params => Object.keys(params).map(key =>
 export function createTemporaryUser() {
   const timestamp = new Date().getTime().toString()
   const tempId = 'webTemp' + timestamp
-  const tempPass = 'webTemp' + timestamp
-
   return function(dispatch) {
-    fetch(baseUrl + 'auth/register_local/', {
+    fetch(baseUrl + 'auth/auth/request_temp', {
       method: 'post',
       headers,
-      body: encodeParams({ id: tempId, password: tempPass })
     })
     .then(resp => resp.json())
     .catch(e => {
@@ -34,9 +31,11 @@ export function createTemporaryUser() {
     })
     .then(json => {
       if (json.message == "ok")
-        dispatch(loginLocal(tempId, tempPass, true, true))
-      else
-        dispatch({type: types.REGISTER_FAILURE, message: json.message})
+        successLogin(tempId, json.token, true, true)
+      else {
+        console.log("fail register")
+        dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
+      }
     })
   }
 }
@@ -62,7 +61,7 @@ export function registerUser(_id, _pass) {
   }
 }
 
-export function loginLocal(_id, _pass, keepLogin = false, isTemp = false) {
+export function loginLocal(_id, _pass, keepLogin = false) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/login_local/', {
       method: 'post',
@@ -77,7 +76,7 @@ export function loginLocal(_id, _pass, keepLogin = false, isTemp = false) {
       if (json.token === undefined)
         dispatch(failLogin(json))
       else {
-        dispatch(successLogin(_id, json.token, keepLogin, isTemp))
+        dispatch(successLogin(_id, json.token, keepLogin, false))
         dispatch(push('/')) //Redirect to home
       }
     })
