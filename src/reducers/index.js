@@ -2,6 +2,7 @@ import Immutable from 'immutable'
 import * as types from '../actions/actionTypes'
 import { tableList, tagList } from './timetables'
 import user from './user'
+import notification from './notification'
 
 function hoveredCourse(state = null, action) {
   switch(action.type) {
@@ -131,6 +132,7 @@ const reducer = {
   tableList,
   tagList,
   courseEditor,
+  notification,
 }
 
 // This file exports a mere object, which is to be combined at src/index.js later.

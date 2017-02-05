@@ -4,6 +4,7 @@ import { apiKey, baseUrl } from '../samples/sampleKey.js'
 import { push } from 'react-router-redux'
 import { updateCoursebook } from './fetchingActions'
 import { fetchTableList } from './tableActions'
+import { checkNewMessage } from './notification'
 
 const headers = {
   'x-access-apikey': apiKey,
@@ -20,7 +21,7 @@ export function createTemporaryUser() {
   const timestamp = new Date().getTime().toString()
   const tempId = 'webTemp' + timestamp
   return function(dispatch) {
-    fetch(baseUrl + 'auth/auth/request_temp', {
+    fetch(baseUrl + 'auth/request_temp', {
       method: 'post',
       headers,
     })
@@ -30,8 +31,9 @@ export function createTemporaryUser() {
       dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
     })
     .then(json => {
-      if (json.message == "ok")
-        successLogin(tempId, json.token, true, true)
+      if (json.message == "ok") {
+        dispatch(successLogin(tempId, json.token, true, true))
+      }
       else {
         console.log("fail register")
         dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
@@ -133,8 +135,10 @@ export function successLogin(id, token, keepLogin = true, isTemp = false) {
     dispatch(fetchTableList(year, semester))
     if (isTemp)
       return dispatch({ type: types.LOGIN_TEMP, id})
-    else
+    else {
+      dispatch(checkNewMessage())
       return dispatch({ type: types.LOGIN_SUCCESS, id })
+    }
   }
 }
 
