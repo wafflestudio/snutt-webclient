@@ -14,3 +14,17 @@
     outline:none;
   }
 }
+
+#snutt__noti-icon:focus {
+    outline: none;
+}
+
+#snutt__noti-box {
+    position: absolute;
+    top: 49px;
+    right: 0px;
+    background-color: yellow;
+    width: 300px;
+    height: 200px;
+    overflow: scroll;
+}

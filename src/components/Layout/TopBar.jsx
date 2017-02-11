@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import CourseBookSelector from './CourseBookSelector.jsx'
+import NotificationButton from './NotificationButton.jsx'
 import { changeCoursebook } from '../../actions/fetchingActions'
 
 class TopBar extends Component {
@@ -21,11 +22,16 @@ class TopBar extends Component {
 
   renderLoginButton() {
     const { loggedIn, id } = this.props
-    if (loggedIn) {
-      return (<li><Link to="/myPage">{`${id}님 안녕하세요`}</Link></li>)
-    } else {
-      return (<li><Link to="/login">로그인</Link></li>)
-    }
+    return (
+      loggedIn ?
+      <ul className="nav navbar-nav navbar-right">
+        <li><NotificationButton /></li>
+        <li><Link to="/myPage">{`${id}님 안녕하세요`}</Link></li>
+      </ul> :
+      <ul className="nav navbar-nav navbar-right">
+        <li><Link to="/login">로그인</Link></li>
+      </ul>
+    )
   }
 
   render() {
@@ -40,9 +46,7 @@ class TopBar extends Component {
               <CourseBookSelector />
             </ul>
             <p className="navbar-text">{this.printTime()}</p>
-            <ul className="nav navbar-nav navbar-right">
-              {this.renderLoginButton()}
-            </ul>
+            {this.renderLoginButton()}
           </div>
         </div>
       </div>

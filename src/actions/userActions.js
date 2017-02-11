@@ -127,6 +127,7 @@ export function logout() {
 export function successLogin(id, token, keepLogin = true, isTemp = false) {
   return (dispatch, getState) => {
     clearStorage()
+    // debugger;
     const storage = keepLogin ? localStorage : sessionStorage
     storage.setItem('snutt_id', id)
     storage.setItem('snutt_token', token)
