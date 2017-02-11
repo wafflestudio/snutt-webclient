@@ -11,7 +11,7 @@ class Login extends Component {
     this.state = {
       id: '',
       password: '',
-      keepLogin: '',
+      keepLogin: false,
     }
     this.handleLogin = this.handleLogin.bind(this)
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
@@ -19,7 +19,9 @@ class Login extends Component {
 
   handleIdChange = e => { this.setState({ id: e.target.value }) }
   handlePassChange = e => { this.setState({ password: e.target.value }) }
-  handleKeepLoginChange = e => { this.setState({ keepLogin: e.target.value }) }
+  handleKeepLoginChange = e => {
+    this.setState({ keepLogin: !this.state.keepLogin })
+  }
 
   handleLogin(e) {
     e.preventDefault()
