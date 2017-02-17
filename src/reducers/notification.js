@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   fetching: false,
   offset: 0,
   messages: [],
-  opened: true,
+  opened: false,
   hasNew: false,
 }
 
@@ -18,10 +18,11 @@ const handlers = {
 
   [GET_MESSAGE_OK]: (state, action) => {
     const newMessages = JSON.parse(action.response)
-    const messages = state.messages.append(newMessages)
+    const messages = state.messages.concat(newMessages)
     return {
       fetching: false,
       offset: messages.length,
+      hasNew: false,
       messages,
     }
   },

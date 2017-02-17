@@ -13,7 +13,7 @@ export const toggleMessageBox = () => ({ type: TOGGLE_MESSAGE_BOX })
 export function fetchMessages(limit = 10, offset) {
   return {
     [CALL_API]: {
-      endpoint: `notification?limit=${Number(limit)}&${Number(offset)}`, // ?explicit=1
+      endpoint: `notification?limit=${Number(limit)}&${Number(offset)}&explicit=1`,
       config: { method: 'get' },
       authenticated: true,
       types: [ GET_MESSAGE_START, GET_MESSAGE_OK, NOTIFICATION_FAIL ],

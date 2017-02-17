@@ -1,5 +1,6 @@
 .navbar-default {
   background-color: #4A90E2;
+  @include unselectable;
   b, .navbar-nav>li>a {
     color: white;
   }
@@ -16,15 +17,45 @@
 }
 
 #snutt__noti-icon:focus {
-    outline: none;
+    // outline: none;
+}
+
+#snutt__noti-new {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ef322e;
+    position: absolute;
+    top: 14px;
+    left: 24px;
 }
 
 #snutt__noti-box {
     position: absolute;
     top: 49px;
     right: 0px;
-    background-color: yellow;
+    color: black;
+    background-color: white;
     width: 300px;
-    height: 200px;
-    overflow: scroll;
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.snutt__noti-message {
+    padding: 2px 10px;
+    border-bottom: 1px solid #D9D6DA;
+    font-family: 'Nanum Gothic', Sans-Serif;
+}
+.snutt__noti-message:hover {
+    background-color: #F9F8F5;
+}
+
+.snutt__noti-body {
+    padding: 2px 0 0 0;
+    margin: 0px;
+}
+
+.snutt__noti-date {
+    font-size: 9px;
 }
