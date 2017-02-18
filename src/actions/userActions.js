@@ -11,12 +11,14 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGIN_TEMP = 'LOGIN_TEMP'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const GET_USER_INFO = 'GET_USER_INFO'
 
 
 const headers = {
   'x-access-apikey': apiKey,
   'Content-Type': 'application/x-www-form-urlencoded',
-  'x-access-token': sessionStorage.getItem('id_token'),
+  'x-access-token': sessionStorage.getItem('snutt_token') ||
+    localStorage.getItem('snutt_token'),
 }
 
 // Code snippet from https://github.com/github/fetch/issues/263
@@ -141,6 +143,7 @@ export function successLogin(id, token, keepLogin = true, isTemp = false) {
 
     const { year, semester } = getState().courseBook.get('current')
     dispatch(fetchTableList(year, semester))
+    dispatch(fetchUserInfo())
     if (isTemp)
       return dispatch({ type: LOGIN_TEMP, id})
     else {
@@ -152,6 +155,18 @@ export function successLogin(id, token, keepLogin = true, isTemp = false) {
 
 export function failLogin(error) {
   return { type: types.LOGIN_FAILURE, message: error.message }
+}
+
+export function fetchUserInfo() {
+  return (dispatch) => {
+    fetch(baseUrl + 'user/info', {
+      method: 'get',
+      headers,
+    })
+    .then(resp => resp.json())
+    .then(json => dispatch({ type: GET_USER_INFO, info: json }))
+    .catch(e => console.log(e))
+ }
 }
 
 export function changePassword(newPassword) {
