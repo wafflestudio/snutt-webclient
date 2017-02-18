@@ -25,7 +25,7 @@ class TopBar extends Component {
     return (
       loggedIn ?
       <ul className="nav navbar-nav navbar-right">
-        <li><NotificationButton /></li>
+        <NotificationButton />
         <li><Link to="/myPage">{`${id}님 안녕하세요`}</Link></li>
       </ul> :
       <ul className="nav navbar-nav navbar-right">

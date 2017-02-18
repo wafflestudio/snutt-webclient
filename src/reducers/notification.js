@@ -1,5 +1,5 @@
 import { GET_MESSAGE_START, GET_MESSAGE_OK, CHECK_NEW_MESSAGE_OK,
-  TOGGLE_MESSAGE_BOX
+  OPEN_MESSAGE_BOX, CLOSE_MESSAGE_BOX,
 } from '../actions/notification'
 
 const INITIAL_STATE = {
@@ -34,7 +34,9 @@ const handlers = {
     }
   },
 
-  [TOGGLE_MESSAGE_BOX]: (state, action) => ({ opened: !state.opened }),
+  [OPEN_MESSAGE_BOX]: (state, action) => ({ opened: true }),
+
+  [CLOSE_MESSAGE_BOX]: (state, action) => ({ opened: false}),
 
 }
 

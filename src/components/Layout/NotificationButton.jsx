@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { fetchMessages, toggleMessageBox } from '../../actions/notification'
+import { fetchMessages, openMessageBox, closeMessageBox } from '../../actions/notification'
 // import { changeCoursebook } from '../../actions/fetchingActions'
 import NotificationMessages from './NotificationMessages.jsx'
 
@@ -10,8 +11,8 @@ class NotificationButton extends Component {
   constructor(props) {
     super(props)
     this.handleUpdate = this.handleUpdate.bind(this)
-    this.closeBox = this.closeBox.bind(this)
-    this.toggleBox = this.toggleBox.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleUpdate() {
@@ -19,41 +20,50 @@ class NotificationButton extends Component {
     dispatch(fetchMessages(AMOUNT_PER_REQUEST, messages.length))
   }
 
-  closeBox(e) {
-    console.log("ON BLUR")
-    this.icon.blur()
-    this.toggleBox()
+  handleBlur(e) {
+    console.log('on blur')
+    const { dispatch, opened, messages } = this.props
+    if (opened)
+      dispatch(closeMessageBox())
   }
 
-  toggleBox(e) {
+  handleClick(e) {
     const { dispatch, opened, messages } = this.props
-    if (!opened && messages.length === 0) // Load first set of messages
-      dispatch(fetchMessages(AMOUNT_PER_REQUEST, 0))
-    dispatch(toggleMessageBox())
+    if (opened) { // let's close
+      dispatch(closeMessageBox())
+    } else { // let's open
+      if (messages.length === 0) // Fetching initial data
+        dispatch(fetchMessages(AMOUNT_PER_REQUEST, 0))
+      dispatch(openMessageBox())
+    }
   }
 
   render() {
     const { opened, hasNew, fetching, messages } = this.props
     return (
-      <a
-        id="snutt__noti-icon"
-        className="glyphicon glyphicon-comment"
-        aria-hidden="true"
-        onBlur={this.closeBox}
-        onClick={this.toggleBox}
-        ref={(icon) => this.icon = icon}
-        tabIndex={1}
+      <li
+        id="snutt__noti-wrapper"
+        onBlur={this.handleBlur}
+        tabIndex={0}
       >
-        { hasNew ? <div id="snutt__noti-new"></div> : null }
-        { opened ?
-          <NotificationMessages
-            messages={messages}
-            fetching={fetching}
-            askMore={this.handleUpdate}
-          /> :
-          null
-        }
-      </a>
+        <a
+          id="snutt__noti-icon"
+          className="glyphicon glyphicon-comment"
+          aria-hidden="true"
+          onClick={this.handleClick}
+          ref={(icon) => this.icon = icon}
+        >
+          { hasNew ? <div id="snutt__noti-new"></div> : null }
+          { opened ?
+            <NotificationMessages
+              messages={messages}
+              fetching={fetching}
+              askMore={this.handleUpdate}
+            /> :
+            null
+          }
+        </a>
+      </li>
     )
   }
 }
