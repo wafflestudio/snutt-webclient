@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import * as types from '../actions/actionTypes.js'
+import { REGISTER_SUCCESS, REGISTER_FAILURE, LOGIN_SUCCESS, LOGIN_FAILURE,
+LOGIN_TEMP, LOGOUT_SUCCESS } from '../actions/userActions'
 
 const INITIAL_STATE = {
   loggedIn: false,
@@ -10,15 +11,15 @@ const INITIAL_STATE = {
 
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case types.LOGIN_SUCCESS:
+    case LOGIN_SUCCESS:
       return Object.assign({}, INITIAL_STATE, {loggedIn: true, id: action.id})
-    case types.LOGIN_FAILURE:
+    case LOGIN_FAILURE:
       return Object.assign({}, state, {loggedIn: false, errorType: 'login', message: action.message})
-    case types.LOGOUT_SUCCESS:
+    case LOGOUT_SUCCESS:
       return INITIAL_STATE
-    case types.LOGIN_TEMP:
+    case LOGIN_TEMP:
       return Object.assign({}, INITIAL_STATE, {loggedIn: false, id: action.id })
-    case types.REGISTER_FAILURE:
+    case REGISTER_FAILURE:
       return Object.assign({}, state, {loggedIn: false, errorType: 'register', message: action.message, type: action.type})
     default:
       return state

@@ -1,10 +1,17 @@
 import 'whatwg-fetch'
-import * as types from './actionTypes'
 import { apiKey, baseUrl } from '../samples/sampleKey.js'
 import { push } from 'react-router-redux'
 import { updateCoursebook } from './fetchingActions'
 import { fetchTableList } from './tableActions'
 import { checkNewMessage } from './notification'
+
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const REGISTER_FAILURE = 'REGISTER_FAILURE'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOGIN_TEMP = 'LOGIN_TEMP'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+
 
 const headers = {
   'x-access-apikey': apiKey,
@@ -28,7 +35,7 @@ export function createTemporaryUser() {
     .then(resp => resp.json())
     .catch(e => {
       console.log("fail register")
-      dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
+      dispatch({type: REGISTER_FAILURE, message: JSON.stringify(e)})
     })
     .then(json => {
       if (json.message == "ok") {
@@ -36,7 +43,7 @@ export function createTemporaryUser() {
       }
       else {
         console.log("fail register")
-        dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
+        dispatch({type: REGISTER_FAILURE, message: JSON.stringify(e)})
       }
     })
   }
@@ -52,13 +59,13 @@ export function registerUser(_id, _pass) {
     .then(resp => resp.json())
     .catch(e => {
       console.log("fail register")
-      dispatch({type: types.REGISTER_FAILURE, message: JSON.stringify(e)})
+      dispatch({type: REGISTER_FAILURE, message: JSON.stringify(e)})
     })
     .then(json => {
       if (json.message == "ok")
         dispatch(loginLocal(_id, _pass))
       else
-        dispatch({type: types.REGISTER_FAILURE, message: json.message})
+        dispatch({type: REGISTER_FAILURE, message: json.message})
     })
   }
 }
@@ -120,7 +127,7 @@ export function logout() {
     clearStorage()
     dispatch(updateCoursebook())
     dispatch(push('/'))
-    return dispatch({ type: types.LOGOUT_SUCCESS })
+    return dispatch({ type: LOGOUT_SUCCESS })
   }
 }
 
@@ -135,10 +142,10 @@ export function successLogin(id, token, keepLogin = true, isTemp = false) {
     const { year, semester } = getState().courseBook.get('current')
     dispatch(fetchTableList(year, semester))
     if (isTemp)
-      return dispatch({ type: types.LOGIN_TEMP, id})
+      return dispatch({ type: LOGIN_TEMP, id})
     else {
       dispatch(checkNewMessage())
-      return dispatch({ type: types.LOGIN_SUCCESS, id })
+      return dispatch({ type: LOGIN_SUCCESS, id })
     }
   }
 }
