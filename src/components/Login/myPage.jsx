@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { logout, deleteAccount } from '../../actions/userActions'
+import FBLogin from 'react-facebook-login'
+import { fbAppId } from '../../samples/sampleKey'
 
 class MyPage extends Component {
   constructor() {
     super()
     this.handleLogout = this.handleLogout.bind(this)
+    this.renderManageFacebook = this.renderManageFacebook.bind(this)
   }
 
   handleLogout(e) {
@@ -16,6 +19,29 @@ class MyPage extends Component {
   handleDelete(e) {
     e.preventDefault()
     this.props.dispatch(deleteAccount())
+  }
+
+  // handleFacebookAttach(resp) {
+
+  // }
+
+  // handleFacebookDetach() {
+
+  // }
+
+  renderManageFacebook() {
+    const { info } = this.props
+    if (info.fb_name)
+      return (<button className="btn btn-warning">페이스북 연동 해지하기</button>)
+    else
+      return (
+        <FBLogin
+          appId={fbAppId}
+          autoload
+          cssClass='btn login-fb'
+          icon='fa-facebook'
+        />
+      )
   }
 
   render() {
@@ -46,6 +72,12 @@ class MyPage extends Component {
               </div>
               <br />
               <div className="form-group">
+                <label className="col-sm-3">페이스북 연동</label>
+                <div className="col-sm-6">
+                  {this.renderManageFacebook()}
+                </div>
+              </div>
+              <div className="form-group">
                 <label className="col-sm-3">회원 탈퇴</label>
                 <div className="col-sm-9">
                   <button
@@ -64,4 +96,9 @@ class MyPage extends Component {
   }
 }
 
-export default connect()(MyPage)
+const mapStateToProps = (state) => {
+  const { user } = state
+  return {...user}
+}
+
+export default connect(mapStateToProps)(MyPage)
