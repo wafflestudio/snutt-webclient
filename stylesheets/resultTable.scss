@@ -5,11 +5,18 @@
 .result-wrapper {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 626px;
+  height: 400px;
   background-color: #fafafa;
   border: 1px solid #D9D6DA;
   border-top: 0;
 }
+
+@media (min-width: 1200px) { // 'lg' in bootstrap
+    .result-wrapper {
+        height: 626px;
+    }
+}
+
 
 .resultTable {
   color: #4a4a4a;
