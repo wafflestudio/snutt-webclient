@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../../actions/userActions'
+import { logout, deleteAccount } from '../../actions/userActions'
 
 class MyPage extends Component {
   constructor() {
@@ -11,6 +11,11 @@ class MyPage extends Component {
   handleLogout(e) {
     e.preventDefault()
     this.props.dispatch(logout())
+  }
+
+  handleDelete(e) {
+    e.preventDefault()
+    this.props.dispatch(deleteAccount())
   }
 
   render() {
@@ -43,7 +48,12 @@ class MyPage extends Component {
               <div className="form-group">
                 <label className="col-sm-3">회원 탈퇴</label>
                 <div className="col-sm-9">
-                  <button className="btn btn-danger">계정 삭제</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={this.handleDelete}
+                  >
+                    계정 삭제
+                  </button>
                 </div>
               </div>
             </form>
