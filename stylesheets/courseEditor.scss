@@ -24,13 +24,6 @@
     padding-left: 6px;
 }
 
-.snutt__colorpicker {
-    position: absolute;
-    transform: rotate(90deg);
-    right: -50px;
-    top: 128px;
-}
-
 .snutt__json_container .glyphicon {
     font-size: 17px;
     padding: 3px;
@@ -61,4 +54,22 @@
 .snutt__json_row .glyphicon {
     display: table-cell;
     vertical-align: middle;
+}
+
+.circle-wrapper {
+    position: absolute;
+    right: 10px;
+}
+
+.circle-wrapper .color-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    margin: 10px 0;
+}
+
+.circle-wrapper span {
+    line-height: 30px
 }

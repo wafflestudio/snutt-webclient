@@ -2,7 +2,7 @@ import React from 'react'
 import PureRenderComponent from '../../PureRenderComponent.jsx'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
-import ColorPickerWrapper from './ColorPickerWrapper.jsx'
+import ColorPicker from './ColorPicker'
 import timeJsonToMask from './maskConverter'
 import contrast from '../../../utils/colorInvertor.js'
 import { addCustomLecture, updateLecture, closeCourse } from '../../../actions/tableActions'
@@ -31,10 +31,8 @@ class CourseEditor extends PureRenderComponent {
   }
 
   handleColorSelect = (chosenColor) => {
-    this.setState({ color: {
-      bg: chosenColor.hex,
-      fg: contrast(chosenColor.rgb),
-    }})
+    const { fg, bg } = chosenColor
+    this.setState({ color: { fg, bg }})
   }
 
   handleJsonUpdate = (updatedJson) => this.setState({class_time_json: updatedJson})
@@ -71,7 +69,7 @@ class CourseEditor extends PureRenderComponent {
     return (
       <div className='form-group'>
         <label className='col-sm-2 control-label'>{field}</label>
-        <div className='col-sm-7'>
+        <div className='col-sm-9'>
           <input
             className='form-control'
             value={this.state[key]}
@@ -97,7 +95,7 @@ class CourseEditor extends PureRenderComponent {
         }}}
       >
         <h3>{title}</h3>
-        <ColorPickerWrapper
+        <ColorPicker
           color={this.state.color.bg}
           onChange={this.handleColorSelect}
         />
