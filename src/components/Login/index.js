@@ -31,7 +31,7 @@ class Login extends Component {
 
   handleFacebookLogin(response) {
     const {id, accessToken, name} = response
-    this.prosp.dispatch(loginFacebook(id, accessToken, name))
+    this.props.dispatch(loginFacebook(id, accessToken, name))
   }
 
   render() {

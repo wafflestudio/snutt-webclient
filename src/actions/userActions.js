@@ -14,12 +14,12 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const GET_USER_INFO = 'GET_USER_INFO'
 
 
-const headers = {
+const generateHeader = () => ({
   'x-access-apikey': apiKey,
   'Content-Type': 'application/x-www-form-urlencoded',
   'x-access-token': sessionStorage.getItem('snutt_token') ||
     localStorage.getItem('snutt_token'),
-}
+})
 
 // Code snippet from https://github.com/github/fetch/issues/263
 const encodeParams = params => Object.keys(params).map(key =>
@@ -32,7 +32,7 @@ export function createTemporaryUser() {
   return function(dispatch) {
     fetch(baseUrl + 'auth/request_temp', {
       method: 'post',
-      headers,
+      headers: generateHeader(),
     })
     .then(resp => resp.json())
     .catch(e => {
@@ -55,7 +55,7 @@ export function registerUser(_id, _pass) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/register_local/', {
       method: 'post',
-      headers,
+      headers: generateHeader(),
       body: encodeParams({ id: _id, password: _pass })
     })
     .then(resp => resp.json())
@@ -76,7 +76,7 @@ export function loginLocal(_id, _pass, keepLogin = false) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/login_local/', {
       method: 'post',
-      headers,
+      headers: generateHeader(),
       body: encodeParams({id: _id, password: _pass}),
     })
     .then(resp => {
@@ -98,7 +98,7 @@ export function loginFacebook(fb_id, fb_token, fb_name) {
   return function(dispatch) {
     fetch(baseUrl + 'auth/login_fb/', {
       method: 'post',
-      headers,
+      headers: generateHeader(),
       body: encodeParams({fb_id, fb_token}),
     })
     .then(resp => {
@@ -154,14 +154,14 @@ export function successLogin(id, token, keepLogin = true, isTemp = false) {
 }
 
 export function failLogin(error) {
-  return { type: types.LOGIN_FAILURE, message: error.message }
+  return { type: LOGIN_FAILURE, message: error.message }
 }
 
 export function fetchUserInfo() {
   return (dispatch) => {
     fetch(baseUrl + 'user/info', {
       method: 'get',
-      headers,
+      headers: generateHeader(),
     })
     .then(resp => resp.json())
     .then(json => dispatch({ type: GET_USER_INFO, info: json }))
@@ -173,7 +173,7 @@ export function changePassword(newPassword) {
   return function(dispatch) {
     fetch(baseUrl + 'user/password', {
       method: 'put',
-      headers,
+      headers: generateHeader(),
       body: encodeParams({password: newPassword})
     })
     .catch(e => console.log(e))
@@ -190,9 +190,62 @@ export function deleteAccount() {
   return function(dispatch) {
     fetch(baseUrl + 'user/account', {
       method: 'delete',
-      headers,
+      headers: generateHeader(),
     })
     .catch(e => console.log(e))
-    .then(dispatch(push('/')))
+    .then(() => {
+      dispatch(push('/'))
+      clearStorage()
+      dispatch({ type: LOGOUT_SUCCESS })
+    })
   }
+}
+
+export function attachFacebook(fb_id, fb_token) {
+  return function(dispatch) {
+    fetch(baseUrl + 'user/facebook', {
+      method: 'post',
+      headers: generateHeader(),
+      body: encodeParams({fb_id, fb_token})
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      if (json.errcode) {
+        alert(json.message)
+        return
+      } else {
+        const {token} = json
+        changeToken(token)
+        dispatch(fetchUserInfo())
+      }
+    })
+    .catch(e => console.log(e))
+  }
+}
+
+export function detachFacebook() {
+  return function(dispatch) {
+    fetch(baseUrl + 'user/facebook', {
+      method: 'delete',
+      headers: generateHeader(),
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      if (json.errcode) {
+        alert(json.message)
+        return
+      } else {
+        const {token} = json
+        changeToken(token)
+        dispatch(fetchUserInfo())
+      }
+    })
+    .catch(e => console.log(e))
+  }
+}
+
+function changeToken(newToken) {
+  const storage = Boolean(sessionStorage.getItem('snutt_token')) ?
+    sessionStorage : localStorage
+  storage.setItem('snutt_token', newToken)
 }

@@ -1067,10 +1067,6 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.0:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
-
 cli-cursor@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-1.0.2.tgz#64da3f7d56a54412e59794bd62dc35295e8f2987"
@@ -2662,7 +2658,7 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
-lodash@^4.0.0, lodash@^4.0.1, lodash@^4.16.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.16.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
@@ -2701,10 +2697,6 @@ macaddress@^0.2.8:
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
-
-material-colors@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.0.tgz#956f0c87660882333cff7b7557efb7b03592820e"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.14"
@@ -2745,10 +2737,6 @@ meow@^3.7.0:
 merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
-
-merge@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
 
 methods@~1.1.2:
   version "1.1.2"
@@ -3534,15 +3522,6 @@ react-autocomplete@^1.3.1:
   dependencies:
     dom-scroll-into-view "1.0.1"
 
-react-color@^2.3.2:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.8.0.tgz#1be6d00c8ef78072ef2245eb03070e850d109b66"
-  dependencies:
-    lodash "^4.0.1"
-    material-colors "^1.0.0"
-    reactcss "^1.1.1"
-    tinycolor2 "^1.1.2"
-
 react-deep-force-update@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
@@ -3559,9 +3538,9 @@ react-edit-inline@^1.0.7:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/react-edit-inline/-/react-edit-inline-1.0.8.tgz#d144670b5217b5adc6c5bcb6976fc6b257f09b72"
 
-react-facebook-login@^3.2.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-3.4.0.tgz#b42bd152b0b365d6676727afb624f5617f9eac70"
+react-facebook-login@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-3.5.0.tgz#6a3199e025bac814b2617fe3ae15f86799a402f8"
 
 react-hot-loader@^3.0.0-beta.6:
   version "3.0.0-beta.6"
@@ -3621,15 +3600,6 @@ react@^15.1.0:
   dependencies:
     fbjs "^0.8.4"
     loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-
-reactcss@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/reactcss/-/reactcss-1.1.1.tgz#9f16fc737fae08daa23bf8a3429bd9f54e162b52"
-  dependencies:
-    classnames "^2.2.0"
-    lodash "^4.0.1"
-    merge "^1.2.0"
     object-assign "^4.1.0"
 
 read-pkg-up@^1.0.1:
@@ -4226,10 +4196,6 @@ timers-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-1.4.2.tgz#c9c58b575be8407375cb5e2462dacee74359f41d"
   dependencies:
     process "~0.11.0"
-
-tinycolor2@^1.1.2:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
 
 to-fast-properties@^1.0.1:
   version "1.0.2"

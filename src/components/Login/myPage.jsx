@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { logout, deleteAccount } from '../../actions/userActions'
+import { logout, deleteAccount, attachFacebook, detachFacebook
+} from '../../actions/userActions'
 import FBLogin from 'react-facebook-login'
 import { fbAppId } from '../../samples/sampleKey'
 
 class MyPage extends Component {
   constructor() {
     super()
+    this.handleFacebookAttach = this.handleFacebookAttach.bind(this)
+    this.handleFacebookDetach = this.handleFacebookDetach.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.renderManageFacebook = this.renderManageFacebook.bind(this)
   }
 
@@ -21,23 +25,33 @@ class MyPage extends Component {
     this.props.dispatch(deleteAccount())
   }
 
-  // handleFacebookAttach(resp) {
+  handleFacebookAttach(userFbInfo) {
+    const {id, accessToken} = userFbInfo
+    this.props.dispatch(attachFacebook(id, accessToken))
+  }
 
-  // }
-
-  // handleFacebookDetach() {
-
-  // }
+  handleFacebookDetach(e) {
+    e.preventDefault()
+    this.props.dispatch(detachFacebook())
+  }
 
   renderManageFacebook() {
     const { info } = this.props
     if (info.fb_name)
-      return (<button className="btn btn-warning">페이스북 연동 해지하기</button>)
+      return (
+        <button
+          className="btn btn-warning"
+          onClick={this.handleFacebookDetach}
+        >
+          페이스북 연동 해지하기
+        </button>
+      )
     else
       return (
         <FBLogin
           appId={fbAppId}
           autoload
+          callback={this.handleFacebookAttach}
           cssClass='btn login-fb'
           icon='fa-facebook'
         />
