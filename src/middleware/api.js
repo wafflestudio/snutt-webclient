@@ -2,7 +2,7 @@
 
 import path from 'path'
 import { baseUrl, apiKey } from '../samples/sampleKey'
-
+var Symbol = require('es6-symbol')
 
 function callApi(endpoint, config, authenticated) {
   let token = sessionStorage.getItem('snutt_token') ||
