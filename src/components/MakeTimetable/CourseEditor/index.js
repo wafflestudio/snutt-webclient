@@ -87,6 +87,7 @@ class CourseEditor extends PureRenderComponent {
       <Modal
         isOpen={true}
         className='snutt__modal'
+        onRequestClose={this.handleClose}
         overlayClassName='snutt__modal-overlay'
         portalClassName='snutt__course-editor'
         style={{ content: {
