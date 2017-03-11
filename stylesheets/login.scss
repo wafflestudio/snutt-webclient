@@ -96,3 +96,7 @@
         margin-bottom: 5px;
     }
 }
+
+.snutt__setting input:valid {
+    border-color: green;
+}

@@ -169,22 +169,7 @@ export function fetchUserInfo() {
  }
 }
 
-export function changePassword(newPassword) {
-  return function(dispatch) {
-    fetch(baseUrl + 'user/password', {
-      method: 'put',
-      headers: generateHeader(),
-      body: encodeParams({password: newPassword})
-    })
-    .catch(e => console.log(e))
-    .then(json => {
-      if (json.token === undefined)
-        dispatch(failLogin(json))
-      else
-        dispatch(successLogin(_id, json.token))
-    })
-  }
-}
+
 
 export function deleteAccount() {
   return function(dispatch) {
@@ -241,6 +226,55 @@ export function detachFacebook() {
       }
     })
     .catch(e => console.log(e))
+  }
+}
+
+export function attachLocal(id, password, okCallback) {
+  return function(dispatch) {
+    fetch(baseUrl + 'user/password', {
+      method: 'post',
+      headers: generateHeader(),
+      body: encodeParams({id, password})
+    })
+    .then(resp => {
+      if (!resp.ok) console.log(resp)
+      return resp.json()
+    })
+    .then(json => {
+      if (json.errcode) {
+        alert(json.message)
+      } else {
+        const {token} = json
+        changeToken(token)
+        dispatch(fetchUserInfo())
+        okCallback()
+      }
+    })
+    .catch(e => alert(e))
+  }
+}
+
+export function changePassword(old_password, new_password, okCallback) {
+  return function(dispatch) {
+    fetch(baseUrl + 'user/password', {
+      method: 'put',
+      headers: generateHeader(),
+      body: encodeParams({old_password, new_password})
+    })
+    .then(resp => {
+      if (!resp.ok) console.log(resp)
+      return resp.json()
+    })
+    .then(json => {
+      if (json.errcode) {
+        alert(json.message)
+      } else {
+        const {token} = json
+        changeToken(token)
+        okCallback()
+      }
+    })
+    .catch(e => alert(e))
   }
 }
 
