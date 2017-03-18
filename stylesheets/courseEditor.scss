@@ -59,15 +59,17 @@
 .circle-wrapper {
     position: absolute;
     right: 10px;
+    width: 80px;
 }
 
 .circle-wrapper .color-circle {
     width: 30px;
     height: 30px;
-    border-radius: 50%;
+    border-radius: 20%;
     text-align: center;
     vertical-align: middle;
-    margin: 10px 0;
+    margin: 5px;
+    float: left;
 }
 
 .circle-wrapper span {

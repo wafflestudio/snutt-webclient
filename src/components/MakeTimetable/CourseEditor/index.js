@@ -69,7 +69,7 @@ class CourseEditor extends PureRenderComponent {
     return (
       <div className='form-group'>
         <label className='col-sm-2 control-label'>{field}</label>
-        <div className='col-sm-9'>
+        <div className='col-sm-8'>
           <input
             className='form-control'
             value={this.state[key]}
