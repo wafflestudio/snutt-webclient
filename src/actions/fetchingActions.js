@@ -6,18 +6,13 @@ import { FETCH_TAG, GET_TAG, FAIL_TAG } from './actionTypes'
 import { baseUrl, apiKey } from '../samples/sampleKey'
 import { fetchTableList } from './tableActions'
 import { successLogin, createTemporaryUser } from './userActions'
+import request from './request'
 
 export function updateCoursebook() {
   return function(dispatch) {
-    fetch(baseUrl + 'course_books/', {
-      method: 'get',
-      headers: {
-        'x-access-apikey': apiKey,
-        'Content-Type': 'application/json',
-      },
+    request('course_books', {
+      method: 'get'
     })
-    .then(resp => resp.json())
-    .catch(ex => console.log("Request failed", ex))
     .then(json => dispatch(fetchCoursebook(json)))
   }
 }

@@ -18,7 +18,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
   const { currentIndex, tableMap, tableIndex } = state
   switch (action.type) {
     case types.GET_TABLELIST: {
-      const tableArray = JSON.parse(action.response)
+      const tableArray = action.response
       const mapped = tableArray.reduce((obj, current)=> {
         obj[current._id] = current
         return obj
@@ -34,14 +34,14 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       }
     }
     case types.ADD_LECTURE_OK: {
-      const updated = JSON.parse(action.response)
+      const updated = action.response
       return {
         ...state,
         tableMap: update(tableMap, {[updated._id]: {$set: updated}})
       }
     }
     case types.DELETE_LECTURE_OK: {
-      const updated = JSON.parse(action.response)
+      const updated = action.response
       return {
         ...state,
         tableMap: update(tableMap, {[updated._id]: {$set: updated}})
@@ -49,7 +49,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
     case types.UPDATE_TITLE_OK: {
       const { year, semester } = state.tableMap[state.currentId]
-      const newIndex = JSON.parse(action.response).filter(val =>
+      const newIndex = action.response.filter(val =>
         val.year === year && val.semester === semester
       )
       return {
@@ -58,7 +58,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       }
     }
     case types.UPDATE_LECTURE_OK: {
-      const updatedTable = JSON.parse(action.response)
+      const updatedTable = action.response
       const updatedId = updatedTable._id
       return {
         ...state,
@@ -67,7 +67,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
     case types.CREATE_TABLE_OK: {
       const { year, semester } = state
-      const newIndex = JSON.parse(action.response).filter(val =>
+      const newIndex = action.response.filter(val =>
         val.year === year && val.semester === semester
       )
       return {
@@ -77,7 +77,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
     case types.DELETE_TABLE_OK: {
       const { year, semester } = state
-      const newIndex = JSON.parse(action.response).filter(val =>
+      const newIndex = action.response.filter(val =>
         val.year === year && val.semester === semester
       )
       return {
@@ -87,7 +87,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       }
     }
     case types.SWITCH_TABLE_OK: {
-      const updatedTable = JSON.parse(action.response)
+      const updatedTable = action.response
       const updatedId = updatedTable._id
       return {
         ...state,
@@ -105,7 +105,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
 export function tagList(state = {}, action) {
   switch (action.type) {
     case types.GET_TAG:
-      return JSON.parse(action.response)
+      return action.response
     default:
       return state
   }

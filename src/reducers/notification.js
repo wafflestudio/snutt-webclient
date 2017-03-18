@@ -17,7 +17,7 @@ const handlers = {
   }),
 
   [GET_MESSAGE_OK]: (state, action) => {
-    const newMessages = JSON.parse(action.response)
+    const newMessages = action.response
     const messages = state.messages.concat(newMessages)
     return {
       fetching: false,
@@ -28,7 +28,7 @@ const handlers = {
   },
 
   [CHECK_NEW_MESSAGE_OK]: (state, action) => {
-    const { count } = JSON.parse(action.response)
+    const { count } = action.response
     return {
       hasNew: count > 0 ? true : false,
     }

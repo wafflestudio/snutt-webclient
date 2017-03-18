@@ -4,6 +4,7 @@ import { push } from 'react-router-redux'
 import { updateCoursebook } from './fetchingActions'
 import { fetchTableList } from './tableActions'
 import { checkNewMessage } from './notification'
+import request from './request'
 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'REGISTER_FAILURE'
@@ -22,7 +23,7 @@ const generateHeader = () => ({
 })
 
 // Code snippet from https://github.com/github/fetch/issues/263
-const encodeParams = params => Object.keys(params).map(key =>
+export const encodeParams = params => Object.keys(params).map(key =>
   encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
 ).join('&');
 
@@ -30,11 +31,9 @@ export function createTemporaryUser() {
   const timestamp = new Date().getTime().toString()
   const tempId = 'webTemp' + timestamp
   return function(dispatch) {
-    fetch(baseUrl + 'auth/request_temp', {
+    request('auth/request_temp', {
       method: 'post',
-      headers: generateHeader(),
     })
-    .then(resp => resp.json())
     .catch(e => {
       console.log("fail register")
       dispatch({type: REGISTER_FAILURE, message: JSON.stringify(e)})
@@ -53,12 +52,10 @@ export function createTemporaryUser() {
 
 export function registerUser(_id, _pass) {
   return function(dispatch) {
-    fetch(baseUrl + 'auth/register_local/', {
+    request('auth/register_local', {
       method: 'post',
-      headers: generateHeader(),
-      body: encodeParams({ id: _id, password: _pass })
+      body: encodeParams({ id: _id, password: _pass }),
     })
-    .then(resp => resp.json())
     .catch(e => {
       console.log("fail register")
       dispatch({type: REGISTER_FAILURE, message: JSON.stringify(e)})
@@ -74,13 +71,9 @@ export function registerUser(_id, _pass) {
 
 export function loginLocal(_id, _pass, keepLogin = false) {
   return function(dispatch) {
-    fetch(baseUrl + 'auth/login_local/', {
+    request('auth/login_local', {
       method: 'post',
-      headers: generateHeader(),
       body: encodeParams({id: _id, password: _pass}),
-    })
-    .then(resp => {
-      return resp.json()
     })
     .catch(e => dispatch(failLogin(e)))
     .then(json => {
@@ -96,14 +89,9 @@ export function loginLocal(_id, _pass, keepLogin = false) {
 
 export function loginFacebook(fb_id, fb_token, fb_name) {
   return function(dispatch) {
-    fetch(baseUrl + 'auth/login_fb/', {
+    request('auth/login_fb', {
       method: 'post',
-      headers: generateHeader(),
-      body: encodeParams({fb_id, fb_token}),
-    })
-    .then(resp => {
-      console.log(resp)
-      return resp.json()
+      body: encodeParams({fb_id, fb_token})
     })
     .catch(e => dispatch(failLogin(e)))
     .then(json => {
@@ -117,7 +105,7 @@ export function loginFacebook(fb_id, fb_token, fb_name) {
   }
 }
 
-function clearStorage() {
+export function clearStorage() {
   sessionStorage.removeItem('snutt_id')
   sessionStorage.removeItem('snutt_token')
   localStorage.removeItem('snutt_id')
@@ -159,11 +147,9 @@ export function failLogin(error) {
 
 export function fetchUserInfo() {
   return (dispatch) => {
-    fetch(baseUrl + 'user/info', {
+    request('user/info', {
       method: 'get',
-      headers: generateHeader(),
     })
-    .then(resp => resp.json())
     .then(json => dispatch({ type: GET_USER_INFO, info: json }))
     .catch(e => console.log(e))
  }
@@ -173,9 +159,8 @@ export function fetchUserInfo() {
 
 export function deleteAccount() {
   return function(dispatch) {
-    fetch(baseUrl + 'user/account', {
-      method: 'delete',
-      headers: generateHeader(),
+    request('user/account', {
+      method: 'delete'
     })
     .catch(e => console.log(e))
     .then(() => {
@@ -188,12 +173,10 @@ export function deleteAccount() {
 
 export function attachFacebook(fb_id, fb_token) {
   return function(dispatch) {
-    fetch(baseUrl + 'user/facebook', {
+    request('user/facebook', {
       method: 'post',
-      headers: generateHeader(),
       body: encodeParams({fb_id, fb_token})
     })
-    .then(resp => resp.json())
     .then(json => {
       if (json.errcode) {
         alert(json.message)
@@ -210,11 +193,9 @@ export function attachFacebook(fb_id, fb_token) {
 
 export function detachFacebook() {
   return function(dispatch) {
-    fetch(baseUrl + 'user/facebook', {
+    request('user/facebook', {
       method: 'delete',
-      headers: generateHeader(),
     })
-    .then(resp => resp.json())
     .then(json => {
       if (json.errcode) {
         alert(json.message)
@@ -231,14 +212,9 @@ export function detachFacebook() {
 
 export function attachLocal(id, password, okCallback) {
   return function(dispatch) {
-    fetch(baseUrl + 'user/password', {
+    request('user/password', {
       method: 'post',
-      headers: generateHeader(),
       body: encodeParams({id, password})
-    })
-    .then(resp => {
-      if (!resp.ok) console.log(resp)
-      return resp.json()
     })
     .then(json => {
       if (json.errcode) {
@@ -260,10 +236,6 @@ export function changePassword(old_password, new_password, okCallback) {
       method: 'put',
       headers: generateHeader(),
       body: encodeParams({old_password, new_password})
-    })
-    .then(resp => {
-      if (!resp.ok) console.log(resp)
-      return resp.json()
     })
     .then(json => {
       if (json.errcode) {
