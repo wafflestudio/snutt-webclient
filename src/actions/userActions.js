@@ -254,12 +254,10 @@ function changeToken(newToken) {
     sessionStorage : localStorage
   console.log("OLD",
     sessionStorage.getItem('snutt_token'),
-    localStorage.getItem('snutt_token')
-  )
+    localStorage.getItem('snutt_token'))
   storage.setItem('snutt_token', newToken)
   console.log("NEW",
     sessionStorage.getItem('snutt_token'),
-    localStorage.getItem('snutt_token')
-  )
+    localStorage.getItem('snutt_token'))
 
 }

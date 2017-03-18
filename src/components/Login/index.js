@@ -13,6 +13,7 @@ class Login extends Component {
       password: '',
       keepLogin: false,
     }
+    this.handleEnterPress = this.handleEnterPress.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
   }
@@ -32,6 +33,11 @@ class Login extends Component {
   handleFacebookLogin(response) {
     const {id, accessToken, name} = response
     this.props.dispatch(loginFacebook(id, accessToken, name))
+  }
+
+  handleEnterPress(e) {
+    if (e.key == 'Enter')
+      this.handleLogin(e)
   }
 
   render() {
@@ -58,6 +64,7 @@ class Login extends Component {
               <input
                 className={password.length > 0 ? 'typed' : ''}
                 onChange={this.handlePassChange}
+                onKeyPress={this.handleEnterPress}
                 placeholder='비밀번호'
                 value={this.state.password}
                 type='password'
