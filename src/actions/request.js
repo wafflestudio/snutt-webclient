@@ -13,9 +13,10 @@ const generateHeader = () => ({
 const errorHandler = (err) => {
   // Just put to console for now
   console.log("Error from handler::", err)
+  alert(err.message)
   if (Number(err.code) === 8194) {
     console.log("Invalid token")
-    // store.dispatch(logout())
+    store.dispatch(logout())
   }
 }
 

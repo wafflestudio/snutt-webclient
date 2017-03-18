@@ -81,6 +81,7 @@ class MyPage extends Component {
       return(
         <div>
           <form onSubmit={this.handlePasswordChange}>
+            <div id="local-id">SNUTT 아이디는 <strong>{info.local_id}</strong>입니다 :)</div>
             <input
               className="form-control"
               type="password"
