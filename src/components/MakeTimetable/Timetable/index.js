@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import LectureBox from './LectureBox.jsx'
 import Cell from './Cell.jsx'
 
-const NUM_SLOTS = 30
+const NUM_SLOTS = 32
 
 export default class Timetable extends Component {
   constructor() {

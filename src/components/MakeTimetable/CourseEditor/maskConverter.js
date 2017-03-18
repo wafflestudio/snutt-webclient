@@ -3,7 +3,7 @@ export default function timeJsonToMask(timeJson) {
   var i,j;
   var bitTable2D = [];
   for (i = 0; i < 7; i++)
-    bitTable2D.push([...new Array(30).keys()].map(v => 0))
+    bitTable2D.push([...new Array(32).keys()].map(v => 0))
 
   timeJson.forEach(function(lecture, lectureIdx) {
     var dayIdx = lecture.day;
@@ -14,7 +14,7 @@ export default function timeJsonToMask(timeJson) {
   var timeMasks = [];
   for (i = 0; i < 7; i++) {
     var mask = 0;
-    for (j = 0; j < 30; j++) {
+    for (j = 0; j < 32; j++) {
       mask = mask << 1;
       if (bitTable2D[i][j] === 1)
         mask = mask + 1;
