@@ -1,6 +1,7 @@
 import { apiKey, baseUrl } from '../samples/sampleKey.js'
 import urljoin from 'url-join'
-import { clearStorage } from './userActions'
+import { clearStorage, logout } from './userActions'
+import { store } from '../index.js'
 
 const generateHeader = () => ({
   'x-access-apikey': apiKey,
@@ -11,10 +12,10 @@ const generateHeader = () => ({
 
 const errorHandler = (err) => {
   // Just put to console for now
-  console.log("Error from handler", err)
-  if (Number(err.code) === 8193) {
-    console.log("Deleting tokens")
-    clearStorage()
+  console.log("Error from handler::", err)
+  if (Number(err.code) === 8194) {
+    console.log("Invalid token")
+    // store.dispatch(logout())
   }
 }
 

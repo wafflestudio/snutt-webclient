@@ -27,7 +27,7 @@ const middleware = applyMiddleware(
   api
 )
 
-const store = createStore(
+export const store = createStore(
   reducer,
   compose(
     middleware,

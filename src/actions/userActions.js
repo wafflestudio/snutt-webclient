@@ -121,7 +121,7 @@ export function logout() {
   }
 }
 
-export function successLogin(id, token, keepLogin = true, isTemp = false) {
+export function successLogin(id, token, keepLogin = false, isTemp = false) {
   return (dispatch, getState) => {
     clearStorage()
     // debugger;
@@ -232,9 +232,8 @@ export function attachLocal(id, password, okCallback) {
 
 export function changePassword(old_password, new_password, okCallback) {
   return function(dispatch) {
-    fetch(baseUrl + 'user/password', {
+    request('user/password', {
       method: 'put',
-      headers: generateHeader(),
       body: encodeParams({old_password, new_password})
     })
     .then(json => {
@@ -253,5 +252,14 @@ export function changePassword(old_password, new_password, okCallback) {
 function changeToken(newToken) {
   const storage = Boolean(sessionStorage.getItem('snutt_token')) ?
     sessionStorage : localStorage
+  console.log("OLD",
+    sessionStorage.getItem('snutt_token'),
+    localStorage.getItem('snutt_token')
+  )
   storage.setItem('snutt_token', newToken)
+  console.log("NEW",
+    sessionStorage.getItem('snutt_token'),
+    localStorage.getItem('snutt_token')
+  )
+
 }
