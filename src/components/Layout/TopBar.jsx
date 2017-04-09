@@ -42,7 +42,7 @@ class TopBar extends Component {
             <Link className="navbar-brand" to="/" id="brand_button"><b>SNUTT</b></Link>
           </div>
           <div className="navbar-collapse collapse">
-            <ul className="nav navbar-nav" id="main_navigation">
+            <ul className="nav navbar-nav" id="main_navigation snutt__coursebook">
               <CourseBookSelector />
             </ul>
             <p className="navbar-text">{this.printTime()}</p>

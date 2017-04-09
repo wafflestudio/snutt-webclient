@@ -33,6 +33,12 @@ module.exports = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract("style-loader", "css-loader")
       }
+    ],
+    rules: [
+      {
+        test: /\.json$/,
+        use: 'json-loader'
+      }
     ]
   }
 };

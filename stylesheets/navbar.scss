@@ -10,6 +10,9 @@
   .dropdown-toggle {
     background-color: #4A90E2 !important;
   }
+  .dropdown-toggle:hover {
+      cursor: pointer !important;
+  }
   border: 0;
   .dropdown:focus {
     outline:none;
