@@ -5,9 +5,10 @@ import { CALL_API } from '../middleware/api'
 import { FETCH_TAG, GET_TAG, FAIL_TAG } from './actionTypes'
 import { baseUrl, apiKey } from '../samples/sampleKey'
 import { fetchTableList } from './tableActions'
-import { successLogin, createTemporaryUser } from './userActions'
+import { loginWithToken } from './userActions'
 import request from './request'
 
+// Entry point of all fetching actions
 export function updateCoursebook() {
   return function(dispatch) {
     request('course_books', {
@@ -35,16 +36,9 @@ export function changeCoursebook(newCourseBook) {
 
     if (getState().user.loggedIn)
       dispatch(fetchTableList(newYear, newSemester))
-    else if (localStorage.getItem('snutt_token')) {
-      const isTemp = localStorage.getItem('snutt_id').indexOf('webTemp') == 0
-      dispatch(successLogin(
-        localStorage.getItem('snutt_id'),
-        localStorage.getItem('snutt_token'),
-        true,
-        isTemp,
-      ))
-    } else {
-      dispatch(createTemporaryUser())
+    else {
+      // If not logged in, check existing token or get temporary one
+      loginWithToken(dispatch)
     }
   }
 }
