@@ -8,16 +8,9 @@ class SearchBar extends Component {
     super()
     this.state = { text: '' }
     this.handleTextChange = this.handleTextChange.bind(this)
-    this.captureEnter = this.captureEnter.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.toggleFilter = this.toggleFilter.bind(this)
     this.resetFilter = this.resetFilter.bind(this)
-  }
-
-  captureEnter(e) {
-    if (this.state.text.length > 1 && e.keyCode == 13) {
-      this.handleSearch(e)
-    }
   }
 
   handleTextChange(e) {
@@ -46,15 +39,16 @@ class SearchBar extends Component {
     return (
       <div className="row">
         <div id="searchbar-container" className="col-lg-8 col-lg-offset-2">
-          <input
-            type="text"
-            id="search-form"
-            className="form-control"
-            placeholder="Course name"
-            value={this.state.text}
-            onChange={this.handleTextChange}
-            onKeyDown={this.captureEnter}
-          />
+          <form onSubmit={this.handleSearch}>
+            <input
+              type="text"
+              id="search-form"
+              className="form-control"
+              placeholder="Course name"
+              value={this.state.text}
+              onChange={this.handleTextChange}
+            />
+          </form>
           <div id="search-button-container">
             <span
               className="glyphicon glyphicon-search"
