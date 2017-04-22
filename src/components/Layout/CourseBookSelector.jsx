@@ -32,14 +32,13 @@ class CourseBookSelector extends Component {
     else {
       return (
         <li
-          className={'dropdown' + (this.state.opened ? ' open' : '')}
+          className={'tt__navbar dropdown' + (this.state.opened ? ' open' : '')}
           tabIndex={1}
           onBlur={this.handleClose}
         >
           <a
             className='button dropdown-toggle'
             onClick={this.toggleOpened}
-
           >
             {`${currentBook.year}-${idxToString[currentBook.semester]}`}
             <span className='caret' />

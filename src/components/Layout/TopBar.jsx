@@ -24,13 +24,13 @@ class TopBar extends Component {
     const { loggedIn, id } = this.props
     return (
       loggedIn ?
-      <ul className="nav navbar-nav navbar-right">
+      <div className="tt__navbar tt__navbar-right">
         <NotificationButton />
-        <li><Link to="/myPage">{`${id}님 안녕하세요`}</Link></li>
-      </ul> :
-      <ul className="nav navbar-nav navbar-right">
-        <li><Link to="/login">로그인</Link></li>
-      </ul>
+        <Link to="/myPage">{`${id}님 안녕하세요`}</Link>
+      </div> :
+      <div className="tt__navbar tt__navbar-right">
+        <Link to="/login">로그인</Link>
+      </div>
     )
   }
 
@@ -38,16 +38,14 @@ class TopBar extends Component {
     return (
         <div id="bar-top" className="navbar navbar-default navbar-fixed-top">
         <div className="container">
-          <div className="navbar-header">
-            <Link className="navbar-brand" to="/" id="brand_button"><b>SNUTT</b></Link>
+          <div className="tt__navbar">
+            <Link className="tt__brand" to="/" id="brand_button"><b>SNUTT</b></Link>
           </div>
-          <div className="navbar-collapse collapse">
-            <ul className="nav navbar-nav" id="main_navigation snutt__coursebook">
-              <CourseBookSelector />
-            </ul>
-            <p className="navbar-text">{this.printTime()}</p>
-            {this.renderLoginButton()}
+          <CourseBookSelector />
+          <div className="tt__navbar tt__nav-collapse">
+            <p>{this.printTime()}</p>
           </div>
+          {this.renderLoginButton()}
         </div>
       </div>
     )

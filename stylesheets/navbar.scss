@@ -1,21 +1,44 @@
 .navbar-default {
   background-color: #4A90E2;
   @include unselectable;
-  b, .navbar-nav>li>a {
-    color: white;
+  .tt__navbar {
+      line-height: 18px;
+      padding: 16px 8px;
+      margin: 0;
+      margin-right: 15px;
+      float: left;
   }
-  .navbar-text {
-    color: #8FBDF3;
+  .tt__navbar-right {
+      float: right;
+      margin-right: 0px;
+  }
+  .tt__brand {
+      font-size: 18px;
+      color: white !important;
+      margin: -8px;
+  }
+  .dropdown {
+      list-style-type: none;
+      color: white !important;
+  }
+  .dropdown:focus {
+      outline: none;
   }
   .dropdown-toggle {
-    background-color: #4A90E2 !important;
+      background-color: #4A90E2 !important;
+      color: white !important;
   }
-  .dropdown-toggle:hover {
+  .tt__navbar p {
+      margin: 0 !important;
+      padding: 0 !important;
+      color: white !important;
+  }
+  .tt__navbar a {
+      color: white !important;
+  }
+  .tt__navbar a:hover {
       cursor: pointer !important;
-  }
-  border: 0;
-  .dropdown:focus {
-    outline:none;
+      text-decoration: none;
   }
 }
 
