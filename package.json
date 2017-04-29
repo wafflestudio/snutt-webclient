@@ -6,7 +6,8 @@
     "start": "node server.js",
     "lint": "eslint 'src/**'",
     "profile": "NODE_ENV=production webpack --config webpack.production.config.js --profile --json > dist/stat.json",
-    "build": "NODE_ENV=production webpack --config webpack.production.config.js"
+    "build": "NODE_ENV=production webpack --config webpack.production.config.js",
+    "test-deploy": "npm run build && firebase deploy"
   },
   "repository": {
     "type": "git",
