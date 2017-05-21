@@ -1,32 +1,32 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import Search from './Search'
-import CourseEditorLoader from './CourseEditor/Loader'
-import ResultTable from './ResultTable'
-import TimeTableManager from './Timetable/TimeTableManager.jsx'
-import Timetable from './Timetable'
+import Search from './Search';
+import CourseEditorLoader from './CourseEditor/Loader';
+import ResultTable from './ResultTable';
+import TimeTableManager from './Timetable/TimeTableManager.jsx';
+import Timetable from './Timetable';
 
-import { addCourse } from '../../actions'
-import { createCourse, deleteLecture, updateTitle, createTable, switchTable, deleteTable
-  } from '../../actions/tableActions'
+import { addCourse } from '../../actions';
+import { createCourse, deleteLecture, updateTitle, createTable, switchTable, deleteTable,
+  } from '../../actions/tableActions';
 
 class MakeTimeTable extends Component {
   constructor() {
-    super()
+    super();
   }
 
   componentWillMount() {
-    CourseEditorLoader().then(loaded => {
-      console.log('course editor loaded')
-      this.CourseEditor = loaded.CourseEditor.default
+    CourseEditorLoader().then((loaded) => {
+      console.log('course editor loaded');
+      this.CourseEditor = loaded.CourseEditor.default;
       this.forceUpdate();
-    })
+    });
   }
 
   render() {
     const { dispatch, hoveredCourse, timeTables, tableList: { tableIndex, currentId },
-      currentLectures, currentIndex, courseBook, courseEditorOpen } = this.props
+      currentLectures, currentIndex, courseBook, courseEditorOpen } = this.props;
 
     return (
       <div className="container">
@@ -57,19 +57,26 @@ class MakeTimeTable extends Component {
           { courseEditorOpen ? <this.CourseEditor /> : null }
         </div>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
   const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
-    modalOn, tableList, courseEditor } = state
-  const { currentId, tableMap } = tableList
-  const currentLectures = currentId == null ? null : tableMap[currentId].lecture_list
+    modalOn, tableList, courseEditor } = state;
+  const { currentId, tableMap } = tableList;
+  const currentLectures = currentId == null ? null : tableMap[currentId].lecture_list;
   return {
-    hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
-    modalOn, tableList, currentLectures, courseEditorOpen: courseEditor.isOpen
-  }
+    hoveredCourse,
+    searchResults,
+    timeTables,
+    courseBook,
+    isQuerying,
+    modalOn,
+    tableList,
+    currentLectures,
+    courseEditorOpen: courseEditor.isOpen,
+  };
 }
 
-export default connect(mapStateToProps)(MakeTimeTable)
+export default connect(mapStateToProps)(MakeTimeTable);

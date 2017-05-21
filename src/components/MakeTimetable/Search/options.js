@@ -4,7 +4,7 @@ export const credits = [
   { name: '2학점', value: 2 },
   { name: '3학점', value: 3 },
   { name: '4학점', value: 4 },
-]
+];
 
 // 학년
 export const academicYears = [
@@ -12,7 +12,7 @@ export const academicYears = [
   { name: '2학년', value: '2학년' },
   { name: '3학년', value: '3학년' },
   { name: '4학년', value: '4학년' },
-]
+];
 
 // 학문의 기초
 export const foundations = [
@@ -21,7 +21,7 @@ export const foundations = [
   { name: '수량적 분석과 추론', value: '수량적 분석과 추론' },
   { name: '과학적 사고와 실험', value: '과학적 사고와 실험' },
   { name: '컴퓨터와 정보 활용', value: '컴퓨터와 정보 활용' },
-]
+];
 
 // 학문의 세계
 export const knowledges = [
@@ -32,7 +32,7 @@ export const knowledges = [
   { name: '인간과 사회', value: '인간과 사회' },
   { name: '자연과 기술', value: '자연과 기술' },
   { name: '생명과 환경', value: '생명과 환경' },
-]
+];
 
 // 선택 교양
 export const generals = [
@@ -41,7 +41,7 @@ export const generals = [
   { name: '대학과 리더십', value: '대학과 리더십' },
   { name: '창의와 융합', value: '창의와 융합' },
   { name: '한국의 이해', value: '한국의 이해' },
-]
+];
 
 // 구분
 export const classifications = [
@@ -51,4 +51,4 @@ export const classifications = [
   { name: '일선', value: '일선' },
   { name: '전선', value: '전선' },
   { name: '전필', value: '전필' },
-]
+];

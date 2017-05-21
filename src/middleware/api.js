@@ -1,21 +1,20 @@
 // Mostly from https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/
 
-import path from 'path'
-import { baseUrl, apiKey } from '../samples/sampleKey'
-var Symbol = require('es6-symbol')
-import request from '../actions/request'
+import path from 'path';
+import { baseUrl, apiKey } from '../samples/sampleKey';
+const Symbol = require('es6-symbol');
+import request from '../actions/request';
 
-export const CALL_API = Symbol('Call API')
+export const CALL_API = Symbol('Call API');
 
-export default store => next => action => {
-  const callAPI = action[CALL_API]
+export default store => next => (action) => {
+  const callAPI = action[CALL_API];
 
   // if callAPI is not defined, this action is not this middleware is written for
-  if (typeof callAPI === 'undefined')
-    return next(action)
+  if (typeof callAPI === 'undefined') { return next(action); }
 
-  let { endpoint, types, config, authenticated = false, payload } = callAPI
-  const [ requestType, successType, errorType ] = types
+  const { endpoint, types, config, authenticated = false, payload } = callAPI;
+  const [requestType, successType, errorType] = types;
 
   return request(endpoint, config).then(
     response =>
@@ -28,6 +27,6 @@ export default store => next => action => {
     error => next({
       error: error.message || 'There was an error.',
       type: errorType,
-    })
-  )
-}
+    }),
+  );
+};

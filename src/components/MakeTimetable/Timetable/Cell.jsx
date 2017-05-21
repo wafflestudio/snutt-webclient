@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class Cell extends Component {
   constructor() {
-    super()
+    super();
   }
 
   onMouseDown() {
-    this.props.handleMouseDown(this.props.day, this.props.time)
+    this.props.handleMouseDown(this.props.day, this.props.time);
   }
 
   onMouseEnter() {
-    this.props.handleMouseEnter(this.props.day, this.props.time)
+    this.props.handleMouseEnter(this.props.day, this.props.time);
   }
 
   onMouseUp() {
-    this.props.handleMouseUp(this.props.day, this.props.time)
+    this.props.handleMouseUp(this.props.day, this.props.time);
   }
 
   render() {
@@ -27,6 +27,6 @@ export default class Cell extends Component {
       >
         {this.props.content}
       </td>
-    )
+    );
   }
 }

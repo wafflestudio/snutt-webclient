@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { baseUrl } from '../../samples/sampleKey'
+import { baseUrl } from '../../samples/sampleKey';
 
-const MEMBER_URL = `${baseUrl}member`
-const TERM_URL = `${baseUrl}terms_of_service`
-const PRIVACY_URL = `${baseUrl}privacy_policy`
+const MEMBER_URL = `${baseUrl}member`;
+const TERM_URL = `${baseUrl}terms_of_service`;
+const PRIVACY_URL = `${baseUrl}privacy_policy`;
 
 export default class Footer extends Component {
   render() {
@@ -28,4 +28,4 @@ export default class Footer extends Component {
 
 const footerStyle = {
   textAlign: 'center',
-}
+};

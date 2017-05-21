@@ -1,84 +1,84 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { logout, deleteAccount, attachFacebook, detachFacebook, attachLocal,
-  changePassword } from '../../actions/userActions'
-import FBLogin from 'react-facebook-login'
-import { fbAppId } from '../../samples/sampleKey'
+  changePassword } from '../../actions/userActions';
+import FBLogin from 'react-facebook-login';
+import { fbAppId } from '../../samples/sampleKey';
 
-const ID_PATTERN = "[a-z0-9]{4,32}"
-const PASSWORD_PATTERN = "(?=^.{6,20}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+const ID_PATTERN = '[a-z0-9]{4,32}';
+const PASSWORD_PATTERN = '(?=^.{6,20}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$';
 
-const resetInputValues = (values) => {values.forEach(val => {val = ""})}
+const resetInputValues = (values) => { values.forEach((val) => { val = ''; }); };
 
 class MyPage extends Component {
   constructor() {
-    super()
-    this.handleFacebookAttach = this.handleFacebookAttach.bind(this)
-    this.handleFacebookDetach = this.handleFacebookDetach.bind(this)
-    this.handleLogout = this.handleLogout.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.handleAttachLocalAccount = this.handleAttachLocalAccount.bind(this)
-    this.renderManageFacebook = this.renderManageFacebook.bind(this)
-    this.renderManageLocalAccount = this.renderManageLocalAccount.bind(this)
+    super();
+    this.handleFacebookAttach = this.handleFacebookAttach.bind(this);
+    this.handleFacebookDetach = this.handleFacebookDetach.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleAttachLocalAccount = this.handleAttachLocalAccount.bind(this);
+    this.renderManageFacebook = this.renderManageFacebook.bind(this);
+    this.renderManageLocalAccount = this.renderManageLocalAccount.bind(this);
   }
 
   handleLogout(e) {
-    e.preventDefault()
-    this.props.dispatch(logout())
+    e.preventDefault();
+    this.props.dispatch(logout());
   }
 
   handleDelete(e) {
-    e.preventDefault()
-    this.props.dispatch(deleteAccount())
+    e.preventDefault();
+    this.props.dispatch(deleteAccount());
   }
 
   handleFacebookAttach(userFbInfo) {
-    const {id, accessToken} = userFbInfo
-    this.props.dispatch(attachFacebook(id, accessToken))
+    const { id, accessToken } = userFbInfo;
+    this.props.dispatch(attachFacebook(id, accessToken));
   }
 
   handleFacebookDetach(e) {
-    e.preventDefault()
-    this.props.dispatch(detachFacebook())
+    e.preventDefault();
+    this.props.dispatch(detachFacebook());
   }
 
   handlePasswordChange(e) {
-    e.preventDefault()
-    const oldPass = this.oldPass.value
-    const newPass = this.newPass.value
-    const newPassConfirm = this.newPassConfirm.value
+    e.preventDefault();
+    const oldPass = this.oldPass.value;
+    const newPass = this.newPass.value;
+    const newPassConfirm = this.newPassConfirm.value;
     if (newPass !== newPassConfirm) {
-      alert("비밀번호를 다시 확인해주세요")
-      return
+      alert('비밀번호를 다시 확인해주세요');
+      return;
     }
     this.props.dispatch(changePassword(oldPass, newPass, () => {
-      alert("비밀번호가 변경되었습니다")
-      this.oldPass.value = ""
-      this.newPass.value = ""
-      this.newPassConfirm.value = ""
-    }))
+      alert('비밀번호가 변경되었습니다');
+      this.oldPass.value = '';
+      this.newPass.value = '';
+      this.newPassConfirm.value = '';
+    }));
   }
 
   handleAttachLocalAccount(e) {
-    e.preventDefault()
-    const newId = this.newId.value
-    const newPass = this.newPass.value
-    const newPassConfirm = this.newPassConfirm.value
+    e.preventDefault();
+    const newId = this.newId.value;
+    const newPass = this.newPass.value;
+    const newPassConfirm = this.newPassConfirm.value;
     if (newPass !== newPassConfirm) {
-      alert("비밀번호를 다시 확인해주세요")
+      alert('비밀번호를 다시 확인해주세요');
       return;
     }
     this.props.dispatch(attachLocal(newId, newPass, () => {
-      alert("아이디와 비밀번호가 등록되었습니다")
-      this.context.router.push('/')
-    }))
+      alert('아이디와 비밀번호가 등록되었습니다');
+      this.context.router.push('/');
+    }));
   }
 
   renderManageLocalAccount() {
-    const { info } = this.props
+    const { info } = this.props;
     if (info.local_id) {  // User had id and password요
-      return(
+      return (
         <div>
           <form onSubmit={this.handlePasswordChange}>
             <div id="local-id">SNUTT 아이디는 <strong>{info.local_id}</strong>입니다 :)</div>
@@ -86,14 +86,14 @@ class MyPage extends Component {
               className="form-control"
               type="password"
               placeholder="기존 비밀번호를 입력해주세요"
-              ref={(oldPass) => {this.oldPass = oldPass}}
+              ref={(oldPass) => { this.oldPass = oldPass; }}
               required
             />
             <input
               className="form-control"
               type="password"
               placeholder="새 비밀번호를 입력해주세요"
-              ref={(newPass) => {this.newPass = newPass}}
+              ref={(newPass) => { this.newPass = newPass; }}
               required
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
               title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
@@ -102,7 +102,7 @@ class MyPage extends Component {
               className="form-control"
               type="password"
               placeholder="새 비밀번호를 다시 입력해주세요"
-              ref={(newPassConfirm) => {this.newPassConfirm = newPassConfirm}}
+              ref={(newPassConfirm) => { this.newPassConfirm = newPassConfirm; }}
               required
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
               title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
@@ -114,53 +114,51 @@ class MyPage extends Component {
             />
           </form>
         </div>
-      )
-    } else { // Nope
-      return(
-        <div>
-          <form onSubmit={this.handleAttachLocalAccount}>
-            <input
-              type="text"
-              ref={(newId) => {this.newId = newId}}
-              pattern="[a-z0-9]{4,32}"
-              required
-              title="아이디는 4자 이상 32자 이하의 영소문자와 숫자로 만들어주세요"
-              className="form-control"
-              placeholder="아이디를 만들어주세요"
-            />
-            <input
-              className="form-control"
-              type="password"
-              ref={(newPass) => {this.newPass = newPass}}
-              pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
-              required
-              title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-              placeholder="비밀번호를 입력해주세요"
-            />
-            <input
-              type="password"
-              ref={(newPassConfirm) => {this.newPassConfirm = newPassConfirm}}
-              pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
-              required
-              title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-              className="form-control"
-              placeholder="비밀번호를 다시 입력해주세요"
-            />
-            <input
-              className="btn btn-success"
-              type="submit"
-              value="아이디/비밀번호 만들기"
-            >
-            </input>
-          </form>
-        </div>
-      )
-    }
+      );
+    }  // Nope
+    return (
+      <div>
+        <form onSubmit={this.handleAttachLocalAccount}>
+          <input
+            type="text"
+            ref={(newId) => { this.newId = newId; }}
+            pattern="[a-z0-9]{4,32}"
+            required
+            title="아이디는 4자 이상 32자 이하의 영소문자와 숫자로 만들어주세요"
+            className="form-control"
+            placeholder="아이디를 만들어주세요"
+          />
+          <input
+            className="form-control"
+            type="password"
+            ref={(newPass) => { this.newPass = newPass; }}
+            pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
+            required
+            title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <input
+            type="password"
+            ref={(newPassConfirm) => { this.newPassConfirm = newPassConfirm; }}
+            pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
+            required
+            title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
+            className="form-control"
+            placeholder="비밀번호를 다시 입력해주세요"
+          />
+          <input
+            className="btn btn-success"
+            type="submit"
+            value="아이디/비밀번호 만들기"
+          />
+        </form>
+      </div>
+    );
   }
 
   renderManageFacebook() {
-    const { info } = this.props
-    if (info.fb_name)
+    const { info } = this.props;
+    if (info.fb_name) {
       return (
         <button
           className="btn btn-warning"
@@ -168,21 +166,21 @@ class MyPage extends Component {
         >
           페이스북 연동 해지하기
         </button>
-      )
-    else
-      return (
-        <FBLogin
-          appId={fbAppId}
-          autoload
-          callback={this.handleFacebookAttach}
-          cssClass='btn login-fb'
-          icon='fa-facebook'
-        />
-      )
+      );
+    }
+    return (
+      <FBLogin
+        appId={fbAppId}
+        autoload
+        callback={this.handleFacebookAttach}
+        cssClass="btn login-fb"
+        icon="fa-facebook"
+      />
+    );
   }
 
   render() {
-    return(
+    return (
       <div className="container snutt__setting">
         <div className="row">
           <div className="col-md-6 col-md-offset-3">
@@ -200,7 +198,7 @@ class MyPage extends Component {
               </div>
               <br />
               <div className="form-group new-password">
-                <label className="col-sm-4">{`아이디/비밀번호 관리`}</label>
+                <label className="col-sm-4">{'아이디/비밀번호 관리'}</label>
                 <div className="col-sm-6">
                   {this.renderManageLocalAccount()}
                 </div>
@@ -227,17 +225,17 @@ class MyPage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 MyPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { user } = state
-  return {...user}
-}
+  const { user } = state;
+  return { ...user };
+};
 
-export default connect(mapStateToProps)(MyPage)
+export default connect(mapStateToProps)(MyPage);

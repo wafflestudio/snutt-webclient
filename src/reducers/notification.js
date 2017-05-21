@@ -1,6 +1,6 @@
 import { GET_MESSAGE_START, GET_MESSAGE_OK, CHECK_NEW_MESSAGE_OK,
   OPEN_MESSAGE_BOX, CLOSE_MESSAGE_BOX,
-} from '../actions/notification'
+} from '../actions/notification';
 
 const INITIAL_STATE = {
   fetching: false,
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   messages: [],
   opened: false,
   hasNew: false,
-}
+};
 
 const handlers = {
 
@@ -17,31 +17,31 @@ const handlers = {
   }),
 
   [GET_MESSAGE_OK]: (state, action) => {
-    const newMessages = action.response
-    const messages = state.messages.concat(newMessages)
+    const newMessages = action.response;
+    const messages = state.messages.concat(newMessages);
     return {
       fetching: false,
       offset: messages.length,
       hasNew: false,
       messages,
-    }
+    };
   },
 
   [CHECK_NEW_MESSAGE_OK]: (state, action) => {
-    const { count } = action.response
+    const { count } = action.response;
     return {
-      hasNew: count > 0 ? true : false,
-    }
+      hasNew: count > 0,
+    };
   },
 
   [OPEN_MESSAGE_BOX]: (state, action) => ({ opened: true }),
 
-  [CLOSE_MESSAGE_BOX]: (state, action) => ({ opened: false}),
+  [CLOSE_MESSAGE_BOX]: (state, action) => ({ opened: false }),
 
-}
+};
 
-export default function notificationReducer (state = INITIAL_STATE, action) {
-  let handler = handlers[action.type]
-  if (!handler) return state
-  return { ...state, ...handler(state, action) }
+export default function notificationReducer(state = INITIAL_STATE, action) {
+  const handler = handlers[action.type];
+  if (!handler) return state;
+  return { ...state, ...handler(state, action) };
 }
