@@ -8,6 +8,17 @@ import contrast from '../../../utils/colorInvertor.js'
 import { addCustomLecture, updateLecture, closeCourse } from '../../../actions/tableActions'
 import JsonEditor from './JsonEditor.jsx'
 
+const mapStateToProps = (state) => {
+  const { isOpen, course } = state.courseEditor
+  return { isOpen, course }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  onAddCustomLecture: (editedLecture) => dispatch(addCustomLecture(editedLecuture)),
+  onUpdateLecture: (id, lecture) => dispatch(updateLecture(id, lecture)),
+  onCourseClose: () => dispatch(closeCourse()),
+})
+
 class CourseEditor extends PureRenderComponent {
   constructor(props) {
     super(props)
@@ -39,7 +50,6 @@ class CourseEditor extends PureRenderComponent {
 
   handleSave(e) {
     e.preventDefault()
-    const { dispatch } = this.props
     const { course_title, instructor, class_time_json, remark, color } = this.state
     const editedLecuture = {
       course_title,
@@ -50,15 +60,15 @@ class CourseEditor extends PureRenderComponent {
       color,
     }
     if (this.state.isNew) { //add new course
-      dispatch(addCustomLecture(editedLecuture))
+      this.props.onAddCustomLecture(editedLecuture)
     } else {
-      dispatch(updateLecture(this.state._id, editedLecuture))
+      this.props.onUpdateLecture(this.state._id, editedLecuture)
     }
   }
 
   handleClose(e) {
     e.preventDefault()
-    this.props.dispatch(closeCourse())
+    this.props.onCourseClose()
   }
 
   handleChange(field, e) {
@@ -137,9 +147,4 @@ class CourseEditor extends PureRenderComponent {
   }
 }
 
-function mapStateToProps(state) {
-  const { isOpen, course } = state.courseEditor
-  return { isOpen, course }
-}
-
-export default connect(mapStateToProps)(CourseEditor)
+export default connect(mapStateToProps, mapDispatchToProps)(CourseEditor)
