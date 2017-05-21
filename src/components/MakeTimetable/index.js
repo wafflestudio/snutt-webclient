@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Search from './Search';
 import CourseEditorLoader from './CourseEditor/Loader';
 import ResultTable from './ResultTable';
-import TimeTableManager from './Timetable/TimeTableManager.jsx';
+import TimetableTabs from './Timetable/TimetableTabs.jsx';
 import Timetable from './Timetable';
 
 import { addCourse } from '../../actions';
@@ -25,8 +25,8 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, hoveredCourse, timeTables, tableList: { tableIndex, currentId },
-      currentLectures, currentIndex, courseBook, courseEditorOpen } = this.props;
+    const { dispatch, hoveredCourse, currentLectures, currentIndex, courseBook,
+      courseEditorOpen } = this.props;
 
     return (
       <div className="container">
@@ -36,14 +36,7 @@ class MakeTimeTable extends Component {
             <ResultTable />
           </div>
           <div className="col-lg-6">
-            <TimeTableManager
-              currentId={currentId}
-              tables={tableIndex}
-              handleChange={id => dispatch(switchTable(id))}
-              handleAdd={title => dispatch(createTable(title))}
-              handleDelete={id => dispatch(deleteTable(id))}
-              handleTitleUpdate={title => dispatch(updateTitle(title))}
-            />
+            <TimetableTabs />
             <Timetable
               currentIndex={currentIndex}
               courseBook={courseBook}
@@ -62,18 +55,16 @@ class MakeTimeTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { hoveredCourse, searchResults, timeTables, courseBook, isQuerying,
+  const { hoveredCourse, searchResults, courseBook, isQuerying,
     modalOn, tableList, courseEditor } = state;
   const { currentId, tableMap } = tableList;
   const currentLectures = currentId == null ? null : tableMap[currentId].lecture_list;
   return {
     hoveredCourse,
     searchResults,
-    timeTables,
     courseBook,
     isQuerying,
     modalOn,
-    tableList,
     currentLectures,
     courseEditorOpen: courseEditor.isOpen,
   };
