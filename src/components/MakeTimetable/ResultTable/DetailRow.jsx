@@ -5,6 +5,18 @@ import ResultRow from './ResultRow.jsx';
 import { addLecture, deleteLecture, editCourse } from '../../../actions/tableActions';
 import showCourseDetail from './showCourseDetail.js';
 
+function mapStateToProps(state) {
+  const { year, semester } = state.courseBook.get('current');
+  const semesterStr = ['_', '1', 'S', '2', 'W'][semester];
+  return { searching: state.leftTabSearching, year, semesterStr };
+}
+
+const mapDispatchToProps = dispatch => ({
+  onAddLecture: course => dispatch(addLecture(course)),
+  onDeleteLecture: id => dispatch(deleteLecture(id)),
+  onEditCourse: course => dispatch(editCourse(course)),
+});
+
 class DetailRow extends ResultRow {
   constructor() {
     super();
@@ -15,7 +27,7 @@ class DetailRow extends ResultRow {
   }
 
   handleAdd() {
-    this.props.dispatch(addLecture(this.props.course));
+    this.props.onAddLecture(this.props.course);
   }
 
   handleOpenDetail() {
@@ -26,11 +38,11 @@ class DetailRow extends ResultRow {
 
   handleDelete() {
     this.props.updateHover(-1);
-    this.props.dispatch(deleteLecture(this.props.course._id));
+    this.props.onDeleteLecture(this.props.course._id);
   }
 
   handleEdit() {
-    this.props.dispatch(editCourse(this.props.course));
+    this.props.onEditCourse(this.props.course);
   }
 
   render() {
@@ -85,10 +97,4 @@ class DetailRow extends ResultRow {
   }
 }
 
-function mapStateToProps(state) {
-  const { year, semester } = state.courseBook.get('current');
-  const semesterStr = [, '1', 'S', '2', 'W'][semester];
-  return { searching: state.leftTabSearching, year, semesterStr };
-}
-
-export default connect(mapStateToProps)(DetailRow);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailRow);
