@@ -4,5 +4,8 @@
         "react",
         "jsx-a11y",
         "import"
-    ]
+    ],
+    "rules": {
+        "react/prop-types": "off"
+    }
 }

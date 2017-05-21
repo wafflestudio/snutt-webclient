@@ -5,12 +5,24 @@ import Loading from 'react-loading';
 import ResultTabs from './ResultTabs.jsx';
 import ResultRow from './ResultRow.jsx';
 import DetailRow from './DetailRow.jsx';
-import { selectCourse, unselectCourse, setLeftTab, hoverCourse, unhoverCourse } from '../../../actions';
+import { setLeftTab, hoverCourse, unhoverCourse } from '../../../actions';
+
+function mapStateToProps(state) {
+  const { isQuerying, searchResults, leftTabSearching,
+    tableList: { currentId, tableMap } } = state;
+  const addedLectures = currentId ? tableMap[currentId].lecture_list : [];
+  return { isQuerying, searchResults, addedLectures, searching: leftTabSearching };
+}
+
+const mapDispatchToProps = dispatch => ({
+  onSetLeftTab: isSearching => dispatch(setLeftTab(!isSearching)),
+  onHoverCourse: course => dispatch(hoverCourse(course)),
+  onUnhoverCourse: () => dispatch(unhoverCourse()),
+});
 
 class ResultTable extends Component {
   constructor(props) {
     super(props);
-    this.handleSelect = this.handleSelect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.updateHover = this.updateHover.bind(this);
     this.state = {
@@ -19,24 +31,17 @@ class ResultTable extends Component {
     };
   }
 
-  handleSelect(idx) {
-    const { dispatch } = this.props;
-    if (idx == this.state.selectedIdx) {
-      this.setState({ selectedIdx: -1 });
-      dispatch(unselectCourse());
-    } else {
-      this.setState({ selectedIdx: idx });
-      dispatch(selectCourse(this.props.searchResults[idx]));
-    }
-  }
-
   handleToggle() {
-    this.props.dispatch(setLeftTab(!this.props.searching));
+    this.props.onSetLeftTab(this.props.searching);
   }
 
   updateHover(n) {
-    const { dispatch, searching, searchResults } = this.props;
-    if (searching && n != -1) { dispatch(hoverCourse(searchResults[n])); } else if (searching) { dispatch(unhoverCourse()); }
+    const { searching, searchResults } = this.props;
+    if (searching && n !== -1) {
+      this.props.onHoverCourse(searchResults[n]);
+    } else if (searching) {
+      this.props.onUnhoverCourse();
+    }
     this.setState({ hoveredIdx: n });
   }
 
@@ -48,10 +53,10 @@ class ResultTable extends Component {
       <ResultRow
         {...key}
         rowIndex={idx}
-        hoverComputed={idx == this.state.hoveredIdx}
+        hoverComputed={idx === this.state.hoveredIdx}
         key={key._id}
         updateHover={this.updateHover}
-        isSelected={this.state.selectedIdx == idx}
+        isSelected={this.state.selectedIdx === idx}
       />
     ));
     if (hoveredIdx != -1) {
@@ -101,11 +106,4 @@ class ResultTable extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { isQuerying, searchResults, tableList, leftTabSearching,
-    tableList: { currentId, tableMap } } = state;
-  const addedLectures = currentId ? tableMap[currentId].lecture_list : [];
-  return { isQuerying, searchResults, addedLectures, searching: leftTabSearching };
-}
-
-export default connect(mapStateToProps)(ResultTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultTable);
