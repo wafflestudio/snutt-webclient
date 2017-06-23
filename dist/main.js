@@ -15,10 +15,19 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
+  electron.protocol.registerFileProtocol('snutt', (request, callback) => {
+    const url = request.url.substr(13)
+    const newpath = path.normalize(`${__dirname}/${url}`);
+    console.log(newpath);
+    callback({path: newpath})
+  }, function (error) {
+    if (error) console.error('Protocol register failed')
+  })
+
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
+    pathname: 'app/index.html',
+    protocol: 'snutt:',
     slashes: true
   }))
 
