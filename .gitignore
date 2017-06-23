@@ -1,3 +1,5 @@
 src/samples/sampleKey.js
 dist/static
 functions/
+node_modules/
+.vscode/
