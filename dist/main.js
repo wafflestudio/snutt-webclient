@@ -15,9 +15,11 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
-  electron.protocol.registerFileProtocol('snutt', (request, callback) => {
-    const url = request.url.substr(13)
-    const newpath = path.normalize(`${__dirname}/${url}`);
+  electron.protocol.registerFileProtocol('app', (request, callback) => {
+    var url = request.url.substr(11)
+    var newpath;
+    if (url.substr(0, 8) == '/static/') newpath = path.normalize(`${__dirname}${url}`);
+    else newpath = path.normalize(`${__dirname}/index.html`);
     console.log(newpath);
     callback({path: newpath})
   }, function (error) {
@@ -25,11 +27,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
-    pathname: 'app/index.html',
-    protocol: 'snutt:',
-    slashes: true
-  }))
+  mainWindow.loadURL("app://snutt/")
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
