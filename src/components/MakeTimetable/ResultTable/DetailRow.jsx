@@ -85,7 +85,7 @@ class DetailRow extends ResultRow {
               </button>
               <button
                 className="btn btn-danger"
-                onClick={this.handleDelete}
+                onClick={() => { if (confirm("정말로 삭제하시겠습니까?")) this.handleDelete() }}
               >
                 삭제
               </button>
