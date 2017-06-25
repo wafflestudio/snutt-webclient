@@ -44,6 +44,7 @@ export default class ResultRow extends Component {
 }
 
 const printTime = (timeString) => {
+  if (timeString === undefined) timeString = "";
   const days = timeString.split('/').map((val) => {
     try {
       const day = val.split('(')[0];
