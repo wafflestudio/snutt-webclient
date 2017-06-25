@@ -33,6 +33,8 @@ export function changeCoursebook(newCourseBook) {
     const { year: newYear, semester: newSemester } = newCourseBook;
     dispatch(updateTag(newYear, newSemester));
     dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook });
+    dispatch({ type: types.SET_LEFT_TAB, searching: false }) // show added lectures
+    dispatch({ type: types.SHOW_RESULT, courses:[] }); // empty the search results
 
     if (getState().user.loggedIn) { dispatch(fetchTableList(newYear, newSemester)); } else {
       // If not logged in, check existing token or get temporary one

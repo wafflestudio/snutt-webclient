@@ -49,16 +49,19 @@ class ResultTable extends Component {
     const { hoveredIdx } = this.state;
     const { searching, searchResults, addedLectures } = this.props;
     const data = (searching ? searchResults : addedLectures);
-    const rows = data.map((key, idx) => (
-      <ResultRow
-        {...key}
-        rowIndex={idx}
-        hoverComputed={idx === this.state.hoveredIdx}
-        key={key._id}
-        updateHover={this.updateHover}
-        isSelected={this.state.selectedIdx === idx}
-      />
-    ));
+    const rows = (data.length > 0) ? data.map((key, idx) => (
+        <ResultRow
+          {...key}
+          rowIndex={idx}
+          hoverComputed={idx === this.state.hoveredIdx}
+          key={key._id}
+          updateHover={this.updateHover}
+          isSelected={this.state.selectedIdx === idx}
+        />
+      ))
+      : (searching) ? (<tr><td colSpan = {8}>검색 결과가 없습니다.</td></tr>)
+      : (<tr><td colSpan = {8}>추가된 강의가 없습니다.</td></tr>)
+    
     if (hoveredIdx != -1) {
       rows.splice(hoveredIdx + 1, 0,
         <DetailRow
