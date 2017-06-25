@@ -11,11 +11,12 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+electron.protocol.registerStandardSchemes(['snutt'])
+
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
-
-  electron.protocol.registerFileProtocol('app', (request, callback) => {
+  electron.protocol.registerFileProtocol('snutt', (request, callback) => {
     var url = request.url.substr(11)
     var newpath;
     if (url.substr(0, 8) == '/static/') newpath = path.normalize(`${__dirname}${url}`);
@@ -27,7 +28,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL("app://snutt/")
+  mainWindow.loadURL("snutt://app/")
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
