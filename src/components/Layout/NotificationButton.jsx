@@ -40,7 +40,7 @@ class NotificationButton extends Component {
   render() {
     const { opened, hasNew, fetching, messages } = this.props;
     return (
-      <li
+      <div
         id="snutt__noti-wrapper"
         onBlur={this.handleBlur}
         tabIndex={0}
@@ -62,7 +62,7 @@ class NotificationButton extends Component {
             null
           }
         </a>
-      </li>
+      </div>
     );
   }
 }
