@@ -74,8 +74,8 @@ export default class Timetable extends Component {
       //column
       if (t % 2 == 0) {
         var hrIdx = t/2;
-        cols.push(<td className='label-hour' rowSpan='2' key={-1}>{hrIdx+8}</td>)
         cols.push(<td className='label-gyosi' rowSpan='2' key={-2}>{hrIdx}</td>)
+        cols.push(<td className='label-hour' rowSpan='2' key={-1}>{hrIdx+8}</td>)
       }
       for (var d = 0; d < numDay; d++) {
         var cellClass = 'td-body'
@@ -111,8 +111,8 @@ export default class Timetable extends Component {
     return (
       <thead>
         <tr>
-          <th className='label-hour'></th>
           <th className='label-gyosi'></th>
+          <th className='label-hour'></th>
           {days.map((v, i) => (<th className='label-date' key={i}>{v}</th>))}
           <th className='label-date blank-right'></th>
         </tr>

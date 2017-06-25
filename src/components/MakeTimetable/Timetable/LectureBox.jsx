@@ -22,7 +22,7 @@ class LectureBox extends Component {
     if (!course.color)
       course.color = { fg: "#1579C2", bg: "#94E6FE" }
     const divStyle = {
-      height: `${length * 100}%`,
+      height: `${length * 20}px`,
       color: course.color.fg,
       backgroundColor: course.color.bg,
     }
@@ -38,7 +38,7 @@ class LectureBox extends Component {
       >
         <div className='title-box'>
           <p>{this.props.course.course_title}</p>
-          <p>{this.props.classroom}</p>
+          <p><strong>{this.props.classroom}</strong></p>
         </div>
         <div className='tool-box-wrapper'>
           <div
