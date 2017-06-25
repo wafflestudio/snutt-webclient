@@ -54,7 +54,9 @@ class LectureBox extends Component {
               <span
                 className='glyphicon glyphicon-remove'
                 aria-hidden='true'
-                onClick={() => this.props.onDelete(this.props.course._id)}
+                onClick={() => {
+                  if (confirm("정말로 삭제하시겠습니까?")) this.props.onDelete(this.props.course._id) 
+                  }}
               /> :
               null
             }

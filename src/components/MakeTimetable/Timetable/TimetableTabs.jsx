@@ -34,7 +34,7 @@ class TimetableTabs extends Component {
 
   handleDelete(id, e) {
     e.stopPropagation();
-    this.props.onDeleteTable(id);
+    if (confirm("정말로 삭제하시겠습니까?")) this.props.onDeleteTable(id);
   }
 
   handleSelect(id, e) {
