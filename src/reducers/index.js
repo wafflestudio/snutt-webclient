@@ -91,7 +91,7 @@ function filter(state = { panel: false, time: false }, action) {
   }
 }
 
-function leftTabSearching(state = true, action) {
+function leftTabSearching(state = false, action) {
   switch (action.type) {
     case types.SET_LEFT_TAB:
       return action.searching;
