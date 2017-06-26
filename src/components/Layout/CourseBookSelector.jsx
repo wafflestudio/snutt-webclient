@@ -18,8 +18,11 @@ class CourseBookSelector extends Component {
   }
 
   handleSelect(e, selectedCoursebook) {
+    const { currentBook } = this.props;
     this.setState({ opened: false })
-    this.props.dispatch(changeCoursebook(selectedCoursebook))
+    if ( currentBook.year != selectedCoursebook.year ||
+        currentBook.semester != selectedCoursebook.semester)
+        this.props.dispatch(changeCoursebook(selectedCoursebook))
   }
   toggleOpened = () => {this.setState({opened: !this.state.opened})}
   handleClose = () => {this.setState({opened: false})}

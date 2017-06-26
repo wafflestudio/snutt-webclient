@@ -33,17 +33,17 @@ export default function request(endpoint, apiConfig) {
   return new Promise((resolve, reject) => {
     fetch(url, config)
       .then(parseJSON)
-      .then((response) => {
-        if (response.ok) { return resolve(response.json); }
-
-        errorHandler(response.json);
-        return reject(response.json.message);
-      })
       .catch((error) => {
         errorHandler({
           errcode: 1,
           message: 'NetworkError',
         });
+      })
+      .then((response) => {
+        if (response.ok) { return resolve(response.json); }
+
+        errorHandler(response.json);
+        return reject(response.json.message);
       });
   });
 }

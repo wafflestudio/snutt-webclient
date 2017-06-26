@@ -31,15 +31,15 @@ export function fetchCoursebook(courseBooks) {
 export function changeCoursebook(newCourseBook) {
   return function (dispatch, getState) {
     const { year: newYear, semester: newSemester } = newCourseBook;
-    dispatch(updateTag(newYear, newSemester));
     dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook });
     dispatch({ type: types.SET_LEFT_TAB, searching: false }) // show added lectures
     dispatch({ type: types.SHOW_RESULT, courses:[] }); // empty the search results
 
-    if (getState().user.loggedIn) { dispatch(fetchTableList(newYear, newSemester)); } else {
+    if (getState().user.loggedIn) { dispatch(fetchTableList()); } else {
       // If not logged in, check existing token or get temporary one
       loginWithToken(dispatch);
     }
+    dispatch(updateTag(newYear, newSemester));
   };
 }
 

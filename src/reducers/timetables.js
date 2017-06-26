@@ -26,41 +26,58 @@ function getViewTableTabList(tableList, year, semester) {
 }
 
 export function tableList(state = DEFAULT_TABLELIST, action) {
-  const { viewTableId, tableMap, tableIndex } = state;
   switch (action.type) {
-    case types.REQUEST_TABLELIST: {
-      const { year: viewYear, semester: viewSemester } = action.payload;
-      const { tableList } = state;
-      const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
-      return {
-        ...state,
-        viewTableTabList,
-        viewYear,
-        viewSemester
-      };
+    case types.CHANGE_COURSEBOOK: {
+      const { year: viewYear, semester: viewSemester } = action.newCourseBook;
+      const { tableList, viewYear: oldViewYear, viewSemester: oldViewSemester } = state;
+      if ( viewYear != oldViewYear || viewSemester != oldViewSemester ) {
+        const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
+        return {
+          ...state,
+          viewYear,
+          viewSemester,
+          viewTableTabList
+        }
+      } else {
+        return state;
+      }
     }
     case types.GET_TABLELIST: {
-      const { year: viewYear, semester: viewSemester } = action.payload;
-      const tableList = action.response;
-      const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
-      return {
-        ...state,
-        tableList,
-        viewTableTabList
-      };
+      const { viewYear, viewSemester, tableList} = state;
+      const newTableList = action.response;
+
+      let listChanged = false;
+      if (tableList.length == newTableList.length) {
+        for (let i=0; i<tableList.length; i++) {
+          if (tableList[i]._id != newTableList[i]._id ||
+              tableList[i].title !== newTableList[i].title) {
+                listChanged = true;
+                break;
+              }
+        }
+      } else listChanged = true;
+
+      if (listChanged) {
+        const viewTableTabList = getViewTableTabList(newTableList, viewYear, viewSemester);
+        return {
+          ...state,
+          tableList: newTableList,
+          viewTableTabList
+        };
+      } else return state;
     }
     case types.ADD_LECTURE_OK: {
       const updated = action.response;
       return {
         ...state,
-        tableMap: update(tableMap, { [updated._id]: { $set: updated } }),
+        tableMap: update(state.tableMap, { [updated._id]: { $set: updated } }),
       };
     }
     case types.DELETE_LECTURE_OK: {
       const updated = action.response;
       return {
         ...state,
-        tableMap: update(tableMap, { [updated._id]: { $set: updated } }),
+        tableMap: update(state.tableMap, { [updated._id]: { $set: updated } }),
       };
     }
     case types.UPDATE_TITLE_OK: {
@@ -77,11 +94,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const updatedId = updatedTable._id;
       return {
         ...state,
-        tableMap: update(tableMap, { [updatedId]: { $set: updatedTable } }),
+        tableMap: update(state.tableMap, { [updatedId]: { $set: updatedTable } }),
       };
     }
     case types.CREATE_TABLE_OK: {
       const tableList = action.response;
+      const { viewYear, viewSemester } = state;
       const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
       return {
         ...state,
@@ -91,17 +109,17 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
     case types.DELETE_TABLE_OK: {
       const tableList = action.response;
+      const { viewYear, viewSemester } = state;
       const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
-      const viewTableId = (viewTableTabList.length > 0) ? viewTableTabList[0]._id : null;
       return {
         ...state,
         tableList,
-        viewTableTabList,
-        viewTableId
+        viewTableTabList
       };
     }
     case types.SWITCH_TABLE_START: {
-      return {
+      if (state.viewTableId === action.payload.tableId) return state;
+      else return {
         ...state,
         viewTableId: action.payload.tableId,
       }
@@ -111,7 +129,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const updatedId = updatedTable._id;
       return {
         ...state,
-        tableMap: update(tableMap, { [updatedId]: { $set: updatedTable } }),
+        tableMap: update(state.tableMap, { [updatedId]: { $set: updatedTable } }),
       };
     }
     case types.LOGOUT_SUCCESS:

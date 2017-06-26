@@ -9,14 +9,13 @@ import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
   CREATE_COURSE, EDIT_COURSE, CLOSE_COURSE,
 } from './actionTypes';
 
-export function fetchTableList(year, semester) {
+export function fetchTableList() {
   return {
     [CALL_API]: {
       endpoint: `tables/`,
       config: { method: 'get' },
       authenticated: true,
       types: [REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST],
-      payload: { year, semester },
     },
   };
 }

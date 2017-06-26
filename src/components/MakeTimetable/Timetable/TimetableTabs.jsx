@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { switchTable, createTable, deleteTable, updateTitle } from '../../../actions/tableActions';
 
 function mapStateToProps(state) {
-  const { viewTableId, viewTableTabList: tables } = state.tableList;
-  return { viewTableId, tables };
+  const { viewTableId, viewTableTabList } = state.tableList;
+  return { viewTableId, tables: viewTableTabList };
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -82,7 +82,7 @@ class TimetableTabs extends Component {
     const { viewTableId, tables } = nextProps;
     let tableOpened = false;
     for (let i=0; i<tables.length; i++) {
-      if (tables[i]._id == viewTableId) {
+      if (tables[i]._id === viewTableId) {
         tableOpened = true;
         break;
       }
@@ -93,7 +93,15 @@ class TimetableTabs extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
+    const { viewTableId, tables } = this.props;
+    //console.log("timetableTab::shouldComponentUpdate", tables, nextTables);
+    return nextViewTableId != viewTableId || nextTables != tables;
+  }
+
   render() {
+    //console.log("TImetableTab render!!!");
     const { viewTableId, tables } = this.props;
     const buttons = tables.map(table => this.renderTab(table, table._id === viewTableId));
     // add button
