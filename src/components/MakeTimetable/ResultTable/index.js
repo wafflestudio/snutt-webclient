@@ -9,8 +9,8 @@ import { setLeftTab, hoverCourse, unhoverCourse } from '../../../actions';
 
 function mapStateToProps(state) {
   const { isQuerying, searchResults, leftTabSearching,
-    tableList: { currentId, tableMap } } = state;
-  const addedLectures = currentId ? tableMap[currentId].lecture_list : [];
+    tableList: { viewTableId, tableMap } } = state;
+  const addedLectures = tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [];
   return { isQuerying, searchResults, addedLectures, searching: leftTabSearching };
 }
 

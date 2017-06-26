@@ -122,17 +122,19 @@ export default class Timetable extends Component {
 
   render() {
     let hasSunday = false;
-    let tableContent = (
-      <tbody>
-        <tr>
-          <td colSpan='10'><h3 style={{textAlign:'center'}}>시간표를 추가해주세요</h3></td>
-        </tr>
-      </tbody>
-    )
+    let tableContent;
     if (this.props.courses) {
       const lectures = this.placeLectures()
       hasSunday = lectures[6].filter(v => Boolean(v)).length > 0
       tableContent = this.makeTable(lectures, hasSunday)
+    } else {
+      tableContent = (
+        <tbody>
+          <tr>
+            <td colSpan='10'><h3 style={{textAlign:'center'}}>시간표를 추가해주세요</h3></td>
+          </tr>
+        </tbody>
+      )
     }
 
     return (

@@ -12,7 +12,7 @@ import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
 export function fetchTableList(year, semester) {
   return {
     [CALL_API]: {
-      endpoint: `tables/${year}/${semester}`,
+      endpoint: `tables/`,
       config: { method: 'get' },
       authenticated: true,
       types: [REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST],
@@ -24,11 +24,11 @@ export function fetchTableList(year, semester) {
 export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
 export function addLecture(lecture) {
   return function (dispatch, getState) {
-    const { currentId } = getState().tableList;
+    const { viewTableId } = getState().tableList;
     const _id = lecture._id;
     dispatch({
       [CALL_API]: {
-        endpoint: `tables/${currentId}/lecture/${_id}`,
+        endpoint: `tables/${viewTableId}/lecture/${_id}`,
         config: {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
@@ -42,10 +42,10 @@ export function addLecture(lecture) {
 
 export function addCustomLecture(lecture) {
   return function (dispatch, getState) {
-    const { currentId } = getState().tableList;
+    const { viewTableId } = getState().tableList;
     dispatch({
       [CALL_API]: {
-        endpoint: `tables/${currentId}/lecture`,
+        endpoint: `tables/${viewTableId}/lecture`,
         config: {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
@@ -61,10 +61,10 @@ export function addCustomLecture(lecture) {
 // TODO: Change name to deleteCourse
 export function deleteLecture(lectureId) {
   return function (dispatch, getState) {
-    const { currentId } = getState().tableList;
+    const { viewTableId } = getState().tableList;
     dispatch({
       [CALL_API]: {
-        endpoint: `tables/${currentId}/lecture/${lectureId}`,
+        endpoint: `tables/${viewTableId}/lecture/${lectureId}`,
         config: {
           method: 'delete',
         },
@@ -78,7 +78,7 @@ export const editCourse = course => ({ type: EDIT_COURSE, course });
 export const closeCourse = course => ({ type: CLOSE_COURSE });
 export function updateLecture(lectureId, updatedPart) {
   return function (dispatch, getState) {
-    const { currentId: currentTableId } = getState().tableList;
+    const { viewTableId: currentTableId } = getState().tableList;
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${currentTableId}/lecture/${lectureId}`,
@@ -96,10 +96,10 @@ export function updateLecture(lectureId, updatedPart) {
 
 export function updateTitle(newTitle) {
   return function (dispatch, getState) {
-    const { currentId } = getState().tableList;
+    const { viewTableId } = getState().tableList;
     dispatch({
       [CALL_API]: {
-        endpoint: `tables/${currentId}/`,
+        endpoint: `tables/${viewTableId}/`,
         config: {
           method: 'put',
           headers: { 'Content-Type': 'application/json' },
@@ -152,16 +152,23 @@ export function deleteTable(_id) {
 }
 
 export function switchTable(_id) {
-  return function (dispatch) {
-    dispatch({
-      [CALL_API]: {
-        endpoint: `tables/${_id}`,
-        config: {
-          method: 'get',
+  if (!_id) {
+    return function (dispatch) {
+      dispatch({type: SWITCH_TABLE_START, payload: { tableId: null }});
+    }
+  } else {
+    return function (dispatch) {
+      dispatch({
+        [CALL_API]: {
+          endpoint: `tables/${_id}`,
+          config: {
+            method: 'get',
+          },
+          authenticated: true,
+          types: [SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL],
+          payload: { tableId: _id }
         },
-        authenticated: true,
-        types: [SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL],
-      },
-    });
-  };
+      });
+    };
+  }
 }

@@ -7,30 +7,46 @@ import * as types from '../actions/actionTypes.js';
  * tableMap: object of whole tables
  */
 const DEFAULT_TABLELIST = {
-  currentId: null,
-  tableIndex: [],
+  viewTableId: null,
+  viewTableTabList: [],
+  viewYear: null,
+  viewSemester: null,
+  tableList: [],
   tableMap: {},
-  year: null,
-  semester: null,
 };
 
+function getViewTableTabList(tableList, year, semester) {
+  let viewTableTabList = [];
+  for (let i=0; i<tableList.length; i++) {
+    if (tableList[i].year == year && tableList[i].semester == semester) {
+      viewTableTabList.push(tableList[i]);
+    }
+  }
+  return viewTableTabList;
+}
+
 export function tableList(state = DEFAULT_TABLELIST, action) {
-  const { currentIndex, tableMap, tableIndex } = state;
+  const { viewTableId, tableMap, tableIndex } = state;
   switch (action.type) {
-    case types.GET_TABLELIST: {
-      const tableArray = action.response;
-      const mapped = tableArray.reduce((obj, current) => {
-        obj[current._id] = current;
-        return obj;
-      }, {});
-      const currentId = tableArray.length > 0 ? tableArray[0]._id : null;
-      const { year, semester } = action.payload;
+    case types.REQUEST_TABLELIST: {
+      const { year: viewYear, semester: viewSemester } = action.payload;
+      const { tableList } = state;
+      const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
       return {
-        currentId,
-        tableIndex: tableArray,
-        tableMap: mapped,
-        year,
-        semester,
+        ...state,
+        viewTableTabList,
+        viewYear,
+        viewSemester
+      };
+    }
+    case types.GET_TABLELIST: {
+      const { year: viewYear, semester: viewSemester } = action.payload;
+      const tableList = action.response;
+      const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
+      return {
+        ...state,
+        tableList,
+        viewTableTabList
       };
     }
     case types.ADD_LECTURE_OK: {
@@ -48,13 +64,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.UPDATE_TITLE_OK: {
-      const { year, semester } = state.tableMap[state.currentId];
-      const newIndex = action.response.filter(val =>
-        val.year === year && val.semester === semester,
-      );
+      const tableList = action.response;
+      const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
       return {
         ...state,
-        tableIndex: update(tableIndex, { $set: newIndex }),
+        tableList,
+        viewTableTabList
       };
     }
     case types.UPDATE_LECTURE_OK: {
@@ -66,32 +81,36 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.CREATE_TABLE_OK: {
-      const { year, semester } = state;
-      const newIndex = action.response.filter(val =>
-        val.year === year && val.semester === semester,
-      );
+      const tableList = action.response;
+      const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
       return {
         ...state,
-        tableIndex: update(tableIndex, { $set: newIndex }),
+        tableList,
+        viewTableTabList
       };
     }
     case types.DELETE_TABLE_OK: {
-      const { year, semester } = state;
-      const newIndex = action.response.filter(val =>
-        val.year === year && val.semester === semester,
-      );
+      const tableList = action.response;
+      const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
+      const viewTableId = (viewTableTabList.length > 0) ? viewTableTabList[0]._id : null;
       return {
         ...state,
-        currentId: newIndex.length === 0 ? null : newIndex[0]._id,
-        tableIndex: update(tableIndex, { $set: newIndex }),
+        tableList,
+        viewTableTabList,
+        viewTableId
       };
+    }
+    case types.SWITCH_TABLE_START: {
+      return {
+        ...state,
+        viewTableId: action.payload.tableId,
+      }
     }
     case types.SWITCH_TABLE_OK: {
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       return {
         ...state,
-        currentId: updatedId,
         tableMap: update(tableMap, { [updatedId]: { $set: updatedTable } }),
       };
     }

@@ -23,7 +23,7 @@ export function fetchCoursebook(courseBooks) {
   return function (dispatch) {
     const recentBook = courseBooks[0];
     dispatch(changeCoursebook(recentBook));
-    dispatch({ type: types.FETCH_COURSEBOOK, courseBooks });
+    dispatch({ type: types.FETCH_COURSEBOOK, courseBooks }); // update coursebook state
   };
 }
 

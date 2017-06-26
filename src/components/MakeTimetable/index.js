@@ -57,8 +57,8 @@ class MakeTimeTable extends Component {
 function mapStateToProps(state) {
   const { hoveredCourse, searchResults, courseBook, isQuerying,
     modalOn, tableList, courseEditor } = state;
-  const { currentId, tableMap } = tableList;
-  const currentLectures = currentId == null ? null : tableMap[currentId].lecture_list;
+  const { viewTableId, tableMap } = tableList;
+  const currentLectures = tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : null;
   return {
     hoveredCourse,
     searchResults,

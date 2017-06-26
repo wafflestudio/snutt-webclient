@@ -16,6 +16,12 @@ export default store => next => (action) => {
   const { endpoint, types, config, authenticated = false, payload } = callAPI;
   const [requestType, successType, errorType] = types;
 
+  if (requestType) next({
+    authenticated,
+    payload,
+    type: requestType
+  })
+
   return request(endpoint, config).then(
     response =>
       next({
