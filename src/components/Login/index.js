@@ -44,9 +44,9 @@ class Login extends Component {
     const { id, password, keepLogin } = this.state
     const { user } = this.props
     return (
-      <div className='container' >
+      <div className='container'>
         <div className='col-md-4 col-md-offset-4'>
-          <div className='snutt__login'>
+          <form className='snutt__login' onSubmit={this.handleLogin}>
             <h2>시작하기</h2>
             <div className='snutt__inputWrapper'>
               <input
@@ -88,12 +88,12 @@ class Login extends Component {
               {user.errorType == 'login' ? user.message: <br />}
             </div>
             <div className='buttons-wrapper'>
-              <div
+              <button
+                type="submit"
                 className='btn login'
-                onClick={this.handleLogin}
               >
                 로그인
-              </div>
+              </button>
               <Link to='/signup'>
                 <div
                   className='btn join'
@@ -109,7 +109,7 @@ class Login extends Component {
                 icon='fa-facebook'
               />
             </div>
-          </div> {/** End of snut__login */}
+          </form> {/** End of snut__login */}
         </div>
       </div>
     )
