@@ -42,7 +42,7 @@ function query(state = defaultQuery, action) {
   }
 }
 
-function searchResults(state = [], action) {
+function searchResults(state = null, action) {
   switch (action.type) {
     case types.START_QUERY:
       return [];

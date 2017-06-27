@@ -76,6 +76,7 @@ class ResultTable extends Component {
       <div>
         <ResultTabs
           searching={searching}
+          searchAvailable={searchResults !== null}
           handleToggle={this.handleToggle}
         />
         <div className="result-wrapper">
