@@ -14,6 +14,7 @@ const DEFAULT_TABLELIST = {
   viewSemester: null,
   tableList: [],
   tableMap: {},
+  colorScheme: []
 };
 
 function getViewTableTabList(tableList, year, semester) {
@@ -24,6 +25,21 @@ function getViewTableTabList(tableList, year, semester) {
     }
   }
   return viewTableTabList;
+}
+
+function getViewLectures(tableMap, viewTableId, colorScheme) {
+  let viewLectures =
+        (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
+                      : null;
+  if (viewLectures && colorScheme.length > 0) {
+    viewLectures = viewLectures.map((lecture) => {
+      if (lecture.colorIndex && lecture.colorIndex <= colorScheme.length) {
+        lecture.color = colorScheme[lecture.colorIndex-1];
+      }
+      return lecture;
+    })
+  }
+  return viewLectures
 }
 
 export function tableList(state = DEFAULT_TABLELIST, action) {
@@ -118,13 +134,23 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         viewTableTabList
       };
     }
+
+    case types.GET_COLOR_OK: {
+      const { tableMap, viewTableId } = state;
+      const colorScheme = action.response.colors;
+      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+      return {
+        ...state,
+        viewLectures,
+        colorScheme
+      }
+    }
+
     case types.SWITCH_TABLE_START: {
-      const {oldViewTableId, tableMap} = state;
+      const {oldViewTableId, tableMap, colorScheme} = state;
       const viewTableId = action.payload.tableId;
       if (oldViewTableId === viewTableId) return state;
-      const viewLectures =
-        (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
-                      : null;
+      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         viewTableId,
@@ -132,13 +158,11 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       }
     }
     case types.SWITCH_TABLE_OK: {
-      const viewTableId = state.viewTableId;
+      const { viewTableId, colorScheme } = state;
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, { [updatedId]: { $set: updatedTable } });
-      const viewLectures = 
-        (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
-                      : null;
+      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         tableMap,

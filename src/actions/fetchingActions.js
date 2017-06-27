@@ -8,9 +8,20 @@ import { fetchTableList } from './tableActions';
 import { loginWithToken } from './userActions';
 import request from './request';
 
+function getColor(colorName) {
+  return {
+    [CALL_API]: {
+      endpoint: `colors/${colorName}`,
+      config: { method: 'get' },
+      types: [types.GET_COLOR_START, types.GET_COLOR_OK, types.GET_COLOR_FAIL],
+    },
+  };
+}
+
 // Entry point of all fetching actions
 export function updateCoursebook() {
   return function (dispatch) {
+    dispatch(getColor("vivid_ios"))
     request('course_books', {
       method: 'get',
     })
