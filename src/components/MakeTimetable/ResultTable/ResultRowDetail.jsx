@@ -5,9 +5,9 @@ import { addLecture, deleteLecture, editCourse } from '../../../actions/tableAct
 import showCourseDetail from './showCourseDetail.js';
 
 function mapStateToProps(state) {
-  const { year, semester } = state.courseBook.get('current');
-  const semesterStr = ['_', '1', 'S', '2', 'W'][semester];
-  return { searching: state.leftTabSearching, year, semesterStr };
+  const { viewYear, viewSemester } = state.tableList;
+  const semesterStr = ['_', '1', 'S', '2', 'W'][viewSemester];
+  return { searching: state.leftTabSearching, year: viewYear, semesterStr };
 }
 
 const mapDispatchToProps = dispatch => ({
