@@ -11,6 +11,14 @@ export function unhoverCourse() {
   return { type: types.UNHOVER_COURSE };
 }
 
+export function tableHoverCourse(course) {
+  return { type: types.TABLE_HOVER_COURSE, course };
+}
+
+export function tableUnhoverCourse() {
+  return { type: types.TABLE_UNHOVER_COURSE };
+}
+
 export function addQuery(member, item) {
   return { type: types.ADD_QUERY, member, item };
 }

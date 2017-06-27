@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import ResultRowDetail from './ResultRowDetail.jsx';
 
 import { hoverCourse, unhoverCourse } from '../../../actions';
+import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
 
 const mapDispatchToProps = dispatch => ({
   onHoverCourse: course => dispatch(hoverCourse(course)),
   onUnhoverCourse: () => dispatch(unhoverCourse()),
+  onTableHover: course => dispatch(tableHoverCourse(course)),
+  onTableUnhover: course => dispatch(tableUnhoverCourse())
 });
 
 class ResultRow extends Component {
@@ -20,11 +23,13 @@ class ResultRow extends Component {
   handleMouseEnter() {
     this.setState({ hovered: true });
     if(this.props.searching) this.props.onHoverCourse(this.props.lecture);
+    else this.props.onTableHover(this.props.lecture);
   }
 
   handleMouseLeave() {
     this.setState({ hovered: false });
-    if(this.props.searching) this.props.onUnhoverCourse(this.props.lecture);
+    if(this.props.searching) this.props.onUnhoverCourse();
+    else this.props.onTableUnhover();
   }
 
   render() {

@@ -3,6 +3,21 @@ import { connect } from 'react-redux'
 
 import { editCourse } from '../../../actions/tableActions'
 
+import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
+
+function mapStateToProps(state) {
+  const { tableHoveredCourse } = state;
+  
+  return {
+    tableHoveredCourse
+  };
+}
+
+const mapDispatchToProps = dispatch => ({
+  onHover: course => dispatch(tableHoverCourse(course)),
+  onUnhover: () => dispatch(tableUnhoverCourse()),
+});
+
 class LectureBox extends Component {
   constructor() {
     super()
@@ -14,18 +29,16 @@ class LectureBox extends Component {
     console.log('lecture clicked');
   }
 
-  componentWillMount() {
-    this.setState({
-      isHovered: false
-    })
+  handleMouseEnter = (e) => {
+    this.props.onHover(this.props.course);
   }
-
-  handleMouseEnter = (e) => {this.setState({isHovered:true})}
-  handleMouseLeave = (e) => {this.setState({isHovered:false})}
+  handleMouseLeave = (e) => {
+    this.props.onUnhover();
+  }
 
   render() {
     const { dispatch, length, course, isPreview } = this.props
-    const isHovered = this.state.isHovered;
+    const isHovered = (this.props.tableHoveredCourse) ? this.props.tableHoveredCourse._id === this.props.course._id : false;
     if (!course.color)
       course.color = { fg: "#1579C2", bg: "#94E6FE" }
     const divStyle = {
@@ -75,4 +88,4 @@ class LectureBox extends Component {
   }
 }
 
-export default connect()(LectureBox)
+export default connect(mapStateToProps, mapDispatchToProps)(LectureBox)

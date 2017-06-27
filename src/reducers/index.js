@@ -4,11 +4,24 @@ import { tableList, tagList } from './timetables';
 import user from './user';
 import notification from './notification';
 
+// Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
   switch (action.type) {
     case types.HOVER_COURSE:
       return action.course;
     case types.UNHOVER_COURSE:
+      return null;
+    default:
+      return state;
+  }
+}
+
+// Hovering over timetable on right side
+function tableHoveredCourse(state = null, action) {
+  switch (action.type) {
+    case types.TABLE_HOVER_COURSE:
+      return action.course;
+    case types.TABLE_UNHOVER_COURSE:
       return null;
     default:
       return state;
@@ -122,6 +135,7 @@ function courseEditor(state = courseEditorDefault, action) {
 
 const reducer = {
   hoveredCourse,
+  tableHoveredCourse,
   query,
   searchResults,
   courseBook,
