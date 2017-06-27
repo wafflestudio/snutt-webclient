@@ -58,7 +58,10 @@ function mapStateToProps(state) {
   const { hoveredCourse, searchResults, courseBook, isQuerying,
     modalOn, tableList, courseEditor } = state;
   const { viewTableId, tableMap } = tableList;
-  const currentLectures = tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : null;
+  const currentLectures =
+      (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
+                    : null;
+  
   return {
     hoveredCourse,
     searchResults,
