@@ -28,18 +28,24 @@ export default class ResultRow extends Component {
         className={cssClass}
       >
         <td>
-          <p className="time-string">{this.props.course_number}</p>
-          <p className="time-string">{this.props.lecture_number}</p>
+          <h5>{this.props.course_title}</h5>
+          <h6>{this.props.instructor} / {this.props.credit}학점</h6>
+          <h6 className="pull-right">{this.props.course_number} / {this.props.lecture_number}</h6><br />
+          <p>{this.props.department}, {this.props.academic_year}</p><br />
+          <p>{printTime(this.props.class_time)} / {printPlace(this.props.class_time_json)}</p><br />
         </td>
-        <td>{this.props.course_title}</td>
+        
+      </tr>
+    );
+    /*
+    <td>{this.props.course_title}</td>
         <td>{this.props.credit}</td>
         <td><nobr>{this.props.department}</nobr></td>
         <td>{printTime(this.props.class_time)}</td>
         <td>{printPlace(this.props.class_time_json)}</td>
         <td>{this.props.instructor}</td>
         <td><nobr>{this.props.remark}</nobr></td>
-      </tr>
-    );
+        */
   }
 }
 
@@ -47,8 +53,9 @@ const printTime = (timeString) => {
   if (timeString === undefined) timeString = "";
   const days = timeString.split('/').map((val) => {
     try {
-      const day = val.split('(')[0];
-      const start = Number(val.split('(')[1].split('-')[0]) + 8;
+      const splitted = val.split('(');
+      const day = splitted[0];
+      const start = Number(splitted[1].split('-')[0]) + 8;
       return day + start;
     } catch (ex) {
     }
@@ -58,7 +65,7 @@ const printTime = (timeString) => {
 
 const printPlace = (timeJson) => {
   try {
-    const parsed = [...new Set(timeJson.map(val => Number(val.place.split('-')[0])))].join('&');
+    const parsed = [...new Set(timeJson.map(val => val.place))].join(' & ');
     return parsed;
   } catch (ex) {
   }

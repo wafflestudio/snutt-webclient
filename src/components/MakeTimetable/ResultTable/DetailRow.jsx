@@ -53,7 +53,7 @@ class DetailRow extends ResultRow {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        <td colSpan="8">
+        <td>
           <span>{this.props.course.remark}</span>
           { searching ?
             <div className="buttons">

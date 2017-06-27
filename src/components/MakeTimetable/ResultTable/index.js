@@ -80,23 +80,11 @@ class ResultTable extends Component {
         />
         <div className="result-wrapper">
           <table className="table table-hover resultTable">
-            <thead>
-              <tr>
-                <th className="col-course-no">번호</th>
-                <th className="col-title">이름</th>
-                <th className="col-credit">학점</th>
-                <th className="col-department">학과</th>
-                <th className="col-time">시간</th>
-                <th className="col-location">장소</th>
-                <th className="col-professor">교수</th>
-                <th className="col-remark">비고</th>
-              </tr>
-            </thead>
             <tbody>
               {
                 this.props.isQuerying ?
                   <tr>
-                    <td colSpan="6"><Loading type="spin" color="#e3e3e3" /></td>
+                    <td><Loading type="spin" color="#e3e3e3" /></td>
                   </tr> :
                 null
               }

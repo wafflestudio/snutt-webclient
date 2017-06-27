@@ -28,15 +28,6 @@
   font-size: 0.8em;
   width: 100%;
   max-width: 100%;
-  text-align: center;
-
-  th {
-    padding: 4px 0!important;
-    text-align: center;
-    font-weight: normal;
-    font-size: 13px;
-    border-bottom: 1px solid #D9D6DA!important;
-  }
 
   .col-course-no { width: 10%; }
   .col-title { width: 20%; }
@@ -48,12 +39,29 @@
   .col-remark { width: 23%; }
 
   td {
-    padding: 8px 2px!important;
+    padding: 0.5em 2em !important;
     border: 0px!important;
     border-bottom: 1px solid #D9D6DA!important;
     text-overflow: ellipsis;
+    text-align:left;
     overflow: hidden;
     -webkit-line-clamp: 2;
+    h5 {
+      display: inline;
+      margin-right:0.9em;
+      font-weight: 700;
+      line-height:2.2 !important;
+    }
+
+    h6 {
+      display: inline;
+      color: #999;
+    }
+
+    p {
+      display: inline;
+      line-height:1.8 !important;
+    }
   }
 
   .tr-result:hover, .tr-result.hovered {
