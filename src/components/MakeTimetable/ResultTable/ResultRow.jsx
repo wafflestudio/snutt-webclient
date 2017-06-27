@@ -19,12 +19,12 @@ class ResultRow extends Component {
 
   handleMouseEnter() {
     this.setState({ hovered: true });
-    this.props.onHoverCourse(this.props.lecture);
+    if(this.props.searching) this.props.onHoverCourse(this.props.lecture);
   }
 
   handleMouseLeave() {
     this.setState({ hovered: false });
-    this.props.onUnhoverCourse(this.props.lecture);
+    if(this.props.searching) this.props.onUnhoverCourse(this.props.lecture);
   }
 
   render() {

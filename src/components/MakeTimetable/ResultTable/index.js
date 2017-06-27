@@ -27,13 +27,13 @@ class ResultTable extends Component {
   }
 
   render() {
-    console.log("Result Table Rendered");
     const { searching, searchResults, viewLectures } = this.props;
     const data = (searching ? searchResults : (viewLectures ? viewLectures : []));
     const rows = (data.length > 0) ? data.map((row) => (
         <ResultRow
           key={row._id}
           lecture={row}
+          searching={searching}
         />
       ))
       : (searching) ? (<tr><td>검색 결과가 없습니다.</td></tr>)

@@ -37,7 +37,7 @@ export default class Timetable extends Component {
             length={lecture.len * 2}
             isPreview={false}
             classroom={lecture.place}
-            key={course._id + day}
+            key={`{course._id}{day}{lecture.start}{lecture.len}`}
             isHovered={course._id === this.state.hoveredId}
             setHoveredId={this.setHoveredId}
           />
@@ -83,7 +83,7 @@ export default class Timetable extends Component {
           <Cell
             className={cellClass.trim()}
             content={lectureBoxes[d][t]}
-            key={d}
+            key={d * NUM_SLOTS + t}
             day={d}
             time={t}
             handleMouseDown={this.handleMouseDown}
