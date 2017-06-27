@@ -16,6 +16,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   onHover: course => dispatch(tableHoverCourse(course)),
   onUnhover: () => dispatch(tableUnhoverCourse()),
+  onEdit: course => dispatch(editCourse(course))
 });
 
 class LectureBox extends Component {
@@ -34,6 +35,9 @@ class LectureBox extends Component {
   }
   handleMouseLeave = (e) => {
     this.props.onUnhover();
+  }
+  handleEdit = (e) => {
+    this.props.onEdit(this.props.course);
   }
 
   render() {
@@ -68,7 +72,7 @@ class LectureBox extends Component {
             <span
               className='glyphicon glyphicon-pencil'
               aria-hidden='true'
-              onClick={() => dispatch(editCourse(this.props.course))}
+              onClick={this.handleEdit}
             />
             {this.props.onDelete !== undefined ?
               <span

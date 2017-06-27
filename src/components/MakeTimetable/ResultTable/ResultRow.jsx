@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => ({
   onHoverCourse: course => dispatch(hoverCourse(course)),
   onUnhoverCourse: () => dispatch(unhoverCourse()),
   onTableHover: course => dispatch(tableHoverCourse(course)),
-  onTableUnhover: course => dispatch(tableUnhoverCourse())
+  onTableUnhover: () => dispatch(tableUnhoverCourse())
 });
 
 class ResultRow extends Component {
