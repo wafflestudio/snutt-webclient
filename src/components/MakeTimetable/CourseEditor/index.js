@@ -102,6 +102,7 @@ class CourseEditor extends PureRenderComponent {
         onRequestClose={this.handleClose}
         overlayClassName='snutt__modal-overlay'
         portalClassName='snutt__course-editor'
+        contentLabel="Lecture Edit Modal"
         style={{ content: {
           backgroundColor: this.state.color.bg,
           color: this.state.color.fg
