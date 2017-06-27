@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchMessages } from '../../actions/notification';
+import Loading from 'react-loading';
 // import { changeCoursebook } from '../../actions/fetchingActions'
 
 class NotificationMessages extends Component {
