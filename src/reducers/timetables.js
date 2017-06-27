@@ -84,17 +84,25 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       } else return state;
     }
     case types.ADD_LECTURE_OK: {
+      const { viewTableId, colorScheme } = state;
       const updated = action.response;
+      const tableMap = update(state.tableMap, { [updated._id]: { $set: updated } });
+      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
-        tableMap: update(state.tableMap, { [updated._id]: { $set: updated } }),
+        tableMap,
+        viewLectures
       };
     }
     case types.DELETE_LECTURE_OK: {
+      const { viewTableId, colorScheme } = state;
       const updated = action.response;
+      const tableMap = update(state.tableMap, { [updated._id]: { $set: updated } });
+      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
-        tableMap: update(state.tableMap, { [updated._id]: { $set: updated } }),
+        tableMap,
+        viewLectures
       };
     }
     case types.UPDATE_TITLE_OK: {
@@ -107,11 +115,15 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.UPDATE_LECTURE_OK: {
+      const { viewTableId, colorScheme } = state;
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
+      const tableMap = update(state.tableMap, { [updatedId]: { $set: updatedTable } });
+      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
-        tableMap: update(state.tableMap, { [updatedId]: { $set: updatedTable } }),
+        tableMap,
+        viewLectures
       };
     }
     case types.CREATE_TABLE_OK: {
