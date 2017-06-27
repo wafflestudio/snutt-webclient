@@ -7,6 +7,7 @@ import * as types from '../actions/actionTypes.js';
  * tableMap: object of whole tables
  */
 const DEFAULT_TABLELIST = {
+  viewLectures: null,
   viewTableId: null,
   viewTableTabList: [],
   viewYear: null,
@@ -118,18 +119,30 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.SWITCH_TABLE_START: {
-      if (state.viewTableId === action.payload.tableId) return state;
-      else return {
+      const {oldViewTableId, tableMap} = state;
+      const viewTableId = action.payload.tableId;
+      if (oldViewTableId === viewTableId) return state;
+      const viewLectures =
+        (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
+                      : null;
+      return {
         ...state,
-        viewTableId: action.payload.tableId,
+        viewTableId,
+        viewLectures
       }
     }
     case types.SWITCH_TABLE_OK: {
+      const viewTableId = state.viewTableId;
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
+      const tableMap = update(state.tableMap, { [updatedId]: { $set: updatedTable } });
+      const viewLectures = 
+        (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
+                      : null;
       return {
         ...state,
-        tableMap: update(state.tableMap, { [updatedId]: { $set: updatedTable } }),
+        tableMap,
+        viewLectures
       };
     }
     case types.LOGOUT_SUCCESS:

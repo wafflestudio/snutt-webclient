@@ -25,7 +25,7 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, hoveredCourse, currentLectures, currentIndex, courseBook,
+    const { dispatch, hoveredCourse, viewLectures, currentIndex, courseBook,
       courseEditorOpen } = this.props;
 
     return (
@@ -40,7 +40,7 @@ class MakeTimeTable extends Component {
             <Timetable
               currentIndex={currentIndex}
               courseBook={courseBook}
-              courses={currentLectures}
+              courses={viewLectures}
               previewed={hoveredCourse}
               handleDelete={_id => dispatch(deleteLecture(_id))}
               addCourse={course => dispatch(addCourse(course))}
@@ -57,10 +57,7 @@ class MakeTimeTable extends Component {
 function mapStateToProps(state) {
   const { hoveredCourse, searchResults, courseBook, isQuerying,
     modalOn, tableList, courseEditor } = state;
-  const { viewTableId, tableMap } = tableList;
-  const currentLectures =
-      (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
-                    : null;
+  const { viewTableId, viewLectures } = tableList;
   
   return {
     hoveredCourse,
@@ -68,7 +65,7 @@ function mapStateToProps(state) {
     courseBook,
     isQuerying,
     modalOn,
-    currentLectures,
+    viewLectures,
     courseEditorOpen: courseEditor.isOpen,
   };
 }

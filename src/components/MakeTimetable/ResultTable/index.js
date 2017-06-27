@@ -9,9 +9,8 @@ import { setLeftTab, hoverCourse, unhoverCourse } from '../../../actions';
 
 function mapStateToProps(state) {
   const { isQuerying, searchResults, leftTabSearching,
-    tableList: { viewTableId, tableMap } } = state;
-  const addedLectures = tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [];
-  return { isQuerying, searchResults, addedLectures, searching: leftTabSearching };
+    tableList: { viewTableId, viewLectures } } = state;
+  return { isQuerying, searchResults, viewLectures, searching: leftTabSearching };
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -47,8 +46,8 @@ class ResultTable extends Component {
 
   render() {
     const { hoveredIdx } = this.state;
-    const { searching, searchResults, addedLectures } = this.props;
-    const data = (searching ? searchResults : addedLectures);
+    const { searching, searchResults, viewLectures } = this.props;
+    const data = (searching ? searchResults : (viewLectures ? viewLectures : []));
     const rows = (data.length > 0) ? data.map((key, idx) => (
         <ResultRow
           {...key}
