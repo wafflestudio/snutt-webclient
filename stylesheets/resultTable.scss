@@ -64,6 +64,13 @@
     }
   }
 
+  .tr-result-loader {
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 64px auto;
+  }
+
   .tr-result:hover, .tr-result.hovered {
     background-color: #DDF3FF;
     border-bottom: hidden;

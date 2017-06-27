@@ -51,11 +51,10 @@ class ResultTable extends Component {
               {
                 this.props.isQuerying ?
                   <tr>
-                    <td><Loading type="spin" color="#e3e3e3" /></td>
+                    <td><div className="tr-result-loader"><Loading type="spin" color="#e3e3e3" /></div></td>
                   </tr> :
-                null
+                rows
               }
-              {rows}
             </tbody>
           </table>
         </div>
