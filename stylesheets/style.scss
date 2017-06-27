@@ -17,7 +17,7 @@
 
 body {
   padding-top:61px;
-  font-family: 'Nanum Gothic', Sans-Serif;
+  font-family: 'Noto Sans KR', sans-serif;
   background-color: #F4F4F4;
 }
 
@@ -27,4 +27,4 @@ input:focus {
 // At SPA, there's no page change, so focus when clicked is preserved :(
 .navbar-nav>li>a:focus { color: white!important }
 
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
