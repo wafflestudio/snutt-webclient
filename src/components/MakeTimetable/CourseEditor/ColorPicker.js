@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const COLORS = [
-  { fg: '#2B8728', bg: '#B6F9B2' },
-  { fg: '#45B2B8', bg: '#BFF7F8' },
-  { fg: '#1579C2', bg: '#94E6FE' },
-  { fg: '#A337A1', bg: '#FFCFFF' },
-  { fg: '#B8991B', bg: '#FFF49A' },
-  { fg: '#BA313B', bg: '#FFC9D0' },
-  { fg: '#649624', bg: '#DAF9B2' },
-  { fg: '#5249D7', bg: '#DBD9FD' },
-  { fg: '#E27B35', bg: '#FFDAB7' },
-];
+const mapStateToProps = (state) => {
+  const { colorScheme } = state.tableList;
+  return { colorScheme }
+}
 
 class ColorPicker extends Component {
   constructor(props) {
@@ -30,9 +24,10 @@ class ColorPicker extends Component {
   render() {
     return (
       <div className="circle-wrapper">
-        {COLORS.map((c, i) => (
+        {this.props.colorScheme.map((c, i) => (
           <Circle
             color={c}
+            colorIndex={i+1}
             key={i}
             onClick={this.handleSelect}
           />
@@ -43,7 +38,7 @@ class ColorPicker extends Component {
 }
 
 const Circle = (props) => {
-  const { color, onClick } = props;
+  const { color, colorIndex, onClick } = props;
   const style = {
     backgroundColor: color.bg,
     color: color.fg,
@@ -51,7 +46,7 @@ const Circle = (props) => {
   return (
     <div
       className="color-circle"
-      onClick={onClick.bind(this, color)}
+      onClick={onClick.bind(this, { color, colorIndex })}
       style={style}
     >
       <span>Aa</span>
@@ -59,9 +54,4 @@ const Circle = (props) => {
   );
 };
 
-ColorPicker.propTypes = {
-  color: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-};
-
-export default ColorPicker;
+export default connect(mapStateToProps)(ColorPicker);

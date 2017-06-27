@@ -10,11 +10,12 @@ import JsonEditor from './JsonEditor.jsx'
 
 const mapStateToProps = (state) => {
   const { isOpen, course } = state.courseEditor
-  return { isOpen, course }
+  const { colorScheme } = state.tableList
+  return { isOpen, course, colorScheme }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddCustomLecture: (editedLecture) => dispatch(addCustomLecture(editedLecuture)),
+  onAddCustomLecture: (editedLecture) => dispatch(addCustomLecture(editedLecture)),
   onUpdateLecture: (id, lecture) => dispatch(updateLecture(id, lecture)),
   onCourseClose: () => dispatch(closeCourse()),
 })
@@ -27,8 +28,9 @@ class CourseEditor extends PureRenderComponent {
     this.handleColorSelect = this.handleColorSelect.bind(this)
     this.renderInput = this.renderInput.bind(this)
 
-    const defaultColor = { fg: "#1579C2", bg: "#94E6FE" }
     const { course } = props
+    const colorIndex = (course.colorIndex > 0 || course.color) ? course.colorIndex : Math.ceil(Math.random() * props.colorScheme.length)
+    const color = (colorIndex > 0) ? props.colorScheme[colorIndex-1] : course.color; 
     this.state = {
       isNew: Object.keys(course).length === 0,
       _id: course._id || '', // || for new course
@@ -37,32 +39,32 @@ class CourseEditor extends PureRenderComponent {
       class_time_mask: course.class_time_mask || '',
       class_time_json: course.class_time_json || [],
       remark: course.remark || '',
-      color: course.color || defaultColor,
+      color,
+      colorIndex
     }
   }
 
   handleColorSelect = (chosenColor) => {
-    const { fg, bg } = chosenColor
-    this.setState({ color: { fg, bg }})
+    this.setState(chosenColor)
   }
 
   handleJsonUpdate = (updatedJson) => this.setState({class_time_json: updatedJson})
 
   handleSave(e) {
     e.preventDefault()
-    const { course_title, instructor, class_time_json, remark, color } = this.state
-    const editedLecuture = {
+    const { course_title, instructor, class_time_json, remark, colorIndex } = this.state
+    const editedLecture = {
       course_title,
       instructor,
       class_time_mask: timeJsonToMask(class_time_json),
       class_time_json,
       remark,
-      color,
+      colorIndex
     }
     if (this.state.isNew) { //add new course
-      this.props.onAddCustomLecture(editedLecuture)
+      this.props.onAddCustomLecture(editedLecture)
     } else {
-      this.props.onUpdateLecture(this.state._id, editedLecuture)
+      this.props.onUpdateLecture(this.state._id, editedLecture)
     }
   }
 
