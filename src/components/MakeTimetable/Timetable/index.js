@@ -1,19 +1,39 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
 import LectureBox from './LectureBox.jsx'
 import Cell from './Cell.jsx'
 
+
+import { createCourse, deleteLecture } from '../../../actions/tableActions';
+import { addCourse } from '../../../actions';
+
+
 const NUM_SLOTS = 32
 
-export default class Timetable extends Component {
+function mapStateToProps(state) {
+  const { hoveredCourse: previewed, courseBook } = state;
+  const { viewLectures:courses } = state.tableList;
+  
+  return {
+    previewed,
+    courseBook,
+    courses
+  };
+}
+
+const mapDispatchToProps = dispatch => ({
+  handleDelete: _id => dispatch(deleteLecture(_id)),
+  addCourse: course => dispatch(addCourse(course)),
+  openCourse: () => dispatch(createCourse())
+});
+
+class Timetable extends Component {
   constructor() {
     super()
     this.placeLectures = this.placeLectures.bind(this)
     this.makeTable = this.makeTable.bind(this)
     this.createAndEditCourse = this.createAndEditCourse.bind(this)
-    this.state = {
-      hoveredId: null,
-    }
   }
 
   emptyArray() {
@@ -38,8 +58,6 @@ export default class Timetable extends Component {
             isPreview={false}
             classroom={lecture.place}
             key={`{course._id}{day}{lecture.start}{lecture.len}`}
-            isHovered={course._id === this.state.hoveredId}
-            setHoveredId={this.setHoveredId}
           />
         )
       }
@@ -78,17 +96,12 @@ export default class Timetable extends Component {
         cols.push(<td className='label-hour' rowSpan='2' key={-1}>{hrIdx+8}</td>)
       }
       for (var d = 0; d < numDay; d++) {
-        var cellClass = 'td-body'
         cols.push(
           <Cell
-            className={cellClass.trim()}
             content={lectureBoxes[d][t]}
             key={d * NUM_SLOTS + t}
             day={d}
             time={t}
-            handleMouseDown={this.handleMouseDown}
-            handleMouseEnter={this.handleMouseEnter}
-            handleMouseUp={this.handleMouseUp}
           />
         )
       }
@@ -102,8 +115,6 @@ export default class Timetable extends Component {
     e.preventDefault()
     this.props.openCourse()
   }
-
-  setHoveredId = (newId) => {this.setState({hoveredId: newId})}
 
   renderHead(hasSunday) {
     let days = ['월', '화', '수', '목', '금', '토']
@@ -150,3 +161,5 @@ export default class Timetable extends Component {
     )
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timetable);

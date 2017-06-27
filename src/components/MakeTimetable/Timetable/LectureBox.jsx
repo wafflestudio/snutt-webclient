@@ -14,11 +14,18 @@ class LectureBox extends Component {
     console.log('lecture clicked');
   }
 
-  handleMouseEnter = (e) => {this.props.setHoveredId(this.props.course._id)}
-  handleMouseLeave = (e) => {this.props.setHoveredId(null)}
+  componentWillMount() {
+    this.setState({
+      isHovered: false
+    })
+  }
+
+  handleMouseEnter = (e) => {this.setState({isHovered:true})}
+  handleMouseLeave = (e) => {this.setState({isHovered:false})}
 
   render() {
-    const { dispatch, length, course, isPreview, isHovered } = this.props
+    const { dispatch, length, course, isPreview } = this.props
+    const isHovered = this.state.isHovered;
     if (!course.color)
       course.color = { fg: "#1579C2", bg: "#94E6FE" }
     const divStyle = {

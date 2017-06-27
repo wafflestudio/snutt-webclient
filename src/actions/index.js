@@ -40,18 +40,8 @@ export function sendQuery(query) {
       body: JSON.stringify(query),
     })
     .then(resp => resp.json())
-    .then(json => json.map(checkAndAssignColor))
     .then(json => dispatch(showResult(json)));
   };
-}
-
-function checkAndAssignColor(course) {
-  if (course.bgColor === undefined && course.fgColor === undefined) {
-    const randomIndex = Math.floor(Math.random() * colorList.length);
-    const assignedColor = colorList[randomIndex];
-    course.color = assignedColor;
-  }
-  return course;
 }
 
 export function startQuery(query) {

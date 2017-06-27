@@ -7,10 +7,6 @@ import ResultTable from './ResultTable';
 import TimetableTabs from './Timetable/TimetableTabs.jsx';
 import Timetable from './Timetable';
 
-import { addCourse } from '../../actions';
-import { createCourse, deleteLecture, updateTitle, createTable, switchTable, deleteTable,
-  } from '../../actions/tableActions';
-
 class MakeTimeTable extends Component {
   constructor() {
     super();
@@ -25,8 +21,7 @@ class MakeTimeTable extends Component {
   }
 
   render() {
-    const { dispatch, hoveredCourse, viewLectures, currentIndex, courseBook,
-      courseEditorOpen } = this.props;
+    const { courseEditorOpen } = this.props;
 
     return (
       <div className="container">
@@ -37,15 +32,7 @@ class MakeTimeTable extends Component {
           </div>
           <div className="col-lg-6">
             <TimetableTabs />
-            <Timetable
-              currentIndex={currentIndex}
-              courseBook={courseBook}
-              courses={viewLectures}
-              previewed={hoveredCourse}
-              handleDelete={_id => dispatch(deleteLecture(_id))}
-              addCourse={course => dispatch(addCourse(course))}
-              openCourse={() => dispatch(createCourse())}
-            />
+            <Timetable />
           </div>
           { courseEditorOpen ? <this.CourseEditor /> : null }
         </div>
@@ -55,17 +42,9 @@ class MakeTimeTable extends Component {
 }
 
 function mapStateToProps(state) {
-  const { hoveredCourse, searchResults, courseBook, isQuerying,
-    modalOn, tableList, courseEditor } = state;
-  const { viewTableId, viewLectures } = tableList;
+  const { courseEditor } = state;
   
   return {
-    hoveredCourse,
-    searchResults,
-    courseBook,
-    isQuerying,
-    modalOn,
-    viewLectures,
     courseEditorOpen: courseEditor.isOpen,
   };
 }
