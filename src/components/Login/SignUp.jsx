@@ -1,33 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+
+import RuledInput from './RuledInput.jsx'
 import { registerUser } from '../../actions/userActions'
 
-const Input =
-  ({type, fieldDisplayName, value, changeHandler, isValid, errorMessage}) => {
-    var className = value.length > 0 ? 'typed' : ''
-    if (!isValid && value.length > 0)
-      className += ' invalid'
-    else if (isValid)
-      className += ' valid'
-    return (
-      <div className='snutt__inputWrapper signup'>
-        <input
-          className={className}
-          onChange={changeHandler}
-          placeholder={fieldDisplayName}
-          value={value}
-          type={type}
-        />
-        <div className='snutt__labelWrapper'>
-          {fieldDisplayName}
-        </div>
-        <div className='snutt__inputError'>
-          {errorMessage}
-        </div>
-      </div>
-    )
-  }
+const mapStateToProps = state => ({ user: state.user })
+
+const mapDispatchToProps = dispatch => ({
+  registerUser: (id, pass) => dispatch(registerUser(id, pass)),
+})
 
 class SignUp extends Component {
   constructor() {
@@ -51,6 +33,7 @@ class SignUp extends Component {
       idValid: validator.test(input),
     })
   }
+
   handlePassChange = e => {
     const input = e.target.value
     const validator = /^(?=.*\d)(?=.*[a-z])\S{6,20}$/i
@@ -59,6 +42,7 @@ class SignUp extends Component {
       passValid: validator.test(input),
     })
   }
+
   handlePassAgainChange = e => {
     const input = e.target.value
     const { pass, passValid } = this.state
@@ -71,7 +55,7 @@ class SignUp extends Component {
 
   handleRegister = e => {
     e.preventDefault()
-    this.props.dispatch(registerUser(this.state.id, this.state.pass))
+    this.props.registerUser(this.state.id, this.state.pass)
   }
 
   render() {
@@ -81,9 +65,9 @@ class SignUp extends Component {
     return (
       <div className='container'>
         <div className='col-md-4 col-md-offset-4'>
-          <div className='snutt__login'>
+          <form className='snutt__login' onSubmit={this.handleRegister}>
             <h2>회원가입</h2>
-            <Input
+            <RuledInput
               type='id'
               fieldDisplayName='아이디'
               value={id}
@@ -91,7 +75,7 @@ class SignUp extends Component {
               isValid={idValid}
               errorMessage='아이디는 4자 이상 32자 이하의 알파벳과 숫자로 구성되어야 합니다'
             />
-            <Input
+            <RuledInput
               type='password'
               fieldDisplayName='비밀번호'
               value={pass}
@@ -99,7 +83,7 @@ class SignUp extends Component {
               isValid={passValid}
               errorMessage='비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다'
             />
-            <Input
+            <RuledInput
               type='password'
               fieldDisplayName='비밀번호 확인'
               value={passAgain}
@@ -111,24 +95,19 @@ class SignUp extends Component {
               {user.errorType == 'register' ? user.message: <br />}
             </div>
             <div className='buttons-wrapper'>
-              {canRegister ?
-                <div
-                  className='btn signup'
-                  onClick={this.handleRegister}
-                >
-                  회원가입
-                </div> :
-                <div className='btn'>회원가입</div>
-              }
+              <button
+                className='btn signup'
+                type='submit'
+                disabled={!canRegister}
+              >
+                회원가입
+              </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     )
   }
-
 }
 
-const mapStateToProps = (state) => ({ user: state.user })
-
-export default connect(mapStateToProps)(SignUp)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
