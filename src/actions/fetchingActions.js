@@ -2,8 +2,6 @@ import 'whatwg-fetch';
 
 import * as types from './actionTypes';
 import { CALL_API } from '../middleware/api';
-import { FETCH_TAG, GET_TAG, FAIL_TAG } from './actionTypes';
-import { baseUrl, apiKey } from '../samples/sampleKey';
 import { fetchTableList } from './tableActions';
 import { loginWithToken } from './userActions';
 import request from './request';
@@ -21,7 +19,8 @@ function getColor(colorName) {
 // Entry point of all fetching actions
 export function updateCoursebook() {
   return function (dispatch) {
-    dispatch(getColor('vivid_ios'));
+    const colorScheme = 'vivid_ios';
+    dispatch(getColor(colorScheme));
     request('course_books', {
       method: 'get',
     })
@@ -59,7 +58,7 @@ export function updateTag(year, semester) {
     [CALL_API]: {
       endpoint: `tags/${year}/${semester}`,
       config: { method: 'get' },
-      types: [FETCH_TAG, GET_TAG, FAIL_TAG],
+      types: [types.FETCH_TAG, types.GET_TAG, types.FAIL_TAG],
     },
   };
 }

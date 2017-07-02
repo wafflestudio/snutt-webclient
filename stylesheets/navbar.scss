@@ -43,7 +43,11 @@
       cursor: pointer !important;
       text-decoration: none;
   }
-
+  @media (max-width: 700px) {
+    .tt__nav-collapse {
+        display: none;
+    }
+  }
   #snutt__noti-wrapper {
     display: inline-block;
     margin-right: 0.5rem;
@@ -59,13 +63,13 @@
     border-radius: 50%;
     background-color: #ef322e;
     position: absolute;
-    top: 14px;
-    left: 24px;
+    top: -4px;
+    left: 12px;
   }
 
   #snutt__noti-box {
     position: absolute;
-    top: 49px;
+    top: 32px;
     right: 0px;
     color: black;
     background-color: white;
@@ -86,7 +90,7 @@
       margin: 0px;
     }
   }
-  
+
   .snutt__noti-message:hover {
     background-color: #F9F8F5;
   }
