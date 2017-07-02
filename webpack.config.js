@@ -37,7 +37,7 @@ module.exports = {
     rules: [
       {
         test: /\.json$/,
-        use: 'json-loader'
+        use: 'json-loader',
       }
     ]
   }

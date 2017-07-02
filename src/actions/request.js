@@ -1,8 +1,9 @@
-import { apiKey, baseUrl } from '../samples/sampleKey.js';
 import urljoin from 'url-join';
-import { clearStorage, logout } from './userActions';
-import { store } from '../index.js';
-import errorTable from '../utils/errorTable.json';
+
+import { apiKey, baseUrl } from '../samples/sampleKey.js';
+import { logout } from './userActions';
+import { store } from '../index';
+import errorTable from '../utils/errorTable';
 
 const generateHeader = () => ({
   'x-access-apikey': apiKey,
@@ -14,7 +15,7 @@ const generateHeader = () => ({
 const errorHandler = (err) => {
   // Just put to console for now
   console.log('Error from handler::', err);
-  const errDetail = errorTable.find(row => row.code === err.code) ||
+  const errDetail = errorTable.find(row => err.errcode === row.code) ||
                   { code: -1, message: '알 수 없는 에러가 발생했습니다.' };
   alert(errDetail.message);
   if (Number(err.code) === 8194) {

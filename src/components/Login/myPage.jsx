@@ -1,46 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import FBLogin from 'react-facebook-login';
+
 import { logout, deleteAccount, attachFacebook, detachFacebook, attachLocal,
   changePassword } from '../../actions/userActions';
-import FBLogin from 'react-facebook-login';
 import { fbAppId } from '../../samples/sampleKey';
 
-const ID_PATTERN = '[a-z0-9]{4,32}';
-const PASSWORD_PATTERN = '(?=^.{6,20}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$';
+const mapStateToProps = (state) => {
+  const { user } = state;
+  return { ...user };
+};
 
-const resetInputValues = (values) => { values.forEach((val) => { val = ''; }); };
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
+  deleteAccount: () => dispatch(deleteAccount()),
+  attachFacebook: (id, accessToken) =>
+    dispatch(attachFacebook(id, accessToken)),
+  detachFacebook: () => dispatch(detachFacebook()),
+  attachLocal: (id, pass, callback) => dispatch(attachLocal(id, pass, callback)),
+  changePassword: (oldPass, newPass, callback) =>
+    dispatch(changePassword(oldPass, newPass, callback)),
+});
 
 class MyPage extends Component {
   constructor() {
     super();
-    this.handleFacebookAttach = this.handleFacebookAttach.bind(this);
-    this.handleFacebookDetach = this.handleFacebookDetach.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleLogout = () => this.props.logout();
+    this.handleDelete = () => this.props.deleteAccount();
+    this.handleFacebookAttach = ({ id, accessToken }) => {
+      this.props.attachFacebook(id, accessToken);
+    };
+    this.handleFacebookDetach = () => this.props.detachFacebook();
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleAttachLocalAccount = this.handleAttachLocalAccount.bind(this);
-    this.renderManageFacebook = this.renderManageFacebook.bind(this);
-    this.renderManageLocalAccount = this.renderManageLocalAccount.bind(this);
-  }
-
-  handleLogout(e) {
-    e.preventDefault();
-    this.props.dispatch(logout());
-  }
-
-  handleDelete(e) {
-    e.preventDefault();
-    this.props.dispatch(deleteAccount());
-  }
-
-  handleFacebookAttach(userFbInfo) {
-    const { id, accessToken } = userFbInfo;
-    this.props.dispatch(attachFacebook(id, accessToken));
-  }
-
-  handleFacebookDetach(e) {
-    e.preventDefault();
-    this.props.dispatch(detachFacebook());
+    this.renderFacebookManager = this.renderFacebookManager.bind(this);
+    this.renderLocalAccountManager = this.renderLocalAccountManager.bind(this);
   }
 
   handlePasswordChange(e) {
@@ -52,12 +46,12 @@ class MyPage extends Component {
       alert('비밀번호를 다시 확인해주세요');
       return;
     }
-    this.props.dispatch(changePassword(oldPass, newPass, () => {
+    this.props.changePassword(oldPass, newPass, () => {
       alert('비밀번호가 변경되었습니다');
       this.oldPass.value = '';
       this.newPass.value = '';
       this.newPassConfirm.value = '';
-    }));
+    });
   }
 
   handleAttachLocalAccount(e) {
@@ -69,19 +63,21 @@ class MyPage extends Component {
       alert('비밀번호를 다시 확인해주세요');
       return;
     }
-    this.props.dispatch(attachLocal(newId, newPass, () => {
+    this.props.attachLocal(newId, newPass, () => {
       alert('아이디와 비밀번호가 등록되었습니다');
       this.context.router.push('/');
-    }));
+    });
   }
 
-  renderManageLocalAccount() {
+  renderLocalAccountManager() {
     const { info } = this.props;
-    if (info.local_id) {  // User had id and password요
+    if (info.local_id) {  // User had id and password
       return (
         <div>
           <form onSubmit={this.handlePasswordChange}>
-            <div id="local-id">SNUTT 아이디는 <strong>{info.local_id}</strong>입니다 :)</div>
+            <div id="local-id">
+              SNUTT 아이디는 <strong>{info.local_id}</strong>입니다 :)
+            </div>
             <input
               className="form-control"
               type="password"
@@ -115,7 +111,7 @@ class MyPage extends Component {
           </form>
         </div>
       );
-    }  // Nope
+    }  // Nope => Make local Id
     return (
       <div>
         <form onSubmit={this.handleAttachLocalAccount}>
@@ -156,7 +152,7 @@ class MyPage extends Component {
     );
   }
 
-  renderManageFacebook() {
+  renderFacebookManager() {
     const { info } = this.props;
     if (info.fb_name) {
       return (
@@ -200,14 +196,14 @@ class MyPage extends Component {
               <div className="form-group new-password">
                 <label className="col-sm-4">{'아이디/비밀번호 관리'}</label>
                 <div className="col-sm-6">
-                  {this.renderManageLocalAccount()}
+                  {this.renderLocalAccountManager()}
                 </div>
               </div>
               <br />
               <div className="form-group">
                 <label className="col-sm-4">페이스북 연동</label>
                 <div className="col-sm-6">
-                  {this.renderManageFacebook()}
+                  {this.renderFacebookManager()}
                 </div>
               </div>
               <div className="form-group">
@@ -233,9 +229,4 @@ MyPage.contextTypes = {
   router: React.PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const { user } = state;
-  return { ...user };
-};
-
-export default connect(mapStateToProps)(MyPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MyPage);
