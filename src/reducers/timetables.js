@@ -14,12 +14,12 @@ const DEFAULT_TABLELIST = {
   viewSemester: null,
   tableList: [],
   tableMap: {},
-  colorScheme: []
+  colorScheme: [],
 };
 
 function getViewTableTabList(tableList, year, semester) {
-  let viewTableTabList = [];
-  for (let i=0; i<tableList.length; i++) {
+  const viewTableTabList = [];
+  for (let i = 0; i < tableList.length; i++) {
     if (tableList[i].year == year && tableList[i].semester == semester) {
       viewTableTabList.push(tableList[i]);
     }
@@ -29,17 +29,17 @@ function getViewTableTabList(tableList, year, semester) {
 
 function getViewLectures(tableMap, viewTableId, colorScheme) {
   let viewLectures =
-        (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [] )
+        (viewTableId) ? (tableMap[viewTableId] ? tableMap[viewTableId].lecture_list : [])
                       : null;
   if (viewLectures && colorScheme.length > 0) {
     viewLectures = viewLectures.map((lecture) => {
       if (lecture.colorIndex && lecture.colorIndex <= colorScheme.length) {
-        lecture.color = colorScheme[lecture.colorIndex-1];
+        lecture.color = colorScheme[lecture.colorIndex - 1];
       }
       return lecture;
-    })
+    });
   }
-  return viewLectures
+  return viewLectures;
 }
 
 export function tableList(state = DEFAULT_TABLELIST, action) {
@@ -47,30 +47,29 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     case types.CHANGE_COURSEBOOK: {
       const { year: viewYear, semester: viewSemester } = action.newCourseBook;
       const { tableList, viewYear: oldViewYear, viewSemester: oldViewSemester } = state;
-      if ( viewYear != oldViewYear || viewSemester != oldViewSemester ) {
+      if (viewYear != oldViewYear || viewSemester != oldViewSemester) {
         const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
         return {
           ...state,
           viewYear,
           viewSemester,
-          viewTableTabList
-        }
-      } else {
-        return state;
+          viewTableTabList,
+        };
       }
+      return state;
     }
     case types.GET_TABLELIST: {
-      const { viewYear, viewSemester, tableList} = state;
+      const { viewYear, viewSemester, tableList } = state;
       const newTableList = action.response;
 
       let listChanged = false;
       if (tableList.length == newTableList.length) {
-        for (let i=0; i<tableList.length; i++) {
+        for (let i = 0; i < tableList.length; i++) {
           if (tableList[i]._id != newTableList[i]._id ||
               tableList[i].title !== newTableList[i].title) {
-                listChanged = true;
-                break;
-              }
+            listChanged = true;
+            break;
+          }
         }
       } else listChanged = true;
 
@@ -79,9 +78,9 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         return {
           ...state,
           tableList: newTableList,
-          viewTableTabList
+          viewTableTabList,
         };
-      } else return state;
+      } return state;
     }
     case types.ADD_LECTURE_OK: {
       const { viewTableId, colorScheme } = state;
@@ -91,7 +90,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.DELETE_LECTURE_OK: {
@@ -102,7 +101,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.UPDATE_TITLE_OK: {
@@ -111,7 +110,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         tableList,
-        viewTableTabList
+        viewTableTabList,
       };
     }
     case types.UPDATE_LECTURE_OK: {
@@ -123,7 +122,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.CREATE_TABLE_OK: {
@@ -133,7 +132,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         tableList,
-        viewTableTabList
+        viewTableTabList,
       };
     }
     case types.DELETE_TABLE_OK: {
@@ -143,7 +142,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         tableList,
-        viewTableTabList
+        viewTableTabList,
       };
     }
 
@@ -154,20 +153,20 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         viewLectures,
-        colorScheme
-      }
+        colorScheme,
+      };
     }
 
     case types.SWITCH_TABLE_START: {
-      const {oldViewTableId, tableMap, colorScheme} = state;
+      const { oldViewTableId, tableMap, colorScheme } = state;
       const viewTableId = action.payload.tableId;
       if (oldViewTableId === viewTableId) return state;
       const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         viewTableId,
-        viewLectures
-      }
+        viewLectures,
+      };
     }
     case types.SWITCH_TABLE_OK: {
       const { viewTableId, colorScheme } = state;
@@ -178,7 +177,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.LOGOUT_SUCCESS:

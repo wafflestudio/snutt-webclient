@@ -34,7 +34,7 @@ class TimetableTabs extends Component {
 
   handleDelete(id, e) {
     e.stopPropagation();
-    if (confirm("정말로 삭제하시겠습니까?")) this.props.onDeleteTable(id);
+    if (confirm('정말로 삭제하시겠습니까?')) this.props.onDeleteTable(id);
   }
 
   handleSelect(id, e) {
@@ -81,7 +81,7 @@ class TimetableTabs extends Component {
   componentWillReceiveProps(nextProps) {
     const { viewTableId, tables } = nextProps;
     let tableOpened = false;
-    for (let i=0; i<tables.length; i++) {
+    for (let i = 0; i < tables.length; i++) {
       if (tables[i]._id === viewTableId) {
         tableOpened = true;
         break;
@@ -96,12 +96,12 @@ class TimetableTabs extends Component {
   shouldComponentUpdate(nextProps) {
     const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
     const { viewTableId, tables } = this.props;
-    //console.log("timetableTab::shouldComponentUpdate", tables, nextTables);
+    // console.log("timetableTab::shouldComponentUpdate", tables, nextTables);
     return nextViewTableId != viewTableId || nextTables != tables;
   }
 
   render() {
-    //console.log("TImetableTab render!!!");
+    // console.log("TImetableTab render!!!");
     const { viewTableId, tables } = this.props;
     const buttons = tables.map(table => this.renderTab(table, table._id === viewTableId));
     // add button

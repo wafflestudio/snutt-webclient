@@ -78,7 +78,7 @@ class DetailRow extends Component {
             </button>
             <button
               className="btn btn-danger"
-              onClick={() => { if (confirm("정말로 삭제하시겠습니까?")) this.handleDelete() }}
+              onClick={() => { if (confirm('정말로 삭제하시겠습니까?')) this.handleDelete(); }}
             >
               삭제
             </button>

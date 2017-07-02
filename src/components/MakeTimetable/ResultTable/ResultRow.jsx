@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => ({
   onHoverCourse: course => dispatch(hoverCourse(course)),
   onUnhoverCourse: () => dispatch(unhoverCourse()),
   onTableHover: course => dispatch(tableHoverCourse(course)),
-  onTableUnhover: () => dispatch(tableUnhoverCourse())
+  onTableUnhover: () => dispatch(tableUnhoverCourse()),
 });
 
 class ResultRow extends Component {
@@ -22,13 +22,13 @@ class ResultRow extends Component {
 
   handleMouseEnter() {
     this.setState({ hovered: true });
-    if(this.props.searching) this.props.onHoverCourse(this.props.lecture);
+    if (this.props.searching) this.props.onHoverCourse(this.props.lecture);
     else this.props.onTableHover(this.props.lecture);
   }
 
   handleMouseLeave() {
     this.setState({ hovered: false });
-    if(this.props.searching) this.props.onUnhoverCourse();
+    if (this.props.searching) this.props.onUnhoverCourse();
     else this.props.onTableUnhover();
   }
 
@@ -56,7 +56,7 @@ class ResultRow extends Component {
 }
 
 const printTime = (timeString) => {
-  if (timeString === undefined) timeString = "";
+  if (timeString === undefined) timeString = '';
   const days = timeString.split('/').map((val) => {
     try {
       const splitted = val.split('(');

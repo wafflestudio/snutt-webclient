@@ -25,7 +25,7 @@ class TopBar extends Component {
       loggedIn ?
         <div className="tt__navbar tt__navbar-right">
           <NotificationButton />
-          <Link to="/myPage"><strong>{`${id}`}</strong>{`님 안녕하세요`}</Link>
+          <Link to="/myPage"><strong>{`${id}`}</strong>{'님 안녕하세요'}</Link>
         </div> :
         <div className="tt__navbar tt__navbar-right">
           <Link to="/login">로그인</Link>

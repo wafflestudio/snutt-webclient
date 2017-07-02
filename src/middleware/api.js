@@ -2,7 +2,9 @@
 
 import path from 'path';
 import { baseUrl, apiKey } from '../samples/sampleKey';
+
 const Symbol = require('es6-symbol');
+
 import request from '../actions/request';
 
 export const CALL_API = Symbol('Call API');
@@ -16,11 +18,13 @@ export default store => next => (action) => {
   const { endpoint, types, config, authenticated = false, payload } = callAPI;
   const [requestType, successType, errorType] = types;
 
-  if (requestType) next({
-    authenticated,
-    payload,
-    type: requestType
-  })
+  if (requestType) {
+    next({
+      authenticated,
+      payload,
+      type: requestType,
+    });
+  }
 
   return request(endpoint, config).then(
     response =>

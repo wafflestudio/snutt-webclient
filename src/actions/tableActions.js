@@ -12,7 +12,7 @@ import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
 export function fetchTableList() {
   return {
     [CALL_API]: {
-      endpoint: `tables/`,
+      endpoint: 'tables/',
       config: { method: 'get' },
       authenticated: true,
       types: [REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST],
@@ -153,21 +153,20 @@ export function deleteTable(_id) {
 export function switchTable(_id) {
   if (!_id) {
     return function (dispatch) {
-      dispatch({type: SWITCH_TABLE_START, payload: { tableId: null }});
-    }
-  } else {
-    return function (dispatch) {
-      dispatch({
-        [CALL_API]: {
-          endpoint: `tables/${_id}`,
-          config: {
-            method: 'get',
-          },
-          authenticated: true,
-          types: [SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL],
-          payload: { tableId: _id }
-        },
-      });
+      dispatch({ type: SWITCH_TABLE_START, payload: { tableId: null } });
     };
   }
+  return function (dispatch) {
+    dispatch({
+      [CALL_API]: {
+        endpoint: `tables/${_id}`,
+        config: {
+          method: 'get',
+        },
+        authenticated: true,
+        types: [SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL],
+        payload: { tableId: _id },
+      },
+    });
+  };
 }

@@ -26,7 +26,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   handleDelete: _id => dispatch(deleteLecture(_id)),
   addCourse: course => dispatch(addCourse(course)),
-  openCourse: () => dispatch(createCourse())
+  openCourse: () => dispatch(createCourse()),
 });
 
 class Timetable extends Component {
@@ -48,7 +48,7 @@ class Timetable extends Component {
             length={lecture.len * 2}
             isPreview={false}
             classroom={lecture.place}
-            key={`{course._id}{day}{lecture.start}{lecture.len}`}
+            key={'{course._id}{day}{lecture.start}{lecture.len}'}
           />
         );
       }
@@ -61,12 +61,12 @@ class Timetable extends Component {
           <LectureBox
             course={previewed}
             length={lecture.len * 2}
-            isPreview={true}
+            isPreview
             key={previewed._id + day}
             classroom={lecture.place}
           />
-        )
-        const existingDiv = boxes[day][lecture.start * 2]
+        );
+        const existingDiv = boxes[day][lecture.start * 2];
         boxes[day][lecture.start * 2] = (
           existingDiv !== undefined ? [existingDiv, previewDiv] : previewDiv
         );
@@ -103,7 +103,7 @@ class Timetable extends Component {
           <span>+</span>
         </div>
       </div>
-    )
+    );
   }
 }
 

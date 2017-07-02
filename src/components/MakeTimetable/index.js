@@ -43,7 +43,7 @@ class MakeTimeTable extends Component {
 
 function mapStateToProps(state) {
   const { courseEditor } = state;
-  
+
   return {
     courseEditorOpen: courseEditor.isOpen,
   };

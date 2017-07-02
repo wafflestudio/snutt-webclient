@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   const { colorScheme } = state.tableList;
-  return { colorScheme }
-}
+  return { colorScheme };
+};
 
 class ColorPicker extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class ColorPicker extends Component {
         {this.props.colorScheme.map((c, i) => (
           <Circle
             color={c}
-            colorIndex={i+1}
+            colorIndex={i + 1}
             key={i}
             onClick={this.handleSelect}
           />

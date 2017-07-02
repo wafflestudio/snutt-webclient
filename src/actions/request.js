@@ -28,7 +28,7 @@ export default function request(endpoint, apiConfig) {
   const config = Object.assign(apiConfig, {
     headers: Object.assign(generateHeader(), apiConfig.headers),
   });
-  //console.log(endpoint, config);
+  // console.log(endpoint, config);
 
   return new Promise((resolve, reject) => {
     fetch(url, config)

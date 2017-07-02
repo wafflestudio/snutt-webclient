@@ -21,7 +21,7 @@ function getColor(colorName) {
 // Entry point of all fetching actions
 export function updateCoursebook() {
   return function (dispatch) {
-    dispatch(getColor("vivid_ios"))
+    dispatch(getColor('vivid_ios'));
     request('course_books', {
       method: 'get',
     })
@@ -43,8 +43,8 @@ export function changeCoursebook(newCourseBook) {
   return function (dispatch, getState) {
     const { year: newYear, semester: newSemester } = newCourseBook;
     dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook });
-    dispatch({ type: types.SET_LEFT_TAB, searching: false }) // show added lectures
-    dispatch({ type: types.SHOW_RESULT, courses:null }); // empty the search results
+    dispatch({ type: types.SET_LEFT_TAB, searching: false }); // show added lectures
+    dispatch({ type: types.SHOW_RESULT, courses: null }); // empty the search results
 
     if (getState().user.loggedIn) { dispatch(fetchTableList()); } else {
       // If not logged in, check existing token or get temporary one
