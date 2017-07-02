@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import LectureBox from './LectureBox.jsx'
 import Cell from './Cell.jsx'
-
+import TableHeader from './TableHeader.jsx'
 
 import { createCourse, deleteLecture } from '../../../actions/tableActions';
 import { addCourse } from '../../../actions';
@@ -14,7 +14,7 @@ const NUM_SLOTS = 32
 function mapStateToProps(state) {
   const { hoveredCourse: previewed, courseBook } = state;
   const { viewLectures:courses } = state.tableList;
-  
+
   return {
     previewed,
     courseBook,
@@ -151,7 +151,7 @@ class Timetable extends Component {
     return (
       <div id='timetable-container'>
         <table className="table table-bordered timetable">
-          {this.renderHead(hasSunday)}
+          <TableHeader hasSunday={hasSunday} />
           {tableContent}
         </table>
         <div id='add-button' onClick={this.createAndEditCourse}>
