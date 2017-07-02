@@ -5,6 +5,13 @@ import FBLogin from 'react-facebook-login'
 import { loginLocal, loginFacebook } from '../../actions/userActions'
 import { fbAppId } from '../../samples/sampleKey'
 
+const mapStateToProps = (state) => ({user: state.user })
+
+const mapDispatchToProps = dispatch => ({
+  loginLocal: (id, password, keepLogin) => dispatch(loginLocal(id, password, keepLogin)),
+  loginFacebook: (id, accessToken, name) => dispatch(loginFacebook(id, accessToken, name)),
+})
+
 class Login extends Component {
   constructor() {
     super()
@@ -13,7 +20,6 @@ class Login extends Component {
       password: '',
       keepLogin: false,
     }
-    this.handleEnterPress = this.handleEnterPress.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
   }
@@ -27,17 +33,12 @@ class Login extends Component {
   handleLogin(e) {
     e.preventDefault()
     const {id, password, keepLogin} = this.state
-    this.props.dispatch(loginLocal(id, password, keepLogin))
+    this.props.loginLocal(id, password, keepLogin)
   }
 
   handleFacebookLogin(response) {
     const {id, accessToken, name} = response
-    this.props.dispatch(loginFacebook(id, accessToken, name))
-  }
-
-  handleEnterPress(e) {
-    if (e.key == 'Enter')
-      this.handleLogin(e)
+    this.props.loginFacebook(id, accessToken, name)
   }
 
   render() {
@@ -64,7 +65,6 @@ class Login extends Component {
               <input
                 className={password.length > 0 ? 'typed' : ''}
                 onChange={this.handlePassChange}
-                onKeyPress={this.handleEnterPress}
                 placeholder='비밀번호'
                 value={this.state.password}
                 type='password'
@@ -76,6 +76,7 @@ class Login extends Component {
                 <Link to='/findPassword'>비밀번호 찾기</Link>
               </div>
             </div> {/** End of inputWrapper */}
+
             <label id='keep-login'>
               <input
                 onChange={this.handleKeepLoginChange}
@@ -116,6 +117,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({user: state.user })
-
-export default connect(mapStateToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
