@@ -36,7 +36,7 @@ export const defaultQuery = Immutable.Map({
   instructor: Immutable.Set(),
   department: Immutable.Set(),
   category: Immutable.Set(),
-  time_mask: Immutable.List([0, 0, 0, 0, 0, 0]),
+  time_mask: Immutable.List([0, 0, 0, 0, 0, 0, 0]),
 });
 
 function query(state = defaultQuery, action) {

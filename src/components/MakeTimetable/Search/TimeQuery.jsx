@@ -13,7 +13,7 @@ import CellSelector from './CellSelector.jsx';
 export function complement(masks) {
   const union = masks.reduce((prev, current) =>
     current.map((val, index) => val | prev[index]),
-    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
   );
   const inversed = union.map(val => ~val);
   // Our mask has 30 bits, and `inversed` has two unnecessary 1 at its head
@@ -28,8 +28,8 @@ export function complement(masks) {
 */
 export function maskToCells(plainMasks) {
   // Convert to plainJS before putting into function
-  const cells = new Array(30).fill().map(() => new Array(6).fill('EMPTY'));
-  for (let d = 0; d < 6; d++) {
+  const cells = new Array(30).fill().map(() => new Array(7).fill('EMPTY'));
+  for (let d = 0; d < 7; d++) {
     for (let t = 29; t >= 0; t--) {
       const bit = plainMasks[d] & 1;
       if (bit === 1) {
@@ -45,10 +45,10 @@ export function maskToCells(plainMasks) {
  * Converts 30 x 6 2d array into 6 integer
  */
 export function cellsToMask(arr) {
-  const masks = [0, 0, 0, 0, 0, 0];
+  const masks = [0, 0, 0, 0, 0, 0, 0];
 
   for (let t = 0; t < 30; t++) {
-    for (let d = 0; d < 6; d++) {
+    for (let d = 0; d < 7; d++) {
       const bit = arr[t][d] === 'SELECTED' ? 1 : 0;
       masks[d] |= bit;
       if (t != 29) masks[d] <<= 1;
@@ -105,11 +105,11 @@ class TimeQuery extends Component {
         </div>
         <CellSelector
           row={30}
-          col={6}
+          col={7}
           rowLabels={new Array(30).fill().map((val, idx) =>
             idx % 2 === 0 ? String(idx / 2 + 8) : ' ',
           )}
-          colLabels={['월', '화', '수', '목', '금', '토']}
+          colLabels={['월', '화', '수', '목', '금', '토', '일']}
           cells={this.state.cells}
           handleUpdate={this.handleUpdate}
         />
