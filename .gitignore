@@ -3,3 +3,4 @@ dist/static
 functions/
 node_modules/
 .vscode/
+.python-version
