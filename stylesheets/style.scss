@@ -6,6 +6,13 @@
   -o-user-select: none;
 }
 
+body {
+  padding-top: 90px;// Because of header. Check header.css for collapsed
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f8f9fa;
+}
+
+
 @import "navbar";
 @import "timetable";
 @import "resultTable";
@@ -14,12 +21,8 @@
 @import "login.scss";
 @import "cellSelector.scss";
 @import "courseEditor.scss";
+@import "header.scss";
 
-body {
-  padding-top:61px;
-  font-family: 'Noto Sans KR', sans-serif;
-  background-color: #F4F4F4;
-}
 
 input:focus {
   outline: none;

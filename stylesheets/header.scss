@@ -1,0 +1,87 @@
+#header {
+  background-color: #ffffff;
+  height: 90px;
+  margin-top: -90px;
+  font-size: 14px;
+}
+
+#header-container {
+  max-width: 1200px;
+  height: 100%;
+  margin: auto;
+  padding: 31px 30px 31px 30px;
+}
+
+#header #logo {
+  width: 28px;
+  height: 28px;
+  background-color: gray;
+  float: left;
+}
+
+#header #brand {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 8px;
+  height: 28px;
+  float: left;
+}
+
+#header #profile {
+  float: right;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+}
+
+#header #noti {
+  float: right;
+  height: 28px;
+  width: 28px;
+  margin-right: 21px;
+  background-color: gray;
+}
+
+#header #semester-wrapper {
+  margin-left: 115px;
+  width: 100px;
+  float: left;
+  margin-right: 15px;
+}
+
+#header .semester {
+  height: 28px;
+  line-height: 28px;
+  margin-left: 15px;
+}
+
+#header #searchbar-wrapper {
+  float: left;
+  width: 600px;
+  height: 42px;
+  margin-top: -7px;
+  border-radius: 21px;
+  border: solid 1px #d5dbe0;
+}
+
+@media (max-width: 1200px) {
+  body {
+    padding-top: 120px;
+  }
+  #header {
+    height: 120px;
+    margin-top: -120px;
+  }
+  #header-container {
+    max-width: 700px;
+    padding: 20px 30px 20px 20px;
+  }
+  #header #searchbar-wrapper {
+    margin-top: 15px;
+    margin-left: -10px;
+    width: calc(100% + 20px);
+  }
+  #header #semester-wrapper {
+    margin-left: 10px;
+  }
+}
