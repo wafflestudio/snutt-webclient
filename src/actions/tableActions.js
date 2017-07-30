@@ -24,6 +24,10 @@ export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
 export function addLecture(lecture) {
   return function (dispatch, getState) {
     const { viewTableId } = getState().tableList;
+    if (!viewTableId) {
+      alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
+      return;
+    }
     const _id = lecture._id;
     dispatch({
       [CALL_API]: {
