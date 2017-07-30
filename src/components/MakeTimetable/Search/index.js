@@ -7,15 +7,32 @@ import SearchFilter from './SearchFilter.jsx';
 import Modal from 'react-modal';
 import TimeQuery from './TimeQuery.jsx';
 
+function mapStateToProps(state) {
+  const { courseBook, query,
+          filter: { panel: filterOn, time: selectingTime } } = state;
+  return {
+    current: courseBook.get('current'),
+    filterOn,
+    selectingTime,
+    queries: query.toJS(),
+  };
+}
+
+const mapDispatchToProps = dispatch => ({
+  sendQuery: query => dispatch(sendQuery(query)),
+  togglieTimeselect: () => dispatch(toggleTimeselect),
+});
+
+
 class Search extends Component {
   constructor() {
     super();
     this.composeQuery = this.composeQuery.bind(this);
-    this.toggleTimeselect = this.toggleTimeselect.bind(this);
+    this.toggleTimeselect = () => this.props.toggleTimeselect();
   }
 
   composeQuery(txt) {
-    const { dispatch, current, queries } = this.props;
+    const { current, queries } = this.props;
     const query = { year: current.year, semester: current.semester, title: txt, limit: 200 };
 
     // Add valid(?) fields to query
@@ -25,11 +42,11 @@ class Search extends Component {
     }
     if (query.time_mask.filter(mask => mask !== 0).length === 0) { delete query.time_mask; }
 
-    dispatch(sendQuery(query));
+    this.props.sendQuery(query);
   }
 
   toggleTimeselect() {
-    this.props.dispatch(toggleTimeselect());
+    this.props.toggleTimeselect();
   }
 
   render() {
@@ -57,14 +74,4 @@ class Search extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { dispatch, courseBook, query,
-          filter: { panel: filterOn, time: selectingTime } } = state;
-  return { dispatch,
-    current: courseBook.get('current'),
-    filterOn,
-    selectingTime,
-    queries: query.toJS() };
-}
-
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
