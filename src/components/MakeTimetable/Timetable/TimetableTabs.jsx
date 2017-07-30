@@ -20,7 +20,6 @@ class TimetableTabs extends Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    this.handleSave = this.handleSave.bind(this);
     this.handleTitleUpdate = this.handleTitleUpdate.bind(this);
   }
 
@@ -41,10 +40,6 @@ class TimetableTabs extends Component {
     e.stopPropagation();
     console.log('HandleSelect', id);
     this.props.onOpenTable(id);
-  }
-
-  handleSave(e) {
-    alert('그림 파일로 저장하는 기능은 제작중입니다');
   }
 
   handleTitleUpdate(e) {
@@ -112,16 +107,6 @@ class TimetableTabs extends Component {
         onClick={this.handleAdd}
       >
         <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-      </li>,
-    );
-    // save button
-    buttons.push(
-      <li
-        className="tab-button control"
-        key={-2}
-        onClick={this.handleSave}
-      >
-        <span className="glyphicon glyphicon-save" aria-hidden="true" />
       </li>,
     );
     return (
