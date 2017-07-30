@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import ArrowDownIcon from '../../../../assets/arrow-down.svg';
+
 class CourseSelector extends Component {
   render() {
     return (
@@ -7,7 +9,7 @@ class CourseSelector extends Component {
         <div className="semester current">
           2017-S
           &nbsp;
-          <span className="glyphicon glyphicon-triangle-bottom" aria-hidden="true" />
+          <ArrowDownIcon id="drop" />
         </div>
       </div>
     );

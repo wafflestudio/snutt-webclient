@@ -2,11 +2,14 @@ import React from 'react';
 import CourseSelector from './CourseSelector.jsx';
 import SearchBar from './SearchBar.jsx';
 
+import Logo from '../../../../assets/logo.svg';
+import AlarmIcon from '../../../../assets/ic-alarm.svg';
+
 const Header = () => (
   <div id="header">
     <div id="header-container">
       {/* Brand  */}
-      <div id="logo" />
+      <Logo id="logo" />
       <div id="brand">
         SNUTT
       </div>
@@ -14,10 +17,8 @@ const Header = () => (
       <div id="profile">
         leejoo317님
       </div>
-      <div id="noti" />
+      <AlarmIcon id="noti" />
       <SearchBar />
-
-
     </div>
   </div>
 );

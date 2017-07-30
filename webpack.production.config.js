@@ -1,24 +1,24 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var WebpackStrip = require('strip-loader');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WebpackStrip = require('strip-loader');
 
 module.exports = {
   entry: [
-    './src/index'
+    './src/index',
   ],
   output: {
     path: path.join(__dirname, 'dist/static'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/',
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
-    new ExtractTextPlugin("bundle.css"),
+    new ExtractTextPlugin('bundle.css'),
     // This helps ensure the builds are consistent if source hasn't changed:
     new webpack.optimize.OccurrenceOrderPlugin(),
     // Try to dedupe duplicated modules, if any:
@@ -27,15 +27,15 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true, // React doesn't support IE8
-        warnings: false
+        warnings: false,
       },
       mangle: {
-        screw_ie8: true
+        screw_ie8: true,
       },
       output: {
         comments: false,
-        screw_ie8: true
-      }
+        screw_ie8: true,
+      },
     }),
   ],
   module: {
@@ -43,16 +43,28 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: ['babel', WebpackStrip.loader('debug', 'console.log')],
-        include: path.join(__dirname, 'src')
+        include: path.join(__dirname, 'src'),
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader'),
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-      }
-    ]
-  }
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+      },
+      {
+        test: /\.svg$/,
+        loader: 'react-svg',
+        query: {
+          es5: true,
+          svgo: {
+            // svgo options
+            plugins: [{ removeTitle: false }],
+            floatPrecision: 2,
+          },
+        },
+      },
+    ],
+  },
 };

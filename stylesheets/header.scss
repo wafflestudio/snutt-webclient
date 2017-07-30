@@ -13,9 +13,6 @@
 }
 
 #header #logo {
-  width: 28px;
-  height: 28px;
-  background-color: gray;
   float: left;
 }
 
@@ -36,17 +33,14 @@
 
 #header #noti {
   float: right;
-  height: 28px;
-  width: 28px;
+  margin-top: 4px;
   margin-right: 21px;
-  background-color: gray;
 }
 
 #header #semester-wrapper {
   margin-left: 115px;
   width: 100px;
   float: left;
-  margin-right: 15px;
 }
 
 #header .semester {
@@ -60,6 +54,7 @@
   width: 600px;
   height: 42px;
   margin-top: -7px;
+  margin-left: 15px;
   border-radius: 21px;
   border: solid 1px #d5dbe0;
 }
