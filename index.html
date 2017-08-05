@@ -14,18 +14,5 @@
     <div id='root'>
     </div>
     <script src="/static/bundle.js"></script>
-    <script type="text/javascript">
-      // Mount doorbell addon
-      window.doorbellOptions = {
-          appKey: '6tS3g5TpC1hTniH8lNa4zd5kwaDAaghKut3o03JfSCzwkNuEiOKfigGxvfL1TK5v'
-      };
-      (function(w, d, t) {
-          var hasLoaded = false;
-          function l() { if (hasLoaded) { return; } hasLoaded = true; window.doorbellOptions.windowLoaded = true; var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/4904?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g); }
-          if (w.attachEvent) { w.attachEvent('onload', l); } else if (w.addEventListener) { w.addEventListener('load', l, false); } else { l(); }
-          if (d.readyState == 'complete') { l(); }
-      }(window, document, 'script'));
-
-    </script>
   </body>
 </html>
