@@ -43,12 +43,13 @@ class ResultRow extends Component {
         className={cssClass}
       >
         <td>
-          <h5>{lecture.course_title}</h5>
-          <h6>{lecture.instructor} / {lecture.credit}학점</h6>
-          <h6 className="pull-right">{lecture.course_number} / {lecture.lecture_number}</h6><br />
-          <p>{lecture.department}, {lecture.academic_year}</p><br />
-          <p>{printTime(lecture.class_time)} / {printPlace(lecture.class_time_json)}</p><br />
+          <h5 className="title">{lecture.course_title}</h5>
+          <h5 className="pull-right">{lecture.instructor} / {lecture.credit}학점</h5>
+          {/* <h5 className="pull-right">{lecture.course_number} / {lecture.lecture_number}</h5> */}
+          <p>{lecture.department}, {lecture.academic_year}</p>
+          <p>{printTime(lecture.class_time)} / {printPlace(lecture.class_time_json)}</p>
           { this.state.hovered ? (<ResultRowDetail course={lecture} />) : null}
+          <hr />
         </td>
       </tr>
     );
