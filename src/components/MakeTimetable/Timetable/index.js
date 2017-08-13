@@ -91,7 +91,7 @@ class Timetable extends Component {
 
     return (
       <div id="timetable-container">
-        <table className="table table-bordered timetable">
+        <table className="table timetable">
           <TableHeader hasSunday={hasSunday} />
           <TableBody
             hasNoTable={hasNoTable}

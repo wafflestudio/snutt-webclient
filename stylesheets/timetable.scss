@@ -2,46 +2,36 @@
   padding: 0px;
   border-top-width: 0;
   table-layout: fixed;
-  background-color: #FAFAFA;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.4) !important;
+  font-size: 14px;
+
   td {
     width: 100px;
     height:20px;
     position: relative;
   }
 
-  .dragged {
-    background-color: red
-  }
-
-  .label-gyosi {
-    border-width: 0;
-    width: 2em;
-    padding: 8px 0;
-    text-align: right;
-    font-size: 0.5em;
-    color: #9B9B9B;
+  .label-date {
+    border: none;
+    text-align: center;
+    font-weight: normal;
+    height: 40px;
   }
 
   .label-hour {
-    border-width: 1px 0;
-    width: 2em;
+    border: none;
+    width: 45px;
     text-align: right;
-    font-size: 0.8em;
-    padding: 0.2em 4px;
+    padding: 0 7px 0 0;
   }
 
-  .label-date {
-    color: #4A4A4A;
-    border-width: 1px 0;
-    text-align: center;
-    font-weight: normal;
-    font-size: 13px;
-    padding: 2px 0;
+  tbody tr:nth-child(odd) .td-body {
+    border-top: 1px solid #ebeef2;
   }
 
-  .blank-right {
-    width: 1em;
-    border-width: 0;
+  tbody tr:nth-child(even) .td-body {
+    border-top: 1px solid rgba(235, 238, 242, 0.3); //ebeef2 + 0.3 opacity
   }
 
   .td-body {
@@ -49,12 +39,13 @@
     border: none;
   }
 
-  .even {
-    border: none;
-    border-top: 2px solid #EBEBEB;
+  .blank-right {
+    width: 15px;
+    border: none !important
   }
-  .odd .td-body {
-    border-top: 2px solid #F3F3F3;
+
+  .dragged {
+    background-color: red
   }
 
   .course-div {

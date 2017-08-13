@@ -7,7 +7,6 @@ const TableHeader = ({ hasSunday }) => {
     <thead>
       <tr>
         <th className="label-hour" />
-        <th className="label-gyosi" />
         {days.map(v => (<th className="label-date" key={v}>{v}</th>))}
         <th className="label-date blank-right" />
       </tr>
