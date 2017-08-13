@@ -30,6 +30,10 @@
     border-top: 1px solid #ebeef2;
   }
 
+  tbody tr:last-child .td-body {
+    border-bottom: 1px solid #ebeef2;
+  }
+
   tbody tr:nth-child(even) .td-body {
     border-top: 1px solid rgba(235, 238, 242, 0.3); //ebeef2 * 0.3 opacity
   }
@@ -114,8 +118,35 @@
     font-size: 13px;
   }
 }
+#timetable-container {
+  background-color: #ffffff;
+  margin-bottom: 40px;
+}
+.table-info {
 
+  padding: 0px 15px 15px 15px;
+  overflow: hidden;
+  vertical-align: middle;
 
+  .add-button {
+    margin-left: 30px;
+    border-radius: 500px;
+    border: solid 1px #d5dbe0;
+    padding: 7px 17px;
+    font-size: 13px;
+    float: left;
+  }
+
+  .credit {
+    float: right;
+    padding: 7px 0px;
+    font-size: 13px;
+  }
+}
+
+.timetable {
+  margin-bottom: 15px;
+}
 
 .timetable * {
   -webkit-touch-callout: none; /* iOS Safari */

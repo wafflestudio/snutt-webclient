@@ -105,7 +105,7 @@ class Timetable extends Component {
         </table>
         <div className="table-info">
           <div className="add-button" onClick={this.createAndEditCourse}>
-            <span>+직접 추가하기</span>
+            <span>+ 직접 추가하기</span>
           </div>
           <div className="credit">
             {`총 ${creditSum} 학점`}
