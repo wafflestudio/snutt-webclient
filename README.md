@@ -9,8 +9,8 @@ Single Page Application for managing course schedule
 Before run, you need to set required keys. Insert api key, server url, facebook app id into `src/sample/sampleKey.js`
 
 ```
-npm install
-npm start
+yarn
+yarn run start
 open http://localhost:3000
 ```
 
@@ -22,7 +22,7 @@ Your changes will appear without reloading the browser like in [this video](http
 This boilerplate project includes React-friendly ESLint configuration.
 
 ```
-npm run lint
+yarn run lint
 ```
 
 ### Open Source Licenses

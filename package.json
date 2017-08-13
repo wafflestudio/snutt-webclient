@@ -1,6 +1,9 @@
 {
-  "name": "snutt-web",
+  "name": "snutt-webclient",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "description": "Single Page Application for managing course schedule",
   "scripts": {
     "start": "node server.js",
@@ -11,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wafflestudio/snutt.git"
+    "url": "https://github.com/wafflestudio/snutt-webclient.git"
   },
   "author": "Wafflestudio",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wafflestudio/snutt/issues"
+    "url": "https://github.com/wafflestudio/snutt-webclient/issues"
   },
   "homepage": "http://snutt.kr",
   "devDependencies": {

@@ -5,3 +5,4 @@ node_modules/
 .vscode/
 .python-version
 .DS_Store
+package-lock.json
