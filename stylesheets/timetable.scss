@@ -31,7 +31,7 @@
   }
 
   tbody tr:nth-child(even) .td-body {
-    border-top: 1px solid rgba(235, 238, 242, 0.3); //ebeef2 + 0.3 opacity
+    border-top: 1px solid rgba(235, 238, 242, 0.3); //ebeef2 * 0.3 opacity
   }
 
   .td-body {
@@ -95,7 +95,27 @@
     z-index: 2;
     opacity: 0.5;
   }
+
+  .table-info {
+    position: relative;
+    font-size: 13px;
+  }
+
+  .add-button {
+    float: left;
+    border-radius: 17px;
+    height: 34px;
+    opacity: 0.8;
+    border: 1px solid #b7c3ce;
+  }
+
+  .credit {
+    float: right;
+    font-size: 13px;
+  }
 }
+
+
 
 .timetable * {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -103,32 +123,4 @@
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* IE/Edge */
-}
-
-#timetable-container {
-  position: relative;
-}
-
-#add-button {
-    background-color: #448AFF;
-    color: white;
-    font-size: 20px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    cursor: pointer;
-}
-
-#add-button:hover {
-    background-color: #03A9F4;
-}
-
-#add-button span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
 }

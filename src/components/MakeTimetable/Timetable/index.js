@@ -12,14 +12,18 @@ const NUM_SLOTS = 32;
 const NUM_DAY = 7;
 
 function mapStateToProps(state) {
-  const { hoveredCourse: previewed, courseBook } = state;
+  const { hoveredCourse: previewed, courseBook, tableList: { viewLectures } } = state;
   const { viewLectures: courses, viewTableId } = state.tableList;
+  const creditSum = viewLectures ?
+          viewLectures.reduce((sum, lecture) => (sum + lecture.credit), 0) :
+          0;
 
   return {
     hasNoTable: viewTableId === null,
     previewed,
     courseBook,
     courses,
+    creditSum,
   };
 }
 
@@ -81,7 +85,7 @@ class Timetable extends Component {
   }
 
   render() {
-    const { hasNoTable } = this.props;
+    const { hasNoTable, creditSum } = this.props;
     let hasSunday = false;
     let lecturesInTable;
     if (!hasNoTable) {
@@ -99,8 +103,13 @@ class Timetable extends Component {
             lectureBoxes={lecturesInTable}
           />
         </table>
-        <div id="add-button" onClick={this.createAndEditCourse}>
-          <span>+</span>
+        <div className="table-info">
+          <div className="add-button" onClick={this.createAndEditCourse}>
+            <span>+직접 추가하기</span>
+          </div>
+          <div className="credit">
+            {`총 ${creditSum} 학점`}
+          </div>
         </div>
       </div>
     );
