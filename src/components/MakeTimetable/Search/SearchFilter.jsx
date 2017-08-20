@@ -7,6 +7,7 @@ import { addQuery, removeQuery, updateQuery, toggleTimeselect } from '../../../a
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options';
 import { complement } from './TimeQuery.jsx';
+import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
 
 class SearchFilter extends Component {
   constructor() {
@@ -113,25 +114,27 @@ class SearchFilter extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-lg-8 col-lg-offset-2">
-          <div className="search-filter-wrapper">
-            <form
-              className="form-horizontal search-filter"
-              id={this.props.on ? 'filter-active' : ''}
-              onSubmit={this.handleSubmit}
-            >
-              {this.renderCheckBoxes('학점', credits, 'credit')}
-              {this.renderCheckBoxes('학년', academicYears, 'academic_year')}
-              {this.renderTimeSelect()}
-              {this.renderDepartment()}
-              {this.renderCheckBoxes('구분', classifications, 'classification')}
-              {this.renderCheckBoxes('학문의 기초', foundations, 'category')}
-              {this.renderCheckBoxes('학문의 세계', knowledges, 'category')}
-              {this.renderCheckBoxes('선택 교양', generals, 'category')}
-            </form>
-          </div>
+      <div className="searchpanel-wrapper">
+        <div id="title-wrapper">
+          <span id="title">상세조건 설정   </span>
+          <span id="condition-count">3</span>
+          <RefreshIcon />
         </div>
+        <hr />
+        <form
+          className="form-horizontal search-filter"
+          id={this.props.on ? 'filter-active' : ''}
+          onSubmit={this.handleSubmit}
+        >
+          {this.renderCheckBoxes('학점', credits, 'credit')}
+          {this.renderCheckBoxes('학년', academicYears, 'academic_year')}
+          {this.renderTimeSelect()}
+          {this.renderDepartment()}
+          {this.renderCheckBoxes('구분', classifications, 'classification')}
+          {this.renderCheckBoxes('학문의 기초', foundations, 'category')}
+          {this.renderCheckBoxes('학문의 세계', knowledges, 'category')}
+          {this.renderCheckBoxes('선택 교양', generals, 'category')}
+        </form>
       </div>
     );
   }

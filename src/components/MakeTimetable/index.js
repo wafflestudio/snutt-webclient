@@ -25,7 +25,6 @@ class MakeTimeTable extends Component {
 
     return (
       <div className="container">
-        <Search />
         <div className="row body">
           <div className="col-lg-6 col-search">
             <ResultTable />

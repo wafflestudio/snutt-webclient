@@ -1,88 +1,127 @@
-.search-filter-wrapper {
-  position: relative;
-  padding: 0 0 15px 0;
-}
-
-.search-filter {
-  top: 0px;
+.searchpanel-wrapper {
+  background-color: white;
   position: absolute;
-  z-index: 3;
-  width: 100%;
-  margin: 0 15px 0 0;
-  max-height: 0;
-  overflow: hidden;
-  background-color: #FFFFFF;
-  padding: 0;
-  border-width: 0;
-  border-style: solid;
-  border-color: transparent;
-  transition: max-height 0.3s, border-color 0s linear 0.3s, top step-end 0.3s, border-width step-end 0.3s;
+  z-index: 2;
+  border: 1px solid #1bd0c9;
+  border-radius: 21px;
+  top: 41px;
+  left: -160px;
+  width: 860px;
+  padding: 21px 35px 39px 35px;
+  font-size: 14px;
 }
 
-#filter-active {
-  top: -1px;
-  max-height: 400px;
-  border-width: 0 0 1px 0;
-  border-color: #4A90E2;
-  border-style: solid;
-  padding: 0 0 10px 0;
-  background-color: #FFFFFF;
-  transition: max-height 0.3s;
-}
-
-#search-form {
-  background: #FAFAFA;
-}
-
-#search-form {
-  // background-color: #FAFAFA;
-  background-color: #FFFFFF;
-  border-width: 0 0 1px 0;
-  border-color: #9B9B9B;
-  border-radius: 0;
-  -webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-}
-
-#search-form:focus {
-  border-color: #4A90E2;
-}
-
-#searchbar-container {
-  position: relative;
-}
-
-#search-button-container {
-  position: absolute;
-  top: 0;
-  right: 20px;
-  padding: 10px;
-  span {
-    padding: 0 4px 0 4px;
-    color: #9B9B9B;
-    -webkit-transition: transform 0.3s;
-    transition: transform 0.3s;
+@media (max-width: 1200px) {
+  .searchpanel-wrapper {
+    width: 100%;
+    left: 0;
   }
-  span:hover {
-    color: #1F4BFF;
-  }
-  #filter-open{
-    transform: rotate(180deg);
-    -webkit-transition: transform 0.3s;
-    transition: transform 0.3s;
-  }
-  .filter-valid {
-    color: #1F4BFF;
-  }
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
-.tag-selected { margin-right: 3px; }
-.tag-selected:hover {
-  background-color: #d9534f;
-  border-color: #d43f3a;
+.searchpanel-wrapper #title-wrapper {
+  height: 20px;
+  font-weight: bold;
 }
+
+.searchpanel-wrapper #title-wrapper span {
+  vertical-align: top;
+}
+
+.searchpanel-wrapper #condition-count {
+  color: #0caea6;
+}
+
+.searchpanel-wrapper hr {
+  border-color: #d5dbe0;
+  margin: 15px 0;
+}
+
+
+// .search-filter-wrapper {
+//   position: relative;
+//   padding: 0 0 15px 0;
+// }
+
+// .search-filter {
+//   top: 0px;
+//   position: absolute;
+//   z-index: 3;
+//   width: 100%;
+//   margin: 0 15px 0 0;
+//   max-height: 0;
+//   overflow: hidden;
+//   background-color: #FFFFFF;
+//   padding: 0;
+//   border-width: 0;
+//   border-style: solid;
+//   border-color: transparent;
+//   transition: max-height 0.3s, border-color 0s linear 0.3s, top step-end 0.3s, border-width step-end 0.3s;
+// }
+
+// #filter-active {
+//   top: -1px;
+//   max-height: 400px;
+//   border-width: 0 0 1px 0;
+//   border-color: #4A90E2;
+//   border-style: solid;
+//   padding: 0 0 10px 0;
+//   background-color: #FFFFFF;
+//   transition: max-height 0.3s;
+// }
+
+// #search-form {
+//   background: #FAFAFA;
+// }
+
+// #search-form {
+//   // background-color: #FAFAFA;
+//   background-color: #FFFFFF;
+//   border-width: 0 0 1px 0;
+//   border-color: #9B9B9B;
+//   border-radius: 0;
+//   -webkit-box-shadow: none;
+// 	-moz-box-shadow: none;
+// 	box-shadow: none;
+// }
+
+// #search-form:focus {
+//   border-color: #4A90E2;
+// }
+
+// #searchbar-container {
+//   position: relative;
+// }
+
+// #search-button-container {
+//   position: absolute;
+//   top: 0;
+//   right: 20px;
+//   padding: 10px;
+//   span {
+//     padding: 0 4px 0 4px;
+//     color: #9B9B9B;
+//     -webkit-transition: transform 0.3s;
+//     transition: transform 0.3s;
+//   }
+//   span:hover {
+//     color: #1F4BFF;
+//   }
+//   #filter-open{
+//     transform: rotate(180deg);
+//     -webkit-transition: transform 0.3s;
+//     transition: transform 0.3s;
+//   }
+//   .filter-valid {
+//     color: #1F4BFF;
+//   }
+//   -moz-user-select: none;
+//   -webkit-user-drag: none;
+//   -webkit-user-select: none;
+//   -ms-user-select: none;
+// }
+
+// .tag-selected { margin-right: 3px; }
+// .tag-selected:hover {
+//   background-color: #d9534f;
+//   border-color: #d43f3a;
+// }
