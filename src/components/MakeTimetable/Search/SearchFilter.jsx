@@ -52,7 +52,7 @@ class SearchFilter extends Component {
   renderCheckBoxes(label, items, memberName) {
     return (
       <div className="form-group">
-        <label className="col-md-2 control-label">{label}</label>
+        <label className="col-md-2 control-label field">{label}</label>
         <div className="col-md-10">
           {items.map((val, idx) => {
             const checked = this.props.query.get(memberName).has(val.value);
@@ -79,23 +79,29 @@ class SearchFilter extends Component {
     return (
       <div className="form-group">
         <label className="col-md-2 control-label">시간대 검색</label>
-        <div className="col-md-8">
-          <div
-            className="btn btn-default"
-            onClick={this.toggleTimeselect}
-          >
-            시간대 선택하기
-            <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
-          </div>
-          <span>&nbsp;&nbsp;&nbsp;</span>
+        <div className="col-md-10">
           <label className="checkbox-inline">
             <input
               type="checkbox"
               onClick={this.freeslotsOnly}
               checked={this.state.freeslotsOnly}
             />
-            빈 시간에서만 검색하기
+            <div><span>빈 시간만 검색하기</span></div>
           </label>
+          <label className="checkbox-inline">
+            <input
+              type="checkbox"
+              onClick={this.freeslotsOnly}
+              checked={false}
+            />
+            <div><span>시간대 직접 선택하기</span></div>
+          </label>
+          <div
+            className="open-timeselector"
+            onClick={this.toggleTimeselect}
+          >
+            선택창 열기
+           </div>
         </div>
       </div>
     );
@@ -117,7 +123,7 @@ class SearchFilter extends Component {
     return (
       <div className="searchpanel-wrapper">
         <div id="title-wrapper">
-          <span id="title">상세조건 설정              </span>
+          <span id="title">상세조건 설정                       </span>
           <span id="condition-count">3</span>
           <RefreshIcon />
         </div>
