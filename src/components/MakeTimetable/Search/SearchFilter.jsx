@@ -26,6 +26,7 @@ class SearchFilter extends Component {
   }
 
   toggleQuery(memberName, value, checked) {
+    console.log(memberName, value, checked);
     const { dispatch } = this.props;
     if (checked) { dispatch(removeQuery(memberName, value)); } else { dispatch(addQuery(memberName, value)); }
   }
@@ -52,7 +53,7 @@ class SearchFilter extends Component {
     return (
       <div className="form-group">
         <label className="col-md-2 control-label">{label}</label>
-        <div className="col-md-8">
+        <div className="col-md-10">
           {items.map((val, idx) => {
             const checked = this.props.query.get(memberName).has(val.value);
             return (
@@ -65,7 +66,7 @@ class SearchFilter extends Component {
                   checked={checked}
                   onClick={this.toggleQuery.bind(this, memberName, val.value, checked)}
                 />
-                {val.name}
+                <div><span>{val.name}</span></div>
               </label>
             );
           })}
@@ -116,7 +117,7 @@ class SearchFilter extends Component {
     return (
       <div className="searchpanel-wrapper">
         <div id="title-wrapper">
-          <span id="title">상세조건 설정   </span>
+          <span id="title">상세조건 설정              </span>
           <span id="condition-count">3</span>
           <RefreshIcon />
         </div>
@@ -126,14 +127,14 @@ class SearchFilter extends Component {
           id={this.props.on ? 'filter-active' : ''}
           onSubmit={this.handleSubmit}
         >
-          {this.renderCheckBoxes('학점', credits, 'credit')}
-          {this.renderCheckBoxes('학년', academicYears, 'academic_year')}
-          {this.renderTimeSelect()}
           {this.renderDepartment()}
+          {this.renderCheckBoxes('학년', academicYears, 'academic_year')}
+          {this.renderCheckBoxes('학점', credits, 'credit')}
           {this.renderCheckBoxes('구분', classifications, 'classification')}
           {this.renderCheckBoxes('학문의 기초', foundations, 'category')}
           {this.renderCheckBoxes('학문의 세계', knowledges, 'category')}
           {this.renderCheckBoxes('선택 교양', generals, 'category')}
+          {this.renderTimeSelect()}
         </form>
       </div>
     );
