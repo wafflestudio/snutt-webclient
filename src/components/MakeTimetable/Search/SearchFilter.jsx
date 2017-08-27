@@ -1,52 +1,73 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
+import Modal from 'react-modal';
+
 import DepartmentForm from './DepartmentForm.jsx';
 import TimeQuery from './TimeQuery.jsx';
-import { addQuery, removeQuery, updateQuery, toggleTimeselect } from '../../../actions';
-import { credits, academicYears, foundations, knowledges,
-          generals, classifications } from './options';
 import { complement } from './TimeQuery.jsx';
 import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
+
+import { addQuery, removeQuery, resetQuery, updateQuery, toggleTimeselect } from '../../../actions';
+import { credits, academicYears, foundations, knowledges,
+          generals, classifications } from './options';
+
+const EMPTY_MASK = Immutable.List([0, 0, 0, 0, 0, 0, 0]);
+
+function mapStateToProps(state) {
+  const { tableList: { currentId, tableMap }, query, filter: { time: selectingTime } } = state;
+  const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list;
+  // Deduct 7 because empty timemasks's count is 7
+  let activeFieldCounts = query.valueSeq().reduce((prev, current) => prev + current.count(), 0) - 7;
+  if (!query.get('time_mask').equals(EMPTY_MASK)) {
+    activeFieldCounts += 1;
+  }
+  return { query, activeFieldCounts, currentLectures, selectingTime };
+}
+
+const mapDispatchToProps = dispatch => ({
+  resetQuery: () => dispatch(resetQuery()),
+  toggleQuery: (name, value, checked) => {
+    if (checked) {
+      dispatch(removeQuery(name, value));
+    } else {
+      dispatch(addQuery(name, value));
+    }
+  },
+  toggleFreetimeOnly: (currentLectures, currentOption) => {
+    if (currentOption) { // On -> Off
+      dispatch(updateQuery('time_mask', () => EMPTY_MASK));
+    } else { // Off -> On
+      const masks = currentLectures.map(val => val.class_time_mask);
+      const invertedMasks = complement(masks);
+      dispatch(updateQuery('time_mask', () => Immutable.List(invertedMasks)));
+    }
+  },
+  toggleTimeselect: () => dispatch(toggleTimeselect()),
+});
 
 class SearchFilter extends Component {
   constructor() {
     super();
-    this.toggleQuery = this.toggleQuery.bind(this);
     this.toggleTimeselect = this.toggleTimeselect.bind(this);
     this.freeslotsOnly = this.freeslotsOnly.bind(this);
     this.renderCheckBoxes = this.renderCheckBoxes.bind(this);
     this.renderTimeSelect = this.renderTimeSelect.bind(this);
-    this.renderDepartment = this.renderDepartment.bind(this);
     this.state = { freeslotsOnly: false };
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-  }
-
-  toggleQuery(memberName, value, checked) {
-    console.log(memberName, value, checked);
-    const { dispatch } = this.props;
-    if (checked) { dispatch(removeQuery(memberName, value)); } else { dispatch(addQuery(memberName, value)); }
-  }
-
   toggleTimeselect(e) {
-    const { dispatch } = this.props;
-    e.stopPropagation();
-    dispatch(toggleTimeselect());
+    e.preventDefault();
+    console.log('Toggle Timeselect');
+    this.props.toggleTimeselect();
   }
 
   freeslotsOnly(e) {
-    const { dispatch, currentLectures } = this.props;
-    const { freeslotsOnly: prevState } = this.state;
-    if (!prevState) {
-      const masks = currentLectures.map(val => val.class_time_mask);
-      dispatch(updateQuery('time_mask', () => Immutable.List(complement(masks))));
-    } else {
-      dispatch(updateQuery('time_mask', () => Immutable.List([0, 0, 0, 0, 0, 0])));
-    }
-    this.setState({ freeslotsOnly: !this.state.freeslotsOnly });
+    e.preventDefault();
+    const { currentLectures } = this.props;
+    const { freeslotsOnly } = this.state;
+    this.props.toggleFreetimeOnly(currentLectures, freeslotsOnly);
+    this.setState({ freeslotsOnly: !freeslotsOnly });
   }
 
   renderCheckBoxes(label, items, memberName) {
@@ -64,7 +85,7 @@ class SearchFilter extends Component {
                 <input
                   type="checkbox"
                   checked={checked}
-                  onClick={this.toggleQuery.bind(this, memberName, val.value, checked)}
+                  onClick={this.props.toggleQuery.bind(this, memberName, val.value, checked)}
                 />
                 <div><span>{val.name}</span></div>
               </label>
@@ -108,7 +129,6 @@ class SearchFilter extends Component {
   }
 
   renderDepartment() {
-    const { departmentTags } = this.props;
     return (
       <div className="form-group">
         <label className="col-md-2 control-label">학과명 선택</label>
@@ -120,18 +140,19 @@ class SearchFilter extends Component {
   }
 
   render() {
+    const { selectingTime, activeFieldCounts } = this.props;
     return (
       <div className="searchpanel-wrapper">
         <div id="title-wrapper">
-          <span id="title">상세조건 설정                       </span>
-          <span id="condition-count">3</span>
-          <RefreshIcon />
+          <span id="title">상세조건 설정</span>
+          <span id="condition-count">{activeFieldCounts}</span>
+          <RefreshIcon onClick={this.props.resetQuery} />
         </div>
         <hr />
         <form
           className="form-horizontal search-filter"
           id={this.props.on ? 'filter-active' : ''}
-          onSubmit={this.handleSubmit}
+          onSubmit={e => e.preventDefault()}
         >
           {this.renderDepartment()}
           {this.renderCheckBoxes('학년', academicYears, 'academic_year')}
@@ -142,15 +163,19 @@ class SearchFilter extends Component {
           {this.renderCheckBoxes('선택 교양', generals, 'category')}
           {this.renderTimeSelect()}
         </form>
+        {selectingTime ?
+          <Modal
+            isOpen
+            className="snutt__modal"
+            overlayClassName="snutt__modal-overlay"
+          >
+            <TimeQuery />
+          </Modal> :
+          null
+        }
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { tableList: { currentId, tableMap }, query } = state;
-  const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list;
-  return { query, currentLectures };
-}
-
-export default connect(mapStateToProps)(SearchFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);

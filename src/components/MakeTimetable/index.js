@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Search from './Search';
 import CourseEditorLoader from './CourseEditor/Loader';
 import ResultTable from './ResultTable';
 import TimetableTabs from './Timetable/TimetableTabs.jsx';

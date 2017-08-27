@@ -19,6 +19,10 @@
   }
 }
 
+.searchpanel-wrapper svg {
+  cursor: pointer;
+}
+
 .searchpanel-wrapper #title-wrapper {
   height: 20px;
   font-weight: bold;
@@ -30,6 +34,7 @@
 
 .searchpanel-wrapper #condition-count {
   color: #0caea6;
+  margin: 0 8px 0 12px;
 }
 
 .searchpanel-wrapper hr {
@@ -135,9 +140,11 @@
 
 .searchpanel-wrapper .open-timeselector {
   display: inline-block;
-	width: 80px;
-	height: 24px;
+  height: 24px;
+  padding: 3px 11px;
+  font-size: 12px;
 	opacity: 0.2;
 	border-radius: 14px;
-	border: 1px solid #b7c3ce;
+  border: 1px solid #b7c3ce;
+  cursor: pointer;
 }
