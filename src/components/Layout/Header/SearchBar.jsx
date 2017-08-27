@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { sendQuery, toggleSearchPanel } from '../../../actions/index.js';
+import { runQuery, toggleSearchPanel } from '../../../actions/index.js';
 import SearchFilter from '../../MakeTimetable/Search/SearchFilter.jsx';
 import SearchIcon from '../../../../assets/ic-search.svg';
 import SearchConditionIcon from '../../../../assets/ic-search-condition.svg';
@@ -14,14 +14,15 @@ const formatLastUpdate = (currentBook) => {
   return `(수강편람 최근 업데이트: ${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()})`;
 };
 
-const mapStateToProps = ({ courseBook, filter: { panel: filterOn } }) => ({
+const mapStateToProps = ({ courseBook, filter: { panel: filterOn }, query }) => ({
   currentBook: courseBook.get('current'),
   filterOn,
+  queries: query.toJS(),
 });
 
 const mapDispatchToProps = dispatch => ({
   toggleFilter: () => dispatch(toggleSearchPanel()),
-  sendQuery: query => dispatch(sendQuery(query)),
+  runQuery: txt => dispatch(runQuery(txt)),
 });
 
 class SearchBar extends Component {
@@ -29,6 +30,12 @@ class SearchBar extends Component {
     super();
     this.state = { text: '' };
     this.onTextChange = e => this.setState({ text: e.target.value });
+    this.handleQuery = this.handleQuery.bind(this);
+  }
+
+  handleQuery(e) {
+    e.preventDefault();
+    this.props.runQuery(this.state.text);
   }
 
   render() {
@@ -43,7 +50,7 @@ class SearchBar extends Component {
           />
         </form>
         <div id="tools">
-          <SearchIcon id="search" />
+          <SearchIcon id="search" onClick={this.handleQuery} />
           <SearchConditionIcon onClick={toggleFilter} />
         </div>
         { true ? <SearchFilter /> : null }

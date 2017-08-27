@@ -35,6 +35,28 @@ export function resetQuery() {
   return { type: types.RESET_QUERY };
 }
 
+export function runQuery(textQuery) {
+  return (dispatch, getState) => {
+    const { courseBook, query } = getState();
+    const { currentBook: { year, semester } } = courseBook.get('current');
+    const queries = query.toJS();
+
+    const validQuery = { year, semester, title: textQuery, limit: 200 };
+
+    // Add valid(?) fields to query
+    for (const key in queries) {
+      const value = queries[key];
+      if (typeof (value) === 'object' && value.length > 0) {
+        validQuery[key] = value;
+      }
+    }
+    if (validQuery.time_mask.filter(mask => mask !== 0).length === 0) {
+      delete validQuery.time_mask;
+    }
+    dispatch(sendQuery(validQuery));
+  };
+}
+
 export function sendQuery(query) {
   return function (dispatch) {
     dispatch(startQuery(query));
