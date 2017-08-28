@@ -1,0 +1,25 @@
+.svg-icon {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.svg-icon.disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.svg-icon:not(.disabled):hover {
+  opacity: 1;
+}
+
+.svg-icon:active:not(.disabled) path:last-child {
+  fill: #1bd0c9;
+}
+
+.svg-icon.activated:not(.disabled) path:last-child {
+  fill: #1bd0c9;
+}
+
+.svg-icon.activated:hover:not(.disabled) path:last-child {
+  fill: #0caea6;
+}

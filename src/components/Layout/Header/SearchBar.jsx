@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { runQuery, toggleSearchPanel } from '../../../actions/index.js';
 import SearchFilter from '../../MakeTimetable/Search/SearchFilter.jsx';
 import SearchIcon from '../../../../assets/ic-search.svg';
-import SearchConditionIcon from '../../../../assets/ic-search-condition.svg';
+import SearchConditionIcon from '../../../../assets/ic-condition-normal.svg';
+import SearchConditionIconActivated from '../../../../assets/ic-condition-focused.svg';
 
 const formatLastUpdate = (currentBook) => {
   if (!currentBook) {
@@ -50,8 +51,14 @@ class SearchBar extends Component {
           />
         </form>
         <div id="tools">
-          <SearchIcon id="search" onClick={this.handleQuery} />
-          <SearchConditionIcon onClick={toggleFilter} />
+          <SearchIcon
+            id="search"
+            onClick={this.handleQuery}
+          />
+          <SearchConditionIcon
+            className={true ? 'svg-icon activated' : 'svg-icon'}
+            onClick={toggleFilter}
+          />
         </div>
         { true ? <SearchFilter /> : null }
       </div>

@@ -146,7 +146,10 @@ class SearchFilter extends Component {
         <div id="title-wrapper">
           <span id="title">상세조건 설정</span>
           <span id="condition-count">{activeFieldCounts}</span>
-          <RefreshIcon onClick={this.props.resetQuery} />
+          <RefreshIcon
+            className={activeFieldCounts ? 'svg-icon' : 'svg-icon disabled'}
+            onClick={this.props.resetQuery}
+          />
         </div>
         <hr />
         <form
