@@ -89,30 +89,32 @@ class TimeQuery extends Component {
     return (
       <div className="time-query">
         <span><strong>검색하고 싶은 시간들을 드래그하세요</strong></span>
+        <hr />
+        <CellSelector
+          row={30}
+          col={7}
+          rowLabels={new Array(30).fill().map((val, idx) =>
+            (idx % 2 === 0 ? String((idx / 2) + 8) : ' '),
+          )}
+          colLabels={['월', '화', '수', '목', '금', '토', '일']}
+          cells={this.state.cells}
+          handleUpdate={this.handleUpdate}
+        />
+        <hr />
         <div className="btns">
-          <div
-            className="btn btn-primary btn-sm"
-            onClick={this.handleSave}
-          >
-            확인
-          </div>
           <div
             className="btn btn-default btn-sm"
             onClick={this.handleCancel}
           >
             취소
           </div>
+          <div
+            className="btn btn-primary btn-sm"
+            onClick={this.handleSave}
+          >
+            확인
+          </div>
         </div>
-        <CellSelector
-          row={30}
-          col={7}
-          rowLabels={new Array(30).fill().map((val, idx) =>
-            idx % 2 === 0 ? String(idx / 2 + 8) : ' ',
-          )}
-          colLabels={['월', '화', '수', '목', '금', '토', '일']}
-          cells={this.state.cells}
-          handleUpdate={this.handleUpdate}
-        />
       </div>
     );
   }

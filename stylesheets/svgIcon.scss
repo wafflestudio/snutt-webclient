@@ -12,14 +12,15 @@
   opacity: 1;
 }
 
-.svg-icon:active:not(.disabled) path:last-child {
-  fill: #1bd0c9;
-}
+// .svg-icon:active:not(.disabled) path:last-child {
+//   fill: #1bd0c9;
+// }
 
-.svg-icon.activated:not(.disabled) path:last-child {
-  fill: #1bd0c9;
-}
+// // .activated use different icon
+// .svg-icon.activated:not(.disabled) path:last-child {
+//   fill: #1bd0c9;
+// }
 
-.svg-icon.activated:hover:not(.disabled) path:last-child {
-  fill: #0caea6;
-}
+// .svg-icon.activated:hover:not(.disabled) path:last-child {
+//   fill: #0caea6;
+// }

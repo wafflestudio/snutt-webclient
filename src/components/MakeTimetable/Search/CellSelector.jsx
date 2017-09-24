@@ -141,8 +141,9 @@ export default class CellSelector extends Component {
   }
 
   renderBody() {
-    const labels = this.props.rowLabels.map((label, index) =>
-      <td key={index}>{label}</td>);
+    const labels = this.props.rowLabels.map(label =>
+      (Number(label) > 0 ? <td key={label} rowSpan={2}>{label}</td> : null),
+    );
     const cellStateTable = this.props.cells;
     const { tl, dr } = getRange(this.state.dragInit, this.state.dragEnd);
     return cellStateTable.map((row, rowIndex) => {

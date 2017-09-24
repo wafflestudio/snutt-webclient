@@ -1,15 +1,36 @@
 .time-query {
-  padding: 20px;
-  background-color: white;
+  border-radius: 21px;
+	background-color: #ffffff;
+  border: solid 1px #1bd0c9;
+  width: 500px;
+  height: 681px;
+  padding: 21px 35px 28px 35px;
+  font-size: 14px;
   text-align: left;
+
+  hr {
+    margin: 20px 0 0 0;
+  }
 
   .btns {
     float: right;
     position: relative;
-    top: -4px;
+    margin-top: 20px;
   }
+  
   .btns .btn {
     margin-left: 3px;
+    width: 60px;
+    height: 34px;
+    border-radius: 17px;
+    font-size: 13px;
+    line-height: 22px;
+    border: solid 1px #b7c3ce;
+  }
+
+  .btns .btn-primary {
+    background-color: #1bd0c9;
+    border: none;
   }
 }
 
@@ -17,38 +38,48 @@
   @include unselectable;
   width: 100%;
   margin: auto;
-  margin-top: 15px;
   text-align: center;
+  font-size: 14px;
 
   th {
     text-align: center;
     font-weight: normal;
+    font-size: 14px;
+    height: 40px;
     &:nth-child(1) { width: 3%; }
     width: 13.8571%;
     width: calc(97% /7); //FYI: IE9+
   }
 
-  tbody tr:nth-child(odd) td { border-top: 1px solid #ddd; }
-  tbody tr:nth-child(even) td { border-top: 1px dashed #ddd; }
-  tbody tr:last-child td { border-bottom: 1px solid #ddd; }
   tbody tr {
-    height: 14px;
-    font-size: 12px;
-    td:nth-child(1) { border: none; }
+    height: 16px;
   }
+  tbody tr:nth-child(odd) td { border-top: 1px solid #ebeef2; }
+  tbody tr:nth-child(odd) td:first-child { 
+    border-top: none; 
+    border-right: 1px solid #ebeef2;
+    text-align: right;
+    padding-right: 8px;
+  }
+  tbody tr:nth-child(even) td { border-top: 1px solid rgba(235, 238, 242, 0.3) } // #ebeef2
+  tbody tr td:last-child { border-right: 1px solid #ebeef2; }
+  tbody tr:last-child td { border-bottom: 1px solid #ebeef2;}
 
   .draggable {
+    &:hover {
+      background-color: rgb(250, 237, 197); // #fac52d * 0.3
+    }
     &.SELECTED {
-      background-color: #4A90E2;
+      background-color: #fac42d;
+    }
+    &.SELECTED:hover {
+      background-color: #f8b20b;
     }
     &.SELECTING {
-      background-color: #3367d6;
+      background-color: #f8b20b;
     }
     &.DELETING {
-      background-color: #d13d37;
-    }
-    &:hover {
-      background-color: #ddf3ff;
+      background-color: #4f48c4;
     }
   }
 }
