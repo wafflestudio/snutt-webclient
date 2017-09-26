@@ -55,7 +55,8 @@ class SearchBar extends Component {
             id="search"
             onClick={this.handleQuery}
           />
-          {true ?
+          {/* {true ? */}
+          { filterOn ?
             <SearchConditionIconActivated
               className="svg-icon"
               onClick={toggleFilter}
@@ -66,7 +67,7 @@ class SearchBar extends Component {
             />
           }
         </div>
-        { true ? <SearchFilter /> : null }
+        { filterOn ? <SearchFilter /> : null }
       </div>
     );
   }

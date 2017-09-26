@@ -95,6 +95,13 @@ class Login extends Component {
               >
                 로그인
               </button>
+              <FBLogin
+                appId={fbAppId}
+                autoload
+                callback={this.handleFacebookLogin}
+                cssClass='btn login-fb'
+                textButton="facebook으로 로그인"
+              />
               <Link to='/signup'>
                 <div
                   className='btn join'
@@ -102,13 +109,6 @@ class Login extends Component {
                   회원가입
                 </div>
               </Link>
-              <FBLogin
-                appId={fbAppId}
-                autoload
-                callback={this.handleFacebookLogin}
-                cssClass='btn login-fb'
-                icon='fa-facebook'
-              />
             </div>
           </form> {/** End of snut__login */}
         </div>

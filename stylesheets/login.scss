@@ -1,7 +1,13 @@
 .snutt__login {
-    background: white;
+    background: #f8f9fa;
     padding: 20px;
     margin: 40px 0;
+}
+
+.snutt__login h2 {
+    font-size: 26px;
+    font-family: Noto Sans KR;
+    font-weight: bold;
 }
 
 .snutt__inputWrapper {
@@ -14,10 +20,18 @@
     height: 40px;
     border: 0;
     border-bottom: 1px solid #bcb5b9;
+    background-color: transparent;
+    color: #000000;
+    font-size: 14px;
+    line-height: 2.86;
 }
 
 .snutt__inputWrapper input:focus {
-    border-bottom: 1px solid rgb(51, 103, 214);
+    border-bottom: solid 1px #b7c3ce
+}
+
+.snutt__inputWrapper::-webkit-input-placeholder {
+    opacity: 0.2;
 }
 
 .snutt__labelWrapper {
@@ -55,16 +69,25 @@
 }
 
 .snutt__login .btn {
-    border-radius: 0;
-    border: 0;
-    color: white;
+    border-radius: 21px;
+    border: none;
     width: 100%;
-    margin-top: 5px;
+    margin-top: 10px;
+    font-size: 13px;
+    background-color: transparent;
 }
-.snutt__login .btn { background-color: #bcb5b9; }
-.snutt__login .btn.login { background-color: #4A90E2; }
-.btn.login-fb { background-color: #365899; color: white; }
-.snutt__login .btn.join { background-color: #5cb85c; }
+.snutt__login .btn.login { 
+    color: white;
+    background-color: #1bd0c9; 
+}
+.snutt__login .btn.login-fb { 
+    color: #3c5dd4;
+    border: solid 1px #3c5dd4;
+}
+.snutt__login .btn.join { 
+    color: #000000;
+    opacity: 0.6;
+}
 
 .snutt__login i.fa-facebook {
     margin-right: 4px;
