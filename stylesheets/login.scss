@@ -19,15 +19,15 @@
     width: 100%;
     height: 40px;
     border: 0;
-    border-bottom: 1px solid #bcb5b9;
+    border-bottom: 1px solid #ebeef2;
     background-color: transparent;
-    color: #000000;
+    color: rgba(0, 0, 0, 0.2);
     font-size: 14px;
-    line-height: 2.86;
 }
 
 .snutt__inputWrapper input:focus {
-    border-bottom: solid 1px #b7c3ce
+    border-bottom: solid 1px #b7c3ce;
+    color: #000000;
 }
 
 .snutt__inputWrapper::-webkit-input-placeholder {
@@ -73,8 +73,10 @@
     border: none;
     width: 100%;
     margin-top: 10px;
+    height: 34px;
     font-size: 13px;
     background-color: transparent;
+    opacity: 1;
 }
 .snutt__login .btn.login { 
     color: white;
@@ -88,22 +90,25 @@
     color: #000000;
     opacity: 0.6;
 }
-
+.snutt__login .btn.signup { 
+    color: white;
+    background-color: #1bd0c9; 
+    margin-top: 30px;
+}
 .snutt__login i.fa-facebook {
     margin-right: 4px;
 }
 
 
 // For signup - Valid or invalid should be shown after input is done
-.snutt__inputError { opacity: 0; }
+.snutt__inputError { display: none; }
 .invalid:not(:focus) { border-bottom-color: #D13D37; }
 .invalid:not(:focus)~.snutt__inputError {
     color: #D13D37;
-    opacity: 1;
+    display: initial;
 }
 .valid:not(:focus) { border-bottom-color: green; }
 .valid:not(:focus)+.snutt__labelWrapper { color: green; }
-.snutt__login .btn.signup { background-color: #5cb85c; }
 
 // For myPage.jsx
 .snutt__setting.container {

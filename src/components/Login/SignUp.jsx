@@ -91,16 +91,17 @@ class SignUp extends Component {
               isValid={passAgainValid}
               errorMessage='비밀번호를 다시 확인해주세요'
             />
-            <div className='error'>
-              {user.errorType == 'register' ? user.message: <br />}
-            </div>
+            {
+              user.errorType ? <div className='error'>{user.message}</div> :
+                null
+            }
             <div className='buttons-wrapper'>
               <button
                 className='btn signup'
                 type='submit'
                 disabled={!canRegister}
               >
-                회원가입
+                가입하기
               </button>
             </div>
           </form>
