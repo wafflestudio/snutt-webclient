@@ -63,9 +63,8 @@ class SignUp extends Component {
     const { id, pass, passAgain, idValid, passValid, passAgainValid } = this.state
     const canRegister = idValid && passValid && passAgainValid
     return (
-      <div className='container'>
-        <div className='col-md-4 col-md-offset-4'>
-          <form className='snutt__login' onSubmit={this.handleRegister}>
+      <div className='snutt__login'>
+          <form onSubmit={this.handleRegister}>
             <h2>회원가입</h2>
             <RuledInput
               type='id'
@@ -105,7 +104,6 @@ class SignUp extends Component {
               </button>
             </div>
           </form>
-        </div>
       </div>
     )
   }

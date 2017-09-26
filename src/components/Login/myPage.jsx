@@ -73,7 +73,7 @@ class MyPage extends Component {
     const { info } = this.props;
     if (info.local_id) {  // User had id and password
       return (
-        <div>
+        <div className="snutt__setting">
           <form onSubmit={this.handlePasswordChange}>
             <div id="local-id">
               SNUTT 아이디는 <strong>{info.local_id}</strong>입니다 :)
@@ -81,14 +81,14 @@ class MyPage extends Component {
             <input
               className="form-control"
               type="password"
-              placeholder="기존 비밀번호를 입력해주세요"
+              placeholder="현재 비밀번호"
               ref={(oldPass) => { this.oldPass = oldPass; }}
               required
             />
             <input
               className="form-control"
               type="password"
-              placeholder="새 비밀번호를 입력해주세요"
+              placeholder="새 비밀번호"
               ref={(newPass) => { this.newPass = newPass; }}
               required
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
@@ -97,16 +97,16 @@ class MyPage extends Component {
             <input
               className="form-control"
               type="password"
-              placeholder="새 비밀번호를 다시 입력해주세요"
+              placeholder="새 비밀번호 확인"
               ref={(newPassConfirm) => { this.newPassConfirm = newPassConfirm; }}
               required
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
               title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
             />
             <input
-              className="btn btn-success"
+              className="btn passchange"
               type="submit"
-              value="비밀번호 바꾸기"
+              value="변경하기"
             />
           </form>
         </div>
@@ -122,7 +122,7 @@ class MyPage extends Component {
             required
             title="아이디는 4자 이상 32자 이하의 영소문자와 숫자로 만들어주세요"
             className="form-control"
-            placeholder="아이디를 만들어주세요"
+            placeholder="아이디"
           />
           <input
             className="form-control"
@@ -131,7 +131,7 @@ class MyPage extends Component {
             pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
             required
             title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-            placeholder="비밀번호를 입력해주세요"
+            placeholder="비밀번호"
           />
           <input
             type="password"
@@ -140,10 +140,10 @@ class MyPage extends Component {
             required
             title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
             className="form-control"
-            placeholder="비밀번호를 다시 입력해주세요"
+            placeholder="비밀번호 확인"
           />
           <input
-            className="btn btn-success"
+            className="btn passchange"
             type="submit"
             value="아이디/비밀번호 만들기"
           />
@@ -157,7 +157,7 @@ class MyPage extends Component {
     if (info.fb_name) {
       return (
         <button
-          className="btn btn-warning"
+          className="btn login-fb"
           onClick={this.handleFacebookDetach}
         >
           페이스북 연동 해지하기
@@ -170,52 +170,56 @@ class MyPage extends Component {
         autoload
         callback={this.handleFacebookAttach}
         cssClass="btn login-fb"
-        icon="fa-facebook"
+        textButton="페이스북 연동하기"
       />
     );
   }
 
   render() {
     return (
-      <div className="container snutt__setting">
+      <div className="snutt__setting">
         <div className="row">
-          <div className="col-md-6 col-md-offset-3">
-            <div className="form-horizontal">
-              <div className="form-group">
-                <label className="col-sm-4">로그아웃</label>
-                <div className="col-sm-8">
-                  <button
-                    className="btn btn-default"
-                    onClick={this.handleLogout}
-                  >
-                    로그아웃 하기
-                  </button>
-                </div>
+          <div className="form-horizontal">
+            <h2>내 정보</h2>
+            <div className="form-group">
+              <label className="col-xs-4">이메일</label>
+              <div className="col-xs-8">
+                <span id="email-text">sample@snutt.kr</span>
               </div>
-              <br />
-              <div className="form-group new-password">
-                <label className="col-sm-4">{'아이디/비밀번호 관리'}</label>
-                <div className="col-sm-6">
-                  {this.renderLocalAccountManager()}
-                </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">비밀번호 관리</label>
+              <div className="col-xs-8">
+                {this.renderLocalAccountManager()}
               </div>
-              <br />
-              <div className="form-group">
-                <label className="col-sm-4">페이스북 연동</label>
-                <div className="col-sm-6">
-                  {this.renderFacebookManager()}
-                </div>
+            </div>
+            <br />
+            <div className="form-group">
+              <label className="col-xs-4">페이스북</label>
+              <div className="col-xs-8">
+                {this.renderFacebookManager()}
               </div>
-              <div className="form-group">
-                <label className="col-sm-4">회원 탈퇴</label>
-                <div className="col-sm-8">
-                  <button
-                    className="btn btn-danger"
-                    onClick={this.handleDelete}
-                  >
-                    계정 삭제
-                  </button>
-                </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">로그아웃</label>
+              <div className="col-xs-8">
+                <button
+                  className="btn logout"
+                  onClick={this.handleLogout}
+                >
+                  로그아웃하기
+                </button>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">회원 탈퇴</label>
+              <div className="col-xs-8">
+                <button
+                  className="btn withdrawl"
+                  onClick={this.handleDelete}
+                >
+                  탈퇴하기
+                </button>
               </div>
             </div>
           </div>
