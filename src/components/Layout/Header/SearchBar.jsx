@@ -43,7 +43,7 @@ class SearchBar extends Component {
     const { filterOn, toggleFilter } = this.props;
     return (
       <div id="searchbar-wrapper">
-        <form id="query">
+        <form id="query" onSubmit={this.handleQuery}>
           <input
             value={this.state.text}
             placeholder={`원하는 강의를 검색하세요. ${formatLastUpdate(this.props.currentBook)}`}

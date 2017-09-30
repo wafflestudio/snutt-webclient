@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { switchTable, createTable, deleteTable, updateTitle } from '../../../actions/tableActions';
-import AddIcon from '../../../../assets/ic-tab-add.svg';
+import AddIcon from '../../../../assets/ic-addtab-normal.svg';
 
 function mapStateToProps(state) {
   const { viewTableId, viewTableTabList } = state.tableList;
@@ -104,16 +104,8 @@ class TimetableTabs extends Component {
     buttons.push(
       <li className="tab-icon" key={-1}>
         <AddIcon onClick={this.handleAdd} />
-      </li>);
-    // buttons.push(
-    //   <li
-    //     className="tab-button"
-    //     key={-1}
-    //     onClick={this.handleAdd}
-    //   >
-    //     <AddIcon />
-    //   </li>,
-    // );
+      </li>,
+    );
     return (
       <ul className="tab-list">
         {buttons}

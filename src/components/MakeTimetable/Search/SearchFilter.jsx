@@ -5,17 +5,17 @@ import Modal from 'react-modal';
 
 import DepartmentForm from './DepartmentForm.jsx';
 import TimeQuery from './TimeQuery.jsx';
-import { complement } from './TimeQuery.jsx';
 import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
 
-import { addQuery, removeQuery, resetQuery, updateQuery, toggleUseTime, selectTimeMode, toggleTimeselect } from '../../../actions';
+import { addQuery, removeQuery, resetQuery, toggleUseTime, selectTimeMode } from '../../../actions';
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options';
 
 const EMPTY_MASK = Immutable.List([0, 0, 0, 0, 0, 0, 0]);
 
 function mapStateToProps(state) {
-  const { tableList: { currentId, tableMap }, query, filter: { time: selectingTime, useTime, selectTime } } = state;
+  const { tableList: { currentId, tableMap }, query,
+    filter: { time: selectingTime, useTime, selectTime } } = state;
   const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list;
   // Deduct 7 because empty timemasks's count is 7
   let activeFieldCounts = query.valueSeq().reduce((prev, current) => prev + current.count(), 0) - 7;
