@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 import * as types from './actionTypes';
 import { apiKey, baseUrl } from '../samples/sampleKey.js';
-import colorList from '../utils/colorList';
+import { complement } from '../components/MakeTimetable/Search/TimeQuery.jsx';
 
 export function hoverCourse(course) {
   return { type: types.HOVER_COURSE, course };
@@ -37,7 +37,7 @@ export function resetQuery() {
 
 export function runQuery(textQuery) {
   return (dispatch, getState) => {
-    const { courseBook, query } = getState();
+    const { courseBook, query, filter: { useTime, selectTime }, viewLectures } = getState();
     const { currentBook: { year, semester } } = courseBook.get('current');
     const queries = query.toJS();
 
@@ -50,8 +50,16 @@ export function runQuery(textQuery) {
         validQuery[key] = value;
       }
     }
-    if (validQuery.time_mask.filter(mask => mask !== 0).length === 0) {
+
+    // Handle times
+    if (!useTime) {
       delete validQuery.time_mask;
+    } else if (!selectTime) { // use free time as query
+      const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);
+      const invertedMasks = complement(currentMasks);
+      validQuery.time_mask = invertedMasks;
+    } else {
+      // Time selector already updated time_mask
     }
     dispatch(sendQuery(validQuery));
   };
@@ -109,6 +117,10 @@ export function toggleSearchPanel() {
 export function toggleTimeselect() {
   return { type: types.TOGGLE_TIMESELECT };
 }
+
+export const toggleTimeselectButton = () => ({ type: types.TOGGLE_TIMESELECTBUTTON });
+export const toggleUseTime = () => ({ type: types.TOGGLE_USETIME });
+export const selectTimeMode = mode => ({ type: types.SELECT_TIMEMODE, mode });
 
 export function toggleModal() {
   return { type: types.TOGGLE_MODAL };

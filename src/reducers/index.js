@@ -90,13 +90,26 @@ function isQuerying(state = false, action) {
   }
 }
 
-function filter(state = { panel: false, time: false }, action) {
-  const { panel, time } = state;
+
+function filter(state = {
+  panel: false, panelButton: false, time: false, useTime: false, selectTime: false,
+}, action) {
+  /**
+   * useTime: whether to use time query or not
+   * selectTime: If true, use selected range of time for query. If false, use empty slots as query
+   */
+  const { panel, panelButton, time, useTime } = state;
   switch (action.type) {
     case types.TOGGLE_SEARCHPANEL:
       return { panel: !panel, time: false };
     case types.TOGGLE_TIMESELECT:
       return { panel, time: !time };
+    case types.TOGGLE_TIMESELECTBUTTON:
+      return { panel, time, panelButton: !panelButton };
+    case types.TOGGLE_USETIME:
+      return { ...state, useTime: !useTime };
+    case types.SELECT_TIMEMODE:
+      return { ...state, selectTime: action.mode };
     case types.SHOW_RESULT:
       return { panel: false, time: false };
     default:

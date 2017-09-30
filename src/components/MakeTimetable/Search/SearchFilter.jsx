@@ -8,21 +8,21 @@ import TimeQuery from './TimeQuery.jsx';
 import { complement } from './TimeQuery.jsx';
 import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
 
-import { addQuery, removeQuery, resetQuery, updateQuery, toggleTimeselect } from '../../../actions';
+import { addQuery, removeQuery, resetQuery, updateQuery, toggleUseTime, selectTimeMode, toggleTimeselect } from '../../../actions';
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options';
 
 const EMPTY_MASK = Immutable.List([0, 0, 0, 0, 0, 0, 0]);
 
 function mapStateToProps(state) {
-  const { tableList: { currentId, tableMap }, query, filter: { time: selectingTime } } = state;
+  const { tableList: { currentId, tableMap }, query, filter: { time: selectingTime, useTime, selectTime } } = state;
   const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list;
   // Deduct 7 because empty timemasks's count is 7
   let activeFieldCounts = query.valueSeq().reduce((prev, current) => prev + current.count(), 0) - 7;
   if (!query.get('time_mask').equals(EMPTY_MASK)) {
     activeFieldCounts += 1;
   }
-  return { query, activeFieldCounts, currentLectures, selectingTime };
+  return { query, activeFieldCounts, currentLectures, selectingTime, useTime, selectTime };
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -34,16 +34,9 @@ const mapDispatchToProps = dispatch => ({
       dispatch(addQuery(name, value));
     }
   },
-  toggleFreetimeOnly: (currentLectures, currentOption) => {
-    if (currentOption) { // On -> Off
-      dispatch(updateQuery('time_mask', () => EMPTY_MASK));
-    } else { // Off -> On
-      const masks = currentLectures.map(val => val.class_time_mask);
-      const invertedMasks = complement(masks);
-      dispatch(updateQuery('time_mask', () => Immutable.List(invertedMasks)));
-    }
-  },
-  toggleTimeselect: () => dispatch(toggleTimeselect()),
+  toggleUseTime: () => dispatch(toggleUseTime()),
+  searchEmptySlot: () => dispatch(selectTimeMode(false)),
+  searchSelectedSlot: () => dispatch(selectTimeMode(true)),
 });
 
 class SearchFilter extends Component {
@@ -97,6 +90,7 @@ class SearchFilter extends Component {
   }
 
   renderTimeSelect() {
+    const { useTime, selectTime } = this.props;
     return (
       <div className="form-group">
         <label className="col-md-2 control-label">시간대 검색</label>
@@ -104,21 +98,31 @@ class SearchFilter extends Component {
           <label className="checkbox-inline">
             <input
               type="checkbox"
-              onClick={this.freeslotsOnly}
-              checked={this.state.freeslotsOnly}
+              onClick={this.props.toggleUseTime}
+              value={useTime}
             />
-            <div><span>빈 시간만 검색하기</span></div>
+            <div><span>시간대 검색</span></div>
           </label>
-          <label className="checkbox-inline">
+          <label className="radio-inline">
             <input
-              type="checkbox"
-              onClick={this.freeslotsOnly}
-              checked={false}
+              type="radio"
+              onClick={() => this.props.searchEmptySlot(currentLectures)}
+              checked={!selectTime}
+              disabled={!useTime}
+            />
+            <div><span>빈 시간대만 검색하기</span></div>
+          </label>
+          <label className="radio-inline">
+            <input
+              type="radio"
+              onClick={() => this.props.searchSelectedSlot()}
+              checked={selectTime}
+              disabled={!useTime}
             />
             <div><span>시간대 직접 선택하기</span></div>
           </label>
           <div
-            className="open-timeselector"
+            className={`open-timeselector ${useTime && selectTime ? 'enabled' : ''}`}
             onClick={this.toggleTimeselect}
           >
             선택창 열기
