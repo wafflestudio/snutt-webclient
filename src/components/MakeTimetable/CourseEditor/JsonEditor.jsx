@@ -35,21 +35,24 @@ class ClassTimeRow extends PureRenderComponent {
     return (
       <div className='snutt__json_row'>
         <select className='day' value={day} onChange={this.updateDay}>
+          <option value='-1' disabled>요일</option>
           {daysKorean.map((day, index) =>
             <option key={index} value={index}>{day}</option>
           )}
         </select>
         <select className='start' value={start} onChange={this.updateStart}>
+          <option value='-1' disabled>시작</option>
           {hhmms.map((hhmm, index) =>
             <option key={index} value={index/2}>{hhmm}</option>
           )}
         </select>
         <select className='len' value={len} onChange={this.updateLen}>
+          <option value='-1' disabled>마침</option>
           {[...Array(10).keys()].map((val, index) =>
             <option key={index} value={index / 2}>{index/2}</option>
           )}
         </select>
-        <input className='place' value={place} onChange={this.updatePlace} type='text' />
+        <input className='place' value={place} onChange={this.updatePlace} type='text' placeholder='(장소)'/>
         <span className="glyphicon glyphicon-remove" onClick={this.deleteThisRow}></span>
       </div>
     )
@@ -67,7 +70,7 @@ class JsonEditor extends PureRenderComponent {
   addRow(e) {
     e.preventDefault()
     const { class_time_json, updateJson } = this.props
-    const newRow = { day: 2, start: 9, len: 1.5, place: '강의실' }
+    const newRow = { day: -1, start: -1, len: -1, place: '장소' }
     const addedJson = update(class_time_json, {$push: [newRow]})
     updateJson(addedJson)
   }

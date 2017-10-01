@@ -97,6 +97,7 @@ class CourseEditor extends PureRenderComponent {
   render() {
     const { color, bgColor, class_time_json, isNew } = this.state
     const title = isNew ? '내 강의 추가' : '강의 편집'
+    const submitName = isNew ? '추가하기' : '저장하기'
     return (
       <Modal
         isOpen={true}
@@ -139,21 +140,16 @@ class CourseEditor extends PureRenderComponent {
             </div>
           </div>
           <hr />
-          <div className='form-group'>
-            <div className='col-sm-offset-2 col-sm-7'>
-              <p>
-                <button
-                    className='btn btn-default'
-                    onClick={this.handleClose}
-                  >
-                  취소
-                </button>
-                {' '}
-                <button type='submit' className='btn btn-primary'>
-                  추가하기
-                </button>
-              </p>
-            </div>
+          <div className='button-groups'>
+            <button
+                className='btn btn-default'
+                onClick={this.handleClose}
+              >
+              취소
+            </button>
+            <button type='submit' className='btn btn-primary'>
+              {submitName}
+            </button>
           </div>
         </form>
       </Modal>

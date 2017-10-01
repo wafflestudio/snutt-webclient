@@ -30,8 +30,9 @@ input:focus {
   box-shadow: none!important;
   border-color: #b7c3ce!important;
 }
+
 input[type='text']::placeholder {
-  opacity: 0.2;
+  opacity: 0.2!important;
 }
 // At SPA, there's no page change, so focus when clicked is preserved :(
 .navbar-nav>li>a:focus { color: white!important }

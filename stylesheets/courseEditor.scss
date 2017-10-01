@@ -45,7 +45,33 @@
     font-weight: normal;
 }
 
+.snutt__course-editor .button-groups {
+    text-align: right;
+}
+
+.snutt__course-editor .btn {
+    height: 34px;
+    margin-left: 8px;
+    padding: 8px 18px;
+    line-height: 18px;
+    border-radius: 17px;
+    font-size: 13px;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.snutt__course-editor .btn-default {
+    border-color: #b7c3ce;
+}
+
+.snutt__course-editor .btn-primary {
+    border-color: #1bd0c9;
+    background-color: #1bd0c9;
+    color: white;
+}
+
 .snutt__json_container #add-row {
+    height: 34px;
     padding: 3px 11px;
     border-radius: 17px;
     border: solid 1px #b7c3ce;
@@ -59,21 +85,23 @@
 
 .snutt__json_row select {
     color: black;
-    margin-right: 3px;
+    margin-right: 10px;
     border: none;
     height: 25px;
     padding: 2px;
+    background-color: white;
+    border-bottom: 1px solid #ebeef2;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0 0 6px 0;
+    opacity: 0.2;
 }
 
 .snutt__json_row input {
+    @include unselectable;
     color: black;
     width: 105px;
-}
-
-
-
-.circle-wrapper {
-
 }
 
 .circle-wrapper .color-circle {
