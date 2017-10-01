@@ -49,7 +49,7 @@ class ClassTimeRow extends PureRenderComponent {
             <option key={index} value={index / 2}>{index/2}</option>
           )}
         </select>
-        <input className='place' value={place} onChange={this.updatePlace} />
+        <input className='place' value={place} onChange={this.updatePlace} type='text' />
         <span className="glyphicon glyphicon-remove" onClick={this.deleteThisRow}></span>
       </div>
     )
@@ -64,7 +64,8 @@ class JsonEditor extends PureRenderComponent {
     this.updateRow = this.updateRow.bind(this)
   }
 
-  addRow() {
+  addRow(e) {
+    e.preventDefault()
     const { class_time_json, updateJson } = this.props
     const newRow = { day: 2, start: 9, len: 1.5, place: '강의실' }
     const addedJson = update(class_time_json, {$push: [newRow]})
@@ -95,7 +96,7 @@ class JsonEditor extends PureRenderComponent {
             deleteRow={this.deleteRow}
           />
         )}
-        <span id='btn-plus' className="glyphicon glyphicon-plus" onClick={this.addRow}></span>
+        <button id="add-row" className='btn btn-default' onClick={this.addRow}>시간 추가</button>
       </div>
     )
   }

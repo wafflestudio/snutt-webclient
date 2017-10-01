@@ -30,7 +30,7 @@ class CourseEditor extends PureRenderComponent {
 
     const { course } = props
     const colorIndex = (course.colorIndex > 0 || course.color) ? course.colorIndex : Math.ceil(Math.random() * props.colorScheme.length)
-    const color = (colorIndex > 0) ? props.colorScheme[colorIndex-1] : course.color; 
+    const color = (colorIndex > 0) ? props.colorScheme[colorIndex-1] : course.color;
     this.state = {
       isNew: Object.keys(course).length === 0,
       _id: course._id || '', // || for new course
@@ -77,7 +77,7 @@ class CourseEditor extends PureRenderComponent {
     this.setState({ [field]: e.target.value })
   }
 
-  renderInput(field, key) {
+  renderInput(field, key, placeholder) {
     return (
       <div className='form-group'>
         <label className='col-sm-2 control-label'>{field}</label>
@@ -86,6 +86,8 @@ class CourseEditor extends PureRenderComponent {
             className='form-control'
             value={this.state[key]}
             onChange={this.handleChange.bind(this, key)}
+            placeholder={placeholder}
+            type="text"
           />
         </div>
       </div>
@@ -104,42 +106,51 @@ class CourseEditor extends PureRenderComponent {
         portalClassName='snutt__course-editor'
         contentLabel="Lecture Edit Modal"
         style={{ content: {
-          backgroundColor: this.state.color.bg,
-          color: this.state.color.fg
+          'border': `1px solid ${this.state.color.bg}`
         }}}
       >
-        <h3>{title}</h3>
-        <ColorPicker
-          color={this.state.color.bg}
-          onChange={this.handleColorSelect}
-        />
+        <p id='title'><strong>{title}</strong></p>
+        <hr />
         <form
           className='form-horizontal'
           onSubmit={this.handleSave}
         >
-          {this.renderInput('제목', 'course_title')}
-          {this.renderInput('선생님', 'instructor')}
+          {this.renderInput('강의명', 'course_title', '예) 기초 영어')}
+          {this.renderInput('선생님', 'instructor', '예) 홍길동')}
+          {/* Color Picker */}
+          <div className='form-group'>
+            <label className='col-sm-2 control-label'>색</label>
+            <div className='col-sm-8'>
+              <ColorPicker
+                currentColor={this.state.color.bg}
+                onChange={this.handleColorSelect}
+              />
+            </div>
+          </div>
+
+          {this.renderInput('비고', 'remark', '(없음)')}
           <div className='form-group'>
             <label className='col-sm-2 control-label'>시간</label>
-            <div className='col-sm-7'>
+            <div className='col-sm-10'>
               <JsonEditor
                 updateJson={this.handleJsonUpdate}
                 class_time_json={this.state.class_time_json}
               />
             </div>
           </div>
-          {this.renderInput('비고', 'remark')}
+          <hr />
           <div className='form-group'>
             <div className='col-sm-offset-2 col-sm-7'>
               <p>
-                <button type='submit' className='btn btn-primary'>
-                  확인
-                </button> {' '}
                 <button
-                  className='btn btn-default'
-                  onClick={this.handleClose}
-                >
+                    className='btn btn-default'
+                    onClick={this.handleClose}
+                  >
                   취소
+                </button>
+                {' '}
+                <button type='submit' className='btn btn-primary'>
+                  추가하기
                 </button>
               </p>
             </div>

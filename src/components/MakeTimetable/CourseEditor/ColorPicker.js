@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+const color2name = {
+  '#e54459': '석류',
+  '#f58d3d': '감귤',
+  '#fac52d': '들국',
+  '#a6d930': '완두',
+  '#2bc366': '비취',
+  '#1bd0c9': '지중해',
+  '#1d99e9': '하늘',
+  '#4f48c4': '라벤더',
+  '#af56b3': '자수정',
+};
+
 const mapStateToProps = (state) => {
   const { colorScheme } = state.tableList;
   return { colorScheme };
 };
 
 class ColorPicker extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.handleSelect = this.handleSelect.bind(this);
-    this.state = {
-      color: props.color,
-    };
   }
 
   handleSelect(newColor, e) {
@@ -27,6 +36,7 @@ class ColorPicker extends Component {
         {this.props.colorScheme.map((c, i) => (
           <Circle
             color={c}
+            isSelected={c.bg == this.props.currentColor}
             colorIndex={i + 1}
             key={i}
             onClick={this.handleSelect}
@@ -38,10 +48,11 @@ class ColorPicker extends Component {
 }
 
 const Circle = (props) => {
-  const { color, colorIndex, onClick } = props;
+  const { color, colorIndex, isSelected, onClick } = props;
   const style = {
-    backgroundColor: color.bg,
-    color: color.fg,
+    backgroundColor: isSelected ? color.bg : 'white',
+    borderColor: color.bg,
+    color: isSelected ? color.fg : color.bg,
   };
   return (
     <div
@@ -49,7 +60,7 @@ const Circle = (props) => {
       onClick={onClick.bind(this, { color, colorIndex })}
       style={style}
     >
-      <span>Aa</span>
+      <span>{color2name[color.bg]}</span>
     </div>
   );
 };

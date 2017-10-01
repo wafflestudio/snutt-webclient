@@ -6,6 +6,8 @@ import ResultTable from './ResultTable';
 import TimetableTabs from './Timetable/TimetableTabs.jsx';
 import Timetable from './Timetable';
 
+const mapStateToProps = ({ courseEditor }) => ({ courseEditorOpen: courseEditor.isOpen });
+
 class MakeTimeTable extends Component {
   constructor() {
     super();
@@ -13,7 +15,6 @@ class MakeTimeTable extends Component {
 
   componentWillMount() {
     CourseEditorLoader().then((loaded) => {
-      console.log('course editor loaded');
       this.CourseEditor = loaded.CourseEditor.default;
       this.forceUpdate();
     });
@@ -37,14 +38,6 @@ class MakeTimeTable extends Component {
       </div>
     );
   }
-}
-
-function mapStateToProps(state) {
-  const { courseEditor } = state;
-
-  return {
-    courseEditorOpen: courseEditor.isOpen,
-  };
 }
 
 export default connect(mapStateToProps)(MakeTimeTable);

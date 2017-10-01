@@ -5,32 +5,51 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.05);
     padding-top: 30px; //Because of top-bar
 }
 
 .snutt__modal {
     width: 550px;
-    padding: 5px 20px;
+    padding: 21px 35px;
     transform: translate(-50%, -50%);
     position: absolute;
     top: 50%;
     left: 50%;
     outline: none;
+    background-color: white;
+    border-radius: 21px;
 }
 
-.snutt__modal input {
+.snutt__course-editor input {
     border-radius: 0;
     padding-left: 6px;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ebeef2;
 }
 
-.snutt__json_container .glyphicon {
-    font-size: 17px;
-    padding: 3px;
+.snutt__course-editor #title { margin: 0; }
+
+.snutt__course-editor hr {
+    width: 100%;
+    margin: 16px 0;
+    height: 1px;
+    background-color: #d5dbe0;
+    border: none;
 }
 
-.snutt__json_container #btn-plus {
-    left: 40%;
+.snutt__course-editor .control-label {
+    text-align: left;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.snutt__json_container #add-row {
+    padding: 3px 11px;
+    border-radius: 17px;
+    border: solid 1px #b7c3ce;
+    opacity: 0.6;
 }
 
 .snutt__json_row {
@@ -51,27 +70,21 @@
     width: 105px;
 }
 
-.snutt__json_row .glyphicon {
-    display: table-cell;
-    vertical-align: middle;
-}
+
 
 .circle-wrapper {
-    position: absolute;
-    right: 10px;
-    width: 80px;
+
 }
 
 .circle-wrapper .color-circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 20%;
+    padding: 3px 10px;
+    height: 24px;
+    border-radius: 17px;
     text-align: center;
-    vertical-align: middle;
-    margin: 5px;
+    margin: 0 5px 9px 0;
     float: left;
-}
-
-.circle-wrapper span {
-    line-height: 30px
+    cursor: pointer;
+    font-size: 11px;
+    background-color: white;
+    border: 1px solid;
 }
