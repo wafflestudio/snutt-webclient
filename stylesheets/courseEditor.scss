@@ -98,6 +98,49 @@
     opacity: 0.2;
 }
 
+.snutt__json_row .snutt__select {
+    display: inline-block;
+    margin-right: 10px;
+    color: rgba(0, 0, 0, 0.2);
+    height: 25px;
+    border-bottom: 1px solid #ebeef2;
+    padding: 2px;
+}
+
+
+
+.snutt__json_row .snutt__options {
+    margin-bottom: 5px;
+    color: #3a4147;
+}
+.snutt__json_row .snutt__options.is-focused {
+    color: #0da39d;
+}
+
+.snutt__json_row .Select-menu-outer {
+    border: solid 1px #b7c3ce;
+    border-radius: 14px;
+    padding: 8px 16px;
+    position: absolute;
+    z-index: 20;
+    background-color: white;
+}
+
+.snutt__json-row .Select-menu {
+    cursor: pointer;
+}
+
+.snutt__json_row .Select-placeholder {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.snutt__json_row .Select-value {
+    color: rgba(0, 0, 0, 0.2);
+    display: inline;
+    margin-right: 10px;
+}
+
 .snutt__json_row input {
     @include unselectable;
     color: black;

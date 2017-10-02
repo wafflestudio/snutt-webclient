@@ -2,7 +2,14 @@ import React from 'react'
 import PureRenderComponent from '../../PureRenderComponent.jsx'
 import update from 'react-addons-update'
 
-const daysKorean = ['월', '화', '수', '목', '금', '토', '일']
+import Select from 'react-select';
+
+import ArrowUp from '../../../../assets/ic-arrow-up-normal.svg'
+import ArrowDown from '../../../../assets/ic-arrow-down-normal.svg'
+
+const daysKorean = ['월', '화', '수', '목', '금', '토', '일'].map(name =>
+  ({ value: name, label: name, className: 'snutt__options' })
+)
 const times = [...Array(29).keys()].map(v => v / 2) // 0, 0.5, 1 .... 14.5
 const hhmms = times.map(gyosi => {
   const hh = Math.floor(gyosi) + 8
@@ -22,11 +29,19 @@ class ClassTimeRow extends PureRenderComponent {
 
   // Anyone who knows how to skip functions below without binding in render(),
   // please tell me via comment ㅜㅜ
-  updateDay = e => this.props.updateRow(this.props.index, 'day', e.target.value)
+  // updateDay = e => this.props.updateRow(this.props.index, 'day', e.target.value)
+  updateDay = v => this.props.updateRow(this.props.index, 'day', v)
   updateStart = e => this.props.updateRow(this.props.index, 'start', e.target.value)
   updateLen = e => this.props.updateRow(this.props.index, 'len', e.target.value)
   updatePlace = e => this.props.updateRow(this.props.index, 'place', e.target.value)
   deleteThisRow = e => { e.preventDefault; this.props.deleteRow(this.props.index) }
+
+  arrowRenderer = ({onMouseDown, isOpen}) => {
+    if (isOpen)
+      return <ArrowUp />
+    else
+      return <ArrowDown />
+  }
 
   render() {
     const { day, start, len, place, updateRow } = this.props
@@ -34,12 +49,23 @@ class ClassTimeRow extends PureRenderComponent {
 
     return (
       <div className='snutt__json_row'>
-        <select className='day' value={day} onChange={this.updateDay}>
+        <Select
+          className="snutt__select"
+          name="day-selector"
+          value={day}
+          options={daysKorean}
+          onChange={this.updateDay}
+          searchable={false}
+          clearable={false}
+          placeholder="요일"
+          arrowRenderer={this.arrowRenderer}
+        />
+        {/* <select className='day' value={day} onChange={this.updateDay}>
           <option value='-1' disabled>요일</option>
           {daysKorean.map((day, index) =>
             <option key={index} value={index}>{day}</option>
           )}
-        </select>
+        </select> */}
         <select className='start' value={start} onChange={this.updateStart}>
           <option value='-1' disabled>시작</option>
           {hhmms.map((hhmm, index) =>
@@ -70,7 +96,7 @@ class JsonEditor extends PureRenderComponent {
   addRow(e) {
     e.preventDefault()
     const { class_time_json, updateJson } = this.props
-    const newRow = { day: -1, start: -1, len: -1, place: '장소' }
+    const newRow = { day: undefined, start: -1, len: -1, place: '장소' }
     const addedJson = update(class_time_json, {$push: [newRow]})
     updateJson(addedJson)
   }
