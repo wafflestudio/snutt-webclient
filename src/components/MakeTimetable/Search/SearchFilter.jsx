@@ -106,7 +106,7 @@ class SearchFilter extends Component {
           <label className="radio-inline">
             <input
               type="radio"
-              onClick={() => this.props.searchEmptySlot(currentLectures)}
+              onClick={() => this.props.searchEmptySlot()}
               checked={!selectTime}
               disabled={!useTime}
             />
@@ -121,12 +121,14 @@ class SearchFilter extends Component {
             />
             <div><span>시간대 직접 선택하기</span></div>
           </label>
-          <div
-            className={`open-timeselector ${useTime && selectTime ? 'enabled' : ''}`}
-            onClick={this.toggleTimeselect}
-          >
-            선택창 열기
-           </div>
+          <div className="timeselector-wrapper">
+            <div
+              className={`open-timeselector ${useTime && selectTime ? 'enabled' : ''}`}
+              onClick={this.toggleTimeselect}
+            >
+              선택창 열기
+            </div>
+          </div>
         </div>
       </div>
     );

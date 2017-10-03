@@ -74,7 +74,6 @@
 #searchbar-wrapper #query {
   width: 70%;
   height: 20px;
-  opacity: 0.2;
   margin: 10px 0 0 20px;
   float: left;
 }
@@ -83,6 +82,10 @@
   padding: 0;
   border: none;
   width: 100%;
+}
+
+#searchbar-wrapper #query input::-webkit-input-placeholder {
+  opacity: 0.2;
 }
 
 @media (max-width: 1200px) {

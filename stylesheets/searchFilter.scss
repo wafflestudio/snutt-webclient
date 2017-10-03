@@ -59,6 +59,8 @@
 .searchpanel-wrapper .checkbox-inline {
   margin: 0 10px 6px 0;
   user-select: none;
+  padding-left: 0;
+  padding-right: 20px;
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -67,15 +69,15 @@
 
 .searchpanel-wrapper .radio-inline {
   display: inline-block;
-  padding-top: 0;
+  padding-top: 17px;
   margin-top: -12px;
-  margin-left: 10px;
 }
 
 @media(max-width: 750px) {
   .searchpanel-wrapper .radio-inline {
     display: block;
     margin-top: 6px;
+    padding-top: 0px;
   }
   .searchpanel-wrapper .radio-inline:nth-child(3) {
     margin-left: 0;
@@ -165,6 +167,12 @@
 
 .searchpanel-wrapper .tag-selected span {
   margin-right: 5px;
+}
+
+.searchpanel-wrapper .timeselector-wrapper {
+  padding-left: 10px;
+  vertical-align: sub;
+  display: inline-block;
 }
 
 .searchpanel-wrapper .open-timeselector {
