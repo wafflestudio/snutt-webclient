@@ -15,7 +15,11 @@ const hhmms = times.map(gyosi => {
   const hh = Math.floor(gyosi) + 8
   const mm = (gyosi % 1) === 0.5 ? '30' : '00'
   return `${hh}:${mm}`
-})
+}).map((hhmm, index) => ({ value: index / 2, label: hhmm, className: 'snutt__options' }))
+
+const lectureLengths = [...Array(10).keys()].map((len, index) =>
+  ({ value: index / 2, label: len, className: 'snutt__options' })
+)
 
 class ClassTimeRow extends PureRenderComponent {
   constructor(props) {
@@ -31,17 +35,12 @@ class ClassTimeRow extends PureRenderComponent {
   // please tell me via comment ㅜㅜ
   // updateDay = e => this.props.updateRow(this.props.index, 'day', e.target.value)
   updateDay = v => this.props.updateRow(this.props.index, 'day', v)
-  updateStart = e => this.props.updateRow(this.props.index, 'start', e.target.value)
-  updateLen = e => this.props.updateRow(this.props.index, 'len', e.target.value)
+  updateStart = v => this.props.updateRow(this.props.index, 'start', v)
+  updateLen = v => this.props.updateRow(this.props.index, 'len', v)
   updatePlace = e => this.props.updateRow(this.props.index, 'place', e.target.value)
   deleteThisRow = e => { e.preventDefault; this.props.deleteRow(this.props.index) }
 
-  arrowRenderer = ({onMouseDown, isOpen}) => {
-    if (isOpen)
-      return <ArrowUp />
-    else
-      return <ArrowDown />
-  }
+  arrowRenderer = ({onMouseDown, isOpen}) => (isOpen ? <ArrowUp /> : <ArrowDown />)
 
   render() {
     const { day, start, len, place, updateRow } = this.props
@@ -60,24 +59,28 @@ class ClassTimeRow extends PureRenderComponent {
           placeholder="요일"
           arrowRenderer={this.arrowRenderer}
         />
-        {/* <select className='day' value={day} onChange={this.updateDay}>
-          <option value='-1' disabled>요일</option>
-          {daysKorean.map((day, index) =>
-            <option key={index} value={index}>{day}</option>
-          )}
-        </select> */}
-        <select className='start' value={start} onChange={this.updateStart}>
-          <option value='-1' disabled>시작</option>
-          {hhmms.map((hhmm, index) =>
-            <option key={index} value={index/2}>{hhmm}</option>
-          )}
-        </select>
-        <select className='len' value={len} onChange={this.updateLen}>
-          <option value='-1' disabled>마침</option>
-          {[...Array(10).keys()].map((val, index) =>
-            <option key={index} value={index / 2}>{index/2}</option>
-          )}
-        </select>
+        <Select
+          className="snutt__select"
+          name="start-selector"
+          value={start}
+          options={hhmms}
+          onChange={this.updateStart}
+          searchable={false}
+          clearable={false}
+          placeholder="시작"
+          arrowRenderer={this.arrowRenderer}
+        />
+        <Select
+          className="snutt__select"
+          name="length-selector"
+          value={len}
+          options={lectureLengths}
+          onChange={this.updateLen}
+          searchable={false}
+          clearable={false}
+          placeholder="길이"
+          arrowRenderer={this.arrowRenderer}
+        />
         <input className='place' value={place} onChange={this.updatePlace} type='text' placeholder='(장소)'/>
         <span className="glyphicon glyphicon-remove" onClick={this.deleteThisRow}></span>
       </div>
@@ -96,7 +99,7 @@ class JsonEditor extends PureRenderComponent {
   addRow(e) {
     e.preventDefault()
     const { class_time_json, updateJson } = this.props
-    const newRow = { day: undefined, start: -1, len: -1, place: '장소' }
+    const newRow = { day: undefined, start: undefined, len: undefined, place: '장소' }
     const addedJson = update(class_time_json, {$push: [newRow]})
     updateJson(addedJson)
   }
