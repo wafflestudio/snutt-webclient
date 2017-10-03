@@ -38,7 +38,7 @@ export function resetQuery() {
 export function runQuery(textQuery) {
   return (dispatch, getState) => {
     const { courseBook, query, filter: { useTime, selectTime }, viewLectures } = getState();
-    const { currentBook: { year, semester } } = courseBook.get('current');
+    const { year, semester } = courseBook.get('current');
     const queries = query.toJS();
 
     const validQuery = { year, semester, title: textQuery, limit: 200 };

@@ -98,7 +98,7 @@
     opacity: 0.2;
 }
 
-.snutt__json_row .snutt__select {
+.snutt__select {
     display: inline-block;
     margin-right: 10px;
     color: rgba(0, 0, 0, 0.2);
@@ -108,15 +108,15 @@
     cursor: default;
 }
 
-.snutt__json_row .snutt__options {
+.snutt__select .snutt__options {
     margin-bottom: 5px;
     color: #3a4147;
 }
-.snutt__json_row .snutt__options.is-focused {
+.snutt__select .snutt__options.is-focused {
     color: #0da39d;
 }
 
-.snutt__json_row .Select-menu-outer {
+.snutt__select .Select-menu-outer {
     border: solid 1px #b7c3ce;
     border-radius: 14px;
     padding: 8px 6px 8px 16px;
@@ -125,32 +125,32 @@
     background-color: white;
 }
 
-.snutt__json_row .Select-menu {
+.snutt__select .Select-menu {
     cursor: pointer;
     max-height: 200px;
     overflow-y: scroll;
     padding-right: 16px;
 }
 
-.snutt__json_row .Select-menu::-webkit-scrollbar {
+.snutt__select .Select-menu::-webkit-scrollbar {
     width: 4px;
 }
 
-.snutt__json_row .Select-menu::-webkit-scrollbar-track {
+.snutt__select .Select-menu::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-.snutt__json_row .Select-menu::-webkit-scrollbar-thumb {
+.snutt__select .Select-menu::-webkit-scrollbar-thumb {
     background-color: rgba(112, 115, 124, 0.2);
     border-radius: 14px;
 }
 
-.snutt__json_row .Select-placeholder {
+.snutt__select .Select-placeholder {
     display: inline-block;
     margin-right: 10px;
 }
 
-.snutt__json_row .Select-value {
+.snutt__select .Select-value {
     color: rgba(0, 0, 0, 0.2);
     display: inline;
     margin-right: 10px;

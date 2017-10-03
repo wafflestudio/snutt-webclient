@@ -2,6 +2,7 @@
   background-color: #ffffff;
   height: 90px;
   margin-top: -90px;
+  margin-bottom: 20px;
   font-size: 14px;
 }
 
@@ -103,10 +104,22 @@
   }
   #header #semester-wrapper {
     margin-left: 10px;
+    margin-top: 3px;
   }
 }
 
 //Suppressing Bootstrap
 #header a {
   color: #000000;
+}
+
+/*
+Coursebook Selector
+*/
+#semester-wrapper .snutt__select {
+  border: none;
+}
+
+#semester-wrapper .Select-value {
+  color: black;
 }
