@@ -22,7 +22,7 @@ export const encodeParams = params => Object.keys(params).map(key =>
 
 export function loginWithToken(dispatch) {
   if (localStorage.getItem('snutt_token')) {
-    const isTemp = localStorage.getItem('snutt_id').indexOf('webTemp') == 0;
+    const isTemp = localStorage.getItem('snutt_id') === 'tempId';
     dispatch(successLogin(
       localStorage.getItem('snutt_id'),
       localStorage.getItem('snutt_token'),
