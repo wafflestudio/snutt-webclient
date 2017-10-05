@@ -21,6 +21,12 @@
     border-radius: 21px;
 }
 
+@media (max-width: 600px) {
+    .snutt__modal {
+        width: 90%;
+    }
+}
+
 .snutt__course-editor input {
     border-radius: 0;
     padding-left: 6px;

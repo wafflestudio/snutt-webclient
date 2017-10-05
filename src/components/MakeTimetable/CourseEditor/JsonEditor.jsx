@@ -6,6 +6,7 @@ import Select from 'react-select';
 
 import ArrowUp from '../../../../assets/ic-arrow-up-normal.svg'
 import ArrowDown from '../../../../assets/ic-arrow-down-normal.svg'
+import ButtonDelete from '../../../../assets/btn-delete-normal.svg'
 
 const daysKorean = ['월', '화', '수', '목', '금', '토', '일'].map(name =>
   ({ value: name, label: name, className: 'snutt__options' })
@@ -82,7 +83,8 @@ class ClassTimeRow extends PureRenderComponent {
           arrowRenderer={this.arrowRenderer}
         />
         <input className='place' value={place} onChange={this.updatePlace} type='text' placeholder='(장소)'/>
-        <span className="glyphicon glyphicon-remove" onClick={this.deleteThisRow}></span>
+        <ButtonDelete className="svg-icon" onClick={this.deleteThisRow} />
+        {/* <span className="glyphicon glyphicon-remove" onClick={this.deleteThisRow}></span> */}
       </div>
     )
   }

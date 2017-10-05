@@ -106,8 +106,10 @@ class SearchFilter extends Component {
           <label className="radio-inline">
             <input
               type="radio"
-              onClick={() => this.props.searchEmptySlot()}
-              checked={!selectTime}
+              onClick={this.props.searchEmptySlot}
+              // Used !! in 'checked' prop in order to suppress warning
+              // https://github.com/facebook/react/issues/6779
+              checked={!!(useTime && !selectTime)}
               disabled={!useTime}
             />
             <div><span>빈 시간대만 검색하기</span></div>
@@ -115,8 +117,8 @@ class SearchFilter extends Component {
           <label className="radio-inline">
             <input
               type="radio"
-              onClick={() => this.props.searchSelectedSlot()}
-              checked={selectTime}
+              onClick={this.props.searchSelectedSlot}
+              checked={!!(useTime && selectTime)}
               disabled={!useTime}
             />
             <div><span>시간대 직접 선택하기</span></div>
