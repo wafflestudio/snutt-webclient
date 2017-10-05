@@ -56,9 +56,9 @@ class Login extends Component {
               value={this.state.id}
               type='id'
             />
-            <div className='snutt__labelWrapper'>
+            {/* <div className='snutt__labelWrapper'>
               아이디
-            </div>
+            </div> */}
           </div> {/** End of inputWrapper */}
           <div className='snutt__inputWrapper'>
             <input
@@ -68,9 +68,9 @@ class Login extends Component {
               value={this.state.password}
               type='password'
             />
-            <div className='snutt__labelWrapper'>
+            {/* <div className='snutt__labelWrapper'>
               비밀번호
-            </div>
+            </div> */}
             <div id='snutt__findPass'>
               <Link to='/findPassword'>비밀번호 찾기</Link>
             </div>

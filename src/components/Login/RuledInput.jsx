@@ -17,9 +17,9 @@ const RuledInput =
           value={value}
           type={type}
         />
-        <div className="snutt__labelWrapper">
+        {/* <div className="snutt__labelWrapper">
           {fieldDisplayName}
-        </div>
+        </div> */}
         <div className="snutt__inputError">
           {errorMessage}
         </div>
