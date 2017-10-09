@@ -78,14 +78,23 @@
     background-color: transparent;
     opacity: 1;
 }
-.snutt__login .btn.login {
+
+.btn.primary {
     color: white;
     background-color: #1bd0c9;
 }
-.snutt__login .btn.login-fb {
+.btn.primary:hover {
+    background-color: rgb(12, 173, 166);
+}
+
+.btn.login-fb {
     color: #3c5dd4;
     border: solid 1px #3c5dd4;
 }
+.btn.login-fb:hover {
+    background-color: rgba(60, 93, 212, 0.1);
+}
+
 .snutt__login .btn.logout {
     color: #000000;
     border: solid 1px #b7c3ce;
@@ -98,14 +107,6 @@
     color: white;
     background-color: #1bd0c9;
     margin-top: 30px;
-}
-.snutt__login .btn.withdrawl {
-    color: #dd2e45;
-    border: solid 1px #dd2e45;
-}
-.snutt__login .btn.passchange {
-    color: white;
-    background-color: #1bd0c9;
 }
 
 
@@ -132,7 +133,6 @@
 }
 .snutt__setting .btn {
     border-radius: 21px;
-    border: none;
     height: 34px;
     font-size: 13px;
     background-color: transparent;
@@ -142,23 +142,19 @@
     padding-right: 18px;
     margin-top: 4px;
 }
-.snutt__setting .btn.login-fb {
-    color: #3c5dd4;
-    border: solid 1px #3c5dd4;
-}
-.snutt__setting .btn.logout {
-    color: #000000;
-    border: solid 1px #b7c3ce;
-}
+
 .snutt__setting .btn.withdrawl {
     color: #dd2e45;
     border: solid 1px #dd2e45;
 }
+.snutt__setting .btn.withdrawl:hover {
+    background-color: rgba(229, 68, 89, 0.1);
+}
 .snutt__setting .btn.passchange {
-    color: white;
-    background-color: #1bd0c9;
     float: right;
 }
+
+
 .snutt__setting .form-group {
 
 }

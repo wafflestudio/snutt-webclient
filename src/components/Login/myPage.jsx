@@ -104,7 +104,7 @@ class MyPage extends Component {
               title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
             />
             <input
-              className="btn passchange"
+              className="btn primary passchange"
               type="submit"
               value="변경하기"
             />
@@ -204,7 +204,7 @@ class MyPage extends Component {
               <label className="col-xs-4">로그아웃</label>
               <div className="col-xs-8">
                 <button
-                  className="btn logout"
+                  className="btn btn-default"
                   onClick={this.handleLogout}
                 >
                   로그아웃하기
