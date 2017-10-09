@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import CourseSelector from './CourseSelector.jsx';
 import SearchBar from './SearchBar.jsx';
+import Notification from './NotificationButton.jsx';
 
 import Logo from '../../../../assets/logo.svg';
 import AlarmIcon from '../../../../assets/ic-alarm.svg';
@@ -34,7 +35,8 @@ const Header = ({ loggedIn, id }) => (
       </Link>
       <CourseSelector />
       <LoginStatus loggedIn={loggedIn} id={id} />
-      <AlarmIcon id="noti" />
+      {/* <AlarmIcon id="noti" /> */}
+      <Notification />
       <SearchBar />
     </div>
   </div>

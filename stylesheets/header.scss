@@ -130,3 +130,22 @@ Coursebook Selector
 .snutt__select .Select-control {
   cursor: pointer;
 }
+
+/*
+Notification Messages
+*/
+#snutt__noti-box {
+  width: 300px;
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  right: 0;
+  padding: 10px;
+  top: 81px;
+  border: 1px solid gray;
+}
+
+#snutt__noti-message {
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
+}
