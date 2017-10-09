@@ -42,7 +42,6 @@ class LectureBox extends Component {
 
   render() {
     const { length, course, isPreview, tableHoveredCourse, courseEditorOpened } = this.props;
-    console.log(courseEditorOpened);
     const isHovered = (!courseEditorOpened && tableHoveredCourse) ?
       (this.props.tableHoveredCourse._id === this.props.course._id) : false;
     if (!course.color) { course.color = DEFAULT_COLOR; }

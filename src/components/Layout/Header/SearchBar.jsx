@@ -39,7 +39,9 @@ class SearchBar extends Component {
   }
 
   handleQuery(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.props.runQuery(this.state.text);
   }
 

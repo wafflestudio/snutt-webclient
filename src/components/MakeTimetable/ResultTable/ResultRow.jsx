@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ResultRowDetail from './ResultRowDetail.jsx';
+import ResultRowButtons from './ResultRowButtons.jsx';
 
 import { hoverCourse, unhoverCourse } from '../../../actions';
 import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
@@ -32,8 +32,11 @@ class ResultRow extends Component {
     else this.props.onTableUnhover();
   }
 
+
   render() {
-    const cssClass = `tr-result${this.state.hovered ? ' hovered' : ''}`;
+    const { hovered } = this.state;
+    // const hovered = true;
+    const cssClass = `tr-result${hovered ? ' hovered' : ''}`;
     const lecture = this.props.lecture;
 
     return (
@@ -43,13 +46,24 @@ class ResultRow extends Component {
         className={cssClass}
       >
         <td>
-          <h5 className="title">{lecture.course_title}</h5>
-          <h5 className="pull-right">{lecture.instructor} / {lecture.credit}학점</h5>
-          {/* <h5 className="pull-right">{lecture.course_number} / {lecture.lecture_number}</h5> */}
-          <p>{lecture.department}, {lecture.academic_year}</p>
-          <p>{printTime(lecture.class_time)} / {printPlace(lecture.class_time_json)}</p>
-          { this.state.hovered ? (<ResultRowDetail course={lecture} />) : null}
-          <hr />
+          <span className="title">{lecture.course_title}</span>
+          <span className="credit">{lecture.instructor} / {lecture.credit}학점</span>
+          <h5 className="pull-right lecture-id">{lecture.course_number} / {lecture.lecture_number}</h5>
+          <p className="department">{lecture.department}, {lecture.academic_year}</p>
+          <p className="time">{printTime(lecture.class_time)} / {printPlace(lecture.class_time_json)}</p>
+          { hovered ? (
+            <div className="buttons-wrapper">
+              <ResultRowButtons course={lecture} />
+            </div>
+           ) : null}
+          {/* https://stackoverflow.com/questions/8501727/table-row-wont-contain-elements-with-positionabsolute */}
+          { hovered && lecture.remark.length > 0 ? (
+            <div className="remark">
+              <hr />
+              <span>{lecture.remark}</span>
+            </div>
+          ) : null}
+          <hr className="bottom" />
         </td>
       </tr>
     );

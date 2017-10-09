@@ -12,6 +12,7 @@
   opacity: 0.2;
   padding: 6px 8px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .tab-list .tab-button.active {
@@ -19,6 +20,7 @@
   font-weight: bold;
   opacity: 1;
   border-bottom: 1px solid #1bd0c9;
+  cursor: default;
 }
 
 .tab-list .tab-icon {
@@ -29,4 +31,8 @@
 
 .tab-list .table-title {
   margin-right: 5px;
+}
+
+.tab-list .tab-button.active .table-title {
+  cursor: text;
 }

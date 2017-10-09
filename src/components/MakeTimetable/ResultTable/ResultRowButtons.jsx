@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
   onEditCourse: course => dispatch(editCourse(course)),
 });
 
-class DetailRow extends Component {
+class ResultRowButtons extends Component {
   constructor() {
     super();
     this.handleAdd = this.handleAdd.bind(this);
@@ -36,7 +36,9 @@ class DetailRow extends Component {
   }
 
   handleDelete() {
-    this.props.onDeleteLecture(this.props.course._id);
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      this.props.onDeleteLecture(this.props.course._id);
+    }
   }
 
   handleEdit() {
@@ -47,38 +49,37 @@ class DetailRow extends Component {
     const { searching } = this.props;
     return (
       <div>
-        <span>{this.props.course.remark}</span>
         { searching ?
-          <div className="buttons">
+          <div className="tr-buttons">
             <button
-              className="btn btn-info"
+              className="btn btn-default"
               onClick={this.handleOpenDetail}
             >
               수강편람
             </button>
             <button
-              className="btn btn-primary"
+              className="btn btn-default"
               onClick={this.handleAdd}
             >
               추가
             </button>
           </div> :
-          <div className="buttons">
+          <div className="tr-buttons">
             <button
-              className="btn btn-info"
+              className="btn btn-default"
               onClick={this.handleOpenDetail}
             >
               수강편람
             </button>
             <button
-              className="btn btn-warning"
+              className="btn btn-default"
               onClick={this.handleEdit}
             >
               수정
             </button>
             <button
-              className="btn btn-danger"
-              onClick={() => { if (confirm('정말로 삭제하시겠습니까?')) this.handleDelete(); }}
+              className="btn btn-default"
+              onClick={this.handleDelete}
             >
               삭제
             </button>
@@ -89,4 +90,4 @@ class DetailRow extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailRow);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultRowButtons);

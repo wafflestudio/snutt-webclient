@@ -4,9 +4,23 @@
 
 .result-wrapper {
   overflow-y: auto;
+  overflow-x: hidden;
   height: 400px;
   background-color: #ffffff;
   border: none;
+}
+
+.result-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.result-wrapper::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.result-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(112, 115, 124, 0.2);
+  border-radius: 14px;
 }
 
 @media (min-width: 1200px) { // 'lg' in bootstrap
@@ -36,8 +50,8 @@
   .col-remark { width: 23%; }
 
   td {
-    padding: 18px 30px 0 30px !important;
-    border: 0 !important;
+    padding: 19px 30px 0px 30px !important;
+    border: 1px solid rgba(0, 0, 0, 0) !important;
     text-overflow: ellipsis;
     text-align:left;
     overflow: hidden;
@@ -49,14 +63,21 @@
       line-height:1.23 !important;
     }
 
-    h5.title {
+    .title {
+      font-size: 14px;
       font-weight: bold;
-      opacity: 1;
+    }
+
+    .credit {
+      font-size: 13px;
+      opacity: 0.6;
+      margin-left: 6px;
     }
 
     h5.pull-right {
-      opacity: 0.6;
+      opacity: 0.4;
       margin: 0;
+      font-size: 13px;
     }
 
     p {
@@ -65,9 +86,49 @@
       line-height:1.14 !important;
     }
 
-    hr {
+    p.department {
+      margin-top: 10px;
+    }
+
+    p.time {
+      margin-bottom: 14px;
+    }
+
+    hr.bottom {
       background-color: #ebeef2;
-      margin: 14px 0 0 0;
+      margin: 0;
+    }
+
+    .remark {
+      margin-bottom: 12px;
+    }
+
+    .remark hr {
+      background-color: #ebeef2;
+      margin-bottom: 10px;
+    }
+
+    .remark span {
+      opacity: 0.8;
+      font-size: 13px;
+    }
+
+    .buttons-wrapper {
+      position: relative;
+    }
+
+    .tr-buttons {
+      position: absolute;
+      right: 0;
+      bottom: 10px;
+    }
+
+    .tr-buttons .btn-default {
+      height: 34px;
+      border-radius: 17px;
+      border: solid 1px #b7c3ce;
+      padding: 7px 14px;
+      margin-left: 10px;
     }
   }
 
@@ -78,22 +139,13 @@
     margin: 64px auto;
   }
 
-  .tr-result:hover, .tr-result.hovered {
-    background-color: #DDF3FF;
+  .tr-result.hovered {
+    background-color: #f8f9f9;
     border-bottom: hidden;
+  }
 
-    .btn {
-      font-size: 10px;
-      padding: 3px 6px;
-      border: 0;
-      margin-left: 3px;
-      &:focus { outline: none }
-    }
-
-    .buttons {
-      // float: right;
-      margin-right: 3px;
-    }
+  .tr-result.hovered td {
+    border: solid 1px #ebeef2 !important;
   }
 
   .time-string {
