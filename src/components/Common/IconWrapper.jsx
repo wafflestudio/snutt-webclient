@@ -17,7 +17,7 @@ class IconWrapper extends Component {
   render() {
     const { hovered, pressed } = this.state;
     const { normalIcon, focusedIcon, hoveredIcon, disabledIcon, disabled,
-      onClick, className } = this.props;
+      onClick, className, id } = this.props;
 
     let icon;
     if (disabled && disabledIcon) {
@@ -31,6 +31,7 @@ class IconWrapper extends Component {
     }
     return (
       <span
+        id={id}
         className={`icon-wrapper ${className}`}
         onClick={onClick}
         onMouseEnter={this.handleMouseEnter}

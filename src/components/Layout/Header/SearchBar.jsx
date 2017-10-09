@@ -3,17 +3,12 @@ import { connect } from 'react-redux';
 
 import { runQuery, toggleSearchPanel } from '../../../actions/index.js';
 import SearchFilter from '../../MakeTimetable/Search/SearchFilter.jsx';
-import SearchIcon from '../../../../assets/ic-search.svg';
+import IconWrapper from '../../Common/IconWrapper.jsx';
+import SearchIconNormal from '../../../../assets/ic-search-normal.svg';
+import SearchIconHover from '../../../../assets/ic-search-over.svg';
+import SearchIconFocus from '../../../../assets/ic-search-pressed.svg';
 import SearchConditionIcon from '../../../../assets/ic-condition-normal.svg';
 import SearchConditionIconActivated from '../../../../assets/ic-condition-focused.svg';
-
-const formatLastUpdate = (currentBook) => {
-  if (!currentBook) {
-    return '';
-  }
-  const date = new Date(currentBook.updated_at);
-  return `(수강편람 최근 업데이트: ${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()})`;
-};
 
 const mapStateToProps = ({ courseBook, filter: { panel: filterOn }, query }) => ({
   currentBook: courseBook.get('current'),
@@ -25,6 +20,15 @@ const mapDispatchToProps = dispatch => ({
   toggleFilter: () => dispatch(toggleSearchPanel()),
   runQuery: txt => dispatch(runQuery(txt)),
 });
+
+const formatLastUpdate = (currentBook) => {
+  if (!currentBook) {
+    return '';
+  }
+  const date = new Date(currentBook.updated_at);
+  return `(수강편람 최근 업데이트: ${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()})`;
+};
+
 
 class SearchBar extends Component {
   constructor() {
@@ -51,11 +55,14 @@ class SearchBar extends Component {
           />
         </form>
         <div id="tools">
-          <SearchIcon
+          <IconWrapper
             id="search"
             onClick={this.handleQuery}
+            normalIcon={<SearchIconNormal />}
+            hoveredIcon={<SearchIconHover />}
+            focusedIcon={<SearchIconFocus />}
           />
-          {/* {true ? */}
+          {/* {true ? for dev*/}
           { filterOn ?
             <SearchConditionIconActivated
               className="svg-icon"
