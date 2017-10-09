@@ -3,9 +3,7 @@ import PureRenderComponent from '../../PureRenderComponent.jsx';
 import update from 'react-addons-update';
 
 import Select from 'react-select';
-
-import ArrowUp from '../../../../assets/ic-arrow-up-normal.svg';
-import ArrowDown from '../../../../assets/ic-arrow-down-normal.svg';
+import DropdownArrow from '../../Common/DropdownArrow.jsx';
 import ButtonDelete from '../../../../assets/btn-delete-normal.svg';
 
 const daysKorean = ['월', '화', '수', '목', '금', '토', '일'].map(name =>
@@ -41,8 +39,6 @@ class ClassTimeRow extends PureRenderComponent {
   updatePlace = e => this.props.updateRow(this.props.index, 'place', e.target.value)
   deleteThisRow = (e) => { e.preventDefault; this.props.deleteRow(this.props.index); }
 
-  arrowRenderer = ({ onMouseDown, isOpen }) => (isOpen ? <ArrowUp /> : <ArrowDown />)
-
   render() {
     const { day, start, len, place, updateRow } = this.props;
     const dayKorean = daysKorean[day];
@@ -58,7 +54,7 @@ class ClassTimeRow extends PureRenderComponent {
           searchable={false}
           clearable={false}
           placeholder="요일"
-          arrowRenderer={this.arrowRenderer}
+          arrowRenderer={DropdownArrow}
         />
         <Select
           className="snutt__select"
@@ -69,7 +65,7 @@ class ClassTimeRow extends PureRenderComponent {
           searchable={false}
           clearable={false}
           placeholder="시작"
-          arrowRenderer={this.arrowRenderer}
+          arrowRenderer={DropdownArrow}
         />
         <Select
           className="snutt__select"
@@ -80,7 +76,7 @@ class ClassTimeRow extends PureRenderComponent {
           searchable={false}
           clearable={false}
           placeholder="길이"
-          arrowRenderer={this.arrowRenderer}
+          arrowRenderer={DropdownArrow}
         />
         <input className="place" value={place} onChange={this.updatePlace} type="text" placeholder="(장소)" />
         <ButtonDelete className="svg-icon icon-delete" onClick={this.deleteThisRow} />

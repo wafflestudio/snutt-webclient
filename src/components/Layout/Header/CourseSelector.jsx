@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 
 import { changeCoursebook } from '../../../actions/fetchingActions';
-import ArrowUp from '../../../../assets/ic-arrow-up-normal.svg';
-import ArrowDown from '../../../../assets/ic-arrow-down-normal.svg';
+import DropdownArrow from '../../Common/DropdownArrow.jsx';
 
 const mapStateToProps = ({ courseBook }) => {
   const courseBookJS = courseBook.toJS();
@@ -15,21 +14,21 @@ const mapStateToProps = ({ courseBook }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  selectCoursebook: ({ year, semester }) => dispatch(changeCoursebook({ year, semester }))
+  selectCoursebook: ({ year, semester }) => dispatch(changeCoursebook({ year, semester })),
 });
 
-const arrowRenderer = ({ onMouseDown, isOpen }) => (isOpen ? <ArrowUp /> : <ArrowDown />);
+// Utils for labels
 const idxToString = [null, '1', 'S', '2', 'W'];
 const courseBookToString = b => `${b.year}-${idxToString[b.semester]}`;
 
 class CourseSelector extends Component {
 
-  selectCoursebook = (selected) => this.props.selectCoursebook(this.props.courseBooks[selected.value])
+  selectCoursebook = selected => this.props.selectCoursebook(this.props.courseBooks[selected.value])
 
   render() {
     const { courseBooks, currentBook } = this.props;
     const courseBookOptions = courseBooks.map((book, i) => ({
-      value: i, label: courseBookToString(book), className: 'snutt__options'
+      value: i, label: courseBookToString(book), className: 'snutt__options',
     }));
     const currentBookIndex = courseBooks.findIndex(b =>
       b.semester === currentBook.semester && b.year === currentBook.year,
@@ -44,7 +43,7 @@ class CourseSelector extends Component {
           onChange={this.selectCoursebook}
           searchable={false}
           clearable={false}
-          arrowRenderer={arrowRenderer}
+          arrowRenderer={DropdownArrow}
         />
       </div>
     );

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { editCourse } from '../../../actions/tableActions';
 import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
 
-import IconWrapper from '../../IconWrapper.jsx';
+import IconWrapper from '../../Common/IconWrapper.jsx';
 import DeleteIconNormal from '../../../../assets/ic-delete-white-normal.svg';
 import DeleteIconHover from '../../../../assets/ic-delete-white-over.svg';
 import DeleteIconFocus from '../../../../assets/ic-delete-white-pressed.svg';
