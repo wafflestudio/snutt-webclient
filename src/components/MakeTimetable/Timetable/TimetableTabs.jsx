@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { switchTable, createTable, deleteTable, updateTitle } from '../../../actions/tableActions';
+
 import AddIcon from '../../../../assets/ic-addtab-normal.svg';
+import DeleteIcon from '../../../../assets/btn-delete-normal.svg';
 
 function mapStateToProps(state) {
   const { viewTableId, viewTableTabList } = state.tableList;
@@ -65,11 +67,15 @@ class TimetableTabs extends Component {
         >
           <nobr>{table.title}</nobr>
         </span>
-        <span
+        <DeleteIcon
+          className="svg-icon icon-delete"
+          onClick={this.handleDelete.bind(this, id)}
+        />
+        {/* <span
           className="glyphicon glyphicon-remove"
           aria-hidden="true"
           onClick={this.handleDelete.bind(this, id)}
-        />
+        /> */}
       </li>
     );
   }

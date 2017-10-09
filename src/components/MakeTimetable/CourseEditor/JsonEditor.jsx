@@ -1,35 +1,35 @@
-import React from 'react'
-import PureRenderComponent from '../../PureRenderComponent.jsx'
-import update from 'react-addons-update'
+import React from 'react';
+import PureRenderComponent from '../../PureRenderComponent.jsx';
+import update from 'react-addons-update';
 
 import Select from 'react-select';
 
-import ArrowUp from '../../../../assets/ic-arrow-up-normal.svg'
-import ArrowDown from '../../../../assets/ic-arrow-down-normal.svg'
-import ButtonDelete from '../../../../assets/btn-delete-normal.svg'
+import ArrowUp from '../../../../assets/ic-arrow-up-normal.svg';
+import ArrowDown from '../../../../assets/ic-arrow-down-normal.svg';
+import ButtonDelete from '../../../../assets/btn-delete-normal.svg';
 
 const daysKorean = ['월', '화', '수', '목', '금', '토', '일'].map(name =>
-  ({ value: name, label: name, className: 'snutt__options' })
-)
-const times = [...Array(29).keys()].map(v => v / 2) // 0, 0.5, 1 .... 14.5
-const hhmms = times.map(gyosi => {
-  const hh = Math.floor(gyosi) + 8
-  const mm = (gyosi % 1) === 0.5 ? '30' : '00'
-  return `${hh}:${mm}`
-}).map((hhmm, index) => ({ value: index / 2, label: hhmm, className: 'snutt__options' }))
+  ({ value: name, label: name, className: 'snutt__options' }),
+);
+const times = [...Array(29).keys()].map(v => v / 2); // 0, 0.5, 1 .... 14.5
+const hhmms = times.map((gyosi) => {
+  const hh = Math.floor(gyosi) + 8;
+  const mm = (gyosi % 1) === 0.5 ? '30' : '00';
+  return `${hh}:${mm}`;
+}).map((hhmm, index) => ({ value: index / 2, label: hhmm, className: 'snutt__options' }));
 
 const lectureLengths = [...Array(10).keys()].map((len, index) =>
-  ({ value: index / 2, label: len, className: 'snutt__options' })
-)
+  ({ value: index / 2, label: len, className: 'snutt__options' }),
+);
 
 class ClassTimeRow extends PureRenderComponent {
   constructor(props) {
-    super(props)
-    this.updateDay = this.updateDay.bind(this)
-    this.updateStart = this.updateStart.bind(this)
-    this.updateLen = this.updateLen.bind(this)
-    this.updatePlace = this.updatePlace.bind(this)
-    this.deleteThisRow = this.deleteThisRow.bind(this)
+    super(props);
+    this.updateDay = this.updateDay.bind(this);
+    this.updateStart = this.updateStart.bind(this);
+    this.updateLen = this.updateLen.bind(this);
+    this.updatePlace = this.updatePlace.bind(this);
+    this.deleteThisRow = this.deleteThisRow.bind(this);
   }
 
   // Anyone who knows how to skip functions below without binding in render(),
@@ -39,16 +39,16 @@ class ClassTimeRow extends PureRenderComponent {
   updateStart = v => this.props.updateRow(this.props.index, 'start', v)
   updateLen = v => this.props.updateRow(this.props.index, 'len', v)
   updatePlace = e => this.props.updateRow(this.props.index, 'place', e.target.value)
-  deleteThisRow = e => { e.preventDefault; this.props.deleteRow(this.props.index) }
+  deleteThisRow = (e) => { e.preventDefault; this.props.deleteRow(this.props.index); }
 
-  arrowRenderer = ({onMouseDown, isOpen}) => (isOpen ? <ArrowUp /> : <ArrowDown />)
+  arrowRenderer = ({ onMouseDown, isOpen }) => (isOpen ? <ArrowUp /> : <ArrowDown />)
 
   render() {
-    const { day, start, len, place, updateRow } = this.props
-    const dayKorean = daysKorean[day]
+    const { day, start, len, place, updateRow } = this.props;
+    const dayKorean = daysKorean[day];
 
     return (
-      <div className='snutt__json_row'>
+      <div className="snutt__json_row">
         <Select
           className="snutt__select"
           name="day-selector"
@@ -82,63 +82,63 @@ class ClassTimeRow extends PureRenderComponent {
           placeholder="길이"
           arrowRenderer={this.arrowRenderer}
         />
-        <input className='place' value={place} onChange={this.updatePlace} type='text' placeholder='(장소)'/>
-        <ButtonDelete className="svg-icon" onClick={this.deleteThisRow} />
+        <input className="place" value={place} onChange={this.updatePlace} type="text" placeholder="(장소)" />
+        <ButtonDelete className="svg-icon icon-delete" onClick={this.deleteThisRow} />
         {/* <span className="glyphicon glyphicon-remove" onClick={this.deleteThisRow}></span> */}
       </div>
-    )
+    );
   }
 }
 
 class JsonEditor extends PureRenderComponent {
   constructor(props) {
-    super(props)
-    this.addRow = this.addRow.bind(this)
-    this.deleteRow = this.deleteRow.bind(this)
-    this.updateRow = this.updateRow.bind(this)
+    super(props);
+    this.addRow = this.addRow.bind(this);
+    this.deleteRow = this.deleteRow.bind(this);
+    this.updateRow = this.updateRow.bind(this);
   }
 
   addRow(e) {
-    e.preventDefault()
-    const { class_time_json, updateJson } = this.props
-    const newRow = { day: undefined, start: undefined, len: undefined, place: '장소' }
-    const addedJson = update(class_time_json, {$push: [newRow]})
-    updateJson(addedJson)
+    e.preventDefault();
+    const { class_time_json, updateJson } = this.props;
+    const newRow = { day: undefined, start: undefined, len: undefined, place: '장소' };
+    const addedJson = update(class_time_json, { $push: [newRow] });
+    updateJson(addedJson);
   }
 
   deleteRow(index) {
-    const { class_time_json, updateJson } = this.props
-    const deletedJson = update(class_time_json, {$splice: [[index, 1]]})
-    updateJson(deletedJson)
+    const { class_time_json, updateJson } = this.props;
+    const deletedJson = update(class_time_json, { $splice: [[index, 1]] });
+    updateJson(deletedJson);
   }
 
   updateRow(index, field, value) {
-    const { class_time_json, updateJson } = this.props
-    const updatedJson = update(class_time_json, { [index]: { [field]: { $set: value }}})
-    updateJson(updatedJson)
+    const { class_time_json, updateJson } = this.props;
+    const updatedJson = update(class_time_json, { [index]: { [field]: { $set: value } } });
+    updateJson(updatedJson);
   }
 
   render() {
     return (
-      <div className='snutt__json_container'>
+      <div className="snutt__json_container">
         {this.props.class_time_json.map((row, i) =>
-          <ClassTimeRow
+          (<ClassTimeRow
             index={i}
             key={i}
             {...row}
             updateRow={this.updateRow}
             deleteRow={this.deleteRow}
-          />
+          />),
         )}
-        <button id="add-row" className='btn btn-default' onClick={this.addRow}>시간 추가</button>
+        <button id="add-row" className="btn btn-default" onClick={this.addRow}>시간 추가</button>
       </div>
-    )
+    );
   }
 }
 
 JsonEditor.propTypes = {
   updateJson: React.PropTypes.func.isRequired,
   class_time_json: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-}
+};
 
-export default JsonEditor
+export default JsonEditor;

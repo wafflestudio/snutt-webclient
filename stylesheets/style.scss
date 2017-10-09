@@ -12,7 +12,7 @@ body {
   background-color: #f8f9fa;
 }
 
-
+@import "buttons";
 @import "timetable";
 @import "resultTable";
 @import "searchFilter";
@@ -37,3 +37,4 @@ input[type='text']::placeholder {
 .navbar-nav>li>a:focus { color: white!important }
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
