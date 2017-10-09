@@ -6,8 +6,9 @@ import Select from 'react-select';
 import DropdownArrow from '../../Common/DropdownArrow.jsx';
 import ButtonDelete from '../../../../assets/btn-delete-normal.svg';
 
-const daysKorean = ['월', '화', '수', '목', '금', '토', '일'].map(name =>
-  ({ value: name, label: name, className: 'snutt__options' }),
+const daysKorean = ['월', '화', '수', '목', '금', '토', '일'];
+const daysOptions = daysKorean.map((name, index) =>
+  ({ value: index, label: name, className: 'snutt__options' }),
 );
 const times = [...Array(29).keys()].map(v => v / 2); // 0, 0.5, 1 .... 14.5
 const hhmms = times.map((gyosi) => {
@@ -21,27 +22,15 @@ const lectureLengths = [...Array(10).keys()].map((len, index) =>
 );
 
 class ClassTimeRow extends PureRenderComponent {
-  constructor(props) {
-    super(props);
-    this.updateDay = this.updateDay.bind(this);
-    this.updateStart = this.updateStart.bind(this);
-    this.updateLen = this.updateLen.bind(this);
-    this.updatePlace = this.updatePlace.bind(this);
-    this.deleteThisRow = this.deleteThisRow.bind(this);
-  }
 
-  // Anyone who knows how to skip functions below without binding in render(),
-  // please tell me via comment ㅜㅜ
-  // updateDay = e => this.props.updateRow(this.props.index, 'day', e.target.value)
-  updateDay = v => this.props.updateRow(this.props.index, 'day', v)
-  updateStart = v => this.props.updateRow(this.props.index, 'start', v)
-  updateLen = v => this.props.updateRow(this.props.index, 'len', v)
+  updateDay = v => this.props.updateRow(this.props.index, 'day', v.value)
+  updateStart = v => this.props.updateRow(this.props.index, 'start', v.value)
+  updateLen = v => this.props.updateRow(this.props.index, 'len', v.value)
   updatePlace = e => this.props.updateRow(this.props.index, 'place', e.target.value)
   deleteThisRow = (e) => { e.preventDefault; this.props.deleteRow(this.props.index); }
 
   render() {
-    const { day, start, len, place, updateRow } = this.props;
-    const dayKorean = daysKorean[day];
+    const { day, start, len, place } = this.props;
 
     return (
       <div className="snutt__json_row">
@@ -49,7 +38,7 @@ class ClassTimeRow extends PureRenderComponent {
           className="snutt__select"
           name="day-selector"
           value={day}
-          options={daysKorean}
+          options={daysOptions}
           onChange={this.updateDay}
           searchable={false}
           clearable={false}
@@ -80,7 +69,6 @@ class ClassTimeRow extends PureRenderComponent {
         />
         <input className="place" value={place} onChange={this.updatePlace} type="text" placeholder="(장소)" />
         <ButtonDelete className="svg-icon icon-delete" onClick={this.deleteThisRow} />
-        {/* <span className="glyphicon glyphicon-remove" onClick={this.deleteThisRow}></span> */}
       </div>
     );
   }

@@ -15,7 +15,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   onAddCustomLecture: editedLecture => dispatch(addCustomLecture(editedLecture)),
-  onUpdateLecture: (id, lecture) => dispatch(updateLecture(id, lecture)),
+  onUpdateLecture: (id, lecture) => {
+    debugger;
+    dispatch(updateLecture(id, lecture));
+  },
   onCourseClose: () => dispatch(closeCourse()),
 });
 
