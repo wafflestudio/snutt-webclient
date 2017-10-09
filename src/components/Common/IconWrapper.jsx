@@ -11,8 +11,11 @@ class IconWrapper extends Component {
 
   handleMouseEnter = () => this.setState({ hovered: true })
   handleMouseLeave = () => this.setState({ hovered: false, pressed: false })
-  handleMouseDown = () => this.setState({ pressed: true })
-  hanldeMouseUp = () => this.setState({ pressed: false })
+  handleMouseDown = () => this.setState({ pressed: true });
+  handleMouseUp = () => {
+    this.setState({ pressed: false });
+    this.props.onClick();
+  }
 
   render() {
     const { hovered, pressed } = this.state;
@@ -37,7 +40,7 @@ class IconWrapper extends Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseup}
+        onMouseUp={this.handleMouseUp}
       >
         {icon}
       </span>
