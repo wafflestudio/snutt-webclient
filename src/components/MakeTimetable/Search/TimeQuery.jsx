@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
 
-import { updateQuery, toggleTimeselect } from '../../../actions';
+import { updateQuery, toggleTimePanel } from '../../../actions';
 import CellSelector from './CellSelector.jsx';
 
 /**
@@ -68,17 +68,17 @@ class TimeQuery extends Component {
   }
 
   handleSave(e) {
-    e.stopPropagation();
+    e.preventDefault();
     const { dispatch } = this.props;
     const newMasks = cellsToMask(this.state.cells);
+    dispatch(toggleTimePanel());
     dispatch(updateQuery('time_mask', () => Immutable.List(newMasks)));
-    dispatch(toggleTimeselect());
   }
 
   handleCancel(e) {
-    e.stopPropagation();
+    e.preventDefault();
     const { dispatch } = this.props;
-    dispatch(toggleTimeselect());
+    dispatch(toggleTimePanel());
   }
 
   handleUpdate(newCells) {
@@ -103,13 +103,13 @@ class TimeQuery extends Component {
         <hr />
         <div className="btns">
           <div
-            className="btn btn-default btn-sm"
+            className="btn btn-default btn-smm btn-timeselector"
             onClick={this.handleCancel}
           >
             취소
           </div>
           <div
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-sm btn-timeselector"
             onClick={this.handleSave}
           >
             확인

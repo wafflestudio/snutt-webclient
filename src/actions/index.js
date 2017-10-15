@@ -37,7 +37,7 @@ export function resetQuery() {
 
 export function runQuery(textQuery) {
   return (dispatch, getState) => {
-    const { courseBook, query, filter: { useTime, selectTime }, viewLectures } = getState();
+    const { courseBook, query, filter: { useTime, searchEmptySlot }, tableList: { viewLectures } } = getState();
     const { year, semester } = courseBook.get('current');
     const queries = query.toJS();
 
@@ -54,7 +54,7 @@ export function runQuery(textQuery) {
     // Handle times
     if (!useTime) {
       delete validQuery.time_mask;
-    } else if (!selectTime) { // use free time as query
+    } else if (searchEmptySlot) { // use free time as query
       const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);
       const invertedMasks = complement(currentMasks);
       validQuery.time_mask = invertedMasks;
@@ -114,11 +114,10 @@ export function toggleSearchPanel() {
   return { type: types.TOGGLE_SEARCHPANEL };
 }
 
-export function toggleTimeselect() {
-  return { type: types.TOGGLE_TIMESELECT };
+export function toggleTimePanel() {
+  return { type: types.TOGGLE_TIMEPANEL };
 }
 
-export const toggleTimeselectButton = () => ({ type: types.TOGGLE_TIMESELECTBUTTON });
 export const toggleUseTime = () => ({ type: types.TOGGLE_USETIME });
 export const selectTimeMode = mode => ({ type: types.SELECT_TIMEMODE, mode });
 

@@ -8,7 +8,7 @@ import TimeQuery from './TimeQuery.jsx';
 import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
 
 import { addQuery, removeQuery, resetQuery, toggleUseTime, selectTimeMode,
-  toggleTimeselect, toggleSearchPanel } from '../../../actions';
+  toggleTimePanel, toggleSearchPanel } from '../../../actions';
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options';
 
@@ -16,14 +16,21 @@ const EMPTY_MASK = Immutable.List([0, 0, 0, 0, 0, 0, 0]);
 
 function mapStateToProps(state) {
   const { tableList: { currentId, tableMap }, query,
-    filter: { time: selectingTime, useTime, selectTime } } = state;
+    filter: { timePanel, useTime, searchEmptySlot } } = state;
   const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list;
   // Deduct 7 because empty timemasks's count is 7
   let activeFieldCounts = query.valueSeq().reduce((prev, current) => prev + current.count(), 0) - 7;
-  if (!query.get('time_mask').equals(EMPTY_MASK)) {
-    activeFieldCounts += 1;
-  }
-  return { query, activeFieldCounts, currentLectures, selectingTime, useTime, selectTime };
+  if (useTime) { activeFieldCounts += 1; }
+  // if (!query.get('time_mask').equals(EMPTY_MASK) &&) {
+  //   activeFieldCounts += 1;
+  // }
+  return { query,
+    activeFieldCounts,
+    currentLectures,
+    timePanel,
+    useTime,
+    searchingEmptySlot: searchEmptySlot,
+  };
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -36,16 +43,16 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   toggleUseTime: () => dispatch(toggleUseTime()),
-  toggleTimeselect: () => dispatch(toggleTimeselect()),
+  toggleTimePanel: () => dispatch(toggleTimePanel()),
   toggleSearchPanel: () => dispatch(toggleSearchPanel()),
-  searchEmptySlot: () => dispatch(selectTimeMode(false)),
-  searchSelectedSlot: () => dispatch(selectTimeMode(true)),
+  searchEmptySlot: () => dispatch(selectTimeMode(true)),
+  searchSelectedSlot: () => dispatch(selectTimeMode(false)),
 });
 
 class SearchFilter extends Component {
   constructor() {
     super();
-    this.toggleTimeselect = this.toggleTimeselect.bind(this);
+    this.toggleTimePanel = this.toggleTimePanel.bind(this);
     this.freeslotsOnly = this.freeslotsOnly.bind(this);
     this.renderCheckBoxes = this.renderCheckBoxes.bind(this);
     this.renderTimeSelect = this.renderTimeSelect.bind(this);
@@ -61,15 +68,16 @@ class SearchFilter extends Component {
   }
 
   handleClickOutside(e) {
-    if (!this.node.contains(e.target) && !this.props.selectingTime) {
+    if (!this.node.contains(e.target) && !this.props.timePanel) {
+      if (e.target.className.includes('btn-timeselector')) { return; }
       this.props.toggleSearchPanel();
     }
   }
 
-  toggleTimeselect(e) {
+  toggleTimePanel(e) {
     e.preventDefault();
-    console.log('Toggle Timeselect');
-    this.props.toggleTimeselect();
+    console.log('Toggle Time Panel');
+    this.props.toggleTimePanel();
   }
 
   freeslotsOnly(e) {
@@ -107,7 +115,7 @@ class SearchFilter extends Component {
   }
 
   renderTimeSelect() {
-    const { useTime, selectTime } = this.props;
+    const { useTime, searchEmptySlot, searchingEmptySlot } = this.props;
     return (
       <div className="form-group">
         <label className="col-md-2 control-label">시간대 검색</label>
@@ -116,17 +124,17 @@ class SearchFilter extends Component {
             <input
               type="checkbox"
               onClick={this.props.toggleUseTime}
-              value={useTime}
+              checked={useTime}
             />
             <div><span>시간대 검색</span></div>
           </label>
           <label className="radio-inline">
             <input
               type="radio"
-              onClick={this.props.searchEmptySlot}
+              onClick={searchEmptySlot}
               // Used !! in 'checked' prop in order to suppress warning
               // https://github.com/facebook/react/issues/6779
-              checked={!!(useTime && !selectTime)}
+              checked={!!(useTime && searchingEmptySlot)}
               disabled={!useTime}
             />
             <div><span>빈 시간대만 검색하기</span></div>
@@ -135,15 +143,15 @@ class SearchFilter extends Component {
             <input
               type="radio"
               onClick={this.props.searchSelectedSlot}
-              checked={!!(useTime && selectTime)}
+              checked={!!(useTime && !searchingEmptySlot)}
               disabled={!useTime}
             />
             <div><span>시간대 직접 선택하기</span></div>
           </label>
           <div className="timeselector-wrapper">
             <div
-              className={`open-timeselector ${useTime && selectTime ? 'enabled' : ''}`}
-              onClick={this.toggleTimeselect}
+              className={`open-timeselector ${useTime && !searchingEmptySlot ? 'enabled' : ''}`}
+              onClick={this.toggleTimePanel}
             >
               선택창 열기
             </div>
@@ -165,7 +173,7 @@ class SearchFilter extends Component {
   }
 
   render() {
-    const { selectingTime, activeFieldCounts } = this.props;
+    const { timePanel, activeFieldCounts } = this.props;
     return (
       <div className="searchpanel-wrapper" ref={(node) => { this.node = node; }}>
         <div id="title-wrapper">
@@ -191,10 +199,10 @@ class SearchFilter extends Component {
           {this.renderCheckBoxes('선택 교양', generals, 'category')}
           {this.renderTimeSelect()}
         </form>
-        {selectingTime ?
+        {timePanel ?
           <Modal
             isOpen
-            className="snutt__modal"
+            className="time-query-overlay"
             overlayClassName="snutt__modal-overlay"
           >
             <TimeQuery />

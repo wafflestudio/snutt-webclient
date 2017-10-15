@@ -1,3 +1,19 @@
+.time-query-overlay {
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  outline: none;
+  background-color: white;
+  border-radius: 21px;
+}
+
+@media (max-width: 800px) {
+  .time-query-overlay {
+      width: 90%;
+  }
+}
+
 .time-query {
   border-radius: 21px;
 	background-color: #ffffff;
