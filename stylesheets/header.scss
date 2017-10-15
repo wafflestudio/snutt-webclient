@@ -50,7 +50,7 @@
   margin-left: 15px;
 }
 
-#searchbar-wrapper {
+.searchbar-wrapper {
   float: left;
   width: 600px;
   height: 42px;
@@ -61,30 +61,34 @@
   position: relative;
 }
 
-#searchbar-wrapper #tools {
+.searchbar-wrapper.focused {
+  border: 1px solid rgb(27, 208, 200);
+}
+
+.searchbar-wrapper #tools {
   float: right;
   margin-top: 11px;
   margin-right: 20px;
 }
 
-#searchbar-wrapper #search {
+.searchbar-wrapper #search {
   margin-right: 12px;
 }
 
-#searchbar-wrapper #query {
+.searchbar-wrapper #query {
   width: 70%;
   height: 20px;
   margin: 10px 0 0 20px;
   float: left;
 }
 
-#searchbar-wrapper #query input {
+.searchbar-wrapper #query input {
   padding: 0;
   border: none;
   width: 100%;
 }
 
-#searchbar-wrapper #query input::-webkit-input-placeholder {
+.searchbar-wrapper #query input::-webkit-input-placeholder {
   opacity: 0.2;
 }
 
@@ -100,7 +104,7 @@
     max-width: 700px;
     padding: 20px 30px 20px 20px;
   }
-  #header #searchbar-wrapper {
+  #header .searchbar-wrapper {
     margin-top: 15px;
     margin-left: -10px;
     width: calc(100% + 20px);

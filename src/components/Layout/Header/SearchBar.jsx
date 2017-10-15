@@ -37,7 +37,7 @@ const formatLastUpdate = (currentBook) => {
 class SearchBar extends Component {
   constructor() {
     super();
-    this.state = { text: '' };
+    this.state = { text: '', focused: false };
     this.onTextChange = e => this.setState({ text: e.target.value });
     this.handleQuery = this.handleQuery.bind(this);
   }
@@ -49,15 +49,20 @@ class SearchBar extends Component {
     this.props.runQuery(this.state.text);
   }
 
+  handleFocus = () => this.setState({ focused: true })
+  handleBlur = () => this.setState({ focused: false })
+
   render() {
     const { filterOn, toggleFilter } = this.props;
     return (
-      <div id="searchbar-wrapper">
+      <div className={`searchbar-wrapper ${this.state.focused ? 'focused' : ''}`}>
         <form id="query" onSubmit={this.handleQuery}>
           <input
             value={this.state.text}
             placeholder={`원하는 강의를 검색하세요. ${formatLastUpdate(this.props.currentBook)}`}
             onChange={this.onTextChange}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
           />
         </form>
         <div id="tools">
