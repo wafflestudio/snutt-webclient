@@ -1,3 +1,7 @@
+.btn {
+  @include unselectable;
+}
+
 .btn-default:hover {
   background-color: #f3f7f8!important;
 }

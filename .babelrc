@@ -8,6 +8,11 @@
         "transform-object-rest-spread",
         "transform-decorators-legacy"
       ]
+    },
+    "production": {
+      "plugins": [
+        "transform-decorators-legacy"
+      ]
     }
   }
 

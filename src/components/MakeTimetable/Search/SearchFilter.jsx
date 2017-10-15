@@ -7,7 +7,8 @@ import DepartmentForm from './DepartmentForm.jsx';
 import TimeQuery from './TimeQuery.jsx';
 import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
 
-import { addQuery, removeQuery, resetQuery, toggleUseTime, selectTimeMode } from '../../../actions';
+import { addQuery, removeQuery, resetQuery, toggleUseTime, selectTimeMode,
+  toggleTimeselect, toggleSearchPanel } from '../../../actions';
 import { credits, academicYears, foundations, knowledges,
           generals, classifications } from './options';
 
@@ -35,6 +36,8 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   toggleUseTime: () => dispatch(toggleUseTime()),
+  toggleTimeselect: () => dispatch(toggleTimeselect()),
+  toggleSearchPanel: () => dispatch(toggleSearchPanel()),
   searchEmptySlot: () => dispatch(selectTimeMode(false)),
   searchSelectedSlot: () => dispatch(selectTimeMode(true)),
 });
@@ -46,7 +49,21 @@ class SearchFilter extends Component {
     this.freeslotsOnly = this.freeslotsOnly.bind(this);
     this.renderCheckBoxes = this.renderCheckBoxes.bind(this);
     this.renderTimeSelect = this.renderTimeSelect.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.state = { freeslotsOnly: false };
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside, false);
+  }
+
+  handleClickOutside(e) {
+    if (!this.node.contains(e.target) && !this.props.selectingTime) {
+      this.props.toggleSearchPanel();
+    }
   }
 
   toggleTimeselect(e) {
@@ -150,7 +167,7 @@ class SearchFilter extends Component {
   render() {
     const { selectingTime, activeFieldCounts } = this.props;
     return (
-      <div className="searchpanel-wrapper">
+      <div className="searchpanel-wrapper" ref={(node) => { this.node = node; }}>
         <div id="title-wrapper">
           <span id="title">상세조건 설정</span>
           <span id="condition-count">{activeFieldCounts}</span>

@@ -38,7 +38,10 @@ class LectureBox extends Component {
     }
   }
 
-  handleEdit = () => this.props.onEdit(this.props.course);
+  handleEdit = () => {
+    this.props.onUnhover();
+    this.props.onEdit(this.props.course);
+  }
 
   render() {
     const { length, course, isPreview, tableHoveredCourse, courseEditorOpened } = this.props;
@@ -59,6 +62,7 @@ class LectureBox extends Component {
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
+        ref={(node) => { this.node = node; }}
       >
         <div className="title-box">
           <p>{this.props.course.course_title}</p>
