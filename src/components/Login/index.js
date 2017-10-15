@@ -71,19 +71,20 @@ class Login extends Component {
             {/* <div className='snutt__labelWrapper'>
               비밀번호
             </div> */}
-            <div id="snutt__findPass">
-              <Link to="/findPassword">비밀번호 찾기</Link>
-            </div>
+
           </div> {/** End of inputWrapper */}
 
-          <label id="keep-login">
-            <input
-              onChange={this.handleKeepLoginChange}
-              type="checkbox"
-              value={this.state.keepLogin}
-            />
-            {' '}로그인 유지
-          </label>
+          <div className="keeplogin">
+            <label className="checkbox-inline">
+              <input
+                type="checkbox"
+                value={this.state.keepLogin}
+                onClick={this.handleKeepLoginChange}
+              />
+              <div><span>로그인 유지</span></div>
+            </label>
+          </div>
+
           <div className="error">
             {user.errorType == 'login' ? user.message : <br />}
           </div>

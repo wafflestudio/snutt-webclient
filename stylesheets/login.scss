@@ -10,6 +10,13 @@
     font-weight: bold;
 }
 
+.snutt__login .keeplogin {
+    margin-top: 20px;
+}
+.snutt__login .keeplogin .checkbox-inline {
+    padding-left: 0;
+}
+
 .snutt__inputWrapper {
     position: relative;
     padding-top: 20px;
@@ -56,11 +63,6 @@
 #snutt__findPass { text-align: right; }
 #snutt__findPass a { color: #bcb5b9; }
 #snutt__findPass a:hover { color: rgb(51, 103, 214); }
-
-.snutt__login #keep-login {
-    color: black;
-    font-weight: normal;
-}
 
 .snutt__login .error {
     color: #D13D37;

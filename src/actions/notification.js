@@ -13,6 +13,7 @@ export const openMessageBox = () => ({ type: OPEN_MESSAGE_BOX });
 export const closeMessageBox = () => ({ type: CLOSE_MESSAGE_BOX });
 
 export function fetchMessages(limit = 10, offset) {
+  console.log('fetch message', limit, offset);
   return {
     [CALL_API]: {
       endpoint: `notification?limit=${Number(limit)}&${Number(offset)}&explicit=1`,
