@@ -46,6 +46,11 @@ module.exports = {
         include: path.join(__dirname, 'src'),
       },
       {
+        test: /\.(jpg|png)$/,
+        loader: 'file',
+        include: path.join(__dirname, 'assets'),
+      },
+      {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader'),
       },

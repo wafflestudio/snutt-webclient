@@ -1,6 +1,6 @@
-let path = require('path');
-let webpack = require('webpack');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -24,6 +24,11 @@ module.exports = {
         test: /\.jsx?$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'src'),
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'file',
+        include: path.join(__dirname, 'assets'),
       },
       {
         test: /\.scss$/,
