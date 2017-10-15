@@ -134,18 +134,73 @@ Coursebook Selector
 /*
 Notification Messages
 */
+#snutt__noti-wrapper {
+  float: right;
+  position: relative;
+}
+
+#snutt__noti-wrapper .noti-icon {
+  margin-right: 8px;
+}
+#snutt__noti-wrapper .noti-icon svg {
+  margin-top: 3px;
+}
+
 #snutt__noti-box {
   width: 300px;
+  height: 260px;
   position: absolute;
   z-index: 100;
   background-color: white;
   right: 0;
-  padding: 10px;
-  top: 81px;
-  border: 1px solid gray;
+  padding: 10px 8px 10px 20px;
+  top: 30px;
+  right: -40px;
+  border: solid 1px rgb(183, 195, 206);
+  border-radius: 14px;
+  overflow: hidden;
+  color: black;
+  font-size: 13px;
 }
 
-#snutt__noti-message {
-  margin-bottom: 10px;
-  border-bottom: 1px solid gray;
+.snutt__noti-scrollarea {
+  height: 240px;
+  overflow-y: scroll;
+  padding-right: 8px;
 }
+
+.snutt__noti-message {
+  border-bottom: 1px solid rgb(235, 238, 242);
+  padding: 8px 0;
+}
+
+.snutt__noti-scrollarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.snutt__noti-scrollarea::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.snutt__noti-scrollarea::-webkit-scrollbar-thumb {
+  background-color: rgba(112, 115, 124, 0.2);
+  border-radius: 14px;
+}
+
+.snutt__noti-icon {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.snutt__noti-content {
+  display: inline-block;
+  width: 235px;
+  padding-left: 5px;
+}
+
+span.snutt__noti-date {
+  font-size: 11px;
+  opacity: 0.4;
+}
+
+

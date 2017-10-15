@@ -6,7 +6,6 @@ import SearchBar from './SearchBar.jsx';
 import Notification from './NotificationButton.jsx';
 
 import Logo from '../../../../assets/logo.svg';
-import AlarmIcon from '../../../../assets/ic-alarm.svg';
 
 const mapStateToProps = (state) => {
   const { user: { loggedIn, id } } = state;
@@ -35,7 +34,6 @@ const Header = ({ loggedIn, id }) => (
       </Link>
       <CourseSelector />
       <LoginStatus loggedIn={loggedIn} id={id} />
-      {/* <AlarmIcon id="noti" /> */}
       <Notification />
       <SearchBar />
     </div>
