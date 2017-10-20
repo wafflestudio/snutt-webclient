@@ -150,6 +150,16 @@ Notification Messages
   margin-top: 3px;
 }
 
+#snutt__noti-wrapper .noti-icon.has-new::after {
+  content: ' ';
+  width: 3px;
+  height: 3px;
+  background-color: #e54459;
+  border-radius: 50%;
+  top: 2px;
+  position: absolute;
+}
+
 #snutt__noti-box {
   width: 300px;
   height: 260px;
@@ -189,11 +199,6 @@ Notification Messages
 .snutt__noti-scrollarea::-webkit-scrollbar-thumb {
   background-color: rgba(112, 115, 124, 0.2);
   border-radius: 14px;
-}
-
-.snutt__noti-icon {
-  display: inline-block;
-  vertical-align: top;
 }
 
 .snutt__noti-content {

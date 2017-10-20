@@ -54,7 +54,7 @@ class NotificationButton extends Component {
       >
         <IconWrapper
           onClick={this.handleClick}
-          className="noti-icon"
+          className={`noti-icon${hasNew ? ' has-new' : ''}`}
           normalIcon={<AlarmIconNormal />}
           hoveredIcon={<AlarmIconHovered />}
           focusedIcon={<AlarmIconFoucsed />}
