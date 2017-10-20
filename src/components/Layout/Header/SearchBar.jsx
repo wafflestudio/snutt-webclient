@@ -7,12 +7,10 @@ import IconWrapper from '../../Common/IconWrapper.jsx';
 import SearchIconNormal from '../../../../assets/ic-search-normal.svg';
 import SearchIconHover from '../../../../assets/ic-search-over.svg';
 import SearchIconFocus from '../../../../assets/ic-search-pressed.svg';
-// Filter icon
-import IconImageWrapper from '../../common/IconImageWrapper.jsx';
-import FilterIconNormal from '../../../../assets/ic_condition_normal.png';
-import FilterIconNormalHovered from '../../../../assets/ic_condition_over.png';
-import FilterIconFoucsed from '../../../../assets/ic_condition_focused.png';
-import FilterIconFoucsedHovered from '../../../../assets/ic_condition_focused_over.png';
+import FilterIconNormal from '../../../../assets/ic-condition-normal.svg';
+import FilterIconNormalHovered from '../../../../assets/ic-condition-over.svg';
+import FilterIconFocused from '../../../../assets/ic-condition-focused.svg';
+import FilterIconFocusedHovered from '../../../../assets/ic-condition-focused-over.svg';
 
 const mapStateToProps = ({ courseBook, filter: { panel: filterOn }, query }) => ({
   currentBook: courseBook.get('current'),
@@ -73,11 +71,11 @@ class SearchBar extends Component {
             hoveredIcon={<SearchIconHover />}
             focusedIcon={<SearchIconFocus />}
           />
-          <IconImageWrapper
-            normalIcon={FilterIconNormal}
-            normalHoveredIcon={FilterIconNormalHovered}
-            focusedIcon={FilterIconFoucsed}
-            focusedHoveredIcon={FilterIconFoucsedHovered}
+          <IconWrapper
+            normalIcon={<FilterIconNormal />}
+            hoveredIcon={<FilterIconNormalHovered />}
+            focusedIcon={<FilterIconFocused />}
+            focusedHoveredIcon={<FilterIconFocusedHovered />}
             focused={filterOn}
             onClick={toggleFilter}
           />

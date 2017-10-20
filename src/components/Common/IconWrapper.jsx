@@ -19,7 +19,7 @@ class IconWrapper extends Component {
 
   render() {
     const { hovered, pressed } = this.state;
-    const { normalIcon, focusedIcon, hoveredIcon, disabledIcon, disabled, focused,
+    const { normalIcon, focusedIcon, hoveredIcon, focusedHoveredIcon, disabledIcon, disabled, focused,
       onClick, className, id } = this.props;
 
     let icon;
@@ -27,10 +27,12 @@ class IconWrapper extends Component {
       icon = disabledIcon;
     } else if (pressed && focusedIcon) {
       icon = focusedIcon;
-    } else if (focused && focusedIcon) {
-      icon = focusedIcon;
+    } else if (hovered && focused && focusedHoveredIcon) {
+      icon = focusedHoveredIcon;
     } else if (hovered && hoveredIcon) {
       icon = hoveredIcon;
+    } else if (focused && focusedIcon) {
+      icon = focusedIcon;
     } else {
       icon = normalIcon;
     }
