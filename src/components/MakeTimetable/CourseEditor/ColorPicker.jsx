@@ -17,8 +17,7 @@ class ColorPicker extends Component {
     this.state = { paletteOpen: false };
   }
 
-  handleSelect(newColor, e) {
-    e.preventDefault();
+  handleSelect(newColor) {
     this.props.onChange(newColor);
   }
 
@@ -55,7 +54,7 @@ class ColorPicker extends Component {
         { this.state.paletteOpen && (
           <div className="picker-wrapper">
             <ChromePicker
-              color={currentColor}
+              color={currentColor.bg}
               disableAlpha
               onChangeComplete={this.handlePaletteSelect}
             />

@@ -16,9 +16,10 @@ const color2name = {
 };
 
 class ColorBlock extends Component {
-  handleClick = () => {
+  handleClick = (e) => {
+    e.preventDefault();
     const { color, colorIndex, onClick } = this.props;
-    onClick({ color, colorIndex }, e);
+    onClick({ color, colorIndex });
   }
 
   render() {
