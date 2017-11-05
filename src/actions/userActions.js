@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import { apiKey, baseUrl } from '../samples/sampleKey.js';
+import { apiKey, baseUrl } from '../config.js';
 import { push } from 'react-router-redux';
 import { updateCoursebook } from './fetchingActions';
 import { fetchTableList } from './tableActions';

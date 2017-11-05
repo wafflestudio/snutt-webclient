@@ -1,6 +1,6 @@
 import urljoin from 'url-join';
 
-import { apiKey, baseUrl } from '../samples/sampleKey.js';
+import { apiKey, baseUrl } from '../config.js';
 import { logout } from './userActions';
 import { store } from '../index';
 import errorTable from '../utils/errorTable';

@@ -4,7 +4,7 @@ import FBLogin from 'react-facebook-login';
 
 import { logout, deleteAccount, attachFacebook, detachFacebook, attachLocal,
   changePassword } from '../../actions/userActions';
-import { fbAppId } from '../../samples/sampleKey';
+import { fbAppId } from '../../config';
 
 const mapStateToProps = (state) => {
   const { user } = state;

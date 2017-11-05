@@ -1,5 +1,5 @@
 import React from 'react';
-import { baseUrl } from '../../samples/sampleKey';
+import { baseUrl } from '../../config';
 
 const MEMBER_URL = `${baseUrl}member`;
 const TERM_URL = `${baseUrl}terms_of_service`;

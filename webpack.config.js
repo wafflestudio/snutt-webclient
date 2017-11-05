@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   devtool: 'source-map',
@@ -17,6 +18,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('bundle.css'),
+    new Dotenv(),
   ],
   module: {
     loaders: [

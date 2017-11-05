@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import FBLogin from 'react-facebook-login';
 import { loginLocal, loginFacebook } from '../../actions/userActions';
-import { fbAppId } from '../../samples/sampleKey';
+import { fbAppId } from '../../config';
 
 const mapStateToProps = state => ({ user: state.user });
 

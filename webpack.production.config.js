@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackStrip = require('strip-loader');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: [
@@ -37,6 +38,7 @@ module.exports = {
         screw_ie8: true,
       },
     }),
+    new Dotenv(),
   ],
   module: {
     loaders: [

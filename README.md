@@ -6,7 +6,7 @@ Single Page Application for managing course schedule
 
 ### Usage
 
-Before run, you need to set required keys. Insert api key, server url, facebook app id into `src/sample/sampleKey.js`
+Before run, you need to set required keys. Insert api key, server url, facebook app id into `.env` according to `.env.example`.
 
 ```
 yarn

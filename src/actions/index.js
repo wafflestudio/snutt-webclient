@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import * as types from './actionTypes';
-import { apiKey, baseUrl } from '../samples/sampleKey.js';
+import { apiKey, baseUrl } from '../config.js';
 import { complement } from '../components/MakeTimetable/Search/TimeQuery.jsx';
 
 export function hoverCourse(course) {
