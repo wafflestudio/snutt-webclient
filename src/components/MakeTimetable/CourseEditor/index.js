@@ -150,7 +150,14 @@ class CourseEditor extends PureRenderComponent {
             >
               취소
             </button>
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                borderColor: this.state.color.bg,
+                backgroundColor: this.state.color.bg,
+              }}
+            >
               {submitName}
             </button>
           </div>
