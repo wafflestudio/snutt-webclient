@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
 import Radium from 'radium'; // To use pseudoclass CSS inside JavaScript
 import Color from 'color';
-import ColoredBlock from './ColoredBlock.jsx';
 
-const color2name = {
-  '#e54459': '석류',
-  '#f58d3d': '감귤',
-  '#fac52d': '들국',
-  '#a6d930': '완두',
-  '#2bc366': '비취',
-  '#1bd0c9': '지중해',
-  '#1d99e9': '하늘',
-  '#4f48c4': '라벤더',
-  '#af56b3': '자수정',
-};
-
-class ColorBlock extends Component {
-  handleClick = () => {
-    const { color, colorIndex, onClick } = this.props;
-    onClick({ color, colorIndex }, e);
+@Radium
+class ColoredBlock extends Component {
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.handleColorClick(this.props.color);
   }
 
   render() {
-    const { color, isSelected } = this.props;
+    const { color, isSelected, name } = this.props;
     const style = {
       backgroundColor: isSelected ? color.bg : 'white',
       borderColor: color.bg,
@@ -38,10 +26,10 @@ class ColorBlock extends Component {
         onClick={this.handleClick}
         style={style}
       >
-        <span>{color2name[color.bg]}</span>
+        <span>{name}</span>
       </div>
     );
   }
 }
 
-export default ColorBlock;
+export default ColoredBlock;

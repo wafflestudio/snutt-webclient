@@ -168,6 +168,12 @@
     width: 105px;
 }
 
+.picker-wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+}
+
 .circle-wrapper .color-circle {
     padding: 3px 10px;
     height: 24px;

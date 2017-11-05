@@ -54,7 +54,7 @@ class CourseEditor extends PureRenderComponent {
 
   handleSave(e) {
     e.preventDefault();
-    const { course_title, instructor, class_time_json, remark, colorIndex } = this.state;
+    const { course_title, instructor, class_time_json, remark, color, colorIndex } = this.state;
     const editedLecture = {
       course_title,
       instructor,
@@ -63,6 +63,7 @@ class CourseEditor extends PureRenderComponent {
       remark,
       colorIndex,
     };
+    if (colorIndex === 0) { editedLecture.color = color; }
     if (this.state.isNew) { // add new course
       this.props.onAddCustomLecture(editedLecture);
     } else {
@@ -125,7 +126,7 @@ class CourseEditor extends PureRenderComponent {
             <label className="col-sm-2 control-label">색</label>
             <div className="col-sm-8">
               <ColorPicker
-                currentColor={this.state.color.bg}
+                currentColor={this.state.color}
                 onChange={this.handleColorSelect}
               />
             </div>
