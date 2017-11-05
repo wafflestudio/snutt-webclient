@@ -13,8 +13,13 @@
   <body>
     <div id='root'>
     </div>
+    <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
+
     <script src="/static/bundle.js"></script>
     <script type="text/javascript">
+      // Setup sentry client
+      Raven.config('https://ebc0b78fb9174edfa6e1fab5d14b85a9@sentry.io/240133').install()
+
       // Mount doorbell addon
       window.doorbellOptions = {
           appKey: '6tS3g5TpC1hTniH8lNa4zd5kwaDAaghKut3o03JfSCzwkNuEiOKfigGxvfL1TK5v'
