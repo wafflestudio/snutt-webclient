@@ -88,6 +88,9 @@
 .btn.primary:hover {
     background-color: rgb(12, 173, 166);
 }
+.btn.primary:active {
+    background-color: #069790;
+}
 
 .btn.login-fb {
     color: #3c5dd4;
@@ -96,6 +99,12 @@
 .btn.login-fb:hover {
     background-color: rgba(60, 93, 212, 0.1);
 }
+.btn.login-fb:active {
+    background-color: #3c5dd4;
+    border: solid 1px #3c5dd4;
+    color: white;
+}
+
 
 .snutt__login .btn.logout {
     color: #000000;
