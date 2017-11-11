@@ -38,7 +38,7 @@ module.exports = {
         screw_ie8: true,
       },
     }),
-    new Dotenv(),
+    new Dotenv({ path: './.env.prod' }),
   ],
   module: {
     loaders: [

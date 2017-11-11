@@ -18,7 +18,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('bundle.css'),
-    new Dotenv(),
+    new Dotenv({ path: './.env.dev' }),
   ],
   module: {
     loaders: [
