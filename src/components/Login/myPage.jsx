@@ -76,81 +76,95 @@ class MyPage extends Component {
     const { info } = this.props;
     if (info.local_id) {  // User had id and password
       return (
-        <div className="snutt__setting">
-          <form onSubmit={this.handlePasswordChange}>
-            <div id="local-id">
-              SNUTT 아이디는 <strong>{info.local_id}</strong>입니다 :)
+        <div>
+          <div className="form-group">
+            <label className="col-xs-4" />
+            <div className="col-xs-8" id="local-id">
+              SNUTT 아이디는 <strong>{info.local_id}</strong>입니다
             </div>
-            <input
-              className="form-control"
-              type="password"
-              placeholder="현재 비밀번호"
-              ref={(oldPass) => { this.oldPass = oldPass; }}
-              required
-            />
-            <input
-              className="form-control"
-              type="password"
-              placeholder="새 비밀번호"
-              ref={(newPass) => { this.newPass = newPass; }}
-              required
-              pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
-              title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-            />
-            <input
-              className="form-control"
-              type="password"
-              placeholder="새 비밀번호 확인"
-              ref={(newPassConfirm) => { this.newPassConfirm = newPassConfirm; }}
-              required
-              pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
-              title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-            />
-            <input
-              className="btn primary passchange"
-              type="submit"
-              value="변경하기"
-            />
-          </form>
+          </div>
+          <div className="form-group">
+            <label className="col-xs-4">
+              비밀번호 관리
+            </label>
+            <div className="col-xs-8">
+              <form onSubmit={this.handlePasswordChange}>
+                <input
+                  className="form-control"
+                  type="password"
+                  placeholder="현재 비밀번호"
+                  ref={(oldPass) => { this.oldPass = oldPass; }}
+                  required
+                />
+                <input
+                  className="form-control"
+                  type="password"
+                  placeholder="새 비밀번호"
+                  ref={(newPass) => { this.newPass = newPass; }}
+                  required
+                  pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
+                  title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
+                />
+                <input
+                  className="form-control"
+                  type="password"
+                  placeholder="새 비밀번호 확인"
+                  ref={(newPassConfirm) => { this.newPassConfirm = newPassConfirm; }}
+                  required
+                  pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
+                  title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
+                />
+                <input
+                  className="btn primary passchange"
+                  type="submit"
+                  value="변경하기"
+                />
+              </form>
+            </div>
+          </div>
         </div>
       );
     }  // Nope => Make local Id
     return (
-      <div>
-        <form onSubmit={this.handleAttachLocalAccount}>
-          <input
-            type="text"
-            ref={(newId) => { this.newId = newId; }}
-            pattern="[a-z0-9]{4,32}"
-            required
-            title="아이디는 4자 이상 32자 이하의 영소문자와 숫자로 만들어주세요"
-            className="form-control"
-            placeholder="아이디"
-          />
-          <input
-            className="form-control"
-            type="password"
-            ref={(newPass) => { this.newPass = newPass; }}
-            pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
-            required
-            title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-            placeholder="비밀번호"
-          />
-          <input
-            type="password"
-            ref={(newPassConfirm) => { this.newPassConfirm = newPassConfirm; }}
-            pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
-            required
-            title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-            className="form-control"
-            placeholder="비밀번호 확인"
-          />
-          <input
-            className="btn passchange"
-            type="submit"
-            value="아이디/비밀번호 만들기"
-          />
-        </form>
+      <div className="form-group">
+        <label className="col-xs-4">
+          아이디 만들기
+        </label>
+        <div className="col-xs-8">
+          <form onSubmit={this.handleAttachLocalAccount}>
+            <input
+              ref={(newId) => { this.newId = newId; }}
+              pattern="[a-z0-9]{4,32}"
+              required
+              title="아이디는 4자 이상 32자 이하의 영소문자와 숫자로 만들어주세요"
+              className="form-control"
+              placeholder="아이디"
+            />
+            <input
+              className="form-control"
+              type="password"
+              ref={(newPass) => { this.newPass = newPass; }}
+              pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
+              required
+              title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
+              placeholder="비밀번호"
+            />
+            <input
+              type="password"
+              ref={(newPassConfirm) => { this.newPassConfirm = newPassConfirm; }}
+              pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
+              required
+              title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
+              className="form-control"
+              placeholder="비밀번호 확인"
+            />
+            <input
+              className="btn primary passchange"
+              type="submit"
+              value="아이디/비밀번호 만들기"
+            />
+          </form>
+        </div>
       </div>
     );
   }
@@ -184,18 +198,7 @@ class MyPage extends Component {
         <div className="row">
           <div className="form-horizontal">
             <h2>내 정보</h2>
-            <div className="form-group">
-              <label className="col-xs-4">이메일</label>
-              <div className="col-xs-8">
-                <span id="email-text">sample@snutt.kr</span>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="col-xs-4">비밀번호 관리</label>
-              <div className="col-xs-8">
-                {this.renderLocalAccountManager()}
-              </div>
-            </div>
+            {this.renderLocalAccountManager()}
             <br />
             <div className="form-group">
               <label className="col-xs-4">페이스북</label>
