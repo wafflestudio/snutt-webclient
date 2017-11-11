@@ -8,7 +8,7 @@ import { setLeftTab } from '../../../actions';
 
 function mapStateToProps(state) {
   const { isQuerying, searchResults, leftTabSearching,
-    tableList: { viewTableId, viewLectures } } = state;
+    tableList: { viewLectures } } = state;
   return { isQuerying, searchResults, viewLectures, searching: leftTabSearching };
 }
 
@@ -36,8 +36,11 @@ class ResultTable extends Component {
         searching={searching}
       />
       ))
-      : (searching) ? (<tr><td>검색 결과가 없습니다.</td></tr>)
-      : (<tr><td>추가된 강의가 없습니다.</td></tr>);
+      : (
+        (searching) ?
+        (<tr><td>검색 결과가 없습니다.</td></tr>) :
+        (<tr><td>추가된 강의가 없습니다.</td></tr>)
+      );
     return (
       <div>
         <ResultTabs
@@ -46,7 +49,7 @@ class ResultTable extends Component {
           handleToggle={this.handleToggle}
         />
         <div className="result-wrapper">
-          <table className="table table-hover resultTable">
+          <table className="table resultTable">
             <tbody>
               {
                 this.props.isQuerying ?

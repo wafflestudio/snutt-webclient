@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { switchTable, createTable, deleteTable, updateTitle } from '../../../actions/tableActions';
 
-import AddIcon from '../../../../assets/ic-addtab-normal.svg';
+import IconWrapper from '../../Common/IconWrapper.jsx';
+import AddIconNormal from '../../../../assets/ic-addtab-normal.svg';
+import AddIconHover from '../../../../assets/ic-addtab-over.svg';
+import AddIconFocus from '../../../../assets/ic-addtab-pressed.svg';
 import DeleteIcon from '../../../../assets/btn-delete-normal.svg';
 
 function mapStateToProps(state) {
@@ -26,8 +29,13 @@ class TimetableTabs extends Component {
     this.handleTitleUpdate = this.handleTitleUpdate.bind(this);
   }
 
-  handleAdd(e) {
-    e.stopPropagation();
+  shouldComponentUpdate(nextProps) {
+    const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
+    const { viewTableId, tables } = this.props;
+    return nextViewTableId != viewTableId || nextTables != tables;
+  }
+
+  handleAdd() {
     const newTitle = prompt('새 시간표의 제목을 입력해 주세요');
     if (newTitle) {
       this.props.onCreateTable(newTitle);
@@ -95,12 +103,6 @@ class TimetableTabs extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
-    const { viewTableId, tables } = this.props;
-    // console.log("timetableTab::shouldComponentUpdate", tables, nextTables);
-    return nextViewTableId != viewTableId || nextTables != tables;
-  }
 
   render() {
     // console.log("TImetableTab render!!!");
@@ -109,7 +111,12 @@ class TimetableTabs extends Component {
     // add button
     buttons.push(
       <li className="tab-icon" key={-1}>
-        <AddIcon onClick={this.handleAdd} />
+        <IconWrapper
+          onClick={this.handleAdd}
+          normalIcon={<AddIconNormal />}
+          hoveredIcon={<AddIconHover />}
+          focusedIcon={<AddIconFocus />}
+        />
       </li>,
     );
     return (

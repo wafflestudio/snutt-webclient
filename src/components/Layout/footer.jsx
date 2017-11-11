@@ -10,11 +10,14 @@ const Footer = () => (
     <a className="item" href={MEMBER_URL}>
       Waffle Studio SNUTT팀
     </a>
-    <a className="item" href="https://github.com/wafflestudio/snutt">
+    <a className="item" href="https://github.com/wafflestudio/snutt-webclient">
       SNUTT GitHub
     </a>
-    <a className="item">
+    <a className="item" href="https://github.com/wafflestuio/snutt-webclient/issues">
       개발자 도와주기
+    </a>
+    <a className="item" href="http://old.snutt.kr">
+      SNUTT 구버전 사용하기
     </a>
 
     {/* ㅜㅜㅜ...  */}

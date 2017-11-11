@@ -28,7 +28,7 @@ export function addLecture(lecture) {
       alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
       return;
     }
-    const _id = lecture._id;
+    const _id = lecture._id || '';
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${viewTableId}/lecture/${_id}`,
@@ -45,7 +45,12 @@ export function addLecture(lecture) {
 
 export function addCustomLecture(lecture) {
   return function (dispatch, getState) {
-    const { viewTableId } = getState().tableList;
+    const { viewTableId } = getState().tableList || 0;
+    if (!viewTableId) {
+      alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
+      return;
+    }
+    debugger;
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${viewTableId}/lecture`,
