@@ -180,10 +180,11 @@ input[type=checkbox]:hover + div {
 }
 
 .searchpanel-wrapper .departments input {
-  height: 28px;
-  opacity: 0.2;
+  height: 100%;
+  width: 90%;
   font-size: 12px;
   border: none;
+  color: black;
 }
 
 .searchpanel-wrapper .departments input:focus ~  {
