@@ -26,7 +26,6 @@ class MyPage extends Component {
   constructor() {
     super();
     this.handleLogout = () => this.props.logout();
-    this.handleDelete = () => this.props.deleteAccount();
     this.handleFacebookAttach = ({ id, accessToken }) => {
       this.props.attachFacebook(id, accessToken);
     };
@@ -35,6 +34,10 @@ class MyPage extends Component {
     this.handleAttachLocalAccount = this.handleAttachLocalAccount.bind(this);
     this.renderFacebookManager = this.renderFacebookManager.bind(this);
     this.renderLocalAccountManager = this.renderLocalAccountManager.bind(this);
+  }
+
+  handleDelete = () => {
+    if (confirm('정말 탈퇴하시겠습니까?')) { this.props.deleteAccount(); }
   }
 
   handlePasswordChange(e) {
