@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { switchTable, createTable, deleteTable, updateTitle } from '../../../actions/tableActions';
 
-import AddIcon from '../../../../assets/ic-addtab-normal.svg';
+import IconWrapper from '../../Common/IconWrapper.jsx';
+import AddIconNormal from '../../../../assets/ic-addtab-normal.svg';
+import AddIconHover from '../../../../assets/ic-addtab-over.svg';
+import AddIconFocus from '../../../../assets/ic-addtab-pressed.svg';
 import DeleteIcon from '../../../../assets/btn-delete-normal.svg';
 
 function mapStateToProps(state) {
@@ -109,7 +112,12 @@ class TimetableTabs extends Component {
     // add button
     buttons.push(
       <li className="tab-icon" key={-1}>
-        <AddIcon onClick={this.handleAdd} />
+        <IconWrapper
+          onClick={this.handleAdd}
+          normalIcon={<AddIconNormal />}
+          hoveredIcon={<AddIconHover />}
+          focusedIcon={<AddIconFocus />}
+        />
       </li>,
     );
     return (
