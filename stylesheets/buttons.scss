@@ -7,11 +7,20 @@
   box-shadow: none;
 }
 
+.btn:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn:focus,.btn:active {
+  outline: none!important;
+}
+
 .btn-default:hover {
   background-color: #f3f7f8!important;
 }
 
-.btn-default:focused {
+.btn-default:focus {
   background-color: #ebeef2!important;
 }
 
