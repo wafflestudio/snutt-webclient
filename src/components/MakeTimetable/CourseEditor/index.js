@@ -16,7 +16,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   onAddCustomLecture: editedLecture => dispatch(addCustomLecture(editedLecture)),
   onUpdateLecture: (id, lecture) => {
-    debugger;
     dispatch(updateLecture(id, lecture));
   },
   onCourseClose: () => dispatch(closeCourse()),
@@ -38,6 +37,7 @@ class CourseEditor extends PureRenderComponent {
       _id: course._id || '', // || for new course
       course_title: course.course_title || '',
       instructor: course.instructor || '',
+      credit: course.credit || 0,
       class_time_mask: course.class_time_mask || '',
       class_time_json: course.class_time_json || [],
       remark: course.remark || '',
@@ -54,13 +54,14 @@ class CourseEditor extends PureRenderComponent {
 
   handleSave(e) {
     e.preventDefault();
-    const { course_title, instructor, class_time_json, remark, color, colorIndex } = this.state;
+    const { course_title, instructor, class_time_json, credit, remark, color, colorIndex } = this.state;
     const editedLecture = {
       course_title,
       instructor,
       class_time_mask: timeJsonToMask(class_time_json),
       class_time_json,
       remark,
+      credit,
       colorIndex,
     };
     if (colorIndex === 0) { editedLecture.color = color; }
@@ -131,7 +132,7 @@ class CourseEditor extends PureRenderComponent {
               />
             </div>
           </div>
-
+          {this.renderInput('학점', 'credit', '예) 0')}
           {this.renderInput('비고', 'remark', '(없음)')}
           <div className="form-group">
             <label className="col-sm-2 control-label">시간</label>
