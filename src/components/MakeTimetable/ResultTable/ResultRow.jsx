@@ -35,7 +35,6 @@ class ResultRow extends Component {
 
   render() {
     const { hovered } = this.state;
-    // const hovered = true;
     const cssClass = `tr-result${hovered ? ' hovered' : ''}`;
     const lecture = this.props.lecture;
 
