@@ -183,6 +183,10 @@ Notification Messages
   padding-right: 8px;
 }
 
+.snutt__noti-icon {
+  display: inline-block;
+}
+
 .snutt__noti-message {
   border-bottom: 1px solid rgb(235, 238, 242);
   padding: 8px 0;
@@ -205,6 +209,8 @@ Notification Messages
   display: inline-block;
   width: 235px;
   padding-left: 5px;
+  vertical-align: top;
+  padding-top: 1px;
 }
 
 span.snutt__noti-date {
