@@ -18,6 +18,7 @@ class ColorPicker extends Component {
   }
 
   handleSelect(newColor) {
+    if (this.state.paletteOpen) { this.setState({ paletteOpen: false }); }
     this.props.onChange(newColor);
   }
 
