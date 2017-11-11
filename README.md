@@ -1,4 +1,4 @@
-SNUTT-web
+SNUTT-web [![cypress dashboard](https://img.shields.io/badge/cypress-dashboard-brightgreen.svg)](https://dashboard.cypress.io/#/projects/bd6ov3/runs)
 =====================
 
 Single Page Application for managing course schedule

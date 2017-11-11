@@ -11,6 +11,7 @@
     "profile": "NODE_ENV=production webpack --config webpack.production.config.js --profile --json > dist/stat.json",
     "build": "NODE_ENV=production webpack --config webpack.production.config.js",
     "test-deploy": "yarn run build && firebase deploy",
+    "test": "cypress run --record --key eb21de29-6d06-40bb-a03e-84988550dfcd",
     "cypress:open": "cypress open",
     "cypress": "npm-run-all --parallel start cypress:open"
   },
