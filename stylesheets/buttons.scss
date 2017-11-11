@@ -2,6 +2,11 @@
   @include unselectable;
 }
 
+.btn:active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 .btn-default:hover {
   background-color: #f3f7f8!important;
 }

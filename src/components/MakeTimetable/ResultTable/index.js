@@ -8,7 +8,7 @@ import { setLeftTab } from '../../../actions';
 
 function mapStateToProps(state) {
   const { isQuerying, searchResults, leftTabSearching,
-    tableList: { viewTableId, viewLectures } } = state;
+    tableList: { viewLectures } } = state;
   return { isQuerying, searchResults, viewLectures, searching: leftTabSearching };
 }
 

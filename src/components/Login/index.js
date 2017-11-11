@@ -105,6 +105,7 @@ class Login extends Component {
             <Link to="/signup">
               <div
                 className="btn join"
+                aria-pressed="true"
               >
                 회원가입
               </div>
