@@ -29,8 +29,13 @@ class TimetableTabs extends Component {
     this.handleTitleUpdate = this.handleTitleUpdate.bind(this);
   }
 
-  handleAdd(e) {
-    e.stopPropagation();
+  shouldComponentUpdate(nextProps) {
+    const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
+    const { viewTableId, tables } = this.props;
+    return nextViewTableId != viewTableId || nextTables != tables;
+  }
+
+  handleAdd() {
     const newTitle = prompt('새 시간표의 제목을 입력해 주세요');
     if (newTitle) {
       this.props.onCreateTable(newTitle);
@@ -98,12 +103,6 @@ class TimetableTabs extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
-    const { viewTableId, tables } = this.props;
-    // console.log("timetableTab::shouldComponentUpdate", tables, nextTables);
-    return nextViewTableId != viewTableId || nextTables != tables;
-  }
 
   render() {
     // console.log("TImetableTab render!!!");

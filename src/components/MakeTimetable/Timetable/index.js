@@ -81,6 +81,10 @@ class Timetable extends Component {
 
   createAndEditCourse(e) {
     e.preventDefault();
+    if (this.props.hasNoTable) {
+      alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
+      return;
+    }
     this.props.openCourse();
   }
 
