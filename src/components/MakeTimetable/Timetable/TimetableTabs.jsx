@@ -21,6 +21,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class TimetableTabs extends Component {
+  static validateTitle(title) {
+    // No space-only title
+    const validator = /\S/;
+    return validator.test(title);
+  }
+
   constructor() {
     super();
     this.handleAdd = this.handleAdd.bind(this);
@@ -37,8 +43,8 @@ class TimetableTabs extends Component {
 
   handleAdd() {
     const newTitle = prompt('새 시간표의 제목을 입력해 주세요');
-    if (newTitle) {
-      this.props.onCreateTable(newTitle);
+    if (newTitle && TimetableTabs.validateTitle(newTitle)) {
+      this.props.onCreateTable(newTitle.trim());
     }
   }
 
@@ -56,8 +62,8 @@ class TimetableTabs extends Component {
   handleTitleUpdate(e) {
     e.stopPropagation();
     const input = prompt('새 제목을 입력해 주세요', '나의 시간표');
-    if (input) {
-      this.props.onUpdateTitle(input);
+    if (input && TimetableTabs.validateTitle(input)) {
+      this.props.onUpdateTitle(input.trim());
     }
   }
 
