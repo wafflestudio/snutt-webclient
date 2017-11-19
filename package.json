@@ -10,7 +10,8 @@
     "lint": "./node_modules/eslint/bin/eslint.js --fix src/**/*.{js,jsx}",
     "profile": "NODE_ENV=production webpack --config webpack.production.config.js --profile --json > dist/stat.json",
     "build": "NODE_ENV=production webpack --config webpack.production.config.js",
-    "test-deploy": "yarn run build && firebase deploy"
+    "test-deploy": "yarn run build && firebase deploy",
+    "update": "git pull && yarn run build"
   },
   "repository": {
     "type": "git",

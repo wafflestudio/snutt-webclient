@@ -13,7 +13,7 @@ const Footer = () => (
     <a className="item" href="https://github.com/wafflestudio/snutt-webclient">
       SNUTT GitHub
     </a>
-    <a className="item" href="https://github.com/wafflestuio/snutt-webclient/issues">
+    <a className="item" href="https://github.com/wafflestudio/snutt-webclient/issues">
       개발자 도와주기
     </a>
     <a className="item" href="http://old.snutt.kr">

@@ -18,7 +18,7 @@ const hhmms = times.map((gyosi) => {
 }).map((hhmm, index) => ({ value: index / 2, label: hhmm, className: 'snutt__options' }));
 
 const lectureLengths = [...Array(10).keys()].map((len, index) =>
-  ({ value: index / 2, label: len, className: 'snutt__options' }),
+  ({ value: index / 2, label: index / 2, className: 'snutt__options' }),
 );
 
 class ClassTimeRow extends PureRenderComponent {
@@ -64,7 +64,7 @@ class ClassTimeRow extends PureRenderComponent {
           onChange={this.updateLen}
           searchable={false}
           clearable={false}
-          placeholder="길이"
+          placeholder="시간"
           arrowRenderer={DropdownArrow}
         />
         <input className="place" value={place} onChange={this.updatePlace} type="text" placeholder="(장소)" />
