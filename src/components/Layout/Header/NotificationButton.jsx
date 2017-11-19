@@ -13,13 +13,17 @@ const AMOUNT_PER_REQUEST = 10;
 
 const mapStateToProps = (state) => {
   let { notification } = state;
+
   if (visitChecker.isNewUser()) {
     notification = { ...notification,
       hasNew: true,
       opened: true,
-      messages: [welcomeMessage] };
+    };
   }
-  return { ...notification };
+  // For a while keep welcome message
+  const messages = notification.messages.slice();
+  messages.push(welcomeMessage);
+  return { ...notification, messages };
 };
 
 const mapDispatchToProps = dispatch => ({

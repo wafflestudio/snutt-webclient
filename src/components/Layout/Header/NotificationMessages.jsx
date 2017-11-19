@@ -80,7 +80,7 @@ class NotificationMessages extends Component {
           >
             <div className="snutt__noti-icon">{NotificationMessages.renderIcon(v.type)}</div>
             <div className="snutt__noti-content">
-              <span className="snutt__noti-body">{v.message}</span>
+              <span className="snutt__noti-body" dangerouslySetInnerHTML={{ __html: v.message }} />
               {' '}
               <span className="snutt__noti-date">{NotificationMessages.formatDate(v.created_at)}</span>
             </div>
