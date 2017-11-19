@@ -168,13 +168,39 @@ Notification Messages
   background-color: white;
   right: 0;
   padding: 10px 8px 10px 20px;
-  top: 30px;
+  top: 40px;
   right: -40px;
   border: solid 1px rgb(183, 195, 206);
   border-radius: 14px;
-  overflow: hidden;
+  // overflow: hidden;
   color: black;
   font-size: 13px;
+}
+
+// For triangle (http://jsfiddle.net/4ZeCz/4133/)
+#snutt__noti-box:after,
+#snutt__noti-box:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  right: 47px;
+}
+
+#snutt__noti-box:after {
+  top: -21px;
+  border-color: transparent transparent white transparent;
+  border-width: 11px;
+}
+
+#snutt__noti-box:before {
+  top: -22px;
+  /* right: 44px; */
+  border-color: transparent transparent #b7c3ce transparent;
+  border-width: 11px;
 }
 
 .snutt__noti-scrollarea {
