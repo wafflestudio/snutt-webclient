@@ -17,10 +17,6 @@ const hhmms = times.map((gyosi) => {
   return `${hh}:${mm}`;
 }).map((hhmm, index) => ({ value: index / 2, label: hhmm, className: 'snutt__options' }));
 
-const lectureLengths = [...Array(10).keys()].map((len, index) =>
-  ({ value: index / 2, label: index / 2, className: 'snutt__options' }),
-);
-
 class ClassTimeRow extends PureRenderComponent {
 
   updateDay = v => this.props.updateRow(this.props.index, 'day', v.value)
@@ -28,6 +24,14 @@ class ClassTimeRow extends PureRenderComponent {
   updateLen = v => this.props.updateRow(this.props.index, 'len', v.value)
   updatePlace = e => this.props.updateRow(this.props.index, 'place', e.target.value)
   deleteThisRow = (e) => { e.preventDefault; this.props.deleteRow(this.props.index); }
+  getValidDuration = () => {
+    const start = this.props.start || 1;
+    const possibleHours = 32 - (start * 2);
+    const possibleLengths = [...Array(possibleHours).keys()].map((len, index) =>
+      ({ value: index / 2, label: index / 2, className: 'snutt__options' }),
+    );
+    return possibleLengths;
+  }
 
   render() {
     const { day, start, len, place } = this.props;
@@ -60,7 +64,7 @@ class ClassTimeRow extends PureRenderComponent {
           className="snutt__select"
           name="length-selector"
           value={len}
-          options={lectureLengths}
+          options={this.getValidDuration()}
           onChange={this.updateLen}
           searchable={false}
           clearable={false}

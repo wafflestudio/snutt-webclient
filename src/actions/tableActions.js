@@ -50,7 +50,6 @@ export function addCustomLecture(lecture) {
       alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
       return;
     }
-    debugger;
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${viewTableId}/lecture`,
