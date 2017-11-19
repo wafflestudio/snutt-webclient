@@ -81,7 +81,7 @@ class CourseEditor extends PureRenderComponent {
     this.setState({ [field]: e.target.value });
   }
 
-  renderInput(field, key, placeholder) {
+  renderInput(field, key, placeholder, type = 'text') {
     return (
       <div className="form-group">
         <label className="col-sm-2 control-label">{field}</label>
@@ -91,7 +91,7 @@ class CourseEditor extends PureRenderComponent {
             value={this.state[key]}
             onChange={this.handleChange.bind(this, key)}
             placeholder={placeholder}
-            type="text"
+            type={type}
           />
         </div>
       </div>
@@ -132,7 +132,7 @@ class CourseEditor extends PureRenderComponent {
               />
             </div>
           </div>
-          {this.renderInput('학점', 'credit', '예) 0')}
+          {this.renderInput('학점', 'credit', '예) 0', 'number')}
           {this.renderInput('비고', 'remark', '(없음)')}
           <div className="form-group">
             <label className="col-sm-2 control-label">시간</label>
