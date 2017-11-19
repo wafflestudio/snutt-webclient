@@ -1,6 +1,8 @@
 import { GET_MESSAGE_START, GET_MESSAGE_OK, CHECK_NEW_MESSAGE_OK,
   OPEN_MESSAGE_BOX, CLOSE_MESSAGE_BOX,
 } from '../actions/notification';
+import * as types from '../actions/actionTypes';
+import { TOGGLE_SEARCHPANEL } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   fetching: false,
@@ -37,6 +39,8 @@ const handlers = {
   [OPEN_MESSAGE_BOX]: (state, action) => ({ opened: true }),
 
   [CLOSE_MESSAGE_BOX]: (state, action) => ({ opened: false }),
+
+  [TOGGLE_SEARCHPANEL]: (state, action) => ({ opened: false }),
 
 };
 
