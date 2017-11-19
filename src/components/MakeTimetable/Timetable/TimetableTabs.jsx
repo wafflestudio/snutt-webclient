@@ -57,7 +57,7 @@ class TimetableTabs extends Component {
     e.stopPropagation();
     const input = prompt('새 제목을 입력해 주세요', '나의 시간표');
     if (input) {
-      this.props.onUpdateTableTitle(input);
+      this.props.onUpdateTitle(input);
     }
   }
 

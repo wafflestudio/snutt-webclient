@@ -106,6 +106,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
     case types.UPDATE_TITLE_OK: {
       const tableList = action.response;
+      const { viewYear, viewSemester } = state;
       const viewTableTabList = getViewTableTabList(tableList, viewYear, viewSemester);
       return {
         ...state,
