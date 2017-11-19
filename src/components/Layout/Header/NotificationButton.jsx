@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchMessages, openMessageBox, closeMessageBox } from '../../../actions/notification';
 import NotificationMessages from './NotificationMessages.jsx';
+import { visitChecker, welcomeMessage } from './visitorChecker';
 
 import IconWrapper from '../../Common/IconWrapper.jsx';
 import AlarmIconNormal from '../../../../assets/ic-alarm-normal.svg';
@@ -11,14 +12,23 @@ import AlarmIconFoucsed from '../../../../assets/ic-alarm-pressed.svg';
 const AMOUNT_PER_REQUEST = 10;
 
 const mapStateToProps = (state) => {
-  const { notification } = state;
+  let { notification } = state;
+  if (visitChecker.isNewUser()) {
+    notification = { ...notification,
+      hasNew: true,
+      opened: true,
+      messages: [welcomeMessage] };
+  }
   return { ...notification };
 };
 
 const mapDispatchToProps = dispatch => ({
   updateMessage: offset => dispatch(fetchMessages(AMOUNT_PER_REQUEST, offset)),
   openMessageBox: () => dispatch(openMessageBox()),
-  closeMessageBox: () => dispatch(closeMessageBox()),
+  closeMessageBox: () => {
+    visitChecker.markUserVisited();
+    dispatch(closeMessageBox());
+  },
 });
 
 class NotificationButton extends Component {
