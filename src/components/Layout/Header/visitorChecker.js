@@ -1,7 +1,18 @@
+import store from 'store';
+
+let newUser = 'PLEASE_INIT';
+
 export const visitChecker = {
-  isNewUser: () => (!localStorage.getItem('tt__newuser')),
+  isNewUser: () => {
+    if (newUser !== 'PLEASE_INIT') { return newUser; }
+    newUser = !store.get('tt__newuser');
+    return newUser;
+  },
   markUserVisited: () => {
-    localStorage.setItem('tt__newuser', Date.now());
+    if (newUser !== 'PLEASE_INIT' && newUser === true) {
+      store.set('tt__newuser', Date.now());
+      newUser = false;
+    }
   },
 };
 
