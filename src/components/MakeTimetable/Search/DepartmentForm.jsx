@@ -96,7 +96,7 @@ class DeparmentForm extends Component {
             className="tag-selected"
             onClick={this.handleDelete.bind(this, val)}
           >
-            <span>{val}</span>
+            <span className="span-selected">{val}</span>
             <DeleteButton />
           </div>
         ))}
@@ -113,6 +113,7 @@ class DeparmentForm extends Component {
             onMenuVisibilityChange={this.onMenuChange}
             renderItem={(item, highlighted) => (
               <div
+                className="department_item"
                 style={styles.itemStyle(highlighted)}
               >
                 {item}

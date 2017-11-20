@@ -68,8 +68,12 @@ class SearchFilter extends Component {
   }
 
   handleClickOutside(e) {
-    if (!this.node.contains(e.target) && !this.props.timePanel) {
-      if (e.target.className.includes('btn-timeselector')) { return; }
+    if (e.target.className && !this.node.contains(e.target) && !this.props.timePanel) {
+      if (e.target.className.includes('btn-timeselector') ||
+      e.target.className.includes('department_item') ||
+      e.target.className.includes('tag-selected') ||
+      e.target.className.includes('span-selected')
+      ) { return; }
       this.props.toggleSearchPanel();
     }
   }
