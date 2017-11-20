@@ -7,6 +7,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.05);
     padding-top: 30px; //Because of top-bar
+    overflow-y: scroll;
 }
 
 .snutt__modal {
@@ -24,6 +25,14 @@
 @media (max-width: 600px) {
     .snutt__modal {
         width: 90%;
+        padding: 21px 35px;
+        transform: translateX(-50%);
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        outline: none;
+        background-color: white;
+        border-radius: 21px;
     }
 }
 
