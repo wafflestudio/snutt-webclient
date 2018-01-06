@@ -1,0 +1,55 @@
+.applink-wrapper {
+  max-width: 370px;
+  width: 95%;
+  margin: auto;
+  background: white;
+  border: solid 1px #1bd0c8;
+  border-radius: 21px;
+  padding-top: 60px;
+  text-align: center;
+  outline: none;
+}
+
+#applink-title {
+	font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+#applink-message {
+  opacity: 0.6;
+	font-size: 16px;
+}
+
+.applink-button {
+  display: inline-block;
+  border-radius: 26px;
+  border: solid 1px #b7c3ce;
+  font-size: 14px;
+  padding: 0 20px;
+  height: 52px;
+  margin-bottom: 30px;
+}
+
+.applink-button:first-child {
+  margin-right: 10px;
+}
+
+.applink-button svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.applink-button span {
+  line-height: 52px;
+  margin-left: 4px;
+  vertical-align: middle;
+  color: black!important;
+}
+
+#applink-close {
+  margin-bottom: 30px;
+  font-size: 14px;
+  opacity: 0.4;
+  text-decoration: underline;
+}
