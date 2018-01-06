@@ -136,6 +136,22 @@ export function failLogin(error) {
   return { type: LOGIN_FAILURE, message: error.message };
 }
 
+export function leaveFeedback(email, body, okCallback) {
+  request('feedback/', {
+    method: 'post',
+    body: encodeParams({ email, body }),
+  })
+  .then((json) => {
+    if (json.errcode) {
+      alert(json.message);
+    } else {
+      okCallback();
+    }
+  })
+  .catch(e => alert(e));
+}
+
+
 export function fetchUserInfo() {
   return (dispatch) => {
     request('user/info', {
@@ -248,17 +264,3 @@ function changeToken(newToken) {
     localStorage.getItem('snutt_token'));
 }
 
-export function leaveFeedback(email, body, okCallback) {
-  request('feedback/', {
-    method: 'post',
-    body: encodeParams({ email, body }),
-  })
-  .then((json) => {
-    if (json.errcode) {
-      alert(json.message);
-    } else {
-      okCallback();
-    }
-  })
-  .catch(e => alert(e));
-}
