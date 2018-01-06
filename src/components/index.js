@@ -6,3 +6,4 @@ export FindPassword from './Login/findPassword.jsx';
 export MyPage from './Login/myPage.jsx';
 export MakeTimetable from './MakeTimetable';
 export MustLoggedIn from './MustLoggedIn';
+export Feedback from './Layout/feedback.jsx';
