@@ -61,6 +61,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "history": "^1.17.0",
     "immutable": "^3.7.6",
+    "mobile-detect": "^1.4.1",
     "radium": "^0.19.5",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
