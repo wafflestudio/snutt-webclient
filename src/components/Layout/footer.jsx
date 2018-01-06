@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { baseUrl } from '../../config';
 
 const MEMBER_URL = `${baseUrl}member`;
@@ -13,9 +14,9 @@ const Footer = () => (
     <a className="item" href="https://github.com/wafflestudio/snutt-webclient">
       SNUTT GitHub
     </a>
-    <a className="item" href="https://github.com/wafflestudio/snutt-webclient/issues">
+    <Link className="item" to="/feedback">
       개발자 도와주기
-    </a>
+    </Link>
     <a className="item" href="http://old.snutt.kr">
       SNUTT 구버전 사용하기
     </a>

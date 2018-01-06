@@ -13,7 +13,7 @@ if (process.env.NODE_ENV != 'production') { window.Perf = require('react-addons-
 
 require('../stylesheets/style.scss');
 
-import { App, MakeTimetable, About, Login, SignUp, MyPage, FindPassword, MustLoggedIn,
+import { App, MakeTimetable, About, Login, SignUp, MyPage, FindPassword, MustLoggedIn, Feedback,
    } from './components';
 
 const reducer = combineReducers({
@@ -47,6 +47,7 @@ render((
         <Route path="findPassword" component={FindPassword} />
         <Route path="myPage" component={MustLoggedIn(MyPage)} />
       </Route>
+      <Route path="feedback" component={Feedback} />
     </Router>
   </Provider>
 ), document.getElementById('root'));
