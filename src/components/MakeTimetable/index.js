@@ -15,7 +15,7 @@ class MakeTimeTable extends Component {
 
   componentWillMount() {
     CourseEditorLoader().then((loaded) => {
-      this.CourseEditor = loaded.CourseEditor.default;
+      this.CourseEditor = loaded;
       this.forceUpdate();
     });
   }

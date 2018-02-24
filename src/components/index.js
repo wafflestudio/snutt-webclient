@@ -1,9 +1,9 @@
-export App from './Layout/App.jsx';
-export About from './About';
-export Login from './Login';
-export SignUp from './Login/SignUp.jsx';
-export FindPassword from './Login/findPassword.jsx';
-export MyPage from './Login/myPage.jsx';
-export MakeTimetable from './MakeTimetable';
-export MustLoggedIn from './MustLoggedIn';
-export Feedback from './Layout/feedback.jsx';
+export { default as App } from './Layout/App.jsx';
+export { default as About } from './About';
+export { default as Login } from './Login';
+export { default as SignUp } from './Login/SignUp.jsx';
+export { default as FindPassword } from './Login/findPassword.jsx';
+export { default as MyPage } from './Login/myPage.jsx';
+export { default as MakeTimetable } from './MakeTimetable';
+export { default as MustLoggedIn } from './MustLoggedIn';
+export { default as Feedback } from './Layout/feedback.jsx';

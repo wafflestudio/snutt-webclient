@@ -1,17 +1,18 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
+  "presets": ["env", "react", "stage-2"],
   "plugins": ["transform-object-rest-spread"],
   "env": {
     "development": {
       "plugins": [
         "react-hot-loader/babel",
-        "transform-object-rest-spread",
         "transform-decorators-legacy"
       ]
     },
     "production": {
       "plugins": [
-        "transform-decorators-legacy"
+        "transform-decorators-legacy",
+        "transform-react-inline-elements",
+        "transform-react-constant-elements"
       ]
     }
   }

@@ -1,63 +1,108 @@
+const fs = require('fs');
 const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 
-module.exports = {
-  devtool: 'source-map',
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './src/index',
-  ],
+const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
+
+const config = {
+  context: path.resolve(__dirname, 'src'),
+  entry: {
+    app: './index.js',
+  },
   output: {
-    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/',
+    chunkFilename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist/static'),
+    publicPath: 'static/',
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('bundle.css'),
-    new Dotenv({ path: './.env.dev' }),
+    new Dotenv({
+      path: (process.env.NODE_ENV === 'production') ? './.env.prod' : './.env.dev',
+    }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
-        include: path.join(__dirname, 'src'),
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          query: babelSettings,
+        },
       },
       {
-        test: /\.(jpg|png)$/,
-        loader: 'file',
-        include: path.join(__dirname, 'assets'),
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader'),
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+        test: /\.(png|jpg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              context: path.resolve(__dirname, 'assets'),
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
-        loader: 'react-svg',
-        query: {
-          es5: true,
-          svgo: {
-            // svgo options
-            plugins: [{ removeTitle: false }],
-            floatPrecision: 2,
+        use: [
+          'babel-loader',
+          {
+            loader: 'react-svg-loader',
+            options: {
+              jsx: true,
+              es5: true,
+              svgo: {
+                // svgo options
+                plugins: [{ removeTitle: false }],
+                floatPrecision: 2,
+              },
+            },
           },
-        },
+        ],
       },
-    ],
-    rules: [
       {
-        test: /\.json$/,
-        use: 'json-loader',
+        test: /\.s?css$/,
+        use: [{
+          loader: 'style-loader',
+        }, {
+          loader: 'css-loader',
+        }, {
+          loader: 'sass-loader',
+        }],
+      },
+      {
+
       },
     ],
   },
 };
+
+if (process.env.NODE_ENV === 'production') {
+  console.log('prod');
+  config.plugins.push(
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          screw_ie8: true,
+        },
+      }),
+  );
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+  );
+} else {
+  console.log('dev');
+  config.devtool = '#cheap-module-source-map';
+  config.devServer = {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    publicPath: '/static/',
+    port: 3000,
+  };
+  config.plugins.push(
+    new webpack.NamedModulesPlugin(),
+  );
+}
+
+module.exports = config;
