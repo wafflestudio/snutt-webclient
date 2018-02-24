@@ -44,20 +44,32 @@ const config = {
       },
       {
         test: /\.svg$/,
-        use: [
-          'babel-loader',
+        oneOf: [
           {
-            loader: 'react-svg-loader',
-            options: {
-              jsx: true,
-              es5: true,
-              svgo: {
-                // svgo options
-                plugins: [{ removeTitle: false }],
-                floatPrecision: 2,
-              },
+            resourceQuery: /inline/,
+            use: {
+              loader: 'url-loader',
+              options: {},
             },
           },
+          {
+            use: [
+              'babel-loader',
+              {
+                loader: 'react-svg-loader',
+                options: {
+                  jsx: true,
+                  es5: true,
+                  svgo: {
+                    // svgo options
+                    plugins: [{ removeTitle: false }],
+                    floatPrecision: 2,
+                  },
+                },
+              },
+            ],
+          },
+
         ],
       },
       {
@@ -69,9 +81,6 @@ const config = {
         }, {
           loader: 'sass-loader',
         }],
-      },
-      {
-
       },
     ],
   },

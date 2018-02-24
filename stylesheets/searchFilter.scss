@@ -101,7 +101,7 @@
 }
 
 .searchpanel-wrapper .radio-inline div:before {
-  content: url('data:image/svg+xml; utf8, <svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch --> <title>ic-radio-off-normal</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <circle id="ic-radio-off-normal" stroke="#C2D0D4" fill="#FFFFFF" cx="7.5" cy="7.5" r="6.5"></circle> </g></svg>');
+  content: url('../assets/ic-radio-off-normal.svg?inline');
   display: inline-block;
   box-sizing: border-box;
   margin-right: 5px;
@@ -109,15 +109,15 @@
 }
 
 .searchpanel-wrapper input[type=radio]:hover + div:before {
-  content: url('data:image/svg+xml; utf8, <svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch --> <title>ic-radio-off-over</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <circle id="ic-radio-off-over" stroke="#B7C3CE" fill="#F3F7F8" cx="7.5" cy="7.5" r="6.5"></circle> </g></svg>');
+  content: url('../assets/ic-radio-off-over.svg?inline');
 }
 
 .searchpanel-wrapper input[type=radio]:checked + div:before {
-  content: url('data:image/svg+xml; utf8, <svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch --> <title>ic-radio-on-normal</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="ic-radio-on-normal" transform="translate(1.000000, 1.000000)"> <circle id="radio-off-normal" stroke="#1BD0C9" fill="#1BD0C9" cx="6.5" cy="6.5" r="6.5"></circle> <circle id="Oval" fill="#FFFFFF" cx="6.5" cy="6.5" r="2.5"></circle> </g> </g></svg>');
+  content: url('../assets/ic-radio-on-normal.svg?inline');
 }
 
 .searchpanel-wrapper input[type=radio]:checked:hover + div:before {
-  content: url('data:image/svg+xml; utf8, <svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch --> <title>ic-radio-on-over</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="ic-radio-on-over" transform="translate(1.000000, 1.000000)"> <circle id="radio-off-normal" stroke="#0CAEA6" fill="#0CAEA6" cx="6.5" cy="6.5" r="6.5"></circle> <circle id="Oval" fill="#FFFFFF" cx="6.5" cy="6.5" r="2.5"></circle> </g> </g></svg>');
+  content: url('../assets/ic-radio-on-over.svg?inline');
 }
 
 .searchpanel-wrapper .radio-inline span {
@@ -135,7 +135,7 @@ input[type=checkbox] {
 
 .checkbox-inline div:before {
   // content: "";
-  content: url('data:image/svg+xml; utf8, <svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <title>check-off-normal</title> <desc>Created with Sketch.</desc> <defs> <rect id="path-1" x="0" y="0" width="13" height="13"></rect> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="check-off-normal"> <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use> <rect stroke="#C2D0D4" stroke-width="1" x="0.5" y="0.5" width="12" height="12"></rect> </g> </g> </svg>');
+  content: url('../assets/ic-check-off-normal.svg?inline');
   display: inline-block;
   border-radius: 0;
   width: 13px;
@@ -148,7 +148,7 @@ input[type=checkbox] {
 
 // Checked checkbox
 input[type=checkbox]:checked + div:before {
-  content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13"> <g fill="none" fill-rule="evenodd"> <path fill="#1BD0C8" d="M0 0h13v13H0z"/> <path fill="#FFF" d="M5.515 8.721L2.68 5.886l-.68.68 3.333 3.333.068-.068.181.182 5.334-5.333-.68-.68-4.72 4.721z"/> </g> </svg>');
+  content: url('../assets/ic-check-on-normal.svg?inline');
   font-size: 13px;
   background-color: #1bd0c9;
   color: white;
@@ -156,12 +156,12 @@ input[type=checkbox]:checked + div:before {
 }
 // Hovered and not checked checkbox
 input[type=checkbox]:hover + div:before {
-  content: url('data:image/svg+xml; utf8, <svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch --> <title>check-off-over</title> <desc>Created with Sketch.</desc> <defs> <rect id="path-1" x="0" y="0" width="13" height="13"></rect> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="check-off-over"> <use fill="#F3F7F8" fill-rule="evenodd" xlink:href="#path-1"></use> <rect stroke="#B7C3CE" stroke-width="1" x="0.5" y="0.5" width="12" height="12"></rect> </g> </g></svg>');
+  content: url('../assets/ic-check-off-over.svg?inline');
 }
 
 // Hovered and checked checkbpx
 input[type=checkbox]:checked:hover + div:before {
-  content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13"> <g fill="none" fill-rule="evenodd"> <path fill="#0CADA6" d="M0 0h13v13H0z"/> <path fill="#FFF" d="M5.552 8.738l-2.86-2.86L2 6.57l3.32 3.319.118-.12.234.234 5.31-5.31L10.29 4 5.552 8.738z"/> </g></svg>')
+  content: url('../assets/ic-check-on-over.svg?inline');
 }
 
 // Checked & hovered label
