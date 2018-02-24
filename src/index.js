@@ -9,7 +9,10 @@ import thunk from 'redux-thunk';
 import api from './middleware/api';
 import rootReducer from './reducers';
 
-if (process.env.NODE_ENV != 'production') { window.Perf = require('react-addons-perf'); }
+if (process.env.NODE_ENV != 'production') {
+  console.log('Looks like we are in development mode!');
+  window.Perf = require('react-addons-perf');
+}
 
 require('../stylesheets/style.scss');
 
