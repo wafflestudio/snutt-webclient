@@ -98,6 +98,7 @@ if (process.env.NODE_ENV === 'production') {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     publicPath: '/static/',
+    historyApiFallback: true,
     port: 3000,
   };
   config.plugins.push(
