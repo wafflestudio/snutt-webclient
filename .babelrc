@@ -5,13 +5,14 @@
     "development": {
       "plugins": [
         "react-hot-loader/babel",
-        "transform-object-rest-spread",
         "transform-decorators-legacy"
       ]
     },
     "production": {
       "plugins": [
-        "transform-decorators-legacy"
+        "transform-decorators-legacy",
+        "transform-react-inline-elements",
+        "transform-react-constant-elements"
       ]
     }
   }

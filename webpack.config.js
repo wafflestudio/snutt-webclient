@@ -12,7 +12,7 @@ const config = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/static'),
   },
   plugins: [
     new Dotenv({
@@ -76,6 +76,7 @@ const config = {
 };
 
 if (process.env.NODE_ENV === 'production') {
+  console.log('prod');
   config.plugins.push(
       new webpack.optimize.UglifyJsPlugin({
         compress: {
@@ -83,8 +84,6 @@ if (process.env.NODE_ENV === 'production') {
         },
       }),
   );
-  babelSettings.plugins.push('transform-react-inline-elements');
-  babelSettings.plugins.push('transform-react-constant-elements');
 } else {
   console.log('dev');
   config.devtool = '#cheap-module-source-map';
@@ -92,6 +91,7 @@ if (process.env.NODE_ENV === 'production') {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     publicPath: '/static/',
+    port: 3000,
   };
   config.plugins.push(
     new webpack.NamedModulesPlugin(),
