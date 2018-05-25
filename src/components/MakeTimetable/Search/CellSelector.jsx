@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import update from "immutability-helper";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import update from 'immutability-helper';
 
 const TableState = {
-  SELECTING: "SELECTING",
-  DELETING: "DELETING",
-  CALM: "CALM"
+  SELECTING: 'SELECTING',
+  DELETING: 'DELETING',
+  CALM: 'CALM',
 };
 
 const CellState = {
-  EMPTY: "EMPTY",
-  SELECTED: "SELECTED"
+  EMPTY: 'EMPTY',
+  SELECTED: 'SELECTED',
 };
 
 class DraggableCell extends React.PureComponent {
@@ -61,7 +61,7 @@ class DraggableCell extends React.PureComponent {
 DraggableCell.propTypes = {
   status: PropTypes.oneOf(Object.keys(CellState)).isRequired,
   row: PropTypes.number.isRequired,
-  col: PropTypes.number.isRequired
+  col: PropTypes.number.isRequired,
 };
 
 /**
@@ -81,11 +81,11 @@ function update2dArr(arr, cell1, cell2, value) {
 function getRange(init, end) {
   const tl = {
     row: Math.min(init.row, end.row),
-    col: Math.min(init.col, end.col)
+    col: Math.min(init.col, end.col),
   };
   const dr = {
     row: Math.max(init.row, end.row),
-    col: Math.max(init.col, end.col)
+    col: Math.max(init.col, end.col),
   };
   return { tl, dr };
 }
@@ -105,7 +105,7 @@ export default class CellSelector extends Component {
     this.state = {
       tableState: TableState.CALM,
       dragInit: { row: -1, col: -1 },
-      dragEnd: { row: -1, col: -1 }
+      dragEnd: { row: -1, col: -1 },
     };
   }
 
@@ -119,7 +119,7 @@ export default class CellSelector extends Component {
     this.setState({
       dragInit: here,
       dragEnd: here,
-      tableState: nextTableState
+      tableState: nextTableState,
     });
   }
 
@@ -142,12 +142,12 @@ export default class CellSelector extends Component {
         : CellState.EMPTY;
 
     this.props.handleUpdate(
-      update2dArr(this.props.cells, dragInit, here, newCellState)
+      update2dArr(this.props.cells, dragInit, here, newCellState),
     );
     this.setState({
       dragInit: { row: -1, col: -1 },
       dragEnd: { row: -1, col: -1 },
-      tableState: TableState.CALM
+      tableState: TableState.CALM,
     });
   }
 
@@ -165,7 +165,7 @@ export default class CellSelector extends Component {
           <td key={label} rowSpan={2}>
             {label}
           </td>
-        ) : null
+        ) : null,
     );
     const cellStateTable = this.props.cells;
     const { tl, dr } = getRange(this.state.dragInit, this.state.dragEnd);
@@ -200,5 +200,5 @@ CellSelector.propTypes = {
   row: PropTypes.number.isRequired,
   col: PropTypes.number.isRequired,
   rowLabels: PropTypes.arrayOf(PropTypes.string),
-  colLabels: PropTypes.arrayOf(PropTypes.string)
+  colLabels: PropTypes.arrayOf(PropTypes.string),
 };

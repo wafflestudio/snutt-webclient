@@ -1,73 +1,65 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import RuledInput from "./RuledInput.jsx";
-import { registerUser } from "../../actions/userActions";
+import RuledInput from './RuledInput.jsx';
+import { registerUser } from '../../actions/userActions';
 
 const mapStateToProps = state => ({ user: state.user });
 
 const mapDispatchToProps = dispatch => ({
-  registerUser: (id, pass) => dispatch(registerUser(id, pass))
+  registerUser: (id, pass) => dispatch(registerUser(id, pass)),
 });
 
 class SignUp extends Component {
   constructor() {
     super();
     this.state = {
-      id: "",
-      pass: "",
-      passAgain: "",
+      id: '',
+      pass: '',
+      passAgain: '',
       idValid: false,
       passValid: false,
-      passAgainValid: false
+      passAgainValid: false,
     };
     this.handleRegister = this.handleRegister.bind(this);
   }
 
-  handleIdChange = e => {
+  handleIdChange = (e) => {
     const input = e.target.value;
     const validator = /^[a-z0-9]{4,32}$/i;
     this.setState({
       id: input,
-      idValid: validator.test(input)
+      idValid: validator.test(input),
     });
   };
 
-  handlePassChange = e => {
+  handlePassChange = (e) => {
     const input = e.target.value;
     const validator = /^(?=.*\d)(?=.*[a-z])\S{6,20}$/i;
     this.setState({
       pass: input,
-      passValid: validator.test(input)
+      passValid: validator.test(input),
     });
   };
 
-  handlePassAgainChange = e => {
+  handlePassAgainChange = (e) => {
     const input = e.target.value;
     const { pass, passValid } = this.state;
     const validator = passAgain => passAgain == pass && passValid;
     this.setState({
       passAgain: input,
-      passAgainValid: validator(input)
+      passAgainValid: validator(input),
     });
   };
 
-  handleRegister = e => {
+  handleRegister = (e) => {
     e.preventDefault();
     this.props.registerUser(this.state.id, this.state.pass);
   };
 
   render() {
     const { user } = this.props;
-    const {
-      id,
-      pass,
-      passAgain,
-      idValid,
-      passValid,
-      passAgainValid
-    } = this.state;
+    const { id, pass, passAgain, idValid, passValid, passAgainValid } = this.state;
     const canRegister = idValid && passValid && passAgainValid;
     return (
       <div className="snutt__login">
@@ -99,11 +91,7 @@ class SignUp extends Component {
           />
           {user.errorType ? <div className="error">{user.message}</div> : null}
           <div className="buttons-wrapper">
-            <button
-              className="btn signup"
-              type="submit"
-              disabled={!canRegister}
-            >
+            <button className="btn signup" type="submit" disabled={!canRegister}>
               가입하기
             </button>
           </div>

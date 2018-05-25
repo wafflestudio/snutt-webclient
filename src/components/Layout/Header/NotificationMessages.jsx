@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { fetchMessages } from "../../../actions/notification";
-import Loading from "react-loading";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { fetchMessages } from '../../../actions/notification';
+import Loading from 'react-loading';
+import PropTypes from 'prop-types';
 
-import IconTimetable from "../../../../assets/notice-timetable.svg";
-import IconTrash from "../../../../assets/notice-trash.svg";
-import IconUpdate from "../../../../assets/notice-update.svg";
-import IconWarning from "../../../../assets/notice-warning.svg";
+import IconTimetable from '../../../../assets/notice-timetable.svg';
+import IconTrash from '../../../../assets/notice-trash.svg';
+import IconUpdate from '../../../../assets/notice-update.svg';
+import IconWarning from '../../../../assets/notice-warning.svg';
 
 class NotificationMessages extends Component {
   static formatDate(dateString) {
@@ -44,12 +44,12 @@ class NotificationMessages extends Component {
   }
 
   componentDidMount() {
-    this.node.addEventListener("scroll", this.handleScroll);
-    document.addEventListener("click", this.handleClickOutside, false);
+    this.node.addEventListener('scroll', this.handleScroll);
+    document.addEventListener('click', this.handleClickOutside, false);
   }
   componentWillUnmount() {
-    this.node.addEventListener("scroll", this.handleScroll);
-    document.removeEventListener("click", this.handleClickOutside, false);
+    this.node.addEventListener('scroll', this.handleScroll);
+    document.removeEventListener('click', this.handleClickOutside, false);
   }
 
   handleClickOutside(e) {
@@ -79,7 +79,7 @@ class NotificationMessages extends Component {
               <span
                 className="snutt__noti-body"
                 dangerouslySetInnerHTML={{ __html: v.message }}
-              />{" "}
+              />{' '}
               <span className="snutt__noti-date">
                 {NotificationMessages.formatDate(v.created_at)}
               </span>
@@ -91,14 +91,14 @@ class NotificationMessages extends Component {
   }
 
   renderLoading() {
-    return <div>{this.props.fetching ? Loading : ""}</div>;
+    return <div>{this.props.fetching ? Loading : ''}</div>;
   }
 
   render() {
     return (
       <div
         id="snutt__noti-box"
-        ref={node => {
+        ref={(node) => {
           this.node = node;
         }}
       >
@@ -112,7 +112,7 @@ class NotificationMessages extends Component {
 NotificationMessages.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object),
   fetching: PropTypes.bool,
-  askMore: PropTypes.func
+  askMore: PropTypes.func,
 };
 
 export default NotificationMessages;

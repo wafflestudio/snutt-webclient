@@ -1,5 +1,5 @@
-import update from "immutability-helper";
-import * as types from "../actions/actionTypes.js";
+import update from 'immutability-helper';
+import * as types from '../actions/actionTypes.js';
 
 /**
  * currentId: '_id' field of current timetable object
@@ -14,7 +14,7 @@ const DEFAULT_TABLELIST = {
   viewSemester: null,
   tableList: [],
   tableMap: {},
-  colorScheme: []
+  colorScheme: [],
 };
 
 function getViewTableTabList(tableList, year, semester) {
@@ -34,7 +34,7 @@ function getViewLectures(tableMap, viewTableId, colorScheme) {
       : []
     : null;
   if (viewLectures && colorScheme.length > 0) {
-    viewLectures = viewLectures.map(lecture => {
+    viewLectures = viewLectures.map((lecture) => {
       if (lecture.colorIndex && lecture.colorIndex <= colorScheme.length) {
         lecture.color = colorScheme[lecture.colorIndex - 1];
       }
@@ -51,19 +51,19 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const {
         tableList,
         viewYear: oldViewYear,
-        viewSemester: oldViewSemester
+        viewSemester: oldViewSemester,
       } = state;
       if (viewYear != oldViewYear || viewSemester != oldViewSemester) {
         const viewTableTabList = getViewTableTabList(
           tableList,
           viewYear,
-          viewSemester
+          viewSemester,
         );
         return {
           ...state,
           viewYear,
           viewSemester,
-          viewTableTabList
+          viewTableTabList,
         };
       }
       return state;
@@ -89,12 +89,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         const viewTableTabList = getViewTableTabList(
           newTableList,
           viewYear,
-          viewSemester
+          viewSemester,
         );
         return {
           ...state,
           tableList: newTableList,
-          viewTableTabList
+          viewTableTabList,
         };
       }
       return state;
@@ -103,26 +103,26 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const { viewTableId, colorScheme } = state;
       const updated = action.response;
       const tableMap = update(state.tableMap, {
-        [updated._id]: { $set: updated }
+        [updated._id]: { $set: updated },
       });
       const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.DELETE_LECTURE_OK: {
       const { viewTableId, colorScheme } = state;
       const updated = action.response;
       const tableMap = update(state.tableMap, {
-        [updated._id]: { $set: updated }
+        [updated._id]: { $set: updated },
       });
       const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.UPDATE_TITLE_OK: {
@@ -131,12 +131,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const viewTableTabList = getViewTableTabList(
         tableList,
         viewYear,
-        viewSemester
+        viewSemester,
       );
       return {
         ...state,
         tableList,
-        viewTableTabList
+        viewTableTabList,
       };
     }
     case types.UPDATE_LECTURE_OK: {
@@ -144,13 +144,13 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, {
-        [updatedId]: { $set: updatedTable }
+        [updatedId]: { $set: updatedTable },
       });
       const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.CREATE_TABLE_OK: {
@@ -159,12 +159,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const viewTableTabList = getViewTableTabList(
         tableList,
         viewYear,
-        viewSemester
+        viewSemester,
       );
       return {
         ...state,
         tableList,
-        viewTableTabList
+        viewTableTabList,
       };
     }
     case types.DELETE_TABLE_OK: {
@@ -173,12 +173,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const viewTableTabList = getViewTableTabList(
         tableList,
         viewYear,
-        viewSemester
+        viewSemester,
       );
       return {
         ...state,
         tableList,
-        viewTableTabList
+        viewTableTabList,
       };
     }
 
@@ -189,7 +189,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         viewLectures,
-        colorScheme
+        colorScheme,
       };
     }
 
@@ -201,7 +201,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return {
         ...state,
         viewTableId,
-        viewLectures
+        viewLectures,
       };
     }
     case types.SWITCH_TABLE_OK: {
@@ -209,13 +209,13 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, {
-        [updatedId]: { $set: updatedTable }
+        [updatedId]: { $set: updatedTable },
       });
       const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         tableMap,
-        viewLectures
+        viewLectures,
       };
     }
     case types.LOGOUT_SUCCESS:

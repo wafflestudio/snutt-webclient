@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { baseUrl } from "../../config";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { baseUrl } from '../../config';
 
 const MEMBER_URL = `${baseUrl}member`;
 const TERM_URL = `${baseUrl}terms_of_service`;

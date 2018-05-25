@@ -1,36 +1,36 @@
-import React from "react";
-import update from "immutability-helper";
-import PropTypes from "prop-types";
-import Select from "react-select";
-import DropdownArrow from "../../Common/DropdownArrow.jsx";
-import ButtonDelete from "../../../../assets/btn-delete-normal.svg";
+import React from 'react';
+import update from 'immutability-helper';
+import PropTypes from 'prop-types';
+import Select from 'react-select';
+import DropdownArrow from '../../Common/DropdownArrow.jsx';
+import ButtonDelete from '../../../../assets/btn-delete-normal.svg';
 
-const daysKorean = ["월", "화", "수", "목", "금", "토", "일"];
+const daysKorean = ['월', '화', '수', '목', '금', '토', '일'];
 const daysOptions = daysKorean.map((name, index) => ({
   value: index,
   label: name,
-  className: "snutt__options"
+  className: 'snutt__options',
 }));
 const times = [...Array(29).keys()].map(v => v / 2); // 0, 0.5, 1 .... 14.5
 const hhmms = times
-  .map(gyosi => {
+  .map((gyosi) => {
     const hh = Math.floor(gyosi) + 8;
-    const mm = gyosi % 1 === 0.5 ? "30" : "00";
+    const mm = gyosi % 1 === 0.5 ? '30' : '00';
     return `${hh}:${mm}`;
   })
   .map((hhmm, index) => ({
     value: index / 2,
     label: hhmm,
-    className: "snutt__options"
+    className: 'snutt__options',
   }));
 
 class ClassTimeRow extends React.PureComponent {
-  updateDay = v => this.props.updateRow(this.props.index, "day", v.value);
-  updateStart = v => this.props.updateRow(this.props.index, "start", v.value);
-  updateLen = v => this.props.updateRow(this.props.index, "len", v.value);
+  updateDay = v => this.props.updateRow(this.props.index, 'day', v.value);
+  updateStart = v => this.props.updateRow(this.props.index, 'start', v.value);
+  updateLen = v => this.props.updateRow(this.props.index, 'len', v.value);
   updatePlace = e =>
-    this.props.updateRow(this.props.index, "place", e.target.value);
-  deleteThisRow = e => {
+    this.props.updateRow(this.props.index, 'place', e.target.value);
+  deleteThisRow = (e) => {
     e.preventDefault;
     this.props.deleteRow(this.props.index);
   };
@@ -41,8 +41,8 @@ class ClassTimeRow extends React.PureComponent {
       (len, index) => ({
         value: index / 2,
         label: index / 2,
-        className: "snutt__options"
-      })
+        className: 'snutt__options',
+      }),
     );
     return possibleLengths;
   };
@@ -116,7 +116,7 @@ class JsonEditor extends React.PureComponent {
       day: undefined,
       start: undefined,
       len: undefined,
-      place: "장소"
+      place: '장소',
     };
     const addedJson = update(class_time_json, { $push: [newRow] });
     updateJson(addedJson);
@@ -131,7 +131,7 @@ class JsonEditor extends React.PureComponent {
   updateRow(index, field, value) {
     const { class_time_json, updateJson } = this.props;
     const updatedJson = update(class_time_json, {
-      [index]: { [field]: { $set: value } }
+      [index]: { [field]: { $set: value } },
     });
     updateJson(updatedJson);
   }
@@ -158,7 +158,7 @@ class JsonEditor extends React.PureComponent {
 
 JsonEditor.propTypes = {
   updateJson: PropTypes.func.isRequired,
-  class_time_json: PropTypes.arrayOf(PropTypes.object).isRequired
+  class_time_json: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default JsonEditor;

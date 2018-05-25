@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import FBLogin from "react-facebook-login";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import FBLogin from 'react-facebook-login';
 
 import {
   logout,
@@ -9,11 +9,11 @@ import {
   attachFacebook,
   detachFacebook,
   attachLocal,
-  changePassword
-} from "../../actions/userActions";
-import { fbAppId } from "../../config";
+  changePassword,
+} from '../../actions/userActions';
+import { fbAppId } from '../../config';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { user } = state;
   return { ...user };
 };
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
   attachLocal: (id, pass, callback) =>
     dispatch(attachLocal(id, pass, callback)),
   changePassword: (oldPass, newPass, callback) =>
-    dispatch(changePassword(oldPass, newPass, callback))
+    dispatch(changePassword(oldPass, newPass, callback)),
 });
 
 class MyPage extends Component {
@@ -45,7 +45,7 @@ class MyPage extends Component {
   }
 
   handleDelete = () => {
-    if (confirm("정말 탈퇴하시겠습니까?")) {
+    if (confirm('정말 탈퇴하시겠습니까?')) {
       this.props.deleteAccount();
     }
   };
@@ -56,14 +56,14 @@ class MyPage extends Component {
     const newPass = this.newPass.value;
     const newPassConfirm = this.newPassConfirm.value;
     if (newPass !== newPassConfirm) {
-      alert("비밀번호를 다시 확인해주세요");
+      alert('비밀번호를 다시 확인해주세요');
       return;
     }
     this.props.changePassword(oldPass, newPass, () => {
-      alert("비밀번호가 변경되었습니다");
-      this.oldPass.value = "";
-      this.newPass.value = "";
-      this.newPassConfirm.value = "";
+      alert('비밀번호가 변경되었습니다');
+      this.oldPass.value = '';
+      this.newPass.value = '';
+      this.newPassConfirm.value = '';
     });
   }
 
@@ -73,12 +73,12 @@ class MyPage extends Component {
     const newPass = this.newPass.value;
     const newPassConfirm = this.newPassConfirm.value;
     if (newPass !== newPassConfirm) {
-      alert("비밀번호를 다시 확인해주세요");
+      alert('비밀번호를 다시 확인해주세요');
       return;
     }
     this.props.attachLocal(newId, newPass, () => {
-      alert("아이디와 비밀번호가 등록되었습니다");
-      this.context.router.push("/");
+      alert('아이디와 비밀번호가 등록되었습니다');
+      this.context.router.push('/');
     });
   }
 
@@ -102,7 +102,7 @@ class MyPage extends Component {
                   className="form-control"
                   type="password"
                   placeholder="현재 비밀번호"
-                  ref={oldPass => {
+                  ref={(oldPass) => {
                     this.oldPass = oldPass;
                   }}
                   required
@@ -111,7 +111,7 @@ class MyPage extends Component {
                   className="form-control"
                   type="password"
                   placeholder="새 비밀번호"
-                  ref={newPass => {
+                  ref={(newPass) => {
                     this.newPass = newPass;
                   }}
                   required
@@ -122,7 +122,7 @@ class MyPage extends Component {
                   className="form-control"
                   type="password"
                   placeholder="새 비밀번호 확인"
-                  ref={newPassConfirm => {
+                  ref={(newPassConfirm) => {
                     this.newPassConfirm = newPassConfirm;
                   }}
                   required
@@ -146,7 +146,7 @@ class MyPage extends Component {
         <div className="col-xs-8">
           <form onSubmit={this.handleAttachLocalAccount}>
             <input
-              ref={newId => {
+              ref={(newId) => {
                 this.newId = newId;
               }}
               pattern="[a-z0-9]{4,32}"
@@ -158,7 +158,7 @@ class MyPage extends Component {
             <input
               className="form-control"
               type="password"
-              ref={newPass => {
+              ref={(newPass) => {
                 this.newPass = newPass;
               }}
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
@@ -168,7 +168,7 @@ class MyPage extends Component {
             />
             <input
               type="password"
-              ref={newPassConfirm => {
+              ref={(newPassConfirm) => {
                 this.newPassConfirm = newPassConfirm;
               }}
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
@@ -244,7 +244,7 @@ class MyPage extends Component {
 }
 
 MyPage.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyPage);
