@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { fetchMessages } from '../../../actions/notification';
-import Loading from 'react-loading';
+import React, { Component } from "react";
+import { fetchMessages } from "../../../actions/notification";
+import Loading from "react-loading";
+import PropTypes from "prop-types";
 
-import IconTimetable from '../../../../assets/notice-timetable.svg';
-import IconTrash from '../../../../assets/notice-trash.svg';
-import IconUpdate from '../../../../assets/notice-update.svg';
-import IconWarning from '../../../../assets/notice-warning.svg';
+import IconTimetable from "../../../../assets/notice-timetable.svg";
+import IconTrash from "../../../../assets/notice-trash.svg";
+import IconUpdate from "../../../../assets/notice-update.svg";
+import IconWarning from "../../../../assets/notice-warning.svg";
 
 class NotificationMessages extends Component {
-
   static formatDate(dateString) {
     const dateObject = new Date(Date.parse(dateString));
     const year = dateObject.getFullYear();
@@ -44,12 +44,12 @@ class NotificationMessages extends Component {
   }
 
   componentDidMount() {
-    this.node.addEventListener('scroll', this.handleScroll);
-    document.addEventListener('click', this.handleClickOutside, false);
+    this.node.addEventListener("scroll", this.handleScroll);
+    document.addEventListener("click", this.handleClickOutside, false);
   }
   componentWillUnmount() {
-    this.node.addEventListener('scroll', this.handleScroll);
-    document.removeEventListener('click', this.handleClickOutside, false);
+    this.node.addEventListener("scroll", this.handleScroll);
+    document.removeEventListener("click", this.handleClickOutside, false);
   }
 
   handleClickOutside(e) {
@@ -69,40 +69,38 @@ class NotificationMessages extends Component {
   renderMessages() {
     const { messages } = this.props;
     return (
-      <div
-        className="snutt__noti-scrollarea"
-        onClick={this.handleClick}
-      >
+      <div className="snutt__noti-scrollarea" onClick={this.handleClick}>
         {messages.map((v, i) => (
-          <div
-            key={i}
-            className="snutt__noti-message"
-          >
-            <div className="snutt__noti-icon">{NotificationMessages.renderIcon(v.type)}</div>
+          <div key={i} className="snutt__noti-message">
+            <div className="snutt__noti-icon">
+              {NotificationMessages.renderIcon(v.type)}
+            </div>
             <div className="snutt__noti-content">
-              <span className="snutt__noti-body" dangerouslySetInnerHTML={{ __html: v.message }} />
-              {' '}
-              <span className="snutt__noti-date">{NotificationMessages.formatDate(v.created_at)}</span>
+              <span
+                className="snutt__noti-body"
+                dangerouslySetInnerHTML={{ __html: v.message }}
+              />{" "}
+              <span className="snutt__noti-date">
+                {NotificationMessages.formatDate(v.created_at)}
+              </span>
             </div>
           </div>
-          ))}
+        ))}
       </div>
     );
   }
 
   renderLoading() {
-    return (
-      <div>
-        {this.props.fetching ? Loading : ''}
-      </div>
-    );
+    return <div>{this.props.fetching ? Loading : ""}</div>;
   }
 
   render() {
     return (
       <div
         id="snutt__noti-box"
-        ref={(node) => { this.node = node; }}
+        ref={node => {
+          this.node = node;
+        }}
       >
         {this.renderMessages()}
         {this.renderLoading()}
@@ -112,9 +110,9 @@ class NotificationMessages extends Component {
 }
 
 NotificationMessages.propTypes = {
-  messages: React.PropTypes.arrayOf(React.PropTypes.object),
-  fetching: React.PropTypes.bool,
-  askMore: React.PropTypes.func,
+  messages: PropTypes.arrayOf(PropTypes.object),
+  fetching: PropTypes.bool,
+  askMore: PropTypes.func
 };
 
 export default NotificationMessages;

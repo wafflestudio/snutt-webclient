@@ -1,6 +1,6 @@
 import React from "react";
 import update from "immutability-helper";
-
+import PropTypes from "prop-types";
 import Select from "react-select";
 import DropdownArrow from "../../Common/DropdownArrow.jsx";
 import ButtonDelete from "../../../../assets/btn-delete-normal.svg";
@@ -157,8 +157,8 @@ class JsonEditor extends React.PureComponent {
 }
 
 JsonEditor.propTypes = {
-  updateJson: React.PropTypes.func.isRequired,
-  class_time_json: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  updateJson: PropTypes.func.isRequired,
+  class_time_json: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default JsonEditor;

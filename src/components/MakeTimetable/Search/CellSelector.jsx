@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import update from "immutability-helper";
 
 const TableState = {
@@ -58,9 +59,9 @@ class DraggableCell extends React.PureComponent {
   }
 }
 DraggableCell.propTypes = {
-  status: React.PropTypes.oneOf(Object.keys(CellState)).isRequired,
-  row: React.PropTypes.number.isRequired,
-  col: React.PropTypes.number.isRequired
+  status: PropTypes.oneOf(Object.keys(CellState)).isRequired,
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired
 };
 
 /**
@@ -196,8 +197,8 @@ export default class CellSelector extends Component {
   }
 }
 CellSelector.propTypes = {
-  row: React.PropTypes.number.isRequired,
-  col: React.PropTypes.number.isRequired,
-  rowLabels: React.PropTypes.arrayOf(React.PropTypes.string),
-  colLabels: React.PropTypes.arrayOf(React.PropTypes.string)
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired,
+  rowLabels: PropTypes.arrayOf(PropTypes.string),
+  colLabels: PropTypes.arrayOf(PropTypes.string)
 };
