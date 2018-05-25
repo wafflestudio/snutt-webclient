@@ -1,45 +1,59 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
-import thunk from 'redux-thunk';
+import React from "react";
+import { render } from "react-dom";
+import { compose, createStore, combineReducers, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import { Router, Route, IndexRoute, browserHistory } from "react-router";
+import {
+  syncHistoryWithStore,
+  routerReducer,
+  routerMiddleware
+} from "react-router-redux";
+import thunk from "redux-thunk";
 
-import api from './middleware/api';
-import rootReducer from './reducers';
+import api from "./middleware/api";
+import rootReducer from "./reducers";
 
-if (process.env.NODE_ENV != 'production') {
-  console.log('Looks like we are in development mode!');
-  window.Perf = require('react-addons-perf');
+if (process.env.NODE_ENV != "production") {
+  console.log("Looks like we are in development mode!");
 }
 
-require('../stylesheets/style.scss');
+require("../stylesheets/style.scss");
 
-import { App, MakeTimetable, About, Login, SignUp, MyPage, FindPassword, MustLoggedIn, Feedback,
-   } from './components';
+import {
+  App,
+  MakeTimetable,
+  About,
+  Login,
+  SignUp,
+  MyPage,
+  FindPassword,
+  MustLoggedIn,
+  Feedback
+} from "./components";
 
 const reducer = combineReducers({
   ...rootReducer,
-  routing: routerReducer,
+  routing: routerReducer
 });
 
 const middleware = applyMiddleware(
   routerMiddleware(browserHistory),
   thunk,
-  api,
+  api
 );
 
 export const store = createStore(
   reducer,
   compose(
     middleware,
-    (window.devToolsExtension && process.env.NODE_ENV != 'production') ? window.devToolsExtension() : f => f,
-  ),
+    window.devToolsExtension && process.env.NODE_ENV != "production"
+      ? window.devToolsExtension()
+      : f => f
+  )
 );
 
 const history = syncHistoryWithStore(browserHistory, store);
-render((
+render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
@@ -52,5 +66,6 @@ render((
       </Route>
       <Route path="feedback" component={Feedback} />
     </Router>
-  </Provider>
-), document.getElementById('root'));
+  </Provider>,
+  document.getElementById("root")
+);
