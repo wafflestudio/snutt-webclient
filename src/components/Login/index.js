@@ -1,34 +1,40 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import FBLogin from 'react-facebook-login';
-import { loginLocal, loginFacebook } from '../../actions/userActions';
-import { fbAppId } from '../../config';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import FBLogin from "react-facebook-login";
+import { loginLocal, loginFacebook } from "../../actions/userActions";
+import { fbAppId } from "../../config";
 
 const mapStateToProps = state => ({ user: state.user });
 
 const mapDispatchToProps = dispatch => ({
-  loginLocal: (id, password, keepLogin) => dispatch(loginLocal(id, password, keepLogin)),
-  loginFacebook: (id, accessToken, name) => dispatch(loginFacebook(id, accessToken, name)),
+  loginLocal: (id, password, keepLogin) =>
+    dispatch(loginLocal(id, password, keepLogin)),
+  loginFacebook: (id, accessToken, name) =>
+    dispatch(loginFacebook(id, accessToken, name))
 });
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      id: '',
-      password: '',
-      keepLogin: false,
+      id: "",
+      password: "",
+      keepLogin: false
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
 
-  handleIdChange = (e) => { this.setState({ id: e.target.value }); }
-  handlePassChange = (e) => { this.setState({ password: e.target.value }); }
-  handleKeepLoginChange = (e) => {
+  handleIdChange = e => {
+    this.setState({ id: e.target.value });
+  };
+  handlePassChange = e => {
+    this.setState({ password: e.target.value });
+  };
+  handleKeepLoginChange = e => {
     this.setState({ keepLogin: !this.state.keepLogin });
-  }
+  };
 
   handleLogin(e) {
     e.preventDefault();
@@ -50,7 +56,7 @@ class Login extends Component {
           <h2>시작하기</h2>
           <div className="snutt__inputWrapper">
             <input
-              className={id.length > 0 ? 'typed' : ''}
+              className={id.length > 0 ? "typed" : ""}
               onChange={this.handleIdChange}
               placeholder="아이디"
               value={this.state.id}
@@ -59,10 +65,11 @@ class Login extends Component {
             {/* <div className='snutt__labelWrapper'>
               아이디
             </div> */}
-          </div> {/** End of inputWrapper */}
+          </div>{" "}
+          {/** End of inputWrapper */}
           <div className="snutt__inputWrapper">
             <input
-              className={password.length > 0 ? 'typed' : ''}
+              className={password.length > 0 ? "typed" : ""}
               onChange={this.handlePassChange}
               placeholder="비밀번호"
               value={this.state.password}
@@ -71,9 +78,8 @@ class Login extends Component {
             {/* <div className='snutt__labelWrapper'>
               비밀번호
             </div> */}
-
-          </div> {/** End of inputWrapper */}
-
+          </div>{" "}
+          {/** End of inputWrapper */}
           <div className="keeplogin">
             <label className="checkbox-inline">
               <input
@@ -81,18 +87,16 @@ class Login extends Component {
                 value={this.state.keepLogin}
                 onClick={this.handleKeepLoginChange}
               />
-              <div><span>로그인 유지</span></div>
+              <div>
+                <span>로그인 유지</span>
+              </div>
             </label>
           </div>
-
           <div className="error">
-            {user.errorType == 'login' ? user.message : <br />}
+            {user.errorType == "login" ? user.message : <br />}
           </div>
           <div className="buttons-wrapper">
-            <button
-              type="submit"
-              className="btn primary"
-            >
+            <button type="submit" className="btn primary">
               로그인
             </button>
             <FBLogin
@@ -103,10 +107,7 @@ class Login extends Component {
               textButton="facebook으로 로그인"
             />
             <Link to="/signup">
-              <div
-                className="btn join"
-                aria-pressed="true"
-              >
+              <div className="btn join" aria-pressed="true">
                 회원가입
               </div>
             </Link>

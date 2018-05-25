@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import Modal from 'react-modal';
+
 import MobileDetect from 'mobile-detect';
 
 import { updateCoursebook } from '../../actions/fetchingActions';
 import Header from './Header';
 import Footer from './footer.jsx';
 import AppLink from './appLink.jsx';
+
+Modal.setAppElement('#root');
 
 class App extends Component {
   constructor() {
@@ -22,17 +27,13 @@ class App extends Component {
     this.props.dispatch(updateCoursebook());
   }
 
-  closeModal = () => this.setState({ showAppLink: false })
+  closeModal = () => this.setState({ showAppLink: false });
 
   render() {
     const { showAppLink } = this.state;
     return (
       <div>
-        {showAppLink &&
-          <AppLink
-            isOpen={showAppLink}
-            close={this.closeModal}
-          />}
+        {showAppLink && <AppLink isOpen={showAppLink} close={this.closeModal} />}
         <Header />
         {this.props.children}
         <Footer />
@@ -41,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default withRouter(connect()(App));
