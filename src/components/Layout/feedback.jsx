@@ -1,35 +1,30 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
 
-import { leaveFeedback } from '../../actions/userActions';
+import { leaveFeedback } from "../../actions/userActions";
 
 class FeedbackForm extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      content: '',
+      email: "",
+      content: ""
     };
   }
 
-  handleEmailChange = e => this.setState({ email: e.target.value })
-  handleContentChange = e => this.setState({ content: e.target.value })
-  handleSubmit = (e) => {
+  handleEmailChange = e => this.setState({ email: e.target.value });
+  handleContentChange = e => this.setState({ content: e.target.value });
+  handleSubmit = e => {
     e.preventDefault();
-    leaveFeedback(
-      this.state.email,
-      this.state.content,
-      () => this.props.dispatch(push('/')),
+    leaveFeedback(this.state.email, this.state.content, () =>
+      this.props.dispatch(push("/"))
     );
-  }
+  };
 
   render() {
     return (
-      <div
-        className="container"
-        style={{ maxWidth: '600px' }}
-      >
+      <div className="container" style={{ maxWidth: "600px" }}>
         <h1>피드백을 남겨주세요</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -53,7 +48,9 @@ class FeedbackForm extends Component {
               onChange={this.handleContentChange}
             />
           </div>
-          <button type="submit" className="btn btn-default">확인</button>
+          <button type="submit" className="btn btn-default">
+            확인
+          </button>
         </form>
       </div>
     );

@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import MobileDetect from 'mobile-detect';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import MobileDetect from "mobile-detect";
 
-import { updateCoursebook } from '../../actions/fetchingActions';
-import Header from './Header';
-import Footer from './footer.jsx';
-import AppLink from './appLink.jsx';
+import { updateCoursebook } from "../../actions/fetchingActions";
+import Header from "./Header";
+import Footer from "./footer.jsx";
+import AppLink from "./appLink.jsx";
 
 class App extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class App extends Component {
     const md = new MobileDetect(window.navigator.userAgent);
     const isMobile = Boolean(md.mobile());
     this.state = {
-      showAppLink: isMobile,
+      showAppLink: isMobile
     };
   }
 
@@ -22,17 +23,15 @@ class App extends Component {
     this.props.dispatch(updateCoursebook());
   }
 
-  closeModal = () => this.setState({ showAppLink: false })
+  closeModal = () => this.setState({ showAppLink: false });
 
   render() {
     const { showAppLink } = this.state;
     return (
       <div>
-        {showAppLink &&
-          <AppLink
-            isOpen={showAppLink}
-            close={this.closeModal}
-          />}
+        {showAppLink && (
+          <AppLink isOpen={showAppLink} close={this.closeModal} />
+        )}
         <Header />
         {this.props.children}
         <Footer />
@@ -41,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default withRouter(connect()(App));

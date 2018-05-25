@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router';
-import { baseUrl } from '../../config';
+import React from "react";
+import { Link } from "react-router-dom";
+import { baseUrl } from "../../config";
 
 const MEMBER_URL = `${baseUrl}member`;
 const TERM_URL = `${baseUrl}terms_of_service`;
@@ -20,7 +20,10 @@ const Footer = () => (
     <a className="item" href="http://old.snutt.kr">
       SNUTT 구버전 사용하기
     </a>
-    <a className="item" href="https://www.google.com/chrome/browser/desktop/index.html">
+    <a
+      className="item"
+      href="https://www.google.com/chrome/browser/desktop/index.html"
+    >
       이 웹사이트는 최신 Chrome에서 제일 잘 동작합니다.
     </a>
 
