@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import update from "immutability-helper";
-import PureRenderComponent from "../../PureRenderComponent.jsx";
 
 const TableState = {
   SELECTING: "SELECTING",
@@ -13,7 +12,7 @@ const CellState = {
   SELECTED: "SELECTED"
 };
 
-class DraggableCell extends PureRenderComponent {
+class DraggableCell extends React.PureComponent {
   constructor() {
     super();
     this.onMouseDown = this.onMouseDown.bind(this);

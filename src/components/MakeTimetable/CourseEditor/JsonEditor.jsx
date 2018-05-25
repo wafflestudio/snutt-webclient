@@ -1,5 +1,4 @@
 import React from "react";
-import PureRenderComponent from "../../PureRenderComponent.jsx";
 import update from "immutability-helper";
 
 import Select from "react-select";
@@ -25,7 +24,7 @@ const hhmms = times
     className: "snutt__options"
   }));
 
-class ClassTimeRow extends PureRenderComponent {
+class ClassTimeRow extends React.PureComponent {
   updateDay = v => this.props.updateRow(this.props.index, "day", v.value);
   updateStart = v => this.props.updateRow(this.props.index, "start", v.value);
   updateLen = v => this.props.updateRow(this.props.index, "len", v.value);
@@ -102,7 +101,7 @@ class ClassTimeRow extends PureRenderComponent {
   }
 }
 
-class JsonEditor extends PureRenderComponent {
+class JsonEditor extends React.PureComponent {
   constructor(props) {
     super(props);
     this.addRow = this.addRow.bind(this);
