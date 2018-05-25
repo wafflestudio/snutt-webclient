@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import update from 'react-addons-update';
-import PureRenderComponent from '../../PureRenderComponent.jsx';
+import React, { Component } from "react";
+import update from "immutability-helper";
+import PureRenderComponent from "../../PureRenderComponent.jsx";
 
 const TableState = {
-  SELECTING: 'SELECTING',
-  DELETING: 'DELETING',
-  CALM: 'CALM',
+  SELECTING: "SELECTING",
+  DELETING: "DELETING",
+  CALM: "CALM"
 };
 
 const CellState = {
-  EMPTY: 'EMPTY',
-  SELECTED: 'SELECTED',
+  EMPTY: "EMPTY",
+  SELECTED: "SELECTED"
 };
 
 class DraggableCell extends PureRenderComponent {
@@ -43,7 +43,9 @@ class DraggableCell extends PureRenderComponent {
 
   render() {
     let className = this.props.status;
-    if (this.props.dragged) { className = this.props.tableState; }
+    if (this.props.dragged) {
+      className = this.props.tableState;
+    }
     return (
       <td
         key={this.props.col}
@@ -59,7 +61,7 @@ class DraggableCell extends PureRenderComponent {
 DraggableCell.propTypes = {
   status: React.PropTypes.oneOf(Object.keys(CellState)).isRequired,
   row: React.PropTypes.number.isRequired,
-  col: React.PropTypes.number.isRequired,
+  col: React.PropTypes.number.isRequired
 };
 
 /**
@@ -69,14 +71,22 @@ function update2dArr(arr, cell1, cell2, value) {
   const { tl, dr } = getRange(cell1, cell2);
   let newArr = arr;
   for (let r = tl.row; r <= dr.row; r++) {
-    for (let c = tl.col; c <= dr.col; c++) { newArr = update(newArr, { [r]: { [c]: { $set: value } } }); }
+    for (let c = tl.col; c <= dr.col; c++) {
+      newArr = update(newArr, { [r]: { [c]: { $set: value } } });
+    }
   }
   return newArr;
 }
 
 function getRange(init, end) {
-  const tl = { row: Math.min(init.row, end.row), col: Math.min(init.col, end.col) };
-  const dr = { row: Math.max(init.row, end.row), col: Math.max(init.col, end.col) };
+  const tl = {
+    row: Math.min(init.row, end.row),
+    col: Math.min(init.col, end.col)
+  };
+  const dr = {
+    row: Math.max(init.row, end.row),
+    col: Math.max(init.col, end.col)
+  };
   return { tl, dr };
 }
 
@@ -95,19 +105,21 @@ export default class CellSelector extends Component {
     this.state = {
       tableState: TableState.CALM,
       dragInit: { row: -1, col: -1 },
-      dragEnd: { row: -1, col: -1 },
+      dragEnd: { row: -1, col: -1 }
     };
   }
 
   handleMouseDown(r, c) {
     const prevCellState = this.props.cells[r][c];
-    const nextTableState = prevCellState === CellState.EMPTY ?
-                            TableState.SELECTING : TableState.DELETING;
+    const nextTableState =
+      prevCellState === CellState.EMPTY
+        ? TableState.SELECTING
+        : TableState.DELETING;
     const here = { row: r, col: c };
     this.setState({
       dragInit: here,
       dragEnd: here,
-      tableState: nextTableState,
+      tableState: nextTableState
     });
   }
 
@@ -124,31 +136,42 @@ export default class CellSelector extends Component {
     if (tableState === TableState.CALM) return;
 
     const here = { row: _r, col: _c };
-    const newCellState = (tableState === TableState.SELECTING ? CellState.SELECTED : CellState.EMPTY);
+    const newCellState =
+      tableState === TableState.SELECTING
+        ? CellState.SELECTED
+        : CellState.EMPTY;
 
-    this.props.handleUpdate(update2dArr(this.props.cells, dragInit, here, newCellState));
+    this.props.handleUpdate(
+      update2dArr(this.props.cells, dragInit, here, newCellState)
+    );
     this.setState({
       dragInit: { row: -1, col: -1 },
       dragEnd: { row: -1, col: -1 },
-      tableState: TableState.CALM,
+      tableState: TableState.CALM
     });
   }
 
   renderHeader() {
-    const labels = this.props.colLabels.map((label, index) =>
-      <th key={index}>{label}</th>);
+    const labels = this.props.colLabels.map((label, index) => (
+      <th key={index}>{label}</th>
+    ));
     return <tr>{[<th key={-1} />].concat(labels)}</tr>;
   }
 
   renderBody() {
-    const labels = this.props.rowLabels.map(label =>
-      (Number(label) > 0 ? <td key={label} rowSpan={2}>{label}</td> : null),
+    const labels = this.props.rowLabels.map(
+      label =>
+        Number(label) > 0 ? (
+          <td key={label} rowSpan={2}>
+            {label}
+          </td>
+        ) : null
     );
     const cellStateTable = this.props.cells;
     const { tl, dr } = getRange(this.state.dragInit, this.state.dragEnd);
     return cellStateTable.map((row, rowIndex) => {
-      const cols = row.map((col, colIndex) =>
-        (<DraggableCell
+      const cols = row.map((col, colIndex) => (
+        <DraggableCell
           key={`${colIndex}${rowIndex}`}
           row={rowIndex}
           col={colIndex}
@@ -158,13 +181,9 @@ export default class CellSelector extends Component {
           status={cellStateTable[rowIndex][colIndex]}
           tableState={this.state.tableState}
           dragged={isInRange(rowIndex, colIndex, tl, dr)}
-        />),
-      );
-      return (
-        <tr key={rowIndex}>
-          {[labels[rowIndex]].concat(cols)}
-        </tr>
-      );
+        />
+      ));
+      return <tr key={rowIndex}>{[labels[rowIndex]].concat(cols)}</tr>;
     });
   }
 
@@ -181,5 +200,5 @@ CellSelector.propTypes = {
   row: React.PropTypes.number.isRequired,
   col: React.PropTypes.number.isRequired,
   rowLabels: React.PropTypes.arrayOf(React.PropTypes.string),
-  colLabels: React.PropTypes.arrayOf(React.PropTypes.string),
+  colLabels: React.PropTypes.arrayOf(React.PropTypes.string)
 };
