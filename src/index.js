@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import { compose, createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { Router, Route, IndexRoute, browserHistory } from "react-router";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {
   syncHistoryWithStore,
   routerReducer,
@@ -55,17 +55,17 @@ export const store = createStore(
 const history = syncHistoryWithStore(browserHistory, store);
 render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={MakeTimetable} />
+    <BrowserRouter history={history}>
+      <Switch>
+        <Route exact path="/" component={App} />
         <Route path="about" component={About} />
         <Route path="login" component={Login} />
         <Route path="signup" component={SignUp} />
         <Route path="findPassword" component={FindPassword} />
         <Route path="myPage" component={MustLoggedIn(MyPage)} />
-      </Route>
-      <Route path="feedback" component={Feedback} />
-    </Router>
+        <Route path="feedback" component={Feedback} />
+      </Switch>
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );
