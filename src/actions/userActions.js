@@ -136,10 +136,10 @@ export function failLogin(error) {
   return { type: LOGIN_FAILURE, message: error.message };
 }
 
-export function leaveFeedback(email, body, okCallback) {
+export function leaveFeedback(email, message, okCallback) {
   request('feedback/', {
     method: 'post',
-    body: encodeParams({ email, body }),
+    body: encodeParams({ email, message }),
   })
   .then((json) => {
     if (json.errcode) {
