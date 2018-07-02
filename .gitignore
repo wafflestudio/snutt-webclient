@@ -11,3 +11,4 @@ package-lock.json
 firebase.json
 .firebaserc
 cypress/videos
+yarn-error.log
