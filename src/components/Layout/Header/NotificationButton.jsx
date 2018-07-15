@@ -1,23 +1,28 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchMessages, openMessageBox, closeMessageBox } from '../../../actions/notification';
-import NotificationMessages from './NotificationMessages.jsx';
-import { visitChecker, welcomeMessage } from './visitorChecker';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+  fetchMessages,
+  openMessageBox,
+  closeMessageBox
+} from "../../../actions/notification";
+import NotificationMessages from "./NotificationMessages.jsx";
+import { visitChecker, welcomeMessage } from "./visitorChecker";
 
-import IconWrapper from '../../Common/IconWrapper.jsx';
-import AlarmIconNormal from '../../../../assets/ic-alarm-normal.svg';
-import AlarmIconHovered from '../../../../assets/ic-alarm-over.svg';
-import AlarmIconFoucsed from '../../../../assets/ic-alarm-pressed.svg';
+import IconWrapper from "../../Common/IconWrapper.jsx";
+import AlarmIconNormal from "../../../../assets/ic-alarm-normal.svg";
+import AlarmIconHovered from "../../../../assets/ic-alarm-over.svg";
+import AlarmIconFoucsed from "../../../../assets/ic-alarm-pressed.svg";
 
 const AMOUNT_PER_REQUEST = 10;
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   let { notification } = state;
 
   if (visitChecker.isNewUser()) {
-    notification = { ...notification,
+    notification = {
+      ...notification,
       hasNew: true,
-      opened: true,
+      opened: true
     };
   }
   // For a while keep welcome message
@@ -32,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
   closeMessageBox: () => {
     visitChecker.markUserVisited();
     dispatch(closeMessageBox());
-  },
+  }
 });
 
 class NotificationButton extends Component {
@@ -49,10 +54,13 @@ class NotificationButton extends Component {
 
   handleClick(e) {
     const { opened, messages, updateMessage } = this.props;
-    if (opened) { // let's close
+    if (opened) {
+      // let's close
       this.props.closeMessageBox();
-    } else { // let's open
-      if (messages.length === 0) { // Fetching initial data
+    } else {
+      // let's open
+      if (messages.length <= 1) {
+        // Fetching initial data. Ignore new SNUTT message
         updateMessage(0);
       }
       this.props.openMessageBox();
@@ -64,28 +72,32 @@ class NotificationButton extends Component {
     return (
       <div
         id="snutt__noti-wrapper"
-        ref={(modal) => { this.modal = modal; }}
+        ref={modal => {
+          this.modal = modal;
+        }}
       >
         <IconWrapper
           onClick={this.handleClick}
-          className={`noti-icon${hasNew ? ' has-new' : ''}`}
+          className={`noti-icon${hasNew ? " has-new" : ""}`}
           normalIcon={<AlarmIconNormal />}
           hoveredIcon={<AlarmIconHovered />}
           focusedIcon={<AlarmIconFoucsed />}
           focused={opened}
         />
-        { opened ? // 원래  opened
+        {opened ? ( // 원래  opened
           <NotificationMessages
             messages={messages}
             fetching={fetching}
             askMore={this.handleUpdate}
             closeMessageBox={this.props.closeMessageBox}
-          /> :
-          null
-        }
+          />
+        ) : null}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationButton);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NotificationButton);
