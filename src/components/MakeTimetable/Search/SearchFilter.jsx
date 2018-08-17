@@ -7,24 +7,44 @@ import DepartmentForm from './DepartmentForm.jsx';
 import TimeQuery from './TimeQuery.jsx';
 import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
 
-import { addQuery, removeQuery, resetQuery, toggleUseTime, selectTimeMode,
-  toggleTimePanel, toggleSearchPanel } from '../../../actions';
-import { credits, academicYears, foundations, knowledges,
-          generals, classifications } from './options';
+import {
+  addQuery,
+  removeQuery,
+  resetQuery,
+  toggleUseTime,
+  selectTimeMode,
+  toggleTimePanel,
+  toggleSearchPanel,
+} from '../../../actions';
+import {
+  credits,
+  academicYears,
+  foundations,
+  knowledges,
+  generals,
+  classifications,
+  etcs,
+} from './options';
 
 const EMPTY_MASK = Immutable.List([0, 0, 0, 0, 0, 0, 0]);
 
 function mapStateToProps(state) {
-  const { tableList: { currentId, tableMap }, query,
-    filter: { timePanel, useTime, searchEmptySlot } } = state;
+  const {
+    tableList: { currentId, tableMap },
+    query,
+    filter: { timePanel, useTime, searchEmptySlot },
+  } = state;
   const currentLectures = currentId == null ? [] : tableMap[currentId].lecture_list;
   // Deduct 7 because empty timemasks's count is 7
   let activeFieldCounts = query.valueSeq().reduce((prev, current) => prev + current.count(), 0) - 7;
-  if (useTime) { activeFieldCounts += 1; }
+  if (useTime) {
+    activeFieldCounts += 1;
+  }
   // if (!query.get('time_mask').equals(EMPTY_MASK) &&) {
   //   activeFieldCounts += 1;
   // }
-  return { query,
+  return {
+    query,
     activeFieldCounts,
     currentLectures,
     timePanel,
@@ -69,11 +89,14 @@ class SearchFilter extends Component {
 
   handleClickOutside(e) {
     if (e.target.className && !this.node.contains(e.target) && !this.props.timePanel) {
-      if (e.target.className.includes('btn-timeselector') ||
-      e.target.className.includes('department_item') ||
-      e.target.className.includes('tag-selected') ||
-      e.target.className.includes('span-selected')
-      ) { return; }
+      if (
+        e.target.className.includes('btn-timeselector') ||
+        e.target.className.includes('department_item') ||
+        e.target.className.includes('tag-selected') ||
+        e.target.className.includes('span-selected')
+      ) {
+        return;
+      }
       this.props.toggleSearchPanel();
     }
   }
@@ -100,16 +123,15 @@ class SearchFilter extends Component {
           {items.map((val, idx) => {
             const checked = this.props.query.get(memberName).has(val.value);
             return (
-              <label
-                key={idx}
-                className="checkbox-inline"
-              >
+              <label key={idx} className="checkbox-inline">
                 <input
                   type="checkbox"
                   checked={checked}
                   onClick={this.props.toggleQuery.bind(this, memberName, val.value, checked)}
                 />
-                <div><span>{val.name}</span></div>
+                <div>
+                  <span>{val.name}</span>
+                </div>
               </label>
             );
           })}
@@ -125,12 +147,10 @@ class SearchFilter extends Component {
         <label className="col-md-2 control-label">시간대 검색</label>
         <div className="col-md-10">
           <label className="checkbox-inline">
-            <input
-              type="checkbox"
-              onClick={this.props.toggleUseTime}
-              checked={useTime}
-            />
-            <div><span>시간대 검색</span></div>
+            <input type="checkbox" onClick={this.props.toggleUseTime} checked={useTime} />
+            <div>
+              <span>시간대 검색</span>
+            </div>
           </label>
           <label className="radio-inline">
             <input
@@ -141,7 +161,9 @@ class SearchFilter extends Component {
               checked={!!(useTime && searchingEmptySlot)}
               disabled={!useTime}
             />
-            <div><span>빈 시간대만 검색하기</span></div>
+            <div>
+              <span>빈 시간대만 검색하기</span>
+            </div>
           </label>
           <label className="radio-inline">
             <input
@@ -150,7 +172,9 @@ class SearchFilter extends Component {
               checked={!!(useTime && !searchingEmptySlot)}
               disabled={!useTime}
             />
-            <div><span>시간대 직접 선택하기</span></div>
+            <div>
+              <span>시간대 직접 선택하기</span>
+            </div>
           </label>
           <div className="timeselector-wrapper">
             <div
@@ -179,7 +203,12 @@ class SearchFilter extends Component {
   render() {
     const { timePanel, activeFieldCounts } = this.props;
     return (
-      <div className="searchpanel-wrapper" ref={(node) => { this.node = node; }}>
+      <div
+        className="searchpanel-wrapper"
+        ref={(node) => {
+          this.node = node;
+        }}
+      >
         <div id="title-wrapper">
           <span id="title">상세조건 설정</span>
           <span id="condition-count">{activeFieldCounts}</span>
@@ -201,18 +230,14 @@ class SearchFilter extends Component {
           {this.renderCheckBoxes('학문의 기초', foundations, 'category')}
           {this.renderCheckBoxes('학문의 세계', knowledges, 'category')}
           {this.renderCheckBoxes('선택 교양', generals, 'category')}
+          {this.renderCheckBoxes('기타', etcs, 'etc')}
           {this.renderTimeSelect()}
         </form>
-        {timePanel ?
-          <Modal
-            isOpen
-            className="time-query-overlay"
-            overlayClassName="snutt__modal-overlay"
-          >
+        {timePanel ? (
+          <Modal isOpen className="time-query-overlay" overlayClassName="snutt__modal-overlay">
             <TimeQuery />
-          </Modal> :
-          null
-        }
+          </Modal>
+        ) : null}
       </div>
     );
   }

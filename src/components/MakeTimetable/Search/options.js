@@ -1,3 +1,7 @@
+/**
+ * Reference:
+ * https://github.com/wafflestudio/snutt/wiki/API-Search-Query
+ */
 // 학점
 export const credits = [
   { name: '1학점', value: 1 },
@@ -51,4 +55,10 @@ export const classifications = [
   { name: '일선', value: '일선' },
   { name: '전선', value: '전선' },
   { name: '전필', value: '전필' },
+];
+
+// 기타
+export const etcs = [
+  { name: '영어진행 강의', value: 'E' },
+  { name: '군휴학 원격 수업', value: 'MO' },
 ];
