@@ -12,6 +12,10 @@ export const academicYears = [
   { name: '2학년', value: '2학년' },
   { name: '3학년', value: '3학년' },
   { name: '4학년', value: '4학년' },
+  { name: '5학년', value: '5학년' },
+  { name: '석사', value: '석사' },
+  { name: '박사', value: '박사' },
+  { name: '석박사통합', value: '석박사통합' },
 ];
 
 // 학문의 기초
@@ -46,8 +50,8 @@ export const generals = [
 // 구분
 export const classifications = [
   { name: '교양', value: '교양' },
+  { name: '교직', value: '교직' },
   { name: '논문', value: '논문' },
-  { name: '대학원', value: '대학원' },
   { name: '일선', value: '일선' },
   { name: '전선', value: '전선' },
   { name: '전필', value: '전필' },
