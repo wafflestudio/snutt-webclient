@@ -10,7 +10,7 @@ import RefreshIcon from '../../../../assets/ic-reset-normal.svg';
 import { addQuery, removeQuery, resetQuery, toggleUseTime, selectTimeMode,
   toggleTimePanel, toggleSearchPanel } from '../../../actions';
 import { credits, academicYears, foundations, knowledges,
-          generals, classifications } from './options';
+          generals, classifications, etcs } from './options';
 
 const EMPTY_MASK = Immutable.List([0, 0, 0, 0, 0, 0, 0]);
 
@@ -201,6 +201,7 @@ class SearchFilter extends Component {
           {this.renderCheckBoxes('학문의 기초', foundations, 'category')}
           {this.renderCheckBoxes('학문의 세계', knowledges, 'category')}
           {this.renderCheckBoxes('선택 교양', generals, 'category')}
+          {this.renderCheckBoxes('기타', etcs, 'etc')}
           {this.renderTimeSelect()}
         </form>
         {timePanel ?

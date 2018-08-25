@@ -52,3 +52,9 @@ export const classifications = [
   { name: '전선', value: '전선' },
   { name: '전필', value: '전필' },
 ];
+
+// 구분
+export const etcs = [
+  { name: '영어진행 강의', value: 'E' },
+  { name: '군휴학 원격수업', value: 'MO' },
+];
