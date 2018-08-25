@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
@@ -9,16 +10,25 @@ const config = {
   context: path.resolve(__dirname, 'src'),
   entry: {
     app: './index.js',
+    vendor: ['react', 'react-dom', 'redux', 'immutable'],
   },
   output: {
-    filename: 'bundle.js',
-    chunkFilename: '[name].bundle.js',
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist/static'),
     publicPath: 'static/',
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      minify: true,
+      template: path.resolve(__dirname, 'src/index.html'),
+      filename: path.resolve(__dirname, 'dist/index.html'),
+    }),
     new Dotenv({
-      path: (process.env.NODE_ENV === 'production') ? './.env.prod' : './.env.dev',
+      path: process.env.NODE_ENV === 'production' ? './.env.prod' : './.env.dev',
     }),
   ],
   module: {
@@ -69,18 +79,21 @@ const config = {
               },
             ],
           },
-
         ],
       },
       {
         test: /\.s?css$/,
-        use: [{
-          loader: 'style-loader',
-        }, {
-          loader: 'css-loader',
-        }, {
-          loader: 'sass-loader',
-        }],
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
       },
     ],
   },
@@ -89,11 +102,11 @@ const config = {
 if (process.env.NODE_ENV === 'production') {
   console.log('prod');
   config.plugins.push(
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          screw_ie8: true,
-        },
-      }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        screw_ie8: true,
+      },
+    }),
   );
   config.plugins.push(
     new webpack.DefinePlugin({
@@ -110,9 +123,7 @@ if (process.env.NODE_ENV === 'production') {
     historyApiFallback: true,
     port: 3000,
   };
-  config.plugins.push(
-    new webpack.NamedModulesPlugin(),
-  );
+  config.plugins.push(new webpack.NamedModulesPlugin());
 }
 
 module.exports = config;
