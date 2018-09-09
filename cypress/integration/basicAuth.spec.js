@@ -8,6 +8,7 @@ describe('Basic Auth', () => {
       cy.get(':nth-child(3) > input').type(testPassword);
       cy.get(':nth-child(4) > input').type(testPassword);
       cy.get('.btn').click();
+      cy.location('pathname', { timeout: 20000 }).should('eq', '/');
       cy.get('#profile').contains(testId);
     });
   });
@@ -34,12 +35,14 @@ describe('Basic Auth', () => {
       cy.get(':nth-child(2) > input').type(testId);
       cy.get(':nth-child(3) > input').type(testPassword);
       cy.get('.primary').click();
+      cy.location('pathname', { timeout: 20000 }).should('eq', '/');
       cy.get('#profile').contains(testId);
     });
 
-    it('Check logged out after unregister', () => {
+    it('Delete account and redirect to home', () => {
       cy.get('#profile').click();
       cy.get(':nth-child(6) > .col-xs-8 > .btn').click();
+      cy.location('pathname', { timeout: 20000 }).should('eq', '/');
       cy.get('#profile').contains('로그인');
     });
 
