@@ -9,8 +9,7 @@ install:
   - yarn install --frozen-lockfile
 
 before_script:
-  - yarn start &
-  - sleep 10
+  - yarn build
+  - serve -s dist &
 script:
-  - curl localhost:3000
   - cypress run --record
