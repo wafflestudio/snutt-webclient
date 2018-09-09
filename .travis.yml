@@ -9,4 +9,4 @@ install:
 before_script:
   - yarn start &  
 script:
-  - yarn cypress run --record
+  - yarn cypress run
