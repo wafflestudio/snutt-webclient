@@ -11,7 +11,8 @@
     "build": "./node_modules/.bin/webpack",
     "build:prod": "NODE_ENV='production' ./node_modules/.bin/webpack -p",
     "test-deploy": "yarn run build:prod && firebase deploy",
-    "update": "git pull && npm run build"
+    "update": "git pull && npm run build",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.23.1",
+    "cypress": "^3.1.0",
     "dotenv-webpack": "^1.5.4",
     "eslint": "3.x",
     "eslint-config-airbnb": "^15.0.1",
