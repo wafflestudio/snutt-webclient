@@ -11,7 +11,6 @@
     "build": "./node_modules/.bin/webpack",
     "build:prod": "NODE_ENV='production' ./node_modules/.bin/webpack -p",
     "test-deploy": "yarn run build:prod && firebase deploy",
-    "update": "git pull && npm run build",
     "cypress:open": "yarn build && serve -s dist & cypress open"
   },
   "repository": {
