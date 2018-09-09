@@ -7,7 +7,6 @@ cache:
     - ~/.cache
 install:
   - yarn install --frozen-lockfile
-before_script:
-  - yarn start &
 script:
+  - yarn start &
   - yarn cypress run --record

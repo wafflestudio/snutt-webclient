@@ -6,6 +6,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
+const dotenvPath = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return path.resolve(__dirname, './.env.prod');
+  } else if (process.env.TRAVIS === 'true') {
+    console.log('At travis');
+    console.log(process.env.BASE_URL);
+    return path.resolve(__dirname, './.env.example'); // Will be overwritten by env variable
+  }
+  return path.resolve(__dirname, './.env.dev');
+};
+
 const config = {
   context: path.resolve(__dirname, 'src'),
   entry: {
@@ -28,7 +39,8 @@ const config = {
       filename: path.resolve(__dirname, 'dist/index.html'),
     }),
     new Dotenv({
-      path: process.env.NODE_ENV === 'production' ? './.env.prod' : './.env.dev',
+      path: dotenvPath(),
+      safe: true,
       systemvars: true,
     }),
   ],
