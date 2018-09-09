@@ -11,7 +11,6 @@ const dotenvPath = () => {
     return path.resolve(__dirname, './.env.prod');
   } else if (process.env.TRAVIS === 'true') {
     console.log('At travis');
-    console.log(process.env.BASE_URL);
     return path.resolve(__dirname, './.env.example'); // Will be overwritten by env variable
   }
   return path.resolve(__dirname, './.env.dev');
