@@ -2,23 +2,13 @@ describe('Basic Auth', () => {
   const testId = Cypress.env('testId');
   const testPassword = Cypress.env('testPassword');
   describe('Create Account', () => {
-    it('Visits the snutt website', () => {
-      cy.visit('/login');
-    });
-
-    it('Go to navigate page', () => {
-      cy.get('.btn.join').click();
-      cy.url().should('include', '/signup');
-    });
-
     it('Create an account', () => {
+      cy.visit('/signup');
       cy.get(':nth-child(2) > input').type(testId);
       cy.get(':nth-child(3) > input').type(testPassword);
       cy.get(':nth-child(4) > input').type(testPassword);
       cy.get('.btn').click();
-      cy.location().should((location) => {
-        expect(location.pathname).to.eq('/');
-      });
+      cy.get('#profile').contains(testId);
     });
   });
 
@@ -39,7 +29,7 @@ describe('Basic Auth', () => {
   });
 
   describe('Remove account', () => {
-    it('Login Again', () => {
+    it('Login', () => {
       cy.visit('/login');
       cy.get(':nth-child(2) > input').type(testId);
       cy.get(':nth-child(3) > input').type(testPassword);
@@ -47,13 +37,13 @@ describe('Basic Auth', () => {
       cy.get('#profile').contains(testId);
     });
 
-    it('Remove account', () => {
+    it('Check logged out after unregister', () => {
       cy.get('#profile').click();
       cy.get(':nth-child(6) > .col-xs-8 > .btn').click();
       cy.get('#profile').contains('로그인');
     });
 
-    it('Fail to login', () => {
+    it('Fail to login with deleted Id', () => {
       const stub = cy.stub();
       cy.on('window:alert', stub);
 
