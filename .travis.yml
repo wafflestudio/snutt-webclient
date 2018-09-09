@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - 8
+cache:
+  yarn: true
+  directories:
+    - ~/.cache
+install:
+  - yarn install --frozen-lockfile
+
+before_script:
+  - yarn build
+  - serve -s dist &
+script:
+  - cypress run --record

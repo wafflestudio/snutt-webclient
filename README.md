@@ -1,4 +1,5 @@
 SNUTT-web
+[![Build Status](https://travis-ci.org/wafflestudio/snutt-webclient.svg?branch=master)](https://travis-ci.org/wafflestudio/snutt-webclient)
 =====================
 
 Single Page Application for managing course schedule

@@ -11,7 +11,7 @@
     "build": "./node_modules/.bin/webpack",
     "build:prod": "NODE_ENV='production' ./node_modules/.bin/webpack -p",
     "test-deploy": "yarn run build:prod && firebase deploy",
-    "update": "git pull && npm run build"
+    "cypress:open": "yarn build && serve -s dist & cypress open"
   },
   "repository": {
     "type": "git",
@@ -34,10 +34,12 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.23.1",
+    "cypress": "^3.1.0",
     "dotenv-webpack": "^1.5.4",
     "eslint": "3.x",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-babel": "^3.2.0",
+    "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
@@ -50,6 +52,7 @@
     "react-svg-loader": "^2.1.0",
     "redux-devtools": "^3.4.1",
     "sass-loader": "^6.0.6",
+    "serve": "^10.0.0",
     "strip-loader": "^0.1.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.6.2",
