@@ -1,38 +1,36 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import FBLogin from "react-facebook-login";
-import { loginLocal, loginFacebook } from "../../actions/userActions";
-import { fbAppId } from "../../config";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import FBLogin from 'react-facebook-login';
+import { loginLocal, loginFacebook } from '../../actions/userActions';
+import { fbAppId } from '../../config';
 
 const mapStateToProps = state => ({ user: state.user });
 
 const mapDispatchToProps = dispatch => ({
-  loginLocal: (id, password, keepLogin) =>
-    dispatch(loginLocal(id, password, keepLogin)),
-  loginFacebook: (id, accessToken, name) =>
-    dispatch(loginFacebook(id, accessToken, name))
+  loginLocal: (id, password, keepLogin) => dispatch(loginLocal(id, password, keepLogin)),
+  loginFacebook: (id, accessToken, name) => dispatch(loginFacebook(id, accessToken, name)),
 });
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      id: "",
-      password: "",
-      keepLogin: false
+      id: '',
+      password: '',
+      keepLogin: false,
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
 
-  handleIdChange = e => {
+  handleIdChange = (e) => {
     this.setState({ id: e.target.value });
   };
-  handlePassChange = e => {
+  handlePassChange = (e) => {
     this.setState({ password: e.target.value });
   };
-  handleKeepLoginChange = e => {
+  handleKeepLoginChange = (e) => {
     this.setState({ keepLogin: !this.state.keepLogin });
   };
 
@@ -56,31 +54,25 @@ class Login extends Component {
           <h2>시작하기</h2>
           <div className="snutt__inputWrapper">
             <input
-              className={id.length > 0 ? "typed" : ""}
+              className={id.length > 0 ? 'typed' : ''}
               onChange={this.handleIdChange}
+              data-cy={'login-id'}
               placeholder="아이디"
               value={this.state.id}
               type="id"
             />
-            {/* <div className='snutt__labelWrapper'>
-              아이디
-            </div> */}
-          </div>{" "}
-          {/** End of inputWrapper */}
+          </div>{' '}
           <div className="snutt__inputWrapper">
             <input
-              className={password.length > 0 ? "typed" : ""}
+              className={password.length > 0 ? 'typed' : ''}
+              data-cy="login-password"
               onChange={this.handlePassChange}
               placeholder="비밀번호"
               value={this.state.password}
               type="password"
             />
-            {/* <div className='snutt__labelWrapper'>
-              비밀번호
-            </div> */}
-          </div>{" "}
-          {/** End of inputWrapper */}
-          <div className="keeplogin">
+          </div>{' '}
+          <div className="keeplogin" data-cy="login-keep">
             <label className="checkbox-inline">
               <input
                 type="checkbox"
@@ -92,11 +84,9 @@ class Login extends Component {
               </div>
             </label>
           </div>
-          <div className="error">
-            {user.errorType == "login" ? user.message : <br />}
-          </div>
+          <div className="error">{user.errorType === 'login' ? user.message : <br />}</div>
           <div className="buttons-wrapper">
-            <button type="submit" className="btn primary">
+            <button type="submit" className="btn primary" data-cy="login-submit">
               로그인
             </button>
             <FBLogin
