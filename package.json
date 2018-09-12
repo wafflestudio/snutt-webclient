@@ -11,7 +11,7 @@
     "build": "./node_modules/.bin/webpack",
     "build:prod": "NODE_ENV='production' ./node_modules/.bin/webpack -p",
     "test-deploy": "yarn run build:prod && firebase deploy",
-    "cypress:open": "yarn build && serve -s dist & cypress open"
+    "cypress:open": "concurrently -n dev,cypress -c blue,red \"yarn start\"  \"yarn cypress open --config baseUrl=http://localhost:3000\""
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "concurrently": "^4.0.1",
     "css-loader": "^0.23.1",
     "cypress": "^3.1.0",
     "dotenv-webpack": "^1.5.4",
@@ -45,6 +46,7 @@
     "eslint-plugin-react": "^7.0.1",
     "expose-loader": "^0.7.1",
     "file-loader": "^1.1.9",
+    "html-webpack-harddisk-plugin": "^0.2.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.7.2",
     "prettier-eslint": "^8.8.1",
