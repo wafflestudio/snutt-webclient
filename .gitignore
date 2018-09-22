@@ -16,3 +16,4 @@ yarn-error.log
 cypress.env.json
 cypress/integration/examples
 cypress/screenshots/
+.envrc

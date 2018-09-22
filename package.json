@@ -10,7 +10,7 @@
     "lint": "./node_modules/eslint/bin/eslint.js --fix src/**/*.{js,jsx}",
     "build": "./node_modules/.bin/webpack",
     "build:prod": "NODE_ENV='production' ./node_modules/.bin/webpack -p",
-    "test-deploy": "yarn run build:prod && firebase deploy",
+    "deploy:test": "firebase deploy",
     "cypress:open": "concurrently -n dev,cypress -c blue,red \"yarn start\"  \"yarn cypress open --config baseUrl=http://localhost:3000\""
   },
   "repository": {
