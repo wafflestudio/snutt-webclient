@@ -38,20 +38,29 @@ describe('Basic Auth', () => {
       cy.get('[data-cy=profile]', { timeout: 20000 }).contains(testId);
     });
   });
-
-  describe('Login Save', () => {
-    beforeEach(() => {
+  describe('Keep login', () => {
+    it('should keep user after refresh', () => {
       cy.visit('/login');
       cy.get('[data-cy=login-id]').type(testId);
       cy.get('[data-cy=login-password]').type(testPassword);
-      // cy.get('[data-cy=login-keep]', { force: true }).check();
-      cy.get('[data-cy=login-keep]', { force: true }).click();
+      cy
+        .get('.checkbox-inline > div > span')
+        .first()
+        .click();
       cy.get('[data-cy=login-submit]').click();
-    });
-
-    it('should keep user after refresh', () => {
+      cy.location('pathname', { timeout: 20000 }).should('eq', '/');
       cy.reload();
       cy.get('[data-cy=profile]', { timeout: 20000 }).contains(testId);
+    });
+
+    it('should not keep user after refresh', () => {
+      cy.visit('/login');
+      cy.get('[data-cy=login-id]').type(testId);
+      cy.get('[data-cy=login-password]').type(testPassword);
+      cy.get('[data-cy=login-submit]').click();
+      cy.location('pathname', { timeout: 20000 }).should('eq', '/');
+      cy.reload();
+      cy.get('[data-cy=profile]', { timeout: 20000 }).should('not', testId);
     });
   });
 
