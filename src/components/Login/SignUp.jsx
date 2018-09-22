@@ -72,7 +72,7 @@ class SignUp extends Component {
             changeHandler={this.handleIdChange}
             isValid={idValid}
             errorMessage="아이디는 4자 이상 32자 이하의 알파벳과 숫자로 구성되어야 합니다"
-            testId={'id'}
+            testId={'signup-id'}
           />
           <RuledInput
             type="password"
@@ -81,7 +81,7 @@ class SignUp extends Component {
             changeHandler={this.handlePassChange}
             isValid={passValid}
             errorMessage="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
-            testId={'password'}
+            testId={'signup-password'}
           />
           <RuledInput
             type="password"
@@ -90,11 +90,20 @@ class SignUp extends Component {
             changeHandler={this.handlePassAgainChange}
             isValid={passAgainValid}
             errorMessage="비밀번호를 다시 확인해주세요"
-            testId={'password-validate'}
+            testId={'signup-password-validate'}
           />
-          {user.errorType ? <div className="error">{user.message}</div> : null}
+          {user.errorType ? (
+            <div className="error" data-cy="signup-error">
+              {user.message}
+            </div>
+          ) : null}
           <div className="buttons-wrapper">
-            <button className="btn signup" type="submit" disabled={!canRegister} data-cy="register">
+            <button
+              className="btn signup"
+              type="submit"
+              disabled={!canRegister}
+              data-cy="signup-submit"
+            >
               가입하기
             </button>
           </div>

@@ -4,21 +4,21 @@ describe('Basic Auth', () => {
   describe('Create Account', () => {
     it('should redirect to homepage', () => {
       cy.visit('/signup');
-      cy.get(':nth-child(2) > input').type(testId);
-      cy.get(':nth-child(3) > input').type(testPassword);
-      cy.get(':nth-child(4) > input').type(testPassword);
-      cy.get('.btn').click();
+      cy.get('[data-cy=signup-id]').type(testId);
+      cy.get('[data-cy=signup-password]').type(testPassword);
+      cy.get('[data-cy=signup-password-validate]').type(testPassword);
+      cy.get('[data-cy=signup-submit]').click();
       cy.location('pathname', { timeout: 20000 }).should('eq', '/');
       cy.get('[data-cy=profile]').contains(testId);
     });
 
     it('should warn if password check is failed', () => {
       cy.visit('/signup');
-      cy.get(':nth-child(2) > input').type(testId);
-      cy.get(':nth-child(3) > input').type(testPassword);
-      cy.get(':nth-child(4) > input').type(testPassword);
-      cy.get('.btn').click();
-      cy.get('.error').contains('duplicate id');
+      cy.get('[data-cy=signup-id]').type(testId);
+      cy.get('[data-cy=signup-password]').type(testPassword);
+      cy.get('[data-cy=signup-password-validate]').type(testPassword);
+      cy.get('[data-cy=signup-submit]').click();
+      cy.get('[data-cy=signup-error]').contains('duplicate id');
     });
   });
 
@@ -58,13 +58,13 @@ describe('Basic Auth', () => {
   describe('Logout', () => {
     it('shoud redirect user after logout', () => {
       cy.visit('/login');
-      cy.get(':nth-child(2) > input').type(testId);
-      cy.get(':nth-child(3) > input').type(testPassword);
-      cy.get('.primary').click();
+      cy.get('[data-cy=login-id]').type(testId);
+      cy.get('[data-cy=login-password]').type(testPassword);
+      cy.get('[data-cy=login-submit]').click();
       cy.get('[data-cy=profile]').contains(testId);
 
       cy.get('[data-cy=profile]').click();
-      cy.get(':nth-child(5) > .col-xs-8 > .btn').click();
+      cy.get('[data-cy=my-logout]').click();
       cy.get('[data-cy=profile]').contains('로그인');
     });
   });
@@ -72,12 +72,12 @@ describe('Basic Auth', () => {
   describe('Remove account', () => {
     it('should redirect to home after delete', () => {
       cy.visit('/login');
-      cy.get(':nth-child(2) > input').type(testId);
-      cy.get(':nth-child(3) > input').type(testPassword);
-      cy.get('.primary').click();
+      cy.get('[data-cy=login-id]').type(testId);
+      cy.get('[data-cy=login-password]').type(testPassword);
+      cy.get('[data-cy=login-submit]').click();
       cy.location('pathname', { timeout: 20000 }).should('eq', '/');
       cy.get('[data-cy=profile]').click();
-      cy.get(':nth-child(6) > .col-xs-8 > .btn').click();
+      cy.get('[data-cy=my-unregister]').click();
       cy.location('pathname', { timeout: 20000 }).should('eq', '/');
     });
   });
