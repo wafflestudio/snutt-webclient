@@ -12,7 +12,7 @@ describe('Basic Auth', () => {
       cy.get('[data-cy=profile]').contains(testId);
     });
 
-    it('should warn if password check is failed', () => {
+    it('should warn if there the id is taken', () => {
       cy.visit('/signup');
       cy.get('[data-cy=signup-id]').type(testId);
       cy.get('[data-cy=signup-password]').type(testPassword);
@@ -38,11 +38,14 @@ describe('Basic Auth', () => {
       cy.get('[data-cy=profile]', { timeout: 20000 }).contains(testId);
     });
   });
+
   describe('Keep login', () => {
-    it('should keep user after refresh', () => {
+    beforeEach(() => {
       cy.visit('/login');
       cy.get('[data-cy=login-id]').type(testId);
       cy.get('[data-cy=login-password]').type(testPassword);
+    });
+    it('should keep user after refresh if checked', () => {
       cy
         .get('.checkbox-inline > div > span')
         .first()
@@ -53,10 +56,7 @@ describe('Basic Auth', () => {
       cy.get('[data-cy=profile]', { timeout: 20000 }).contains(testId);
     });
 
-    it('should not keep user after refresh', () => {
-      cy.visit('/login');
-      cy.get('[data-cy=login-id]').type(testId);
-      cy.get('[data-cy=login-password]').type(testPassword);
+    it('should not keep user after refresh if not checked', () => {
       cy.get('[data-cy=login-submit]').click();
       cy.location('pathname', { timeout: 20000 }).should('eq', '/');
       cy.reload();
