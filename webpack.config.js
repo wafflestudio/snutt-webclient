@@ -3,6 +3,7 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
@@ -36,7 +37,9 @@ const config = {
       minify: true,
       template: path.resolve(__dirname, 'src/index.html'),
       filename: path.resolve(__dirname, 'dist/index.html'),
+      alwaysWriteToDisk: true,
     }),
+    new HtmlWebpackHarddiskPlugin(),
     new Dotenv({
       path: dotenvPath(),
       safe: true,
@@ -113,6 +116,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
   console.log('prod');
+
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {

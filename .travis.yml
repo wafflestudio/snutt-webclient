@@ -7,10 +7,16 @@ cache:
     - ~/.cache
     - node_modules
 install:
-  - yarn install --frozen-lockfile
-
+  - yarn
 before_script:
-  - yarn build
+  - yarn build:prod
   - serve -s dist &
 script:
   - cypress run --record
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: bash ./deploy.sh
+    on:
+      branch: master

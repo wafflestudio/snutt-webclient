@@ -1,26 +1,21 @@
-import React from "react";
-import { render } from "react-dom";
-import { compose, createStore, combineReducers, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from 'react';
+import { render } from 'react-dom';
+import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import createHistory from "history/createBrowserHistory";
-import {
-  ConnectedRouter,
-  routerReducer,
-  routerMiddleware,
-  push
-} from "react-router-redux";
-import thunk from "redux-thunk";
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import thunk from 'redux-thunk';
 
-import api from "./middleware/api";
-import rootReducer from "./reducers";
+import api from './middleware/api';
+import rootReducer from './reducers';
 
-if (process.env.NODE_ENV != "production") {
-  console.log("Looks like we are in development mode!");
+if (process.env.NODE_ENV != 'production') {
+  console.log('Looks like we are in development mode!');
 }
 
-require("../stylesheets/style.scss");
+require('../stylesheets/style.scss');
 
 import {
   App,
@@ -31,14 +26,14 @@ import {
   MyPage,
   FindPassword,
   MustLoggedIn,
-  Feedback
-} from "./components";
+  Feedback,
+} from './components';
 
 const history = createHistory();
 
 const reducer = combineReducers({
   ...rootReducer,
-  routing: routerReducer
+  routing: routerReducer,
 });
 
 const middleware = applyMiddleware(routerMiddleware(history), thunk, api);
@@ -47,10 +42,10 @@ export const store = createStore(
   reducer,
   compose(
     middleware,
-    window.devToolsExtension && process.env.NODE_ENV != "production"
+    window.devToolsExtension && process.env.NODE_ENV != 'production'
       ? window.devToolsExtension()
-      : f => f
-  )
+      : f => f,
+  ),
 );
 
 const RouteApp = () => (
@@ -75,5 +70,5 @@ render(
       </Switch>
     </ConnectedRouter>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );

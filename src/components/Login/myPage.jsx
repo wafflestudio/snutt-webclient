@@ -21,11 +21,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   deleteAccount: () => dispatch(deleteAccount()),
-  attachFacebook: (id, accessToken) =>
-    dispatch(attachFacebook(id, accessToken)),
+  attachFacebook: (id, accessToken) => dispatch(attachFacebook(id, accessToken)),
   detachFacebook: () => dispatch(detachFacebook()),
-  attachLocal: (id, pass, callback) =>
-    dispatch(attachLocal(id, pass, callback)),
+  attachLocal: (id, pass, callback) => dispatch(attachLocal(id, pass, callback)),
   changePassword: (oldPass, newPass, callback) =>
     dispatch(changePassword(oldPass, newPass, callback)),
 });
@@ -129,11 +127,7 @@ class MyPage extends Component {
                   pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
                   title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
                 />
-                <input
-                  className="btn primary passchange"
-                  type="submit"
-                  value="변경하기"
-                />
+                <input className="btn primary passchange" type="submit" value="변경하기" />
               </form>
             </div>
           </div>
@@ -223,7 +217,7 @@ class MyPage extends Component {
             <div className="form-group">
               <label className="col-xs-4">로그아웃</label>
               <div className="col-xs-8">
-                <button className="btn btn-default" onClick={this.handleLogout}>
+                <button data-cy="my-logout" className="btn btn-default" onClick={this.handleLogout}>
                   로그아웃하기
                 </button>
               </div>
@@ -231,7 +225,11 @@ class MyPage extends Component {
             <div className="form-group">
               <label className="col-xs-4">회원 탈퇴</label>
               <div className="col-xs-8">
-                <button className="btn withdrawl" onClick={this.handleDelete}>
+                <button
+                  className="btn withdrawl"
+                  onClick={this.handleDelete}
+                  data-cy="my-unregister"
+                >
                   탈퇴하기
                 </button>
               </div>
