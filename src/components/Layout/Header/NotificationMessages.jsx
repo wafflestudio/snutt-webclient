@@ -90,7 +90,7 @@ class NotificationMessages extends Component {
   }
 
   renderLoading() {
-    return <div>{this.props.fetching ? Loading : ''}</div>;
+    return <div>{this.props.fetching ? <Loading /> : ''}</div>;
   }
 
   render() {
