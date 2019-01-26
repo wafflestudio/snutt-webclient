@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
 import ReactDOM from 'react-dom';
+=======
+import { render } from 'react-dom';
+>>>>>>> 7b0e19d... Move stylesheets inside src
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -32,7 +36,7 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
 }
 
-require('../stylesheets/style.scss');
+require('stylesheets/style.scss');
 
 const history = createHistory();
 

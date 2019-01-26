@@ -101,7 +101,7 @@
 }
 
 .searchpanel-wrapper .radio-inline div:before {
-  content: url('assets/ic-radio-off-normal.svg?inline');
+  content: url('../assets/ic-radio-off-normal.svg?inline');
   display: inline-block;
   box-sizing: border-box;
   margin-right: 5px;
@@ -109,15 +109,15 @@
 }
 
 .searchpanel-wrapper input[type='radio']:hover + div:before {
-  content: url('assets/ic-radio-off-over.svg?inline');
+  content: url('../assets/ic-radio-off-over.svg?inline');
 }
 
 .searchpanel-wrapper input[type='radio']:checked + div:before {
-  content: url('assets/ic-radio-on-normal.svg?inline');
+  content: url('../assets/ic-radio-on-normal.svg?inline');
 }
 
 .searchpanel-wrapper input[type='radio']:checked:hover + div:before {
-  content: url('assets/ic-radio-on-over.svg?inline');
+  content: url('../assets/ic-radio-on-over.svg?inline');
 }
 
 .searchpanel-wrapper .radio-inline span {
@@ -134,7 +134,7 @@ input[type='checkbox'] {
 
 .checkbox-inline div:before {
   // content: "";
-  content: url('assets/ic-check-off-normal.svg?inline');
+  content: url('../assets/ic-check-off-normal.svg?inline');
   display: inline-block;
   border-radius: 0;
   width: 13px;
@@ -147,7 +147,7 @@ input[type='checkbox'] {
 
 // Checked checkbox
 input[type='checkbox']:checked + div:before {
-  content: url('assets/ic-check-on-normal.svg?inline');
+  content: url('../assets/ic-check-on-normal.svg?inline');
   font-size: 13px;
   background-color: #1bd0c9;
   color: white;
@@ -155,12 +155,12 @@ input[type='checkbox']:checked + div:before {
 }
 // Hovered and not checked checkbox
 input[type='checkbox']:hover + div:before {
-  content: url('assets/ic-check-off-over.svg?inline');
+  content: url('../assets/ic-check-off-over.svg?inline');
 }
 
 // Hovered and checked checkbpx
 input[type='checkbox']:checked:hover + div:before {
-  content: url('assets/ic-check-on-over.svg?inline');
+  content: url('../assets/ic-check-on-over.svg?inline');
 }
 
 // Checked & hovered label
