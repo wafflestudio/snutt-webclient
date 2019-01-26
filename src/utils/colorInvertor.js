@@ -9,6 +9,8 @@ export default function contrast({ r, g, b }) {
   // Light: 'hsb(0, 0, 15)' -> rgb(38, 38, 38)
   // Dark: 'hsb(192, 2, 95)' ->rgb(237, 241, 242)
 
-  if (luminance > 0.6) { return 'rgb(38, 38, 38)'; }
+  if (luminance > 0.6) {
+    return 'rgb(38, 38, 38)';
+  }
   return 'rgb(237, 241, 242)';
 }

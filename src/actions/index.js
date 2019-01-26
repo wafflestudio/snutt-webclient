@@ -37,7 +37,12 @@ export function resetQuery() {
 
 export function runQuery(textQuery) {
   return (dispatch, getState) => {
-    const { courseBook, query, filter: { useTime, searchEmptySlot }, tableList: { viewLectures } } = getState();
+    const {
+      courseBook,
+      query,
+      filter: { useTime, searchEmptySlot },
+      tableList: { viewLectures },
+    } = getState();
     const { year, semester } = courseBook.get('current');
     const queries = query.toJS();
 
@@ -46,7 +51,7 @@ export function runQuery(textQuery) {
     // Add valid(?) fields to query
     for (const key in queries) {
       const value = queries[key];
-      if (typeof (value) === 'object' && value.length > 0) {
+      if (typeof value === 'object' && value.length > 0) {
         validQuery[key] = value;
       }
     }
@@ -54,7 +59,8 @@ export function runQuery(textQuery) {
     // Handle times
     if (!useTime) {
       delete validQuery.time_mask;
-    } else if (searchEmptySlot) { // use free time as query
+    } else if (searchEmptySlot) {
+      // use free time as query
       const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);
       const invertedMasks = complement(currentMasks);
       validQuery.time_mask = invertedMasks;
@@ -66,7 +72,7 @@ export function runQuery(textQuery) {
 }
 
 export function sendQuery(query) {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(startQuery(query));
     fetch(`${baseUrl}search_query/`, {
       method: 'post',
@@ -77,8 +83,8 @@ export function sendQuery(query) {
       },
       body: JSON.stringify(query),
     })
-    .then(resp => resp.json())
-    .then(json => dispatch(showResult(json)));
+      .then(resp => resp.json())
+      .then(json => dispatch(showResult(json)));
   };
 }
 

@@ -7,7 +7,6 @@ import { push } from 'react-router-redux';
 
 export default function MustLoggedIn(Component) {
   class AuthenticatedComponent extends React.Component {
-
     componentWillMount() {
       this.checkAuth(this.props.isAuthenticated);
     }
@@ -19,16 +18,17 @@ export default function MustLoggedIn(Component) {
     checkAuth(isAuthenticated) {
       console.log(this.props);
       console.log(this.props.isAuthenticated);
-      if (!isAuthenticated) { this.props.dispatch(push('/login')); }
+      if (!isAuthenticated) {
+        this.props.dispatch(push('/login'));
+      }
     }
 
     render() {
       return (
         <div>
-          {this.props.isAuthenticated === true
-            ? <Component {...this.props} />
-            : null
-          }
+          {this.props.isAuthenticated === true ? (
+            <Component {...this.props} />
+          ) : null}
         </div>
       );
     }

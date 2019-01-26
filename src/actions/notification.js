@@ -16,7 +16,9 @@ export function fetchMessages(limit = 10, offset) {
   console.log('fetch message', limit, offset);
   return {
     [CALL_API]: {
-      endpoint: `notification?limit=${Number(limit)}&${Number(offset)}&explicit=1`,
+      endpoint: `notification?limit=${Number(limit)}&${Number(
+        offset,
+      )}&explicit=1`,
       config: { method: 'get' },
       authenticated: true,
       types: [GET_MESSAGE_START, GET_MESSAGE_OK, NOTIFICATION_FAIL],

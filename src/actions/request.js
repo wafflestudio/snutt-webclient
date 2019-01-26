@@ -7,16 +7,19 @@ import errorTable from '../utils/errorTable';
 
 const generateHeader = () => ({
   'x-access-apikey': apiKey,
-  'x-access-token': sessionStorage.getItem('snutt_token') ||
+  'x-access-token':
+    sessionStorage.getItem('snutt_token') ||
     localStorage.getItem('snutt_token'),
   'Content-Type': 'application/x-www-form-urlencoded',
 });
 
-const errorHandler = (err) => {
+const errorHandler = err => {
   // Just put to console for now
   console.log('Error from handler::', err);
-  const errDetail = errorTable.find(row => err.errcode === row.code) ||
-                  { code: -1, message: '알 수 없는 에러가 발생했습니다.' };
+  const errDetail = errorTable.find(row => err.errcode === row.code) || {
+    code: -1,
+    message: '알 수 없는 에러가 발생했습니다.',
+  };
   alert(errDetail.message);
   if (Number(err.code) === 8194) {
     console.log('Invalid token');
@@ -34,14 +37,16 @@ export default function request(endpoint, apiConfig) {
   return new Promise((resolve, reject) => {
     fetch(url, config)
       .then(parseJSON)
-      .catch((error) => {
+      .catch(error => {
         errorHandler({
           errcode: 1,
           message: 'NetworkError',
         });
       })
-      .then((response) => {
-        if (response.ok) { return resolve(response.json); }
+      .then(response => {
+        if (response.ok) {
+          return resolve(response.json);
+        }
 
         errorHandler(response.json);
         return reject(response.json.message);
@@ -50,10 +55,13 @@ export default function request(endpoint, apiConfig) {
 }
 
 function parseJSON(response) {
-  return new Promise(resolve => response.json()
-    .then(json => resolve({
-      status: response.status,
-      ok: response.ok,
-      json,
-    })));
+  return new Promise(resolve =>
+    response.json().then(json =>
+      resolve({
+        status: response.status,
+        ok: response.ok,
+        json,
+      }),
+    ),
+  );
 }
