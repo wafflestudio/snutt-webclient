@@ -47,8 +47,8 @@ export const store = createStore(
   reducer,
   compose(
     middleware,
-    window.devToolsExtension && process.env.NODE_ENV !== 'production'
-      ? window.devToolsExtension()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && process.env.NODE_ENV !== 'production'
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
       : f => f,
   ),
 );
