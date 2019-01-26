@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import Logo from 'assets/logo.svg';
-import LogoAppStore from 'assets/logo-apple-black.svg';
-import LogoPlayStore from 'assets/logo-playstore-black.svg';
+import { ReactComponent as Logo } from 'assets/logo.svg';
+import { ReactComponent as LogoAppStore } from 'assets/logo-apple-black.svg';
+import { ReactComponent as LogoPlayStore } from 'assets/logo-playstore-black.svg';
 
 const AppLink = ({ isOpen, close }) => (
   <Modal

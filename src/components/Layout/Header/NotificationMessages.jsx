@@ -3,9 +3,9 @@ import Loading from 'react-loading';
 import PropTypes from 'prop-types';
 
 import IconTimetable from 'assets/notice-timetable.svg';
-import IconTrash from 'assets/notice-trash.svg';
-import IconUpdate from 'assets/notice-update.svg';
-import IconWarning from 'assets/notice-warning.svg';
+import { ReactComponent as IconTrash } from 'assets/notice-trash.svg';
+import { ReactComponent as IconUpdate } from 'assets/notice-update.svg';
+import { ReactComponent as IconWarning } from 'assets/notice-warning.svg';
 
 class NotificationMessages extends Component {
   static formatDate(dateString) {

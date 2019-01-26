@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { runQuery, toggleSearchPanel } from '../../../actions/index.js';
 import SearchFilter from '../../MakeTimetable/Search/SearchFilter.jsx';
 import IconWrapper from '../../Common/IconWrapper.jsx';
-import SearchIconNormal from 'assets/ic-search-normal.svg';
-import SearchIconHover from 'assets/ic-search-over.svg';
-import SearchIconFocus from 'assets/ic-search-pressed.svg';
-import FilterIconNormal from 'assets/ic-condition-normal.svg';
-import FilterIconNormalHovered from 'assets/ic-condition-over.svg';
-import FilterIconFocused from 'assets/ic-condition-focused.svg';
-import FilterIconFocusedHovered from 'assets/ic-condition-focused-over.svg';
+import { ReactComponent as SearchIconNormal } from 'assets/ic-search-normal.svg';
+import { ReactComponent as SearchIconHover } from 'assets/ic-search-over.svg';
+import { ReactComponent as SearchIconFocus } from 'assets/ic-search-pressed.svg';
+import { ReactComponent as FilterIconNormal } from 'assets/ic-condition-normal.svg';
+import { ReactComponent as FilterIconNormalHovered } from 'assets/ic-condition-over.svg';
+import { ReactComponent as FilterIconFocused } from 'assets/ic-condition-focused.svg';
+import { ReactComponent as FilterIconFocusedHovered } from 'assets/ic-condition-focused-over.svg';
 
 const mapStateToProps = ({
   courseBook,

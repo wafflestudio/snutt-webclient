@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
 import { addQuery, removeQuery } from '../../../actions';
-import DeleteButton from 'assets/btn-delete-normal.svg';
+import { ReactComponent as DeleteButton } from 'assets/btn-delete-normal.svg';
 
 const MAX_DEPARTMENT = 3;
 

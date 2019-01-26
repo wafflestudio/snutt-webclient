@@ -9,9 +9,9 @@ import NotificationMessages from './NotificationMessages.jsx';
 import { visitChecker, welcomeMessage } from './visitorChecker';
 
 import IconWrapper from '../../Common/IconWrapper.jsx';
-import AlarmIconNormal from 'assets/ic-alarm-normal.svg';
-import AlarmIconHovered from 'assets/ic-alarm-over.svg';
-import AlarmIconFoucsed from 'assets/ic-alarm-pressed.svg';
+import { ReactComponent as AlarmIconNormal } from 'assets/ic-alarm-normal.svg';
+import { ReactComponent as AlarmIconHovered } from 'assets/ic-alarm-over.svg';
+import { ReactComponent as AlarmIconFoucsed } from 'assets/ic-alarm-pressed.svg';
 
 const AMOUNT_PER_REQUEST = 10;
 

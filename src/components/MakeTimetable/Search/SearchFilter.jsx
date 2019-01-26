@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 
 import DepartmentForm from './DepartmentForm.jsx';
 import TimeQuery from './TimeQuery.jsx';
-import RefreshIcon from 'assets/ic-reset-normal.svg';
+import { ReactComponent as RefreshIcon } from 'assets/ic-reset-normal.svg';
 
 import {
   addQuery,
