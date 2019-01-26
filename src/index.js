@@ -5,17 +5,16 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware,
+  push,
+} from 'react-router-redux';
 import thunk from 'redux-thunk';
 
 import api from './middleware/api';
 import rootReducer from './reducers';
-
-if (process.env.NODE_ENV != 'production') {
-  console.log('Looks like we are in development mode!');
-}
-
-require('../stylesheets/style.scss');
 
 import {
   App,
@@ -28,6 +27,12 @@ import {
   MustLoggedIn,
   Feedback,
 } from './components';
+
+if (process.env.NODE_ENV != 'production') {
+  console.log('Looks like we are in development mode!');
+}
+
+require('../stylesheets/style.scss');
 
 const history = createHistory();
 
