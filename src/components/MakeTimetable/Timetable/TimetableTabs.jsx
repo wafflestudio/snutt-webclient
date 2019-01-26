@@ -8,10 +8,10 @@ import {
 } from '../../../actions/tableActions';
 
 import IconWrapper from '../../Common/IconWrapper.jsx';
-import AddIconNormal from '../../../../assets/ic-addtab-normal.svg';
-import AddIconHover from '../../../../assets/ic-addtab-over.svg';
-import AddIconFocus from '../../../../assets/ic-addtab-pressed.svg';
-import DeleteIcon from '../../../../assets/btn-delete-normal.svg';
+import AddIconNormal from 'assets/ic-addtab-normal.svg';
+import AddIconHover from 'assets/ic-addtab-over.svg';
+import AddIconFocus from 'assets/ic-addtab-pressed.svg';
+import DeleteIcon from 'assets/btn-delete-normal.svg';
 
 function mapStateToProps(state) {
   const { viewTableId, viewTableTabList } = state.tableList;

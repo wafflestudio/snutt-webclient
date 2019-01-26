@@ -5,12 +5,12 @@ import { editCourse } from '../../../actions/tableActions';
 import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
 
 import IconWrapper from '../../Common/IconWrapper';
-import DeleteIconNormal from '../../../../assets/ic-delete-white-normal.svg';
-import DeleteIconHover from '../../../../assets/ic-delete-white-over.svg';
-import DeleteIconFocus from '../../../../assets/ic-delete-white-pressed.svg';
-import EditIconNormal from '../../../../assets/ic-edit-white-normal.svg';
-import EditIconHover from '../../../../assets/ic-edit-white-over.svg';
-import EditIconFocus from '../../../../assets/ic-edit-white-pressed.svg';
+import DeleteIconNormal from 'assets/ic-delete-white-normal.svg';
+import DeleteIconHover from 'assets/ic-delete-white-over.svg';
+import DeleteIconFocus from 'assets/ic-delete-white-pressed.svg';
+import EditIconNormal from 'assets/ic-edit-white-normal.svg';
+import EditIconHover from 'assets/ic-edit-white-over.svg';
+import EditIconFocus from 'assets/ic-edit-white-pressed.svg';
 
 const mapStateToProps = ({
   tableHoveredCourse,

@@ -1,17 +1,14 @@
 import React from 'react';
-import { render } from 'react-dom';
-import {
- compose, createStore, combineReducers, applyMiddleware 
-} from 'redux';
+import ReactDOM from 'react-dom';
+import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
 import {
   ConnectedRouter,
   routerReducer,
   routerMiddleware,
-  push,
 } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
@@ -31,7 +28,7 @@ import {
   Feedback,
 } from './components';
 
-if (process.env.NODE_ENV != 'production') {
+if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
 }
 
@@ -50,7 +47,7 @@ export const store = createStore(
   reducer,
   compose(
     middleware,
-    window.devToolsExtension && process.env.NODE_ENV != 'production'
+    window.devToolsExtension && process.env.NODE_ENV !== 'production'
       ? window.devToolsExtension()
       : f => f,
   ),
@@ -69,7 +66,7 @@ const RouteApp = () => (
   </App>
 );
 
-render(
+ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
@@ -78,10 +75,10 @@ render(
       </Switch>
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('root'),
+  window.document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

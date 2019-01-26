@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import DropdownArrow from '../../Common/DropdownArrow.jsx';
-import ButtonDelete from '../../../../assets/btn-delete-normal.svg';
+import ButtonDelete from 'assets/btn-delete-normal.svg';
 
 const daysKorean = ['월', '화', '수', '목', '금', '토', '일'];
 const daysOptions = daysKorean.map((name, index) => ({

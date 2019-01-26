@@ -3,10 +3,10 @@ import { fetchMessages } from '../../../actions/notification';
 import Loading from 'react-loading';
 import PropTypes from 'prop-types';
 
-import IconTimetable from '../../../../assets/notice-timetable.svg';
-import IconTrash from '../../../../assets/notice-trash.svg';
-import IconUpdate from '../../../../assets/notice-update.svg';
-import IconWarning from '../../../../assets/notice-warning.svg';
+import IconTimetable from 'assets/notice-timetable.svg';
+import IconTrash from 'assets/notice-trash.svg';
+import IconUpdate from 'assets/notice-update.svg';
+import IconWarning from 'assets/notice-warning.svg';
 
 class NotificationMessages extends Component {
   static formatDate(dateString) {
@@ -98,7 +98,7 @@ class NotificationMessages extends Component {
     return (
       <div
         id="snutt__noti-box"
-        ref={(node) => {
+        ref={node => {
           this.node = node;
         }}
       >
