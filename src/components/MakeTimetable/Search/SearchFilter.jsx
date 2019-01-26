@@ -130,7 +130,7 @@ class SearchFilter extends Component {
                 <input
                   type="checkbox"
                   checked={checked}
-                  onClick={this.props.toggleQuery.bind(
+                  onChange={this.props.toggleQuery.bind(
                     this,
                     memberName,
                     val.value,
@@ -157,7 +157,7 @@ class SearchFilter extends Component {
           <label className="checkbox-inline">
             <input
               type="checkbox"
-              onClick={this.props.toggleUseTime}
+              onChange={this.props.toggleUseTime}
               checked={useTime}
             />
             <div>
@@ -167,7 +167,7 @@ class SearchFilter extends Component {
           <label className="radio-inline">
             <input
               type="radio"
-              onClick={searchEmptySlot}
+              onChange={searchEmptySlot}
               // Used !! in 'checked' prop in order to suppress warning
               // https://github.com/facebook/react/issues/6779
               checked={!!(useTime && searchingEmptySlot)}
@@ -180,7 +180,7 @@ class SearchFilter extends Component {
           <label className="radio-inline">
             <input
               type="radio"
-              onClick={this.props.searchSelectedSlot}
+              onChange={this.props.searchSelectedSlot}
               checked={!!(useTime && !searchingEmptySlot)}
               disabled={!useTime}
             />
