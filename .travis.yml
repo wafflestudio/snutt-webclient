@@ -14,8 +14,8 @@ cache:
 install:
   - yarn
 before_script:
-  - yarn build:prod
-  - serve -s dist &
+  - yarn build
+  - serve -s build &
 script:
   - cypress run --record
 
