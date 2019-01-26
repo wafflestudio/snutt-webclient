@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { fetchMessages } from '../../../actions/notification';
 import Loading from 'react-loading';
 import PropTypes from 'prop-types';
 
@@ -61,7 +60,7 @@ class NotificationMessages extends Component {
   handleScroll() {
     const node = this.node;
     const { scrollTop, scrollHeight, clientHeight } = node;
-    if (scrollTop + clientHeight == scrollHeight) {
+    if (scrollTop + clientHeight === scrollHeight) {
       this.props.askMore();
     }
   }

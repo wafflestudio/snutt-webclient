@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
 import Modal from 'react-modal';
 
 import DepartmentForm from './DepartmentForm.jsx';
@@ -25,8 +24,6 @@ import {
   classifications,
   etcs,
 } from './options';
-
-const EMPTY_MASK = Immutable.List([0, 0, 0, 0, 0, 0, 0]);
 
 function mapStateToProps(state) {
   const {

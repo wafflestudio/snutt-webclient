@@ -43,7 +43,7 @@ class TimetableTabs extends Component {
   shouldComponentUpdate(nextProps) {
     const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
     const { viewTableId, tables } = this.props;
-    return nextViewTableId != viewTableId || nextTables != tables;
+    return nextViewTableId !== viewTableId || nextTables !== tables;
   }
 
   handleAdd() {

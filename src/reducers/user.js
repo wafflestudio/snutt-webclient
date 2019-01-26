@@ -1,6 +1,11 @@
-import Immutable from 'immutable';
-import { REGISTER_SUCCESS, REGISTER_FAILURE, LOGIN_SUCCESS, LOGIN_FAILURE,
-LOGIN_TEMP, LOGOUT_SUCCESS, GET_USER_INFO } from '../actions/userActions';
+import {
+  REGISTER_FAILURE,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGIN_TEMP,
+  LOGOUT_SUCCESS,
+  GET_USER_INFO,
+} from '../actions/userActions';
 
 const INITIAL_STATE = {
   loggedIn: false,
@@ -11,9 +16,8 @@ const INITIAL_STATE = {
 };
 
 const handlers = {
-  [LOGIN_SUCCESS]: (state, action) => (
-    Object.assign({}, INITIAL_STATE, { loggedIn: true, id: action.id })
-  ),
+  [LOGIN_SUCCESS]: (state, action) =>
+    Object.assign({}, INITIAL_STATE, { loggedIn: true, id: action.id }),
 
   [LOGIN_FAILURE]: (state, action) => ({
     loggedIn: false,
@@ -21,11 +25,10 @@ const handlers = {
     message: action.message,
   }),
 
-  [LOGOUT_SUCCESS]: (state, action) => (INITIAL_STATE),
+  [LOGOUT_SUCCESS]: (state, action) => INITIAL_STATE,
 
-  [LOGIN_TEMP]: (state, action) => (
-    Object.assign({}, INITIAL_STATE, { id: action.id })
-  ),
+  [LOGIN_TEMP]: (state, action) =>
+    Object.assign({}, INITIAL_STATE, { id: action.id }),
 
   [REGISTER_FAILURE]: (state, action) => ({
     loggedIn: false,

@@ -20,7 +20,7 @@ const DEFAULT_TABLELIST = {
 function getViewTableTabList(tableList, year, semester) {
   const viewTableTabList = [];
   for (let i = 0; i < tableList.length; i++) {
-    if (tableList[i].year == year && tableList[i].semester == semester) {
+    if (tableList[i].year === year && tableList[i].semester === semester) {
       viewTableTabList.push(tableList[i]);
     }
   }
@@ -34,7 +34,7 @@ function getViewLectures(tableMap, viewTableId, colorScheme) {
       : []
     : null;
   if (viewLectures && colorScheme.length > 0) {
-    viewLectures = viewLectures.map((lecture) => {
+    viewLectures = viewLectures.map(lecture => {
       if (lecture.colorIndex && lecture.colorIndex <= colorScheme.length) {
         lecture.color = colorScheme[lecture.colorIndex - 1];
       }
@@ -53,7 +53,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         viewYear: oldViewYear,
         viewSemester: oldViewSemester,
       } = state;
-      if (viewYear != oldViewYear || viewSemester != oldViewSemester) {
+      if (viewYear !== oldViewYear || viewSemester !== oldViewSemester) {
         const viewTableTabList = getViewTableTabList(
           tableList,
           viewYear,
@@ -73,10 +73,10 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       const newTableList = action.response;
 
       let listChanged = false;
-      if (tableList.length == newTableList.length) {
+      if (tableList.length === newTableList.length) {
         for (let i = 0; i < tableList.length; i++) {
           if (
-            tableList[i]._id != newTableList[i]._id ||
+            tableList[i]._id !== newTableList[i]._id ||
             tableList[i].title !== newTableList[i].title
           ) {
             listChanged = true;

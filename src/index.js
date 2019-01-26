@@ -1,12 +1,8 @@
 import React from 'react';
-<<<<<<< HEAD
 import ReactDOM from 'react-dom';
-=======
-import { render } from 'react-dom';
->>>>>>> 7b0e19d... Move stylesheets inside src
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Route, Switch } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
 import {

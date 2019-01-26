@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Radium from 'radium'; // To use pseudoclass CSS inside JavaScript
 import Color from 'color';
-import ColoredBlock from './ColoredBlock.jsx';
 
 const color2name = {
   '#e54459': '석류',
@@ -16,11 +14,11 @@ const color2name = {
 };
 
 class ColorBlock extends Component {
-  handleClick = (e) => {
+  handleClick = e => {
     e.preventDefault();
     const { color, colorIndex, onClick } = this.props;
     onClick({ color, colorIndex });
-  }
+  };
 
   render() {
     const { color, isSelected } = this.props;
@@ -29,16 +27,15 @@ class ColorBlock extends Component {
       borderColor: color.bg,
       color: isSelected ? color.fg : color.bg,
       ':hover': {
-        backgroundColor: Color(color.bg).fade(0.8).rgb().toString(),
+        backgroundColor: Color(color.bg)
+          .fade(0.8)
+          .rgb()
+          .toString(),
         color: color.bg,
       },
     };
     return (
-      <div
-        className="color-circle"
-        onClick={this.handleClick}
-        style={style}
-      >
+      <div className="color-circle" onClick={this.handleClick} style={style}>
         <span>{color2name[color.bg]}</span>
       </div>
     );

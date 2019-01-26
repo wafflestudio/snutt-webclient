@@ -1,9 +1,6 @@
 // Mostly from https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/
 
-import path from 'path';
 import request from '../actions/request';
-
-import { baseUrl, apiKey } from '../config';
 
 const Symbol = require('es6-symbol');
 
