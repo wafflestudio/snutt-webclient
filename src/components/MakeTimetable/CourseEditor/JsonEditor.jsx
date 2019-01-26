@@ -13,7 +13,7 @@ const daysOptions = daysKorean.map((name, index) => ({
 }));
 const times = [...Array(29).keys()].map(v => v / 2); // 0, 0.5, 1 .... 14.5
 const hhmms = times
-  .map((gyosi) => {
+  .map(gyosi => {
     const hh = Math.floor(gyosi) + 8;
     const mm = gyosi % 1 === 0.5 ? '30' : '00';
     return `${hh}:${mm}`;
@@ -30,8 +30,8 @@ class ClassTimeRow extends React.PureComponent {
   updateLen = v => this.props.updateRow(this.props.index, 'len', v.value);
   updatePlace = e =>
     this.props.updateRow(this.props.index, 'place', e.target.value);
-  deleteThisRow = (e) => {
-    e.preventDefault;
+  deleteThisRow = e => {
+    e.preventDefault();
     this.props.deleteRow(this.props.index);
   };
   getValidDuration = () => {

@@ -13,7 +13,7 @@ import {
 } from '../../actions/userActions';
 import { fbAppId } from '../../config';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { user } = state;
   return { ...user };
 };
@@ -21,9 +21,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   deleteAccount: () => dispatch(deleteAccount()),
-  attachFacebook: (id, accessToken) => dispatch(attachFacebook(id, accessToken)),
+  attachFacebook: (id, accessToken) =>
+    dispatch(attachFacebook(id, accessToken)),
   detachFacebook: () => dispatch(detachFacebook()),
-  attachLocal: (id, pass, callback) => dispatch(attachLocal(id, pass, callback)),
+  attachLocal: (id, pass, callback) =>
+    dispatch(attachLocal(id, pass, callback)),
   changePassword: (oldPass, newPass, callback) =>
     dispatch(changePassword(oldPass, newPass, callback)),
 });
@@ -43,7 +45,7 @@ class MyPage extends Component {
   }
 
   handleDelete = () => {
-    if (confirm('정말 탈퇴하시겠습니까?')) {
+    if (window.confirm('정말 탈퇴하시겠습니까?')) {
       this.props.deleteAccount();
     }
   };
@@ -100,7 +102,7 @@ class MyPage extends Component {
                   className="form-control"
                   type="password"
                   placeholder="현재 비밀번호"
-                  ref={(oldPass) => {
+                  ref={oldPass => {
                     this.oldPass = oldPass;
                   }}
                   required
@@ -109,7 +111,7 @@ class MyPage extends Component {
                   className="form-control"
                   type="password"
                   placeholder="새 비밀번호"
-                  ref={(newPass) => {
+                  ref={newPass => {
                     this.newPass = newPass;
                   }}
                   required
@@ -120,14 +122,18 @@ class MyPage extends Component {
                   className="form-control"
                   type="password"
                   placeholder="새 비밀번호 확인"
-                  ref={(newPassConfirm) => {
+                  ref={newPassConfirm => {
                     this.newPassConfirm = newPassConfirm;
                   }}
                   required
                   pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
                   title="비밀번호는 영문자, 숫자가 조합된 6자 이상 20자 이하여야 합니다"
                 />
-                <input className="btn primary passchange" type="submit" value="변경하기" />
+                <input
+                  className="btn primary passchange"
+                  type="submit"
+                  value="변경하기"
+                />
               </form>
             </div>
           </div>
@@ -140,7 +146,7 @@ class MyPage extends Component {
         <div className="col-xs-8">
           <form onSubmit={this.handleAttachLocalAccount}>
             <input
-              ref={(newId) => {
+              ref={newId => {
                 this.newId = newId;
               }}
               pattern="[a-z0-9]{4,32}"
@@ -152,7 +158,7 @@ class MyPage extends Component {
             <input
               className="form-control"
               type="password"
-              ref={(newPass) => {
+              ref={newPass => {
                 this.newPass = newPass;
               }}
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
@@ -162,7 +168,7 @@ class MyPage extends Component {
             />
             <input
               type="password"
-              ref={(newPassConfirm) => {
+              ref={newPassConfirm => {
                 this.newPassConfirm = newPassConfirm;
               }}
               pattern="^(?=.*\d)(?=.*[a-z])\S{6,20}$"
@@ -217,7 +223,11 @@ class MyPage extends Component {
             <div className="form-group">
               <label className="col-xs-4">로그아웃</label>
               <div className="col-xs-8">
-                <button data-cy="my-logout" className="btn btn-default" onClick={this.handleLogout}>
+                <button
+                  data-cy="my-logout"
+                  className="btn btn-default"
+                  onClick={this.handleLogout}
+                >
                   로그아웃하기
                 </button>
               </div>
@@ -245,4 +255,7 @@ MyPage.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MyPage);

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addLecture, deleteLecture, editCourse } from '../../../actions/tableActions';
+import {
+  addLecture,
+  deleteLecture,
+  editCourse,
+} from '../../../actions/tableActions';
 import showCourseDetail from './showCourseDetail.js';
 
 function mapStateToProps(state) {
@@ -36,7 +40,7 @@ class ResultRowButtons extends Component {
   }
 
   handleDelete() {
-    if (confirm('정말로 삭제하시겠습니까?')) {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
       this.props.onDeleteLecture(this.props.course._id);
     }
   }
@@ -49,45 +53,34 @@ class ResultRowButtons extends Component {
     const { searching } = this.props;
     return (
       <div>
-        { searching ?
+        {searching ? (
           <div className="tr-buttons">
-            <button
-              className="btn btn-default"
-              onClick={this.handleOpenDetail}
-            >
+            <button className="btn btn-default" onClick={this.handleOpenDetail}>
               수강편람
             </button>
-            <button
-              className="btn btn-default"
-              onClick={this.handleAdd}
-            >
+            <button className="btn btn-default" onClick={this.handleAdd}>
               추가
             </button>
-          </div> :
+          </div>
+        ) : (
           <div className="tr-buttons">
-            <button
-              className="btn btn-default"
-              onClick={this.handleOpenDetail}
-            >
+            <button className="btn btn-default" onClick={this.handleOpenDetail}>
               수강편람
             </button>
-            <button
-              className="btn btn-default"
-              onClick={this.handleEdit}
-            >
+            <button className="btn btn-default" onClick={this.handleEdit}>
               수정
             </button>
-            <button
-              className="btn btn-default"
-              onClick={this.handleDelete}
-            >
+            <button className="btn btn-default" onClick={this.handleDelete}>
               삭제
             </button>
           </div>
-        }
+        )}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultRowButtons);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ResultRowButtons);

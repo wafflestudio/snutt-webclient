@@ -34,7 +34,7 @@ class LectureBox extends Component {
   handleMouseLeave = () => this.props.onUnhover();
 
   handleDelete = () => {
-    if (confirm('정말로 삭제하시겠습니까?')) {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
       this.props.onDelete(this.props.course._id);
     }
   };
