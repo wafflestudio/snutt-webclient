@@ -89,6 +89,7 @@ class SearchFilter extends Component {
   handleClickOutside(e) {
     if (
       e.target.className &&
+      e.target.className.includes &&
       !this.node.contains(e.target) &&
       !this.props.timePanel
     ) {

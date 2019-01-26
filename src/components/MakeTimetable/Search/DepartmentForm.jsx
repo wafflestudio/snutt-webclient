@@ -114,6 +114,7 @@ class DeparmentForm extends Component {
             onMenuVisibilityChange={this.onMenuChange}
             renderItem={(item, highlighted) => (
               <div
+                key={item}
                 className="department_item"
                 style={styles.itemStyle(highlighted)}
               >
