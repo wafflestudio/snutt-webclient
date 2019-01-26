@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SNUTT",
+  "name": "서울대학교 시간표 : SNUTT",
   "icons": [
     {
       "src": "favicon.ico",
