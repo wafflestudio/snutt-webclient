@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import LectureBox from './LectureBox.jsx';
-import TableHeader from './TableHeader.jsx';
-import TableBody from './TableBody.jsx';
+import Table from './Table';
 
 import { createCourse, deleteLecture } from '../../../actions/tableActions';
 import { addCourse } from '../../../actions';
-
-const NUM_SLOTS = 32;
-const NUM_DAY = 7;
 
 function mapStateToProps(state) {
   const {
@@ -40,46 +35,7 @@ const mapDispatchToProps = dispatch => ({
 class Timetable extends Component {
   constructor() {
     super();
-    this.placeLectures = this.placeLectures.bind(this);
     this.createAndEditCourse = this.createAndEditCourse.bind(this);
-  }
-
-  placeLectures() {
-    const boxes = new Array(NUM_DAY).fill(0).map(() => new Array(NUM_SLOTS));
-    for (const course of this.props.courses) {
-      for (const lecture of course.class_time_json) {
-        const day = lecture.day;
-        boxes[day][lecture.start * 2] = (
-          <LectureBox
-            course={course}
-            onDelete={this.props.handleDelete}
-            length={lecture.len * 2}
-            isPreview={false}
-            classroom={lecture.place}
-            key={'{course._id}{day}{lecture.start}{lecture.len}'}
-          />
-        );
-      }
-    }
-    const previewed = this.props.previewed;
-    if (previewed) {
-      for (const lecture of previewed.class_time_json) {
-        const day = lecture.day;
-        const previewDiv = (
-          <LectureBox
-            course={previewed}
-            length={lecture.len * 2}
-            isPreview
-            key={previewed._id + day}
-            classroom={lecture.place}
-          />
-        );
-        const existingDiv = boxes[day][lecture.start * 2];
-        boxes[day][lecture.start * 2] =
-          existingDiv !== undefined ? [existingDiv, previewDiv] : previewDiv;
-      }
-    }
-    return boxes;
   }
 
   createAndEditCourse(e) {
@@ -92,24 +48,10 @@ class Timetable extends Component {
   }
 
   render() {
-    const { hasNoTable, creditSum } = this.props;
-    let hasSunday = false;
-    let lecturesInTable;
-    if (!hasNoTable) {
-      lecturesInTable = this.placeLectures();
-      hasSunday = lecturesInTable[6].filter(v => Boolean(v)).length > 0;
-    }
-
+    const { creditSum, ...tableProps } = this.props;
     return (
       <div id="timetable-container">
-        <table className="table timetable">
-          <TableHeader hasSunday={hasSunday} />
-          <TableBody
-            hasNoTable={hasNoTable}
-            hasSunday={hasSunday}
-            lectureBoxes={lecturesInTable}
-          />
-        </table>
+        <Table {...tableProps} />
         <div className="table-info">
           <div
             className="add-button btn-default"
