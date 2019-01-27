@@ -17,16 +17,33 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class TableRenderer extends Component {
-  componentDidMount = () => this.props.getColor();
+  state = {
+    table: false,
+  };
+
+  componentDidMount = () => {
+    this.props.getColor();
+    window.changeTable = tableString => {
+      const table = JSON.parse(tableString);
+      this.setState({
+        table,
+      });
+    };
+  };
 
   render() {
     console.log(this.props.colorScheme);
-    const courses = SampleTable.lecture_list;
+    const courses = this.state.table.lecture_list;
+    if (!this.state.table) {
+      console.log('no table');
+      return <div />;
+    }
+
     const coloredCourses = populateColor(this.props.colorScheme, courses);
     console.log(coloredCourses);
     return (
       <div id="timetable-container">
-        <Table courses={coloredCourses} />
+        {this.state.table && <Table courses={coloredCourses} />}
       </div>
     );
   }
