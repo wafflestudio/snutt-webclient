@@ -27,6 +27,7 @@ import {
   MustLoggedIn,
   Feedback,
 } from './components';
+import TableRenderer from 'components/MakeTimetable/Timetable/TableRenderer';
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
@@ -71,6 +72,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/feedback" component={Feedback} />
+        <Route path="/captureTable" component={TableRenderer} />
         <Route path="/" component={RouteApp} />
       </Switch>
     </ConnectedRouter>
