@@ -8,13 +8,21 @@ class IconImageWrapper extends Component {
     };
   }
 
-  handleMouseEnter = () => this.setState({ hovered: true })
-  handleMouseLeave = () => this.setState({ hovered: false })
+  handleMouseEnter = () => this.setState({ hovered: true });
+  handleMouseLeave = () => this.setState({ hovered: false });
 
   render() {
     const { hovered } = this.state;
-    const { id, className, focused, normalIcon, normalHoveredIcon, focusedIcon,
-      focusedHoveredIcon, onClick } = this.props;
+    const {
+      id,
+      className,
+      focused,
+      normalIcon,
+      normalHoveredIcon,
+      focusedIcon,
+      focusedHoveredIcon,
+      onClick,
+    } = this.props;
 
     let imageSrc;
     if (hovered) {
@@ -32,7 +40,7 @@ class IconImageWrapper extends Component {
     return (
       <span
         id={id}
-        className={`icon-wrapper ${className}`}
+        className={`icon-wrapper ${className || ''}`}
         onClick={onClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}

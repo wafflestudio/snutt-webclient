@@ -11,13 +11,6 @@ Before run, you need to set required keys. Insert api key, server url, facebook 
 
 ```
 yarn 
-yarn run start
+yarn start
 ```
 
-### Linting
-
-This boilerplate project includes React-friendly ESLint configuration.
-
-```
-yarn run lint
-```

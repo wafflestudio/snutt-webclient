@@ -1,33 +1,47 @@
 import React, { Component } from 'react';
-import Radium from 'radium'; // To use pseudoclass CSS inside JavaScript
 import Color from 'color';
+import styled from 'styled-components';
 
-@Radium
+const ColoredDiv = styled.div`
+  background-color: ${props =>
+    props.isSelected ? props.bg : 'white'} !important;
+  border-color: ${props => props.bg} !important;
+  color: ${props => (props.isSelected ? props.fg : props.bg)};
+  &:hover {
+    background-color: ${props => props.hoverColor} !important;
+    color: ${props => props.bg};
+  }
+`;
+
 class ColoredBlock extends Component {
-  handleClick = (e) => {
+  handleClick = e => {
     e.preventDefault();
     this.props.handleColorClick(this.props.color);
-  }
+  };
 
   render() {
-    const { color, isSelected, name } = this.props;
-    const style = {
-      backgroundColor: isSelected ? color.bg : 'white',
-      borderColor: color.bg,
-      color: isSelected ? color.fg : color.bg,
-      ':hover': {
-        backgroundColor: Color(color.bg).fade(0.8).rgb().toString(),
-        color: color.bg,
-      },
-    };
+    const {
+      color: { fg, bg },
+      isSelected,
+      name,
+    } = this.props;
+
+    const hoverColor = Color(bg)
+      .fade(0.8)
+      .rgb()
+      .toString();
+
     return (
-      <div
+      <ColoredDiv
+        isSelected={isSelected}
+        fg={fg}
+        bg={bg}
+        hoverColor={hoverColor}
         className="color-circle"
         onClick={this.handleClick}
-        style={style}
       >
         <span>{name}</span>
-      </div>
+      </ColoredDiv>
     );
   }
 }

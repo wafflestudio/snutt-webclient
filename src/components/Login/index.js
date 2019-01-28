@@ -8,8 +8,10 @@ import { fbAppId } from '../../config';
 const mapStateToProps = state => ({ user: state.user });
 
 const mapDispatchToProps = dispatch => ({
-  loginLocal: (id, password, keepLogin) => dispatch(loginLocal(id, password, keepLogin)),
-  loginFacebook: (id, accessToken, name) => dispatch(loginFacebook(id, accessToken, name)),
+  loginLocal: (id, password, keepLogin) =>
+    dispatch(loginLocal(id, password, keepLogin)),
+  loginFacebook: (id, accessToken, name) =>
+    dispatch(loginFacebook(id, accessToken, name)),
 });
 
 class Login extends Component {
@@ -24,13 +26,13 @@ class Login extends Component {
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
 
-  handleIdChange = (e) => {
+  handleIdChange = e => {
     this.setState({ id: e.target.value });
   };
-  handlePassChange = (e) => {
+  handlePassChange = e => {
     this.setState({ password: e.target.value });
   };
-  handleKeepLoginChange = (e) => {
+  handleKeepLoginChange = e => {
     this.setState({ keepLogin: !this.state.keepLogin });
   };
 
@@ -46,7 +48,7 @@ class Login extends Component {
   }
 
   render() {
-    const { id, password, keepLogin } = this.state;
+    const { id, password } = this.state;
     const { user } = this.props;
     return (
       <div className="snutt__login">
@@ -84,9 +86,15 @@ class Login extends Component {
               </div>
             </label>
           </div>
-          <div className="error">{user.errorType === 'login' ? user.message : <br />}</div>
+          <div className="error">
+            {user.errorType === 'login' ? user.message : <br />}
+          </div>
           <div className="buttons-wrapper">
-            <button type="submit" className="btn primary" data-cy="login-submit">
+            <button
+              type="submit"
+              className="btn primary"
+              data-cy="login-submit"
+            >
               로그인
             </button>
             <FBLogin
@@ -108,4 +116,7 @@ class Login extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

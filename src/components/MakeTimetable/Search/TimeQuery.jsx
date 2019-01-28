@@ -11,8 +11,8 @@ import CellSelector from './CellSelector.jsx';
  * @return {mask}
  */
 export function complement(masks) {
-  const union = masks.reduce((prev, current) =>
-    current.map((val, index) => val | prev[index]),
+  const union = masks.reduce(
+    (prev, current) => current.map((val, index) => val | prev[index]),
     [0, 0, 0, 0, 0, 0, 0],
   );
   const inversed = union.map(val => ~val);
@@ -22,10 +22,10 @@ export function complement(masks) {
 }
 
 /**
-* Converts 6 32bit masks to 30 x 6 2d array.
-* 1 -> 'SELECTED',
-* 0 -> 'EMPTY'
-*/
+ * Converts 6 32bit masks to 30 x 6 2d array.
+ * 1 -> 'SELECTED',
+ * 0 -> 'EMPTY'
+ */
 export function maskToCells(plainMasks) {
   // Convert to plainJS before putting into function
   const cells = new Array(30).fill().map(() => new Array(7).fill('EMPTY'));
@@ -51,12 +51,11 @@ export function cellsToMask(arr) {
     for (let d = 0; d < 7; d++) {
       const bit = arr[t][d] === 'SELECTED' ? 1 : 0;
       masks[d] |= bit;
-      if (t != 29) masks[d] <<= 1;
+      if (t !== 29) masks[d] <<= 1;
     }
   }
   return masks;
 }
-
 
 class TimeQuery extends Component {
   constructor(props) {
@@ -88,14 +87,16 @@ class TimeQuery extends Component {
   render() {
     return (
       <div className="time-query">
-        <span><strong>검색하고 싶은 시간들을 드래그하세요</strong></span>
+        <span>
+          <strong>검색하고 싶은 시간들을 드래그하세요</strong>
+        </span>
         <hr />
         <CellSelector
           row={30}
           col={7}
-          rowLabels={new Array(30).fill().map((val, idx) =>
-            (idx % 2 === 0 ? String((idx / 2) + 8) : ' '),
-          )}
+          rowLabels={new Array(30)
+            .fill()
+            .map((val, idx) => (idx % 2 === 0 ? String(idx / 2 + 8) : ' '))}
           colLabels={['월', '화', '수', '목', '금', '토', '일']}
           cells={this.state.cells}
           handleUpdate={this.handleUpdate}

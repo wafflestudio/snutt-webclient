@@ -1,21 +1,20 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware,
+} from 'react-router-redux';
 import thunk from 'redux-thunk';
 
 import api from './middleware/api';
 import rootReducer from './reducers';
-
-if (process.env.NODE_ENV != 'production') {
-  console.log('Looks like we are in development mode!');
-}
-
-require('../stylesheets/style.scss');
+import * as serviceWorker from './serviceWorker';
 
 import {
   App,
@@ -28,6 +27,12 @@ import {
   MustLoggedIn,
   Feedback,
 } from './components';
+
+if (process.env.NODE_ENV !== 'production') {
+  console.log('Looks like we are in development mode!');
+}
+
+require('stylesheets/style.scss');
 
 const history = createHistory();
 
@@ -42,8 +47,8 @@ export const store = createStore(
   reducer,
   compose(
     middleware,
-    window.devToolsExtension && process.env.NODE_ENV != 'production'
-      ? window.devToolsExtension()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && process.env.NODE_ENV !== 'production'
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
       : f => f,
   ),
 );
@@ -61,7 +66,7 @@ const RouteApp = () => (
   </App>
 );
 
-render(
+ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
@@ -70,5 +75,10 @@ render(
       </Switch>
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('root'),
+  window.document.getElementById('root'),
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.register();

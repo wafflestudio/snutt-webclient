@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { switchTable, createTable, deleteTable, updateTitle } from '../../../actions/tableActions';
+import {
+  switchTable,
+  createTable,
+  deleteTable,
+  updateTitle,
+} from '../../../actions/tableActions';
 
 import IconWrapper from '../../Common/IconWrapper.jsx';
-import AddIconNormal from '../../../../assets/ic-addtab-normal.svg';
-import AddIconHover from '../../../../assets/ic-addtab-over.svg';
-import AddIconFocus from '../../../../assets/ic-addtab-pressed.svg';
-import DeleteIcon from '../../../../assets/btn-delete-normal.svg';
+import { ReactComponent as AddIconNormal } from 'assets/ic-addtab-normal.svg';
+import { ReactComponent as AddIconHover } from 'assets/ic-addtab-over.svg';
+import { ReactComponent as AddIconFocus } from 'assets/ic-addtab-pressed.svg';
+import { ReactComponent as DeleteIcon } from 'assets/btn-delete-normal.svg';
 
 function mapStateToProps(state) {
   const { viewTableId, viewTableTabList } = state.tableList;
@@ -38,7 +43,7 @@ class TimetableTabs extends Component {
   shouldComponentUpdate(nextProps) {
     const { viewTableId: nextViewTableId, tables: nextTables } = nextProps;
     const { viewTableId, tables } = this.props;
-    return nextViewTableId != viewTableId || nextTables != tables;
+    return nextViewTableId !== viewTableId || nextTables !== tables;
   }
 
   handleAdd() {
@@ -50,7 +55,8 @@ class TimetableTabs extends Component {
 
   handleDelete(id, e) {
     e.stopPropagation();
-    if (confirm('정말로 삭제하시겠습니까?')) this.props.onDeleteTable(id);
+    if (window.confirm('정말로 삭제하시겠습니까?'))
+      this.props.onDeleteTable(id);
   }
 
   handleSelect(id, e) {
@@ -109,11 +115,12 @@ class TimetableTabs extends Component {
     }
   }
 
-
   render() {
     // console.log("TImetableTab render!!!");
     const { viewTableId, tables } = this.props;
-    const buttons = tables.map(table => this.renderTab(table, table._id === viewTableId));
+    const buttons = tables.map(table =>
+      this.renderTab(table, table._id === viewTableId),
+    );
     // add button
     buttons.push(
       <li className="tab-icon" key={-1}>
@@ -125,12 +132,11 @@ class TimetableTabs extends Component {
         />
       </li>,
     );
-    return (
-      <ul className="tab-list">
-        {buttons}
-      </ul>
-    );
+    return <ul className="tab-list">{buttons}</ul>;
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TimetableTabs);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TimetableTabs);

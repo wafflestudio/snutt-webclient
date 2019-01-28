@@ -1,12 +1,32 @@
 import { CALL_API } from '../middleware/api';
-import { REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST, ADD_LECTURE_START,
-  ADD_LECTURE_OK, ADD_LECTURE_FAIL, DELETE_LECTURE_START, DELETE_LECTURE_OK,
-  DELETE_LECTURE_FAIL, UPDATE_TITLE_START, UPDATE_TITLE_OK, UPDATE_TITLE_FAIL,
-  UPDATE_LECTURE_START, UPDATE_LECTURE_OK, UPDATE_LECTURE_FAIL,
-  CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL,
-  DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL,
-  SWITCH_TABLE_START, SWITCH_TABLE_OK, SWITCH_TABLE_FAIL,
-  CREATE_COURSE, EDIT_COURSE, CLOSE_COURSE,
+import {
+  REQUEST_TABLELIST,
+  GET_TABLELIST,
+  FAIL_TABLELIST,
+  ADD_LECTURE_START,
+  ADD_LECTURE_OK,
+  ADD_LECTURE_FAIL,
+  DELETE_LECTURE_START,
+  DELETE_LECTURE_OK,
+  DELETE_LECTURE_FAIL,
+  UPDATE_TITLE_START,
+  UPDATE_TITLE_OK,
+  UPDATE_TITLE_FAIL,
+  UPDATE_LECTURE_START,
+  UPDATE_LECTURE_OK,
+  UPDATE_LECTURE_FAIL,
+  CREATE_TABLE_START,
+  CREATE_TABLE_OK,
+  CREATE_TABLE_FAIL,
+  DELETE_TABLE_START,
+  DELETE_TABLE_OK,
+  DELETE_TABLE_FAIL,
+  SWITCH_TABLE_START,
+  SWITCH_TABLE_OK,
+  SWITCH_TABLE_FAIL,
+  CREATE_COURSE,
+  EDIT_COURSE,
+  CLOSE_COURSE,
 } from './actionTypes';
 
 export function fetchTableList() {
@@ -22,7 +42,7 @@ export function fetchTableList() {
 
 export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
 export function addLecture(lecture) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const { viewTableId } = getState().tableList;
     if (!viewTableId) {
       alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
@@ -44,7 +64,7 @@ export function addLecture(lecture) {
 }
 
 export function addCustomLecture(lecture) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const { viewTableId } = getState().tableList || 0;
     if (!viewTableId) {
       alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
@@ -67,7 +87,7 @@ export function addCustomLecture(lecture) {
 
 // TODO: Change name to deleteCourse
 export function deleteLecture(lectureId) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const { viewTableId } = getState().tableList;
     dispatch({
       [CALL_API]: {
@@ -84,7 +104,7 @@ export function deleteLecture(lectureId) {
 export const editCourse = course => ({ type: EDIT_COURSE, course });
 export const closeCourse = course => ({ type: CLOSE_COURSE });
 export function updateLecture(lectureId, updatedPart) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const { viewTableId: currentTableId } = getState().tableList;
     dispatch({
       [CALL_API]: {
@@ -102,7 +122,7 @@ export function updateLecture(lectureId, updatedPart) {
 }
 
 export function updateTitle(newTitle) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const { viewTableId } = getState().tableList;
     dispatch({
       [CALL_API]: {
@@ -120,7 +140,7 @@ export function updateTitle(newTitle) {
 }
 
 export function createTable(newTitle) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const currentBook = getState().courseBook.get('current');
     const { year, semester } = currentBook;
 
@@ -144,7 +164,7 @@ export function createTable(newTitle) {
 }
 
 export function deleteTable(_id) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${_id}`,
@@ -160,11 +180,11 @@ export function deleteTable(_id) {
 
 export function switchTable(_id) {
   if (!_id) {
-    return function (dispatch) {
+    return function(dispatch) {
       dispatch({ type: SWITCH_TABLE_START, payload: { tableId: null } });
     };
   }
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch({
       [CALL_API]: {
         endpoint: `tables/${_id}`,

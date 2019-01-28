@@ -91,10 +91,15 @@ function isQuerying(state = false, action) {
   }
 }
 
-
-function filter(state = {
-  panel: false, timePanel: false, useTime: false, searchEmptySlot: true,
-}, action) {
+function filter(
+  state = {
+    panel: false,
+    timePanel: false,
+    useTime: false,
+    searchEmptySlot: true,
+  },
+  action,
+) {
   /**
    * panel: whether search filter is on or off
    * timePanel: whether time selecting panel is on or off

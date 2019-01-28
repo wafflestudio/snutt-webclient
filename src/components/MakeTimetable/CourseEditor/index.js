@@ -1,14 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
-import Modal from "react-modal";
-import ColorPicker from "./ColorPicker.jsx";
-import timeJsonToMask from "./maskConverter";
+import React from 'react';
+import { connect } from 'react-redux';
+import Modal from 'react-modal';
+import ColorPicker from './ColorPicker.jsx';
+import timeJsonToMask from './maskConverter';
 import {
   addCustomLecture,
   updateLecture,
-  closeCourse
-} from "../../../actions/tableActions";
-import JsonEditor from "./JsonEditor.jsx";
+  closeCourse,
+} from '../../../actions/tableActions';
+import JsonEditor from './JsonEditor.jsx';
 
 const mapStateToProps = state => {
   const { isOpen, course } = state.courseEditor;
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
   onUpdateLecture: (id, lecture) => {
     dispatch(updateLecture(id, lecture));
   },
-  onCourseClose: () => dispatch(closeCourse())
+  onCourseClose: () => dispatch(closeCourse()),
 });
 
 class CourseEditor extends React.PureComponent {
@@ -42,15 +42,15 @@ class CourseEditor extends React.PureComponent {
       colorIndex > 0 ? props.colorScheme[colorIndex - 1] : course.color;
     this.state = {
       isNew: Object.keys(course).length === 0,
-      _id: course._id || "", // || for new course
-      course_title: course.course_title || "",
-      instructor: course.instructor || "",
+      _id: course._id || '', // || for new course
+      course_title: course.course_title || '',
+      instructor: course.instructor || '',
       credit: course.credit || 0,
-      class_time_mask: course.class_time_mask || "",
+      class_time_mask: course.class_time_mask || '',
       class_time_json: course.class_time_json || [],
-      remark: course.remark || "",
+      remark: course.remark || '',
       color,
-      colorIndex
+      colorIndex,
     };
   }
 
@@ -70,7 +70,7 @@ class CourseEditor extends React.PureComponent {
       credit,
       remark,
       color,
-      colorIndex
+      colorIndex,
     } = this.state;
     const editedLecture = {
       course_title,
@@ -79,7 +79,7 @@ class CourseEditor extends React.PureComponent {
       class_time_json,
       remark,
       credit,
-      colorIndex
+      colorIndex,
     };
     if (colorIndex === 0) {
       editedLecture.color = color;
@@ -101,7 +101,7 @@ class CourseEditor extends React.PureComponent {
     this.setState({ [field]: e.target.value });
   }
 
-  renderInput(field, key, placeholder, type = "text") {
+  renderInput(field, key, placeholder, type = 'text') {
     return (
       <div className="form-group">
         <label className="col-sm-2 control-label">{field}</label>
@@ -119,9 +119,9 @@ class CourseEditor extends React.PureComponent {
   }
 
   render() {
-    const { color, bgColor, class_time_json, isNew } = this.state;
-    const title = isNew ? "내 강의 추가" : "강의 편집";
-    const submitName = isNew ? "추가하기" : "저장하기";
+    const { isNew } = this.state;
+    const title = isNew ? '내 강의 추가' : '강의 편집';
+    const submitName = isNew ? '추가하기' : '저장하기';
     return (
       <Modal
         isOpen
@@ -132,8 +132,8 @@ class CourseEditor extends React.PureComponent {
         contentLabel="Lecture Edit Modal"
         style={{
           content: {
-            border: `1px solid ${this.state.color.bg}`
-          }
+            border: `1px solid ${this.state.color.bg}`,
+          },
         }}
       >
         <p id="title">
@@ -141,8 +141,8 @@ class CourseEditor extends React.PureComponent {
         </p>
         <hr />
         <form className="form-horizontal" onSubmit={this.handleSave}>
-          {this.renderInput("강의명", "course_title", "예) 기초 영어")}
-          {this.renderInput("선생님", "instructor", "예) 홍길동")}
+          {this.renderInput('강의명', 'course_title', '예) 기초 영어')}
+          {this.renderInput('선생님', 'instructor', '예) 홍길동')}
           {/* Color Picker */}
           <div className="form-group">
             <label className="col-sm-2 control-label">색</label>
@@ -153,8 +153,8 @@ class CourseEditor extends React.PureComponent {
               />
             </div>
           </div>
-          {this.renderInput("학점", "credit", "예) 0", "number")}
-          {this.renderInput("비고", "remark", "(없음)")}
+          {this.renderInput('학점', 'credit', '예) 0', 'number')}
+          {this.renderInput('비고', 'remark', '(없음)')}
           <div className="form-group">
             <label className="col-sm-2 control-label">시간</label>
             <div className="col-sm-10">
@@ -174,7 +174,7 @@ class CourseEditor extends React.PureComponent {
               className="btn btn-primary"
               style={{
                 borderColor: this.state.color.bg,
-                backgroundColor: this.state.color.bg
+                backgroundColor: this.state.color.bg,
               }}
             >
               {submitName}
@@ -186,4 +186,7 @@ class CourseEditor extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CourseEditor);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CourseEditor);

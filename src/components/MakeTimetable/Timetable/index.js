@@ -12,11 +12,15 @@ const NUM_SLOTS = 32;
 const NUM_DAY = 7;
 
 function mapStateToProps(state) {
-  const { hoveredCourse: previewed, courseBook, tableList: { viewLectures } } = state;
+  const {
+    hoveredCourse: previewed,
+    courseBook,
+    tableList: { viewLectures },
+  } = state;
   const { viewLectures: courses, viewTableId } = state.tableList;
-  const creditSum = viewLectures ?
-          viewLectures.reduce((sum, lecture) => (sum + lecture.credit), 0) :
-          0;
+  const creditSum = viewLectures
+    ? viewLectures.reduce((sum, lecture) => sum + lecture.credit, 0)
+    : 0;
 
   return {
     hasNoTable: viewTableId === null,
@@ -71,9 +75,8 @@ class Timetable extends Component {
           />
         );
         const existingDiv = boxes[day][lecture.start * 2];
-        boxes[day][lecture.start * 2] = (
-          existingDiv !== undefined ? [existingDiv, previewDiv] : previewDiv
-        );
+        boxes[day][lecture.start * 2] =
+          existingDiv !== undefined ? [existingDiv, previewDiv] : previewDiv;
       }
     }
     return boxes;
@@ -108,16 +111,20 @@ class Timetable extends Component {
           />
         </table>
         <div className="table-info">
-          <div className="add-button btn-default" onClick={this.createAndEditCourse}>
+          <div
+            className="add-button btn-default"
+            onClick={this.createAndEditCourse}
+          >
             <span>+ 직접 추가하기</span>
           </div>
-          <div className="credit">
-            {`총 ${creditSum} 학점`}
-          </div>
+          <div className="credit">{`총 ${creditSum} 학점`}</div>
         </div>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Timetable);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Timetable);

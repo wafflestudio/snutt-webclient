@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { fetchMessages } from '../../../actions/notification';
 import Loading from 'react-loading';
 import PropTypes from 'prop-types';
 
-import IconTimetable from '../../../../assets/notice-timetable.svg';
-import IconTrash from '../../../../assets/notice-trash.svg';
-import IconUpdate from '../../../../assets/notice-update.svg';
-import IconWarning from '../../../../assets/notice-warning.svg';
+import IconTimetable from 'assets/notice-timetable.svg';
+import { ReactComponent as IconTrash } from 'assets/notice-trash.svg';
+import { ReactComponent as IconUpdate } from 'assets/notice-update.svg';
+import { ReactComponent as IconWarning } from 'assets/notice-warning.svg';
 
 class NotificationMessages extends Component {
   static formatDate(dateString) {
@@ -61,7 +60,7 @@ class NotificationMessages extends Component {
   handleScroll() {
     const node = this.node;
     const { scrollTop, scrollHeight, clientHeight } = node;
-    if (scrollTop + clientHeight == scrollHeight) {
+    if (scrollTop + clientHeight === scrollHeight) {
       this.props.askMore();
     }
   }
@@ -91,14 +90,14 @@ class NotificationMessages extends Component {
   }
 
   renderLoading() {
-    return <div>{this.props.fetching ? Loading : ''}</div>;
+    return <div>{this.props.fetching ? <Loading /> : ''}</div>;
   }
 
   render() {
     return (
       <div
         id="snutt__noti-box"
-        ref={(node) => {
+        ref={node => {
           this.node = node;
         }}
       >

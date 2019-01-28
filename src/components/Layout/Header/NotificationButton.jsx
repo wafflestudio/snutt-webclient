@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   fetchMessages,
   openMessageBox,
-  closeMessageBox
-} from "../../../actions/notification";
-import NotificationMessages from "./NotificationMessages.jsx";
-import { visitChecker, welcomeMessage } from "./visitorChecker";
+  closeMessageBox,
+} from '../../../actions/notification';
+import NotificationMessages from './NotificationMessages.jsx';
+import { visitChecker, welcomeMessage } from './visitorChecker';
 
-import IconWrapper from "../../Common/IconWrapper.jsx";
-import AlarmIconNormal from "../../../../assets/ic-alarm-normal.svg";
-import AlarmIconHovered from "../../../../assets/ic-alarm-over.svg";
-import AlarmIconFoucsed from "../../../../assets/ic-alarm-pressed.svg";
+import IconWrapper from '../../Common/IconWrapper.jsx';
+import { ReactComponent as AlarmIconNormal } from 'assets/ic-alarm-normal.svg';
+import { ReactComponent as AlarmIconHovered } from 'assets/ic-alarm-over.svg';
+import { ReactComponent as AlarmIconFoucsed } from 'assets/ic-alarm-pressed.svg';
 
 const AMOUNT_PER_REQUEST = 10;
 
@@ -22,7 +22,7 @@ const mapStateToProps = state => {
     notification = {
       ...notification,
       hasNew: true,
-      opened: true
+      opened: true,
     };
   }
   // For a while keep welcome message
@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
   closeMessageBox: () => {
     visitChecker.markUserVisited();
     dispatch(closeMessageBox());
-  }
+  },
 });
 
 class NotificationButton extends Component {
@@ -78,7 +78,7 @@ class NotificationButton extends Component {
       >
         <IconWrapper
           onClick={this.handleClick}
-          className={`noti-icon${hasNew ? " has-new" : ""}`}
+          className={`noti-icon${hasNew ? ' has-new' : ''}`}
           normalIcon={<AlarmIconNormal />}
           hoveredIcon={<AlarmIconHovered />}
           focusedIcon={<AlarmIconFoucsed />}
@@ -99,5 +99,5 @@ class NotificationButton extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(NotificationButton);

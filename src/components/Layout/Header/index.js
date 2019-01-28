@@ -5,9 +5,9 @@ import CourseSelector from './CourseSelector.jsx';
 import SearchBar from './SearchBar.jsx';
 import Notification from './NotificationButton.jsx';
 
-import Logo from '../../../../assets/logo.svg';
+import { ReactComponent as Logo } from 'assets/logo.svg';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const {
     user: { loggedIn, id },
   } = state;

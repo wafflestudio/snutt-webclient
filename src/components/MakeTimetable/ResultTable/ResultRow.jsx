@@ -32,7 +32,6 @@ class ResultRow extends Component {
     else this.props.onTableUnhover();
   }
 
-
   render() {
     const { hovered } = this.state;
     const cssClass = `tr-result${hovered ? ' hovered' : ''}`;
@@ -46,17 +45,26 @@ class ResultRow extends Component {
       >
         <td>
           <span className="title">{lecture.course_title}</span>
-          <span className="credit">{lecture.instructor} / {lecture.credit}학점</span>
-          <h5 className="pull-right lecture-id">{lecture.course_number} / {lecture.lecture_number}</h5>
-          <p className="department">{lecture.department}, {lecture.academic_year}</p>
-          <p className="time">{printTime(lecture.class_time)} / {printPlace(lecture.class_time_json)}</p>
-          { hovered ? (
+          <span className="credit">
+            {lecture.instructor} / {lecture.credit}학점
+          </span>
+          <h5 className="pull-right lecture-id">
+            {lecture.course_number} / {lecture.lecture_number}
+          </h5>
+          <p className="department">
+            {lecture.department}, {lecture.academic_year}
+          </p>
+          <p className="time">
+            {printTime(lecture.class_time)} /{' '}
+            {printPlace(lecture.class_time_json)}
+          </p>
+          {hovered ? (
             <div className="buttons-wrapper">
               <ResultRowButtons course={lecture} />
             </div>
-           ) : null}
+          ) : null}
           {/* https://stackoverflow.com/questions/8501727/table-row-wont-contain-elements-with-positionabsolute */}
-          { hovered && lecture.remark.length > 0 ? (
+          {hovered && lecture.remark.length > 0 ? (
             <div className="remark">
               <hr />
               <span>{lecture.remark}</span>
@@ -69,27 +77,31 @@ class ResultRow extends Component {
   }
 }
 
-const printTime = (timeString) => {
+const printTime = timeString => {
   if (timeString === undefined) timeString = '';
-  const days = timeString.split('/').map((val) => {
+  const days = timeString.split('/').map(val => {
     try {
       const splitted = val.split('(');
       const day = splitted[0];
       const start = Number(splitted[1].split('-')[0]) + 8;
       return day + start;
     } catch (ex) {
+      console.log(ex);
+      return '-1';
     }
   });
   return [...new Set(days)].join('-');
 };
 
-const printPlace = (timeJson) => {
+const printPlace = timeJson => {
   try {
     const parsed = [...new Set(timeJson.map(val => val.place))].join(' & ');
     return parsed;
-  } catch (ex) {
-  }
+  } catch (ex) {}
   return '';
 };
 
-export default connect(null, mapDispatchToProps)(ResultRow);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ResultRow);

@@ -1,12 +1,12 @@
 {
-    "extends": "airbnb",
-    "parser": "babel-eslint",
-    "plugins": [
-        "react",
-        "jsx-a11y",
-        "import"
-    ],
-    "rules": {
-        "react/prop-types": "off"
-    }
+  "extends": ["react-app", "prettier"],
+  "parser": "babel-eslint",
+  "plugins": ["react", "jsx-a11y", "import"],
+  "rules": {
+    "react/prop-types": "off",
+    "no-restricted-globals": "off"
+  },
+  "env": {
+    "browser": true
+  }
 }

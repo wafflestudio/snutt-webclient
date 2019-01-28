@@ -24,7 +24,7 @@ class SignUp extends Component {
     this.handleRegister = this.handleRegister.bind(this);
   }
 
-  handleIdChange = (e) => {
+  handleIdChange = e => {
     const input = e.target.value;
     const validator = /^[a-z0-9]{4,32}$/i;
     this.setState({
@@ -33,7 +33,7 @@ class SignUp extends Component {
     });
   };
 
-  handlePassChange = (e) => {
+  handlePassChange = e => {
     const input = e.target.value;
     const validator = /^(?=.*\d)(?=.*[a-z])\S{6,20}$/i;
     this.setState({
@@ -42,24 +42,31 @@ class SignUp extends Component {
     });
   };
 
-  handlePassAgainChange = (e) => {
+  handlePassAgainChange = e => {
     const input = e.target.value;
     const { pass, passValid } = this.state;
-    const validator = passAgain => passAgain == pass && passValid;
+    const validator = passAgain => passAgain === pass && passValid;
     this.setState({
       passAgain: input,
       passAgainValid: validator(input),
     });
   };
 
-  handleRegister = (e) => {
+  handleRegister = e => {
     e.preventDefault();
     this.props.registerUser(this.state.id, this.state.pass);
   };
 
   render() {
     const { user } = this.props;
-    const { id, pass, passAgain, idValid, passValid, passAgainValid } = this.state;
+    const {
+      id,
+      pass,
+      passAgain,
+      idValid,
+      passValid,
+      passAgainValid,
+    } = this.state;
     const canRegister = idValid && passValid && passAgainValid;
     return (
       <div className="snutt__login">
@@ -113,4 +120,7 @@ class SignUp extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SignUp);

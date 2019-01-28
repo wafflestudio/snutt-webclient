@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
 import { addQuery, removeQuery } from '../../../actions';
-import DeleteButton from '../../../../assets/btn-delete-normal.svg';
+import { ReactComponent as DeleteButton } from 'assets/btn-delete-normal.svg';
 
 const MAX_DEPARTMENT = 3;
 
@@ -21,7 +21,7 @@ const styles = {
   },
   itemStyle: highlighted => ({
     zIndex: 1001,
-    backgroundColor: (highlighted ? '#f3f7f8' : 'white'),
+    backgroundColor: highlighted ? '#f3f7f8' : 'white',
     padding: '5px 0 5px 14px',
     cursor: 'pointer',
     height: '24px',
@@ -55,7 +55,9 @@ class DeparmentForm extends Component {
     // replace every character(eg. 'c') to '.+c', except for first character
     const escaped = str.replace(/[.*+?^${}()|[\]\\]/g, '');
     let reg = escaped.replace(/(?!^)(.)/g, '.*$1');
-    if (option.fromFirstChar) { reg = `^${reg}`; }
+    if (option.fromFirstChar) {
+      reg = `^${reg}`;
+    }
     return new RegExp(reg);
   }
 
@@ -85,7 +87,6 @@ class DeparmentForm extends Component {
     this.props.removeQuery(value);
   }
 
-
   render() {
     const { selectedDepartments, departmentTags } = this.props;
     return (
@@ -100,7 +101,7 @@ class DeparmentForm extends Component {
             <DeleteButton />
           </div>
         ))}
-        {selectedDepartments.size < MAX_DEPARTMENT ?
+        {selectedDepartments.size < MAX_DEPARTMENT ? (
           <Autocomplete
             value={this.state.value}
             items={departmentTags}
@@ -113,6 +114,7 @@ class DeparmentForm extends Component {
             onMenuVisibilityChange={this.onMenuChange}
             renderItem={(item, highlighted) => (
               <div
+                key={item}
                 className="department_item"
                 style={styles.itemStyle(highlighted)}
               >
@@ -120,12 +122,14 @@ class DeparmentForm extends Component {
               </div>
             )}
             wrapperStyle={styles.wrapperStyle(this.state.menuOpened)}
-          /> :
-          null
-        }
+          />
+        ) : null}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeparmentForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DeparmentForm);

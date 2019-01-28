@@ -18,19 +18,18 @@ function getColor(colorName) {
 
 // Entry point of all fetching actions
 export function updateCoursebook() {
-  return function (dispatch) {
+  return function(dispatch) {
     const colorScheme = 'vivid_ios';
     dispatch(getColor(colorScheme));
     request('course_books', {
       method: 'get',
-    })
-    .then(json => dispatch(fetchCoursebook(json)));
+    }).then(json => dispatch(fetchCoursebook(json)));
   };
 }
 
 // Not sure whether dispatching multiple actions at once is good practice...
 export function fetchCoursebook(courseBooks) {
-  return function (dispatch) {
+  return function(dispatch) {
     const recentBook = courseBooks[0];
     dispatch(changeCoursebook(recentBook));
     dispatch({ type: types.FETCH_COURSEBOOK, courseBooks }); // update coursebook state
@@ -39,13 +38,15 @@ export function fetchCoursebook(courseBooks) {
 
 // Set of actions that should be along with new coursebook
 export function changeCoursebook(newCourseBook) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const { year: newYear, semester: newSemester } = newCourseBook;
     dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook });
     dispatch({ type: types.SET_LEFT_TAB, searching: false }); // show added lectures
     dispatch({ type: types.SHOW_RESULT, courses: null }); // empty the search results
 
-    if (getState().user.loggedIn) { dispatch(fetchTableList()); } else {
+    if (getState().user.loggedIn) {
+      dispatch(fetchTableList());
+    } else {
       // If not logged in, check existing token or get temporary one
       loginWithToken(dispatch);
     }

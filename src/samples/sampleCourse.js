@@ -19,13 +19,28 @@ module.exports = {
   _id: '5700a5624dc242222dbf6d2a',
   class_time_mask: [917504, 0, 917504, 0, 983040, 0],
   class_time_json: [
-        { day: 0, start: 3, len: 1.5, place: '500-L302', _id: '5700a5624dc242222dbf6d2d' },
-        { day: 2, start: 3, len: 1.5, place: '500-L302', _id: '5700a5624dc242222dbf6d2c' },
-    { day: 4,
+    {
+      day: 0,
+      start: 3,
+      len: 1.5,
+      place: '500-L302',
+      _id: '5700a5624dc242222dbf6d2d',
+    },
+    {
+      day: 2,
+      start: 3,
+      len: 1.5,
+      place: '500-L302',
+      _id: '5700a5624dc242222dbf6d2c',
+    },
+    {
+      day: 4,
       start: 3,
       len: 2,
       place: '020-103/020-104',
-      _id: '5700a5624dc242222dbf6d2b' }],
+      _id: '5700a5624dc242222dbf6d2b',
+    },
+  ],
   __v: 0,
   color: {
     bg: '#B7C7BB',

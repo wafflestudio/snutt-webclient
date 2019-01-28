@@ -7,9 +7,18 @@ import ResultRow from './ResultRow.jsx';
 import { setLeftTab } from '../../../actions';
 
 function mapStateToProps(state) {
-  const { isQuerying, searchResults, leftTabSearching,
-    tableList: { viewLectures } } = state;
-  return { isQuerying, searchResults, viewLectures, searching: leftTabSearching };
+  const {
+    isQuerying,
+    searchResults,
+    leftTabSearching,
+    tableList: { viewLectures },
+  } = state;
+  return {
+    isQuerying,
+    searchResults,
+    viewLectures,
+    searching: leftTabSearching,
+  };
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -28,18 +37,20 @@ class ResultTable extends Component {
 
   render() {
     const { searching, searchResults, viewLectures } = this.props;
-    const data = (searching ? searchResults : (viewLectures || []));
-    const rows = (data.length > 0) ? data.map(row => (
-      <ResultRow
-        key={row._id}
-        lecture={row}
-        searching={searching}
-      />
-      ))
-      : (
-        (searching) ?
-        (<tr><td>검색 결과가 없습니다.</td></tr>) :
-        (<tr><td>추가된 강의가 없습니다.</td></tr>)
+    const data = searching ? searchResults : viewLectures || [];
+    const rows =
+      data.length > 0 ? (
+        data.map(row => (
+          <ResultRow key={row._id} lecture={row} searching={searching} />
+        ))
+      ) : searching ? (
+        <tr>
+          <td>검색 결과가 없습니다.</td>
+        </tr>
+      ) : (
+        <tr>
+          <td>추가된 강의가 없습니다.</td>
+        </tr>
       );
     return (
       <div>
@@ -51,13 +62,17 @@ class ResultTable extends Component {
         <div className="result-wrapper">
           <table className="table resultTable">
             <tbody>
-              {
-                this.props.isQuerying ?
-                  <tr>
-                    <td><div className="tr-result-loader"><Loading type="spin" color="#e3e3e3" /></div></td>
-                  </tr> :
+              {this.props.isQuerying ? (
+                <tr>
+                  <td>
+                    <div className="tr-result-loader">
+                      <Loading type="spin" color="#e3e3e3" />
+                    </div>
+                  </td>
+                </tr>
+              ) : (
                 rows
-              }
+              )}
             </tbody>
           </table>
         </div>
@@ -66,4 +81,7 @@ class ResultTable extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultTable);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ResultTable);
