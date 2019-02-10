@@ -10,14 +10,17 @@
     "@storybook/react": "^4.1.11",
     "babel-loader": "8.0.4",
     "concurrently": "^4.1.0",
+    "customize-cra": "^0.2.11",
     "cypress": "3.1.5",
     "eslint-config-prettier": "^3.6.0",
+    "react-app-rewired": "^2.1.0",
     "serve": "^10.1.2"
   },
   "dependencies": {
     "color": "^2.0.0",
     "es6-symbol": "^3.1.0",
     "history": "^4.7.2",
+    "html2canvas": "^1.0.0-alpha.12",
     "immutability-helper": "^2.7.0",
     "immutable": "^3.7.6",
     "mobile-detect": "^1.4.1",
@@ -46,13 +49,13 @@
     "whatwg-fetch": "^0.11.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "lint": "yarn eslint --fix src/**/*.{js,jsx}",
+    "lint": "yarn eslint --fix src/**/*.js src/**/*.jsx",
     "cypress:open": "concurrently -n dev,cypress -c blue,red \"yarn start\"  \"yarn cypress open --config baseUrl=http://localhost:3000\""
   },
   "browserslist": [
