@@ -133,13 +133,17 @@
   vertical-align: middle;
 
   .add-button {
-    margin-left: 30px;
+    margin-left: 10px;
     border-radius: 500px;
     border: solid 1px #d5dbe0;
     padding: 7px 17px;
     font-size: 13px;
     float: left;
     cursor: pointer;
+  }
+
+  .add-button:first-child {
+    margin-left: 30px;
   }
 
   .credit {
