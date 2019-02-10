@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getColor } from 'actions/fetchingActions';
 
-import SampleTable from 'samples/sampleTable';
 import Table from './Table';
 import populateColor from 'utils/populateColor';
 
