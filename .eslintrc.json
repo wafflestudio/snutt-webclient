@@ -7,7 +7,6 @@
     "no-restricted-globals": "off"
   },
   "env": {
-    "browser": true,
-    "webextensions": true
+    "browser": true
   }
 }
