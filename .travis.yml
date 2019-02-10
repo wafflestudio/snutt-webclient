@@ -18,10 +18,9 @@ before_script:
   - yarn serve -s build &
 script:
   - cypress run --record
-
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: bash ./deploy.sh
-    on:
-      branch: master
+# deploy:
+#   - provider: script
+#     skip_cleanup: true
+#     script: bash ./deploy.sh
+#     on:
+#       branch: master
