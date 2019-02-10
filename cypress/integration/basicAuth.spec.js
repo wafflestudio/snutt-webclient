@@ -1,6 +1,7 @@
 describe('Basic Auth', () => {
-  const testId = Cypress.env('testId');
-  const testPassword = Cypress.env('testPassword');
+  const testId = 'cypressTest' + Date.now();
+  const testPassword = 'password123';
+
   describe('Create Account', () => {
     it('should redirect to homepage', () => {
       cy.visit('/signup');
@@ -46,8 +47,7 @@ describe('Basic Auth', () => {
       cy.get('[data-cy=login-password]').type(testPassword);
     });
     it('should keep user after refresh if checked', () => {
-      cy
-        .get('.checkbox-inline > div > span')
+      cy.get('.checkbox-inline > div > span')
         .first()
         .click();
       cy.get('[data-cy=login-submit]').click();

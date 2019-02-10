@@ -15,7 +15,7 @@ install:
   - yarn
 before_script:
   - yarn build
-  - serve -s build &
+  - yarn serve -s build &
 script:
   - cypress run --record
 
