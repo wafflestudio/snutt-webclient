@@ -1,12 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# SNUTT-web
 
-## Available Scripts
+[![Build Status](https://travis-ci.org/wafflestudio/snutt-webclient.svg?branch=master)](https://travis-ci.org/wafflestudio/snutt-webclient)
 
-In the project directory, you can run:
+### Usage
 
-### `npm start`
-
-```
-yarn
-yarn start
-```
+Before run, you need to set required keys. Insert api key, server url, facebook app id into `.env` according to `.env.example`.
