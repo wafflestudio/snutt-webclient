@@ -14,11 +14,12 @@ function mapStateToProps(state) {
     tableList: { viewLectures, tableMap },
   } = state;
   const { viewLectures: courses, viewTableId } = state.tableList;
-  const viewTableTitle = tableMap.viewTableId ? tableMap.viewTAbleId.title : '';
+  const viewTableTitle = tableMap[viewTableId]
+    ? tableMap[viewTableId].title
+    : '';
   const creditSum = viewLectures
     ? viewLectures.reduce((sum, lecture) => sum + lecture.credit, 0)
     : 0;
-
   return {
     hasNoTable: viewTableId === null,
     previewed,
@@ -60,7 +61,7 @@ class Timetable extends Component {
   };
 
   render() {
-    const { creditSum, ...tableProps } = this.props;
+    const { creditSum, viewTableTitle, ...tableProps } = this.props;
     return (
       <div id="timetable-container">
         <Table {...tableProps} />
@@ -78,7 +79,7 @@ class Timetable extends Component {
               </div>
             }
           >
-            <TableCapturer />
+            <TableCapturer title={viewTableTitle} />
           </Suspense>
           <div className="credit">{`총 ${creditSum} 학점`}</div>
         </div>

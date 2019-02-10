@@ -7,12 +7,14 @@ import html2canvas from 'html2canvas';
 class TableCapturer extends Component {
   captureTable = e => {
     e.preventDefault();
+    const filename = this.props.title || '시간표';
+
     html2canvas(document.querySelector('.timetable')).then(canvas => {
       var a = document.createElement('a');
       a.href = canvas
         .toDataURL('image/jpeg')
         .replace('image/jpeg', 'image/octet-stream');
-      a.download = 'timetable.jpg';
+      a.download = `${filename}.jpg`;
       a.click();
       a.remove();
     });
