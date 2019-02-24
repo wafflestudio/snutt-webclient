@@ -181,6 +181,7 @@ export function deleteAccount() {
         dispatch(push('/'));
         clearStorage();
         dispatch({ type: LOGOUT_SUCCESS });
+        loginWithToken(dispatch);
       });
   };
 }
@@ -265,6 +266,7 @@ function changeToken(newToken) {
   const storage = sessionStorage.getItem('snutt_token')
     ? sessionStorage
     : localStorage;
+  clearStorage();
   console.log(
     'OLD',
     sessionStorage.getItem('snutt_token'),
