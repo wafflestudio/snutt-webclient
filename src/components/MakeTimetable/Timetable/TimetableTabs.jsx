@@ -108,7 +108,7 @@ class TimetableTabs extends Component {
     );
     // add button
     buttons.push(
-      <li className="tab-icon" key={-1}>
+      <li className="tab-icon" key={-1} data-cy="add-new-timetable">
         <IconWrapper
           onClick={this.handleAdd}
           normalIcon={<AddIconNormal />}
@@ -117,7 +117,7 @@ class TimetableTabs extends Component {
         />
       </li>,
     );
-    return <ul className="tab-list">{buttons}</ul>;
+    return <ul className="tab-list timetable-tabs">{buttons}</ul>;
   }
 }
 
