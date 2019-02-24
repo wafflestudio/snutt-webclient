@@ -69,35 +69,28 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       return state;
     }
     case types.GET_TABLELIST: {
-      const { viewYear, viewSemester, tableList } = state;
+      const { viewYear, viewSemester } = state;
       const newTableList = action.response;
 
-      let listChanged = false;
-      if (tableList.length === newTableList.length) {
-        for (let i = 0; i < tableList.length; i++) {
-          if (
-            tableList[i]._id !== newTableList[i]._id ||
-            tableList[i].title !== newTableList[i].title
-          ) {
-            listChanged = true;
-            break;
-          }
-        }
-      } else listChanged = true;
+      const viewTableTabList = getViewTableTabList(
+        newTableList,
+        viewYear,
+        viewSemester,
+      );
 
-      if (listChanged) {
-        const viewTableTabList = getViewTableTabList(
-          newTableList,
-          viewYear,
-          viewSemester,
-        );
-        return {
-          ...state,
-          tableList: newTableList,
-          viewTableTabList,
-        };
+      let { viewTableId, colorScheme, tableMap } = state;
+      if (viewTableId == null) {
+        viewTableId = viewTableTabList[0]._id;
       }
-      return state;
+      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+      return {
+        ...state,
+        viewTableId,
+        viewLectures,
+        tableMap,
+        tableList: newTableList,
+        viewTableTabList,
+      };
     }
     case types.ADD_LECTURE_OK: {
       const { viewTableId, colorScheme } = state;

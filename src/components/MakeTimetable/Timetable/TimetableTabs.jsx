@@ -100,21 +100,6 @@ class TimetableTabs extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { viewTableId, tables } = nextProps;
-    let tableOpened = false;
-    for (let i = 0; i < tables.length; i++) {
-      if (tables[i]._id === viewTableId) {
-        tableOpened = true;
-        break;
-      }
-    }
-    if (!tableOpened) {
-      if (tables.length > 0) this.props.onOpenTable(tables[0]._id);
-      else this.props.onOpenTable(null);
-    }
-  }
-
   render() {
     // console.log("TImetableTab render!!!");
     const { viewTableId, tables } = this.props;
