@@ -79,10 +79,11 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       );
 
       let { viewTableId, colorScheme, tableMap } = state;
-      if (viewTableId == null) {
+      let viewLectures = [];
+      if (viewTableId === null && viewTableTabList.length > 0) {
         viewTableId = viewTableTabList[0]._id;
+        viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       }
-      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
       return {
         ...state,
         viewTableId,
@@ -212,7 +213,8 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.LOGOUT_SUCCESS:
-      return DEFAULT_TABLELIST;
+      const { viewYear, viewSemester } = state;
+      return { ...DEFAULT_TABLELIST, viewYear, viewSemester };
     default:
       return state;
   }
