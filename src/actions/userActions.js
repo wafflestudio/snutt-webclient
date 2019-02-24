@@ -63,7 +63,7 @@ export function registerUser(_id, _pass) {
         dispatch({ type: REGISTER_FAILURE, message: JSON.stringify(e) });
       })
       .then(json => {
-        if (json.message === 'ok') {
+        if (json.message && json.message === 'ok') {
           dispatch(loginLocal(_id, _pass));
         } else {
           dispatch({ type: REGISTER_FAILURE, message: json.message });
@@ -181,6 +181,7 @@ export function deleteAccount() {
         dispatch(push('/'));
         clearStorage();
         dispatch({ type: LOGOUT_SUCCESS });
+        loginWithToken(dispatch);
       });
   };
 }
@@ -265,6 +266,7 @@ function changeToken(newToken) {
   const storage = sessionStorage.getItem('snutt_token')
     ? sessionStorage
     : localStorage;
+  clearStorage();
   console.log(
     'OLD',
     sessionStorage.getItem('snutt_token'),

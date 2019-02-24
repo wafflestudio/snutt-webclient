@@ -49,14 +49,14 @@
     "whatwg-fetch": "^0.11.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "HTTPS=true react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "lint": "yarn eslint --fix src/**/*.js src/**/*.jsx",
-    "cypress:open": "concurrently -n dev,cypress -c blue,red \"yarn start\"  \"yarn cypress open --config baseUrl=http://localhost:3000\""
+    "cypress:open": "concurrently -n dev,cypress -c blue,red \"yarn start\"  \"yarn cypress open --config baseUrl=https://localhost:3000\""
   },
   "browserslist": [
     ">0.2%",

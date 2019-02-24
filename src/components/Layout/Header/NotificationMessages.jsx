@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Loading from 'react-loading';
 import PropTypes from 'prop-types';
 
-import IconTimetable from 'assets/notice-timetable.svg';
+import { ReactComponent as IconTimetable } from 'assets/notice-timetable.svg';
 import { ReactComponent as IconTrash } from 'assets/notice-trash.svg';
 import { ReactComponent as IconUpdate } from 'assets/notice-update.svg';
 import { ReactComponent as IconWarning } from 'assets/notice-warning.svg';

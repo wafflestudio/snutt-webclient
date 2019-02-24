@@ -22,7 +22,7 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Entry point for other loading actions
     this.props.dispatch(updateCoursebook());
   }
@@ -33,7 +33,9 @@ class App extends Component {
     const { showAppLink } = this.state;
     return (
       <div>
-        {showAppLink && <AppLink isOpen={showAppLink} close={this.closeModal} />}
+        {showAppLink && (
+          <AppLink isOpen={showAppLink} close={this.closeModal} />
+        )}
         <Header />
         {this.props.children}
         <Footer />

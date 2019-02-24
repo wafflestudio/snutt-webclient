@@ -1,3 +1,5 @@
+*.pem
+
 dist/static
 dist/index.html
 functions/
