@@ -34,7 +34,7 @@ export const initialize = () => async dispatch => {
 export const fetchUserInfo = () => async dispatch => {
   // Find existing token or get new token
   let token = getToken();
-  if (!token) {
+  if (!token || token === 'undefined') {
     token = await getTemporaryToken();
     saveToken(token);
   }

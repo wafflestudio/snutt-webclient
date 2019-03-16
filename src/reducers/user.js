@@ -21,9 +21,14 @@ const handlers = {
     const { userInfo } = action;
     if (userInfo.local_id) {
       //임시 로그인 아님
-      return { ...INITIAL_STATE, loggedIn: true, id: userInfo.local_id };
+      return {
+        ...INITIAL_STATE,
+        loggedIn: true,
+        id: userInfo.local_id,
+        info: userInfo,
+      };
     }
-    return { ...INITIAL_STATE, loggedIn: false, id: 'tempId' };
+    return { ...INITIAL_STATE, loggedIn: false, id: 'tempId', info: userInfo };
   },
 
   [LOGIN_SUCCESS]: (state, action) =>

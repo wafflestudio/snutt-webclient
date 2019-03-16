@@ -6,6 +6,18 @@ const client = axios.create({
   baseURL: baseUrl,
 });
 
+// Code snippet from https://github.com/github/fetch/issues/263
+export const encodeParams = params =>
+  Object.keys(params)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    .join('&');
+
+export const urlEncodedFormConfig = {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+};
+
 client.interceptors.request.use(
   function(config) {
     const token = getToken();

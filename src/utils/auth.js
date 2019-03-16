@@ -1,5 +1,5 @@
 export const getToken = () =>
-  sessionStorage.getItem('snutt_token') || localStorage.getItem('snutt_token');
+  localStorage.getItem('snutt_token') || sessionStorage.getItem('snutt_token');
 
 export const clearToken = () => {
   sessionStorage.removeItem('snutt_id');
