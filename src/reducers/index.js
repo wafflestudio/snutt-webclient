@@ -62,6 +62,8 @@ function searchResults(state = null, action) {
       return [];
     case types.SHOW_RESULT:
       return action.courses;
+    case types.CHANGE_COURSEBOOK:
+      return [];
     default:
       return state;
   }
@@ -71,13 +73,12 @@ const defaultCoursebook = Immutable.fromJS({
   available: [],
   current: null,
 });
+
 function courseBook(state = defaultCoursebook, action) {
   switch (action.type) {
     case types.LOAD_OK:
-      const { courseBooks, recentCourseBook } = action;
-      return state
-        .set('available', courseBooks)
-        .set('current', recentCourseBook);
+      const { courseBooks } = action;
+      return state.set('available', courseBooks);
     case types.FETCH_COURSEBOOK:
       return state.set('available', action.courseBooks);
     case types.CHANGE_COURSEBOOK:
@@ -130,6 +131,8 @@ function filter(
 
 function leftTabSearching(state = false, action) {
   switch (action.type) {
+    case types.CHANGE_COURSEBOOK:
+      return false;
     case types.SET_LEFT_TAB:
       return action.searching;
     case types.START_QUERY:

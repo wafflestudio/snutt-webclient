@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getColor } from '../../../actions/fetchingActions';
 
 import Table from './Table';
 import populateColor from 'utils/populateColor';
@@ -11,17 +10,12 @@ const mapStateToProps = ({ tableList: { colorScheme } }) => ({
   colorScheme,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getColor: () => dispatch(getColor()),
-});
-
 class TableRenderer extends Component {
   state = {
     table: false,
   };
 
   componentDidMount = () => {
-    this.props.getColor();
     window.changeTable = tableString => {
       const table = JSON.parse(tableString);
       this.setState({
@@ -50,7 +44,4 @@ class TableRenderer extends Component {
 
 // export default TableRenderer;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TableRenderer);
+export default connect(mapStateToProps)(TableRenderer);

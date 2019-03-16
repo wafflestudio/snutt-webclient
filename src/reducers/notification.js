@@ -4,8 +4,8 @@ import {
   CHECK_NEW_MESSAGE_OK,
   OPEN_MESSAGE_BOX,
   CLOSE_MESSAGE_BOX,
-  UPDATE_NEW_MESSAGE_COUNT,
 } from '../actions/notification';
+import { UPDATE_NEW_MESSAGE_COUNT } from '../actions/actionTypes';
 import { TOGGLE_SEARCHPANEL } from '../actions/actionTypes';
 
 const INITIAL_STATE = {

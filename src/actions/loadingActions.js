@@ -11,6 +11,7 @@ import { getToken, saveToken } from '../utils/auth';
 import * as types from './actionTypes';
 
 /**
+ * Entry point of all fetching actions
  * Load list of coursebook, tags, and color palettes.
  * Then invoke loading timetables of user
  */
@@ -20,22 +21,24 @@ export const initialize = () => async dispatch => {
     getCoursebooks(),
   ]);
   const recentCourseBook = courseBooks[0];
+  dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook: recentCourseBook });
   dispatch({
     type: types.LOAD_OK,
     colors,
     courseBooks,
-    recentCourseBook,
   });
 
+  dispatch(fetchUserInfo());
+};
+
+export const fetchUserInfo = () => async dispatch => {
   // Find existing token or get new token
   let token = getToken();
   if (!token) {
     token = await getTemporaryToken();
     saveToken(token);
   }
-};
 
-export const fetchUserInfo = token => async dispatch => {
   // Fetch user info and saved tables
   const [userInfo, tableList, recentTable, notiCount] = await Promise.all([
     getUserInfo(),
