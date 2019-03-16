@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import { push } from 'react-router-redux';
-import { updateCoursebook } from './initializingActions';
+import { updateCoursebook } from './fetchingActions';
 import { fetchTableList } from './tableActions';
 import { checkNewMessage } from './notification';
 import request from './request';

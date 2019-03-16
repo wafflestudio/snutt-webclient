@@ -14,9 +14,11 @@
     "cypress": "3.1.5",
     "eslint-config-prettier": "^3.6.0",
     "react-app-rewired": "^2.1.0",
+    "redux-mock-store": "^1.5.3",
     "serve": "^10.1.2"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "color": "^2.0.0",
     "es6-symbol": "^3.1.0",
     "history": "^4.7.2",

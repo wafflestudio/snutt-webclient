@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getColor } from '../../../actions/initializingActions';
+import { getColor } from '../../../actions/fetchingActions';
 
 import Table from './Table';
 import populateColor from 'utils/populateColor';
