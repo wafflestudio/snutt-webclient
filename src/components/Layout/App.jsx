@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 import MobileDetect from 'mobile-detect';
 
-import { updateCoursebook } from '../../actions/fetchingActions';
+import { updateCoursebook } from '../../actions/initializingActions';
 import Header from './Header';
 import Footer from './footer.jsx';
 import AppLink from './appLink.jsx';
