@@ -6,6 +6,7 @@ import {
   LOGOUT_SUCCESS,
   GET_USER_INFO,
 } from '../actions/userActions';
+import { LOGIN_OK } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   loggedIn: false,
@@ -16,6 +17,15 @@ const INITIAL_STATE = {
 };
 
 const handlers = {
+  [LOGIN_OK]: (state, action) => {
+    const { userInfo } = action;
+    if (userInfo.local_id) {
+      //임시 로그인 아님
+      return { ...INITIAL_STATE, loggedIn: true, id: userInfo.local_id };
+    }
+    return { ...INITIAL_STATE, loggedIn: false, id: 'tempId' };
+  },
+
   [LOGIN_SUCCESS]: (state, action) =>
     Object.assign({}, INITIAL_STATE, { loggedIn: true, id: action.id }),
 

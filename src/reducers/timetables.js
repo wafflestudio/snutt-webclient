@@ -70,7 +70,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
     case types.GET_TABLELIST: {
       const { viewYear, viewSemester } = state;
-      const newTableList = action.response;
+      const newTableList = action.response || action.tableList;
 
       const viewTableTabList = getViewTableTabList(
         newTableList,
@@ -173,6 +173,14 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         ...state,
         tableList,
         viewTableTabList,
+      };
+    }
+
+    case types.LOAD_OK: {
+      const { colors: colorScheme } = action;
+      return {
+        ...state,
+        colorScheme,
       };
     }
 

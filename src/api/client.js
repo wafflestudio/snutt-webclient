@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { apiKey, baseUrl } from '../config';
+import { getToken } from '../utils/auth';
 
 const client = axios.create({
   baseURL: baseUrl,
@@ -7,9 +8,7 @@ const client = axios.create({
 
 client.interceptors.request.use(
   function(config) {
-    const token =
-      sessionStorage.getItem('snutt_token') ||
-      localStorage.getItem('snutt_token');
+    const token = getToken();
     config.headers['x-access-apikey'] = apiKey;
     if (token) {
       config.headers['x-access-token'] = token;

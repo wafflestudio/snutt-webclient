@@ -4,6 +4,7 @@ import {
   CHECK_NEW_MESSAGE_OK,
   OPEN_MESSAGE_BOX,
   CLOSE_MESSAGE_BOX,
+  UPDATE_NEW_MESSAGE_COUNT,
 } from '../actions/notification';
 import { TOGGLE_SEARCHPANEL } from '../actions/actionTypes';
 
@@ -30,6 +31,10 @@ const handlers = {
       messages,
     };
   },
+
+  [UPDATE_NEW_MESSAGE_COUNT]: (state, action) => ({
+    hasNew: action.count > 0,
+  }),
 
   [CHECK_NEW_MESSAGE_OK]: (state, action) => {
     const { count } = action.response;

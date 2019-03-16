@@ -1,3 +1,8 @@
+export const LOAD_OK = 'loading/LOAD_OK';
+export const LOGIN_OK = 'user/LOGIN_OK';
+
+export const UPDATE_NEW_MESSAGE_COUNT = 'noti/UPDATE_NEW_MESSAGE_COUNT';
+
 export const HOVER_COURSE = 'HOVER_COURSE';
 export const UNHOVER_COURSE = 'UNHOVER_COURSE';
 

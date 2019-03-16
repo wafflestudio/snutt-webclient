@@ -73,6 +73,11 @@ const defaultCoursebook = Immutable.fromJS({
 });
 function courseBook(state = defaultCoursebook, action) {
   switch (action.type) {
+    case types.LOAD_OK:
+      const { courseBooks, recentCourseBook } = action;
+      return state
+        .set('available', courseBooks)
+        .set('current', recentCourseBook);
     case types.FETCH_COURSEBOOK:
       return state.set('available', action.courseBooks);
     case types.CHANGE_COURSEBOOK:
