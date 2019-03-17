@@ -27,20 +27,12 @@ function getViewTableTabList(tableList, year, semester) {
   return viewTableTabList;
 }
 
-function getViewLectures(tableMap, viewTableId, colorScheme) {
+function getViewLectures(tableMap, viewTableId) {
   let viewLectures = viewTableId
     ? tableMap[viewTableId]
       ? tableMap[viewTableId].lecture_list
       : []
     : null;
-  if (viewLectures && colorScheme.length > 0) {
-    viewLectures = viewLectures.map(lecture => {
-      if (lecture.colorIndex && lecture.colorIndex <= colorScheme.length) {
-        lecture.color = colorScheme[lecture.colorIndex - 1];
-      }
-      return lecture;
-    });
-  }
   return viewLectures;
 }
 
@@ -78,11 +70,11 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         viewSemester,
       );
 
-      let { viewTableId, colorScheme, tableMap } = state;
+      let { viewTableId, tableMap } = state;
       let viewLectures = [];
       if (viewTableId === null && viewTableTabList.length > 0) {
         viewTableId = viewTableTabList[0]._id;
-        viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+        viewLectures = getViewLectures(tableMap, viewTableId);
       }
       return {
         ...state,
@@ -94,12 +86,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.ADD_LECTURE_OK: {
-      const { viewTableId, colorScheme } = state;
+      const { viewTableId } = state;
       const updated = action.response;
       const tableMap = update(state.tableMap, {
         [updated._id]: { $set: updated },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,
@@ -107,12 +99,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.DELETE_LECTURE_OK: {
-      const { viewTableId, colorScheme } = state;
+      const { viewTableId } = state;
       const updated = action.response;
       const tableMap = update(state.tableMap, {
         [updated._id]: { $set: updated },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,
@@ -134,13 +126,13 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.UPDATE_LECTURE_OK: {
-      const { viewTableId, colorScheme } = state;
+      const { viewTableId } = state;
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, {
         [updatedId]: { $set: updatedTable },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,
@@ -196,10 +188,10 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
 
     case types.SWITCH_TABLE_START: {
-      const { oldViewTableId, tableMap, colorScheme } = state;
+      const { oldViewTableId, tableMap } = state;
       const viewTableId = action.payload.tableId;
       if (oldViewTableId === viewTableId) return state;
-      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         viewTableId,
@@ -207,13 +199,13 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.SWITCH_TABLE_OK: {
-      const { viewTableId, colorScheme } = state;
+      const { viewTableId } = state;
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, {
         [updatedId]: { $set: updatedTable },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
+      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,

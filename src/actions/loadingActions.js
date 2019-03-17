@@ -34,7 +34,9 @@ export const initialize = () => async dispatch => {
 export const fetchUserInfo = () => async dispatch => {
   // Find existing token or get new token
   let token = getToken();
+  token && console.log(`found existing token ${token}`);
   if (!token || token === 'undefined') {
+    console.log('issuing new temp token');
     token = await getTemporaryToken();
     saveToken(token);
   }

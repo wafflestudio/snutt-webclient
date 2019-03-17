@@ -11,9 +11,16 @@ function mapStateToProps(state) {
   const {
     hoveredCourse: previewed,
     courseBook,
-    tableList: { viewLectures, tableMap },
+    tableList: { viewLectures, tableMap, colorScheme },
   } = state;
   const { viewLectures: courses, viewTableId } = state.tableList;
+  // Color course
+  courses &&
+    courses.forEach(c => {
+      if (c.colorIndex && c.colorIndex < colorScheme.length) {
+        c.color = colorScheme[c.colorIndex - 1];
+      }
+    });
   const viewTableTitle = tableMap[viewTableId]
     ? tableMap[viewTableId].title
     : '';

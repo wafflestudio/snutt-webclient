@@ -24,14 +24,14 @@ class App extends Component {
     };
   }
 
-  initialize = () => {
+  loadCoursebookAndColor = () => {
     this.props.dispatch(initialize());
   };
 
   componentDidMount() {
     // Entry point for other loading actions
     // this.props.dispatch(updateCoursebook());
-    this.initialize();
+    this.loadCoursebookAndColor();
   }
 
   closeModal = () => this.setState({ showAppLink: false });
