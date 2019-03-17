@@ -27,6 +27,13 @@ const handlers = {
         id: userInfo.local_id,
         info: userInfo,
       };
+    } else if (userInfo.fb_name) {
+      return {
+        ...INITIAL_STATE,
+        loggedIn: true,
+        id: userInfo.fb_name,
+        info: userInfo,
+      };
     }
     return { ...INITIAL_STATE, loggedIn: false, id: 'tempId', info: userInfo };
   },
