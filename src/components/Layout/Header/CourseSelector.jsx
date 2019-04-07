@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
-import { changeCoursebook } from '../../../actions/fetchingActions';
+import { changeCoursebook } from '../../../actions/loadingActions';
 import DropdownArrow from '../../Common/DropdownArrow.jsx';
 
 const mapStateToProps = ({ courseBook }) => {

@@ -4,9 +4,10 @@ import {
   getTemporaryToken,
   getUserInfo,
   getTableList,
-  getRecentTable,
   getNotiCount,
+  postNewTable,
 } from '../api';
+import { switchTable } from './tableActions';
 import { getToken, saveToken } from '../utils/auth';
 import * as types from './actionTypes';
 
@@ -31,7 +32,7 @@ export const initialize = () => async dispatch => {
   dispatch(fetchUserInfo());
 };
 
-export const fetchUserInfo = () => async dispatch => {
+export const fetchUserInfo = () => async (dispatch, getState) => {
   // Find existing token or get new token
   let token = getToken();
   token && console.log(`found existing token ${token}`);
@@ -42,16 +43,60 @@ export const fetchUserInfo = () => async dispatch => {
   }
 
   // Fetch user info and saved tables
-  const [userInfo, tableList, recentTable, notiCount] = await Promise.all([
+  const [userInfo, tableList, notiCount] = await Promise.all([
     getUserInfo(),
     getTableList(),
-    getRecentTable(),
     getNotiCount(),
   ]);
+
+  // set viewTableId
+  const { year, semester } = getState().courseBook.toJS().current;
+  const viewTableId = findViewTableIdForSemester(year, semester, tableList);
+
   dispatch({ type: types.LOGIN_OK, userInfo });
   dispatch({ type: types.GET_TABLELIST, tableList });
+  dispatch(switchTable(viewTableId));
   dispatch({
     type: types.UPDATE_NEW_MESSAGE_COUNT,
     count: notiCount.count,
   });
+};
+
+// Set of actions that should be along with new coursebook
+export const changeCoursebook = newCourseBook => async (dispatch, getState) => {
+  dispatch({
+    type: types.CHANGE_COURSEBOOK,
+    newCourseBook,
+  });
+  const { user, tableList } = getState();
+  if (!user.id) return;
+  const { year, semester } = newCourseBook;
+  let newViewTableId = findViewTableIdForSemester(
+    year,
+    semester,
+    Object.values(tableList.tableMap),
+  );
+
+  // If table for new semester do not exists, create new one
+  if (!newViewTableId) {
+    const newTableList = await postNewTable(year, semester, '나의 시간표');
+    debugger;
+    dispatch({ type: types.CREATE_TABLE_OK, tableList: newTableList });
+    newViewTableId = findViewTableIdForSemester(year, semester, newTableList);
+  }
+
+  dispatch(switchTable(newViewTableId));
+};
+
+/**
+ * Helper
+ */
+export const findViewTableIdForSemester = (year, semester, tableList) => {
+  const tablesForSemester = tableList.filter(
+    t => t.year === year && t.semester === semester,
+  );
+  if (tablesForSemester.length > 0) {
+    return tablesForSemester[0]._id;
+  }
+  return null;
 };
