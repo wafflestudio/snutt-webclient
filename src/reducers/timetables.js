@@ -7,167 +7,93 @@ import * as types from '../actions/actionTypes.js';
  * tableMap: object of whole tables
  */
 const DEFAULT_TABLELIST = {
-  viewLectures: null,
   viewTableId: null,
-  viewTableTabList: [],
-  viewYear: null,
-  viewSemester: null,
-  tableList: [],
   tableMap: {},
   colorScheme: [],
 };
 
-function getViewTableTabList(tableList, year, semester) {
-  const viewTableTabList = [];
-  for (let i = 0; i < tableList.length; i++) {
-    if (tableList[i].year === year && tableList[i].semester === semester) {
-      viewTableTabList.push(tableList[i]);
-    }
-  }
-  return viewTableTabList;
-}
-
-function getViewLectures(tableMap, viewTableId) {
-  let viewLectures = viewTableId
-    ? tableMap[viewTableId]
-      ? tableMap[viewTableId].lecture_list
-      : []
-    : null;
-  return viewLectures;
-}
-
 export function tableList(state = DEFAULT_TABLELIST, action) {
   switch (action.type) {
-    case types.CHANGE_COURSEBOOK: {
-      const { year: viewYear, semester: viewSemester } = action.newCourseBook;
-      const {
-        tableList,
-        viewYear: oldViewYear,
-        viewSemester: oldViewSemester,
-      } = state;
-      if (viewYear !== oldViewYear || viewSemester !== oldViewSemester) {
-        const viewTableTabList = getViewTableTabList(
-          tableList,
-          viewYear,
-          viewSemester,
-        );
-        return {
-          ...state,
-          viewYear,
-          viewSemester,
-          viewTableTabList,
-        };
-      }
-      return state;
-    }
+    // case types.CHANGE_COURSEBOOK: {
+    //   const { viewTableId, tableMap } = state;
+    //   let newViewTableId = null;
+
+    //   const { year: newYear, semester: newSemester } = action.newCourseBook;
+    //   const newSemesterLectures = Object.values(tableMap).filter(
+    //     t => t.year === newYear && t.semester === newSemester,
+    //   );
+    //   if (newSemesterLectures.length > 0) {
+    //     newViewTableId = newSemesterLectures[0]._id;
+    //   }
+
+    //   if (viewTableId) {
+    //     // if current viewTable is in the new semester -> do not change viewTable
+    //     const { year: currentYear, semester: currentSemester } = tableMap[
+    //       viewTableId
+    //     ];
+    //     if (currentYear === newYear && currentSemester === newSemester) {
+    //       newViewTableId = viewTableId;
+    //     }
+    //   }
+    //   return {
+    //     ...state,
+    //     viewTableId: newViewTableId,
+    //   };
+    // }
+    // 넷 다 table list를 반환
+    case types.UPDATE_TITLE_OK:
+    case types.DELETE_TABLE_OK:
+    case types.CREATE_TABLE_OK:
     case types.GET_TABLELIST: {
-      const { viewYear, viewSemester } = state;
+      const { tableMap: oldTableMap } = state;
       const newTableList = action.response || action.tableList;
+      // Normalize table list
+      const tableMap = newTableList.reduce((prevTables, currentTable) => {
+        const id = currentTable._id;
+        // Merge with table info we had
+        prevTables[id] = {
+          ...oldTableMap[id],
+          ...currentTable,
+        };
+        return prevTables;
+      }, {});
 
-      const viewTableTabList = getViewTableTabList(
-        newTableList,
-        viewYear,
-        viewSemester,
-      );
-
-      let { viewTableId, tableMap } = state;
-      let viewLectures = [];
-      if (viewTableId === null && viewTableTabList.length > 0) {
-        viewTableId = viewTableTabList[0]._id;
-        viewLectures = getViewLectures(tableMap, viewTableId);
-      }
       return {
         ...state,
-        viewTableId,
-        viewLectures,
         tableMap,
-        tableList: newTableList,
-        viewTableTabList,
       };
     }
     case types.ADD_LECTURE_OK: {
-      const { viewTableId } = state;
       const updated = action.response;
       const tableMap = update(state.tableMap, {
         [updated._id]: { $set: updated },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,
-        viewLectures,
       };
     }
     case types.DELETE_LECTURE_OK: {
-      const { viewTableId } = state;
       const updated = action.response;
       const tableMap = update(state.tableMap, {
         [updated._id]: { $set: updated },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,
-        viewLectures,
-      };
-    }
-    case types.UPDATE_TITLE_OK: {
-      const tableList = action.response;
-      const { viewYear, viewSemester } = state;
-      const viewTableTabList = getViewTableTabList(
-        tableList,
-        viewYear,
-        viewSemester,
-      );
-      return {
-        ...state,
-        tableList,
-        viewTableTabList,
       };
     }
     case types.UPDATE_LECTURE_OK: {
-      const { viewTableId } = state;
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, {
         [updatedId]: { $set: updatedTable },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,
-        viewLectures,
       };
     }
-    case types.CREATE_TABLE_OK: {
-      const tableList = action.response;
-      const { viewYear, viewSemester } = state;
-      const viewTableTabList = getViewTableTabList(
-        tableList,
-        viewYear,
-        viewSemester,
-      );
-      return {
-        ...state,
-        tableList,
-        viewTableTabList,
-      };
-    }
-    case types.DELETE_TABLE_OK: {
-      const tableList = action.response;
-      const { viewYear, viewSemester } = state;
-      const viewTableTabList = getViewTableTabList(
-        tableList,
-        viewYear,
-        viewSemester,
-      );
-      return {
-        ...state,
-        tableList,
-        viewTableTabList,
-      };
-    }
-
     case types.LOAD_OK: {
       const { colors: colorScheme } = action;
       return {
@@ -175,46 +101,19 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         colorScheme,
       };
     }
-
-    case types.GET_COLOR_OK: {
-      const { tableMap, viewTableId } = state;
-      const colorScheme = action.response.colors;
-      const viewLectures = getViewLectures(tableMap, viewTableId, colorScheme);
-      return {
-        ...state,
-        viewLectures,
-        colorScheme,
-      };
-    }
-
-    case types.SWITCH_TABLE_START: {
-      const { oldViewTableId, tableMap } = state;
-      const viewTableId = action.payload.tableId;
-      if (oldViewTableId === viewTableId) return state;
-      const viewLectures = getViewLectures(tableMap, viewTableId);
-      return {
-        ...state,
-        viewTableId,
-        viewLectures,
-      };
-    }
     case types.SWITCH_TABLE_OK: {
-      const { viewTableId } = state;
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, {
         [updatedId]: { $set: updatedTable },
       });
-      const viewLectures = getViewLectures(tableMap, viewTableId);
       return {
         ...state,
         tableMap,
-        viewLectures,
+        viewTableId: updatedId,
       };
     }
-    case types.LOGOUT_SUCCESS:
-      const { viewYear, viewSemester } = state;
-      return { ...DEFAULT_TABLELIST, viewYear, viewSemester };
+
     default:
       return state;
   }
