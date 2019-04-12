@@ -14,32 +14,6 @@ const DEFAULT_TABLELIST = {
 
 export function tableList(state = DEFAULT_TABLELIST, action) {
   switch (action.type) {
-    // case types.CHANGE_COURSEBOOK: {
-    //   const { viewTableId, tableMap } = state;
-    //   let newViewTableId = null;
-
-    //   const { year: newYear, semester: newSemester } = action.newCourseBook;
-    //   const newSemesterLectures = Object.values(tableMap).filter(
-    //     t => t.year === newYear && t.semester === newSemester,
-    //   );
-    //   if (newSemesterLectures.length > 0) {
-    //     newViewTableId = newSemesterLectures[0]._id;
-    //   }
-
-    //   if (viewTableId) {
-    //     // if current viewTable is in the new semester -> do not change viewTable
-    //     const { year: currentYear, semester: currentSemester } = tableMap[
-    //       viewTableId
-    //     ];
-    //     if (currentYear === newYear && currentSemester === newSemester) {
-    //       newViewTableId = viewTableId;
-    //     }
-    //   }
-    //   return {
-    //     ...state,
-    //     viewTableId: newViewTableId,
-    //   };
-    // }
     // 넷 다 table list를 반환
     case types.UPDATE_TITLE_OK:
     case types.DELETE_TABLE_OK:

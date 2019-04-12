@@ -14,8 +14,7 @@ import { ReactComponent as AddIconFocus } from 'assets/ic-addtab-pressed.svg';
 import { ReactComponent as DeleteIcon } from 'assets/btn-delete-normal.svg';
 
 function mapStateToProps(state) {
-  const { viewTableId, viewTableTabList } = state.tableList;
-  return { viewTableId, tables: viewTableTabList };
+  return {};
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -91,17 +90,11 @@ class TimetableTabs extends Component {
           className="svg-icon icon-delete"
           onClick={this.handleDelete.bind(this, id)}
         />
-        {/* <span
-          className="glyphicon glyphicon-remove"
-          aria-hidden="true"
-          onClick={this.handleDelete.bind(this, id)}
-        /> */}
       </li>
     );
   }
 
   render() {
-    // console.log("TImetableTab render!!!");
     const { viewTableId, tables } = this.props;
     const buttons = tables.map(table =>
       this.renderTab(table, table._id === viewTableId),

@@ -43,7 +43,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
   }
 
   // Fetch user info and saved tables
-  const [userInfo, tableList, notiCount] = await Promise.all([
+  let [userInfo, tableList, notiCount] = await Promise.all([
     getUserInfo(),
     getTableList(),
     getNotiCount(),
@@ -51,7 +51,12 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
 
   // set viewTableId
   const { year, semester } = getState().courseBook.toJS().current;
-  const viewTableId = findViewTableIdForSemester(year, semester, tableList);
+  let viewTableId = findViewTableIdForSemester(year, semester, tableList);
+
+  if (!viewTableId) {
+    tableList = await postNewTable(year, semester, '나의 시간표');
+    viewTableId = findViewTableIdForSemester(year, semester, tableList);
+  }
 
   dispatch({ type: types.LOGIN_OK, userInfo });
   dispatch({ type: types.GET_TABLELIST, tableList });

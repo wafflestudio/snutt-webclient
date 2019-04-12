@@ -29,18 +29,10 @@ import {
   CLOSE_COURSE,
 } from './actionTypes';
 
-export function fetchTableList() {
-  return {
-    [CALL_API]: {
-      endpoint: 'tables/',
-      config: { method: 'get' },
-      authenticated: true,
-      types: [REQUEST_TABLELIST, GET_TABLELIST, FAIL_TABLELIST],
-    },
-  };
-}
+import { postNewTable } from '../api';
 
 export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
+
 export function addLecture(lecture) {
   return function(dispatch, getState) {
     const { viewTableId } = getState().tableList;
@@ -139,29 +131,18 @@ export function updateTitle(newTitle) {
   };
 }
 
-export function createTable(newTitle) {
-  return function(dispatch, getState) {
-    const currentBook = getState().courseBook.get('current');
-    const { year, semester } = currentBook;
-
-    dispatch({
-      [CALL_API]: {
-        endpoint: 'tables/',
-        config: {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            title: newTitle,
-            year,
-            semester,
-          }),
-        },
-        authenticated: true,
-        types: [CREATE_TABLE_START, CREATE_TABLE_OK, CREATE_TABLE_FAIL],
-      },
-    });
-  };
-}
+export const createTable = (newTitle = '나의 시간표', year, semester) => async (
+  dispatch,
+  getState,
+) => {
+  const currentBook = getState().courseBook.get('current');
+  if (!year || !semester) {
+    year = currentBook.year;
+    semester = currentBook.semester;
+  }
+  const tableList = await postNewTable(year, semester, newTitle);
+  dispatch({ type: CREATE_TABLE_OK, tableList });
+};
 
 export function deleteTable(_id) {
   return function(dispatch, getState) {
