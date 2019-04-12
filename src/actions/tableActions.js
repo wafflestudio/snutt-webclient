@@ -23,6 +23,7 @@ import {
 } from './actionTypes';
 
 import { postNewTable, deleteTableById } from '../api';
+import { findViewTableIdForSemester } from './loadingActions';
 
 export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
 
@@ -140,10 +141,10 @@ export const createTable = (newTitle = '나의 시간표', year, semester) => as
 export const deleteTable = _id => async (dispatch, getState) => {
   const tableList = await deleteTableById(_id);
   // check if current table is remaining
-  const { viewTableId } = getState().tableList;
-  if (!tableList.some(t => t._id === viewTableId)) {
-    dispatch({ type: SWITCH_TABLE_OK, payload: { tableId: null } });
-  }
+  const { year, semester } = getState().courseBook.get('current');
+  const nextViewTableId = findViewTableIdForSemester(year, semester, tableList);
+
+  dispatch({ type: SWITCH_TABLE_OK, response: { _id: nextViewTableId } });
   dispatch({ type: DELETE_TABLE_OK, tableList });
 };
 

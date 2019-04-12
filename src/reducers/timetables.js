@@ -76,22 +76,24 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.SWITCH_TABLE_OK: {
-      if (!action.response) {
-        debugger;
+      const updatedTable = action.response;
+      if (updatedTable._id) {
+        const { tableMap: oldTableMap } = state;
+        const tableMap = Object.assign({}, oldTableMap, {
+          [updatedTable._id]: {
+            ...oldTableMap[updatedTable._id],
+            ...updatedTable,
+          },
+        });
         return {
           ...state,
-          viewTableId: null,
+          tableMap,
+          viewTableId: updatedTable._id,
         };
       }
-      const updatedTable = action.response;
-      const updatedId = updatedTable._id;
-      const tableMap = update(state.tableMap, {
-        [updatedId]: { $set: updatedTable },
-      });
       return {
         ...state,
-        tableMap,
-        viewTableId: updatedId,
+        viewTableId: null,
       };
     }
 

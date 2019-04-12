@@ -85,7 +85,6 @@ export const changeCoursebook = newCourseBook => async (dispatch, getState) => {
   // If table for new semester do not exists, create new one
   if (!newViewTableId) {
     const newTableList = await postNewTable(year, semester, '나의 시간표');
-    debugger;
     dispatch({ type: types.CREATE_TABLE_OK, tableList: newTableList });
     newViewTableId = findViewTableIdForSemester(year, semester, newTableList);
   }
