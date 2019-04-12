@@ -1,8 +1,5 @@
 import { CALL_API } from '../middleware/api';
 import {
-  REQUEST_TABLELIST,
-  GET_TABLELIST,
-  FAIL_TABLELIST,
   ADD_LECTURE_START,
   ADD_LECTURE_OK,
   ADD_LECTURE_FAIL,
@@ -15,12 +12,8 @@ import {
   UPDATE_LECTURE_START,
   UPDATE_LECTURE_OK,
   UPDATE_LECTURE_FAIL,
-  CREATE_TABLE_START,
   CREATE_TABLE_OK,
-  CREATE_TABLE_FAIL,
-  DELETE_TABLE_START,
   DELETE_TABLE_OK,
-  DELETE_TABLE_FAIL,
   SWITCH_TABLE_START,
   SWITCH_TABLE_OK,
   SWITCH_TABLE_FAIL,
@@ -29,7 +22,7 @@ import {
   CLOSE_COURSE,
 } from './actionTypes';
 
-import { postNewTable } from '../api';
+import { postNewTable, deleteTableById } from '../api';
 
 export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
 
@@ -144,20 +137,15 @@ export const createTable = (newTitle = '나의 시간표', year, semester) => as
   dispatch({ type: CREATE_TABLE_OK, tableList });
 };
 
-export function deleteTable(_id) {
-  return function(dispatch, getState) {
-    dispatch({
-      [CALL_API]: {
-        endpoint: `tables/${_id}`,
-        config: {
-          method: 'delete',
-        },
-        authenticated: true,
-        types: [DELETE_TABLE_START, DELETE_TABLE_OK, DELETE_TABLE_FAIL],
-      },
-    });
-  };
-}
+export const deleteTable = _id => async (dispatch, getState) => {
+  const tableList = await deleteTableById(_id);
+  // check if current table is remaining
+  const { viewTableId } = getState().tableList;
+  if (!tableList.some(t => t._id === viewTableId)) {
+    dispatch({ type: SWITCH_TABLE_OK, payload: { tableId: null } });
+  }
+  dispatch({ type: DELETE_TABLE_OK, tableList });
+};
 
 export function switchTable(_id) {
   if (!_id) {

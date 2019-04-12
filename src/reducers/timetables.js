@@ -76,6 +76,13 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
       };
     }
     case types.SWITCH_TABLE_OK: {
+      if (!action.response) {
+        debugger;
+        return {
+          ...state,
+          viewTableId: null,
+        };
+      }
       const updatedTable = action.response;
       const updatedId = updatedTable._id;
       const tableMap = update(state.tableMap, {
