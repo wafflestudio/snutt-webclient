@@ -6,6 +6,7 @@ import {
   LOGOUT_SUCCESS,
   GET_USER_INFO,
 } from '../actions/userActions';
+import { getErrorMessage } from '../utils/errorTable';
 import { LOGIN_OK } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -44,7 +45,7 @@ const handlers = {
   [LOGIN_FAILURE]: (state, action) => ({
     loggedIn: false,
     errorType: 'login',
-    message: action.message,
+    message: getErrorMessage(action.errcode),
   }),
 
   [LOGOUT_SUCCESS]: (state, action) => INITIAL_STATE,

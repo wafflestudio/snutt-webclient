@@ -43,11 +43,11 @@ export const loginLocal = (
   password,
   keepLogin = true,
 ) => async dispatch => {
-  try {
-    const token = await getTokenWithIdPassword(id, password);
-    dispatch(loginWithToken(token, keepLogin));
-  } catch (e) {
-    dispatch(failLogin(e));
+  const resp = await getTokenWithIdPassword(id, password);
+  if (resp.token) {
+    dispatch(loginWithToken(resp.token, keepLogin));
+  } else if (resp.errcode) {
+    dispatch(failLogin(resp.errcode));
   }
 };
 
@@ -74,9 +74,7 @@ export const logout = () => dispatch => {
   return;
 };
 
-export function failLogin(error) {
-  return { type: LOGIN_FAILURE, message: error.message };
-}
+export const failLogin = errcode => ({ type: LOGIN_FAILURE, errcode });
 
 export const leaveFeedback = async (email, message, callback) => {
   const resp = await postFeedback(email, message);
