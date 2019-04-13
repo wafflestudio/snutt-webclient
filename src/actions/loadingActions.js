@@ -4,7 +4,7 @@ import {
   getTemporaryToken,
   getUserInfo,
   getTableList,
-  getNotiCount,
+  getNewMessageCount,
   postNewTable,
 } from '../api';
 import { switchTable } from './tableActions';
@@ -46,7 +46,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
   let [userInfo, tableList, notiCount] = await Promise.all([
     getUserInfo(),
     getTableList(),
-    getNotiCount(),
+    getNewMessageCount(),
   ]);
 
   // set viewTableId
