@@ -5,7 +5,9 @@ import Modal from 'react-modal';
 
 import MobileDetect from 'mobile-detect';
 
-import { updateCoursebook } from '../../actions/fetchingActions';
+// import { updateCoursebook } from '../../actions/fetchingActions';
+import { initialize } from '../../actions/loadingActions';
+
 import Header from './Header';
 import Footer from './footer.jsx';
 import AppLink from './appLink.jsx';
@@ -22,9 +24,14 @@ class App extends Component {
     };
   }
 
+  loadCoursebookAndColor = () => {
+    this.props.dispatch(initialize());
+  };
+
   componentDidMount() {
     // Entry point for other loading actions
-    this.props.dispatch(updateCoursebook());
+    // this.props.dispatch(updateCoursebook());
+    this.loadCoursebookAndColor();
   }
 
   closeModal = () => this.setState({ showAppLink: false });

@@ -31,26 +31,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class MyPage extends Component {
-  constructor() {
-    super();
-    this.handleLogout = () => this.props.logout();
-    this.handleFacebookAttach = ({ id, accessToken }) => {
-      this.props.attachFacebook(id, accessToken);
-    };
-    this.handleFacebookDetach = () => this.props.detachFacebook();
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleAttachLocalAccount = this.handleAttachLocalAccount.bind(this);
-    this.renderFacebookManager = this.renderFacebookManager.bind(this);
-    this.renderLocalAccountManager = this.renderLocalAccountManager.bind(this);
-  }
-
   handleDelete = () => {
     if (window.confirm('정말 탈퇴하시겠습니까?')) {
       this.props.deleteAccount();
     }
   };
 
-  handlePasswordChange(e) {
+  handlePasswordChange = e => {
     e.preventDefault();
     const oldPass = this.oldPass.value;
     const newPass = this.newPass.value;
@@ -65,9 +52,13 @@ class MyPage extends Component {
       this.newPass.value = '';
       this.newPassConfirm.value = '';
     });
-  }
+  };
 
-  handleAttachLocalAccount(e) {
+  handleFacebookAttach = ({ id, accessToken }) => {
+    this.props.attachFacebook(id, accessToken);
+  };
+
+  handleAttachLocalAccount = e => {
     e.preventDefault();
     const newId = this.newId.value;
     const newPass = this.newPass.value;
@@ -80,9 +71,9 @@ class MyPage extends Component {
       alert('아이디와 비밀번호가 등록되었습니다');
       this.context.router.push('/');
     });
-  }
+  };
 
-  renderLocalAccountManager() {
+  renderLocalAccountManager = () => {
     const { info } = this.props;
     if (info.local_id) {
       // User had id and password
@@ -186,13 +177,13 @@ class MyPage extends Component {
         </div>
       </div>
     );
-  }
+  };
 
-  renderFacebookManager() {
+  renderFacebookManager = () => {
     const { info } = this.props;
     if (info.fb_name) {
       return (
-        <button className="btn login-fb" onClick={this.handleFacebookDetach}>
+        <button className="btn login-fb" onClick={this.props.detachFacebook}>
           페이스북 연동 해지하기
         </button>
       );
@@ -206,7 +197,7 @@ class MyPage extends Component {
         textButton="페이스북 연동하기"
       />
     );
-  }
+  };
 
   render() {
     return (
@@ -226,7 +217,7 @@ class MyPage extends Component {
                 <button
                   data-cy="my-logout"
                   className="btn btn-default"
-                  onClick={this.handleLogout}
+                  onClick={this.props.logout}
                 >
                   로그아웃하기
                 </button>

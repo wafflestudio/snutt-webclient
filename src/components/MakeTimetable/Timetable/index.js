@@ -3,37 +3,23 @@ import { connect } from 'react-redux';
 
 import Table from './Table';
 
-import { createCourse, deleteLecture } from '../../../actions/tableActions';
+import {
+  createCourse,
+  deleteLecture,
+  switchTable,
+  createTable,
+} from '../../../actions/tableActions';
 import { addCourse } from '../../../actions';
 const TableCapturer = lazy(() => import('./TableCapturer'));
 
-function mapStateToProps(state) {
-  const {
-    hoveredCourse: previewed,
-    courseBook,
-    tableList: { viewLectures, tableMap },
-  } = state;
-  const { viewLectures: courses, viewTableId } = state.tableList;
-  const viewTableTitle = tableMap[viewTableId]
-    ? tableMap[viewTableId].title
-    : '';
-  const creditSum = viewLectures
-    ? viewLectures.reduce((sum, lecture) => sum + lecture.credit, 0)
-    : 0;
-  return {
-    hasNoTable: viewTableId === null,
-    previewed,
-    courseBook,
-    courses,
-    viewTableTitle,
-    creditSum,
-  };
-}
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   handleDelete: _id => dispatch(deleteLecture(_id)),
   addCourse: course => dispatch(addCourse(course)),
   openCourse: () => dispatch(createCourse()),
+  setTable: _id => dispatch(switchTable(_id)),
+  addTable: () => dispatch(createTable()),
 });
 
 class Timetable extends Component {
@@ -47,10 +33,21 @@ class Timetable extends Component {
   };
 
   render() {
-    const { creditSum, viewTableTitle, ...tableProps } = this.props;
+    const { viewTableId, viewTable, previewed, handleDelete } = this.props;
+
+    const creditSum = viewTable
+      ? viewTable.lecture_list.reduce((sum, lecture) => sum + lecture.credit, 0)
+      : 0;
+    const courses = (viewTable && viewTable.lecture_list) || [];
+
     return (
       <div id="timetable-container">
-        <Table {...tableProps} />
+        <Table
+          hasNoTable={!Boolean(viewTableId)}
+          previewed={previewed}
+          courses={courses}
+          handleDelete={handleDelete}
+        />
         <div className="table-info">
           <div
             className="add-button btn-default"
@@ -65,7 +62,7 @@ class Timetable extends Component {
               </div>
             }
           >
-            <TableCapturer title={viewTableTitle} />
+            <TableCapturer title={viewTable && viewTable.title} />
           </Suspense>
           <div className="credit">{`총 ${creditSum} 학점`}</div>
         </div>

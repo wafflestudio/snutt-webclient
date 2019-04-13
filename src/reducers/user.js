@@ -6,6 +6,8 @@ import {
   LOGOUT_SUCCESS,
   GET_USER_INFO,
 } from '../actions/userActions';
+import { getErrorMessage } from '../utils/errorTable';
+import { LOGIN_OK } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   loggedIn: false,
@@ -16,13 +18,34 @@ const INITIAL_STATE = {
 };
 
 const handlers = {
+  [LOGIN_OK]: (state, action) => {
+    const { userInfo } = action;
+    if (userInfo.local_id) {
+      //임시 로그인 아님
+      return {
+        ...INITIAL_STATE,
+        loggedIn: true,
+        id: userInfo.local_id,
+        info: userInfo,
+      };
+    } else if (userInfo.fb_name) {
+      return {
+        ...INITIAL_STATE,
+        loggedIn: true,
+        id: userInfo.fb_name,
+        info: userInfo,
+      };
+    }
+    return { ...INITIAL_STATE, loggedIn: false, id: 'tempId', info: userInfo };
+  },
+
   [LOGIN_SUCCESS]: (state, action) =>
     Object.assign({}, INITIAL_STATE, { loggedIn: true, id: action.id }),
 
   [LOGIN_FAILURE]: (state, action) => ({
     loggedIn: false,
     errorType: 'login',
-    message: action.message,
+    message: getErrorMessage(action.errcode),
   }),
 
   [LOGOUT_SUCCESS]: (state, action) => INITIAL_STATE,
