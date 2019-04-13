@@ -12,7 +12,6 @@ import {
 } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
-import api from './middleware/api';
 import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
 
@@ -48,7 +47,7 @@ const reducer = combineReducers({
   routing: routerReducer,
 });
 
-const middleware = applyMiddleware(routerMiddleware(history), thunk, api);
+const middleware = applyMiddleware(routerMiddleware(history), thunk);
 
 export const store = createStore(
   reducer,
