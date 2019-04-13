@@ -24,7 +24,7 @@ import {
   SignUp,
   MyPage,
   FindPassword,
-  MustLoggedIn,
+  withAuthCheck,
   Feedback,
 } from './components';
 import TableRenderer from 'components/MakeTimetable/Timetable/TableRenderer';
@@ -65,10 +65,10 @@ const RouteApp = () => (
     <Switch>
       <Route exact path="/" component={MakeTimetable} />
       <Route exact path="/about" component={About} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/login" component={withAuthCheck(Login, false)} />
+      <Route exact path="/signup" component={withAuthCheck(SignUp, false)} />
       <Route exact path="/findPassword" component={FindPassword} />
-      <Route exact path="/myPage" component={MustLoggedIn(MyPage)} />
+      <Route exact path="/myPage" component={withAuthCheck(MyPage)} />
     </Switch>
   </App>
 );
