@@ -19,3 +19,6 @@ export const postFeedback = async (email, message) =>
     encodeParams({ email, message }),
     urlEncodedFormConfig,
   )).data;
+
+export const getQueryResults = async query =>
+  (await client.post('search_query', query)).data;
