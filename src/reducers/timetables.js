@@ -37,31 +37,12 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
         tableMap,
       };
     }
-    case types.ADD_LECTURE_OK: {
-      const updated = action.response;
-      const tableMap = update(state.tableMap, {
-        [updated._id]: { $set: updated },
-      });
-      return {
-        ...state,
-        tableMap,
-      };
-    }
-    case types.DELETE_LECTURE_OK: {
-      const updated = action.response;
-      const tableMap = update(state.tableMap, {
-        [updated._id]: { $set: updated },
-      });
-      return {
-        ...state,
-        tableMap,
-      };
-    }
+    case types.ADD_LECTURE_OK:
+    case types.DELETE_LECTURE_OK:
     case types.UPDATE_LECTURE_OK: {
-      const updatedTable = action.response;
-      const updatedId = updatedTable._id;
+      const updated = action.response;
       const tableMap = update(state.tableMap, {
-        [updatedId]: { $set: updatedTable },
+        [updated._id]: { $set: updated },
       });
       return {
         ...state,
