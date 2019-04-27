@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { apiKey, baseUrl } from '../config';
-import { getToken } from '../utils/auth';
+import { getToken } from 'utils/auth';
+import { getErrorMessage } from 'utils/errorTable';
 
 const client = axios.create({
   baseURL: baseUrl,
@@ -18,19 +19,13 @@ export const urlEncodedFormConfig = {
   },
 };
 
-client.interceptors.request.use(
-  function(config) {
-    const token = getToken();
-    config.headers['x-access-apikey'] = apiKey;
-    if (token) {
-      config.headers['x-access-token'] = token;
-    }
-    return config;
-  },
-  function(error) {
-    // Do something with request error
-    return Promise.reject(error);
-  },
-);
+client.interceptors.request.use(function(config) {
+  const token = getToken();
+  config.headers['x-access-apikey'] = apiKey;
+  if (token) {
+    config.headers['x-access-token'] = token;
+  }
+  return config;
+});
 
 export default client;

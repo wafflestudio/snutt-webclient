@@ -1,6 +1,8 @@
 import 'whatwg-fetch';
 import { push } from 'react-router-redux';
-import { fetchUserInfo } from './loadingActions';
+
+import { fetchUserInfo } from 'actions/loadingActions';
+import errorHandler from 'utils/errorHandler';
 
 import {
   createAccount,
@@ -43,11 +45,11 @@ export const loginLocal = (
   password,
   keepLogin = true,
 ) => async dispatch => {
-  const resp = await getTokenWithIdPassword(id, password);
+  const resp = await errorHandler(getTokenWithIdPassword(id, password), false);
   if (resp.token) {
     dispatch(loginWithToken(resp.token, keepLogin));
-  } else if (resp.errcode) {
-    dispatch(failLogin(resp.errcode));
+  } else if (resp.error.errorCode) {
+    dispatch(failLogin(resp.error.errorCode));
   }
 };
 
