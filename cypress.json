@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:5000/",
   "projectId": "etowvu",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "defaultCommandTimeout": 200000
 }

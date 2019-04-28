@@ -42,7 +42,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
     if (!token || token === 'undefined') {
       console.log('issuing new temp token');
       const resp = await getTemporaryToken();
-      resp.ok && saveToken(resp.token);
+      resp.token && saveToken(resp.token);
     }
 
     // Fetch user info and saved tables
