@@ -9,10 +9,12 @@ import {
   CREATE_COURSE,
   EDIT_COURSE,
   CLOSE_COURSE,
-} from './actionTypes';
+} from 'actions/actionTypes';
 
-import * as api from '../api';
-import { findViewTableIdForSemester } from './loadingActions';
+import * as api from 'api';
+import { findViewTableIdForSemester } from 'actions/loadingActions';
+
+import errorHandler from 'utils/errorHandler';
 
 export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
 
@@ -23,8 +25,9 @@ export const addLecture = lecture => async (dispatch, getState) => {
     return;
   }
   const _id = lecture._id || '';
-  const response = await api.addLecture(viewTableId, _id);
-  dispatch({ type: ADD_LECTURE_OK, response });
+  const response = await errorHandler(api.addLecture(viewTableId, _id));
+
+  !response.error && dispatch({ type: ADD_LECTURE_OK, response });
 };
 
 export const addCustomLecture = lecture => async (dispatch, getState) => {
@@ -33,14 +36,20 @@ export const addCustomLecture = lecture => async (dispatch, getState) => {
     alert('강의를 추가할 시간표가 없습니다. 시간표를 추가해주세요.');
     return;
   }
-  const response = await api.addCustomLecture(viewTableId, lecture);
-  dispatch({ type: ADD_LECTURE_OK, response });
+  const response = await errorHandler(
+    api.addCustomLecture(viewTableId, lecture),
+  );
+
+  !response.error && dispatch({ type: ADD_LECTURE_OK, response });
 };
 
 export const deleteLecture = lectureId => async (dispatch, getState) => {
   const { viewTableId } = getState().tableList;
-  const response = await api.deleteLecture(viewTableId, lectureId);
-  dispatch({ type: DELETE_LECTURE_OK, response });
+  const response = await errorHandler(
+    api.deleteLecture(viewTableId, lectureId),
+  );
+
+  !response.error && dispatch({ type: DELETE_LECTURE_OK, response });
 };
 
 export const updateLecture = (lectureId, updatedPart) => async (
@@ -48,8 +57,11 @@ export const updateLecture = (lectureId, updatedPart) => async (
   getState,
 ) => {
   const { viewTableId } = getState().tableList;
-  const response = await api.updateLecture(viewTableId, lectureId, updatedPart);
-  dispatch({ type: UPDATE_LECTURE_OK, response });
+  const response = await errorHandler(
+    api.updateLecture(viewTableId, lectureId, updatedPart),
+  );
+
+  !response.error && dispatch({ type: UPDATE_LECTURE_OK, response });
 };
 
 export const editCourse = course => ({ type: EDIT_COURSE, course });
@@ -57,8 +69,11 @@ export const closeCourse = course => ({ type: CLOSE_COURSE });
 
 export const updateTitle = newTitle => async (dispatch, getState) => {
   const { viewTableId } = getState().tableList;
-  const response = await api.updateTableTitle(viewTableId, newTitle);
-  dispatch({ type: UPDATE_TITLE_OK, response });
+  const response = await errorHandler(
+    api.updateTableTitle(viewTableId, newTitle),
+  );
+
+  !response.error && dispatch({ type: UPDATE_TITLE_OK, response });
 };
 
 export const createTable = (newTitle = '나의 시간표', year, semester) => async (
@@ -70,12 +85,15 @@ export const createTable = (newTitle = '나의 시간표', year, semester) => as
     year = currentBook.year;
     semester = currentBook.semester;
   }
-  const tableList = await api.postNewTable(year, semester, newTitle);
-  dispatch({ type: CREATE_TABLE_OK, tableList });
+  const resp = await errorHandler(api.postNewTable(year, semester, newTitle));
+
+  !resp.error && dispatch({ type: CREATE_TABLE_OK, tableList: resp });
 };
 
 export const deleteTable = _id => async (dispatch, getState) => {
-  const tableList = await api.deleteTableById(_id);
+  const tableList = await errorHandler(api.deleteTableById(_id));
+  if (tableList.error) return;
+
   // check if current table is remaining
   const { year, semester } = getState().courseBook.get('current');
   const nextViewTableId = findViewTableIdForSemester(year, semester, tableList);
@@ -85,6 +103,7 @@ export const deleteTable = _id => async (dispatch, getState) => {
 };
 
 export const switchTable = _id => async dispatch => {
-  const response = await api.getTable(_id);
-  dispatch({ type: SWITCH_TABLE_OK, response });
+  const response = await errorHandler(api.getTable(_id));
+
+  !response.error && dispatch({ type: SWITCH_TABLE_OK, response });
 };
