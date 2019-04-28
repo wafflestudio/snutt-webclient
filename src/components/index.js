@@ -1,5 +1,4 @@
 export { default as App } from './Layout/App.jsx';
-export { default as About } from './About';
 export { default as Login } from './Login';
 export { default as SignUp } from './Login/SignUp.jsx';
 export { default as FindPassword } from './Login/findPassword.jsx';

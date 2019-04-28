@@ -18,7 +18,6 @@ import * as serviceWorker from './serviceWorker';
 import {
   App,
   MakeTimetable,
-  About,
   Login,
   SignUp,
   MyPage,
@@ -62,7 +61,6 @@ const RouteApp = () => (
   <App>
     <Switch>
       <Route exact path="/" component={MakeTimetable} />
-      <Route exact path="/about" component={About} />
       <Route exact path="/login" component={withAuthCheck(Login, false)} />
       <Route exact path="/signup" component={withAuthCheck(SignUp, false)} />
       <Route exact path="/findPassword" component={FindPassword} />
