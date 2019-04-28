@@ -1,4 +1,5 @@
 import * as api from 'api';
+import err from 'utils/errorHandler';
 
 export const GET_MESSAGE_START = 'GET_MESSAGE_START';
 export const GET_MESSAGE_OK = 'GET_MESSAGE_OK';
@@ -13,11 +14,13 @@ export const openMessageBox = () => ({ type: OPEN_MESSAGE_BOX });
 export const closeMessageBox = () => ({ type: CLOSE_MESSAGE_BOX });
 
 export const fetchMessages = (limit = 10, offset) => async dispatch => {
-  const response = await api.getMessages(limit, offset);
-  dispatch({ type: GET_MESSAGE_OK, response });
+  const response = await err(api.getMessages(limit, offset));
+
+  !response.error && dispatch({ type: GET_MESSAGE_OK, response });
 };
 
 export const checkNewMessages = () => async dispatch => {
-  const response = await api.getNewMessageCount();
-  dispatch({ type: CHECK_NEW_MESSAGE_OK, response });
+  const response = await err(api.getNewMessageCount());
+
+  !response.error && dispatch({ type: CHECK_NEW_MESSAGE_OK, response });
 };

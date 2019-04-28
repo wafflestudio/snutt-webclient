@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import { push } from 'react-router-redux';
 
 import { fetchUserInfo } from 'actions/loadingActions';
-import errorHandler from 'utils/errorHandler';
+import err from 'utils/errorHandler';
 
 import {
   createAccount,
@@ -45,7 +45,7 @@ export const loginLocal = (
   password,
   keepLogin = true,
 ) => async dispatch => {
-  const resp = await errorHandler(getTokenWithIdPassword(id, password), false);
+  const resp = await err(getTokenWithIdPassword(id, password), false);
   if (resp.token) {
     dispatch(loginWithToken(resp.token, keepLogin));
   } else if (resp.error.errorCode) {
@@ -54,7 +54,7 @@ export const loginLocal = (
 };
 
 export const loginFacebook = (fb_id, fb_token) => async dispatch => {
-  const resp = await errorHandler(getTokenWithFacebookToken(fb_id, fb_token));
+  const resp = await err(getTokenWithFacebookToken(fb_id, fb_token));
   if (resp.token) {
     dispatch(loginWithToken(resp.token));
   } else if (resp.error.errorCode) {
@@ -79,14 +79,14 @@ export const logout = () => dispatch => {
 export const failLogin = errcode => ({ type: LOGIN_FAILURE, errcode });
 
 export const leaveFeedback = async (email, message, callback) => {
-  const resp = await errorHandler(postFeedback(email, message));
+  const resp = await err(postFeedback(email, message));
   if (!resp.error) {
     callback();
   }
 };
 
 export const deleteAccount = () => async dispatch => {
-  const resp = await errorHandler(removeAccount());
+  const resp = await err(removeAccount());
   if (resp.token) {
     clearToken();
     dispatch({ type: LOGOUT_SUCCESS });
@@ -96,9 +96,7 @@ export const deleteAccount = () => async dispatch => {
 };
 
 export const attachFacebook = (fb_id, fb_token) => async dispatch => {
-  const resp = await errorHandler(
-    getNewTokenAfterLinkingFacebook(fb_id, fb_token),
-  );
+  const resp = await err(getNewTokenAfterLinkingFacebook(fb_id, fb_token));
   if (resp.token) {
     changeToken(resp.token);
     dispatch(fetchUserInfo());
@@ -106,7 +104,7 @@ export const attachFacebook = (fb_id, fb_token) => async dispatch => {
 };
 
 export const detachFacebook = () => async dispatch => {
-  const resp = await errorHandler(getNewTokenAfterUnlinkingFacebook());
+  const resp = await err(getNewTokenAfterUnlinkingFacebook());
   if (resp.token) {
     changeToken(resp.token);
     dispatch(fetchUserInfo());
@@ -114,9 +112,7 @@ export const detachFacebook = () => async dispatch => {
 };
 
 export const attachLocal = (id, password, callback) => async dispatch => {
-  const resp = await errorHandler(
-    getNewTokenAfterLinkingLocalAccount(id, password),
-  );
+  const resp = await err(getNewTokenAfterLinkingLocalAccount(id, password));
   if (resp.token) {
     changeToken(resp.token);
     dispatch(fetchUserInfo());
@@ -129,7 +125,7 @@ export const changePassword = (
   new_password,
   callback,
 ) => async dispatch => {
-  const resp = await errorHandler(
+  const resp = await err(
     getNewTokenAfterChangePassword(old_password, new_password),
   );
   if (resp.token) {

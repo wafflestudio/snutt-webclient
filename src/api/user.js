@@ -1,7 +1,7 @@
 import client, { encodeParams, urlEncodedFormConfig } from './client';
 
 export const getTemporaryToken = async () =>
-  (await client.post('auth/request_temp')).data.token;
+  (await client.post('auth/request_temp')).data;
 
 export const getUserInfo = async () => (await client.get('user/info')).data;
 

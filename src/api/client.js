@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { apiKey, baseUrl } from '../config';
 import { getToken } from 'utils/auth';
-import { getErrorMessage } from 'utils/errorTable';
 
 const client = axios.create({
   baseURL: baseUrl,

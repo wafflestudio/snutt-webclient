@@ -6,10 +6,11 @@ import {
   getTableList,
   getNewMessageCount,
   postNewTable,
-} from '../api';
-import { switchTable } from './tableActions';
-import { getToken, saveToken } from '../utils/auth';
-import * as types from './actionTypes';
+} from 'api';
+import * as types from 'actions/actionTypes';
+import { switchTable } from 'actions/tableActions';
+import { getToken, saveToken } from 'utils/auth';
+import err from 'utils/errorHandler';
 
 /**
  * Entry point of all fetching actions
@@ -17,10 +18,11 @@ import * as types from './actionTypes';
  * Then invoke loading timetables of user
  */
 export const initialize = () => async dispatch => {
-  const [colors, courseBooks] = await Promise.all([
-    getColorPalette(),
-    getCoursebooks(),
-  ]);
+  const resp = await err(Promise.all([getColorPalette(), getCoursebooks()]));
+  if (resp.error) return;
+
+  const [colors, courseBooks] = resp;
+
   const recentCourseBook = courseBooks[0];
   dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook: recentCourseBook });
   dispatch({
@@ -33,38 +35,43 @@ export const initialize = () => async dispatch => {
 };
 
 export const fetchUserInfo = () => async (dispatch, getState) => {
-  // Find existing token or get new token
-  let token = getToken();
-  token && console.log(`found existing token ${token}`);
-  if (!token || token === 'undefined') {
-    console.log('issuing new temp token');
-    token = await getTemporaryToken();
-    saveToken(token);
+  try {
+    // Find existing token or get new token
+    let token = getToken();
+    token && console.log(`found existing token ${token}`);
+    if (!token || token === 'undefined') {
+      console.log('issuing new temp token');
+      const resp = await getTemporaryToken();
+      resp.ok && saveToken(resp.token);
+    }
+
+    // Fetch user info and saved tables
+    let [userInfo, tableList, notiCount] = await Promise.all([
+      getUserInfo(),
+      getTableList(),
+      getNewMessageCount(),
+    ]);
+
+    // set viewTableId
+    const { year, semester } = getState().courseBook.toJS().current;
+    let viewTableId = findViewTableIdForSemester(year, semester, tableList);
+
+    if (!viewTableId) {
+      tableList = await postNewTable(year, semester, '나의 시간표');
+      viewTableId = findViewTableIdForSemester(year, semester, tableList);
+    }
+
+    dispatch({ type: types.LOGIN_OK, userInfo });
+    dispatch({ type: types.GET_TABLELIST, tableList });
+    dispatch(switchTable(viewTableId));
+    dispatch({
+      type: types.UPDATE_NEW_MESSAGE_COUNT,
+      count: notiCount.count,
+    });
+  } catch (e) {
+    alert('초기화 중 에러가 발생했습니다');
+    console.log(e);
   }
-
-  // Fetch user info and saved tables
-  let [userInfo, tableList, notiCount] = await Promise.all([
-    getUserInfo(),
-    getTableList(),
-    getNewMessageCount(),
-  ]);
-
-  // set viewTableId
-  const { year, semester } = getState().courseBook.toJS().current;
-  let viewTableId = findViewTableIdForSemester(year, semester, tableList);
-
-  if (!viewTableId) {
-    tableList = await postNewTable(year, semester, '나의 시간표');
-    viewTableId = findViewTableIdForSemester(year, semester, tableList);
-  }
-
-  dispatch({ type: types.LOGIN_OK, userInfo });
-  dispatch({ type: types.GET_TABLELIST, tableList });
-  dispatch(switchTable(viewTableId));
-  dispatch({
-    type: types.UPDATE_NEW_MESSAGE_COUNT,
-    count: notiCount.count,
-  });
 };
 
 // Set of actions that should be along with new coursebook
@@ -84,9 +91,11 @@ export const changeCoursebook = newCourseBook => async (dispatch, getState) => {
 
   // If table for new semester do not exists, create new one
   if (!newViewTableId) {
-    const newTableList = await postNewTable(year, semester, '나의 시간표');
-    dispatch({ type: types.CREATE_TABLE_OK, tableList: newTableList });
-    newViewTableId = findViewTableIdForSemester(year, semester, newTableList);
+    const newTableList = await err(postNewTable(year, semester, '나의 시간표'));
+    if (!newTableList.error) {
+      dispatch({ type: types.CREATE_TABLE_OK, tableList: newTableList });
+      newViewTableId = findViewTableIdForSemester(year, semester, newTableList);
+    }
   }
 
   dispatch(switchTable(newViewTableId));
