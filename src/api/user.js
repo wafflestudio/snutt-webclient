@@ -13,10 +13,10 @@ export const getNewTokenAfterLinkingFacebook = async (fb_id, fb_token) =>
       fb_token,
     }),
     urlEncodedFormConfig,
-  )).data.token;
+  )).data;
 
 export const getNewTokenAfterUnlinkingFacebook = async () =>
-  (await client.delete('user/facebook')).data.token;
+  (await client.delete('user/facebook')).data;
 
 export const getNewTokenAfterLinkingLocalAccount = async (id, password) =>
   (await client.post(
@@ -26,7 +26,7 @@ export const getNewTokenAfterLinkingLocalAccount = async (id, password) =>
       password,
     }),
     urlEncodedFormConfig,
-  )).data.token;
+  )).data;
 
 export const getNewTokenAfterChangePassword = async (
   old_password,
@@ -39,6 +39,6 @@ export const getNewTokenAfterChangePassword = async (
       new_password,
     }),
     urlEncodedFormConfig,
-  )).data.token;
+  )).data;
 
 export const removeAccount = () => client.delete('user/account');

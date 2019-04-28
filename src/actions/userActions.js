@@ -54,11 +54,11 @@ export const loginLocal = (
 };
 
 export const loginFacebook = (fb_id, fb_token) => async dispatch => {
-  try {
-    const token = await getTokenWithFacebookToken(fb_id, fb_token);
-    dispatch(loginWithToken(token));
-  } catch (e) {
-    dispatch(failLogin(e));
+  const resp = await errorHandler(getTokenWithFacebookToken(fb_id, fb_token));
+  if (resp.token) {
+    dispatch(loginWithToken(resp.token));
+  } else if (resp.error.errorCode) {
+    dispatch(failLogin(resp.error.errorCode));
   }
 };
 
@@ -79,50 +79,48 @@ export const logout = () => dispatch => {
 export const failLogin = errcode => ({ type: LOGIN_FAILURE, errcode });
 
 export const leaveFeedback = async (email, message, callback) => {
-  const resp = await postFeedback(email, message);
-  if (resp.errocde) {
-    alert(resp.message);
-  } else {
+  const resp = await errorHandler(postFeedback(email, message));
+  if (!resp.error) {
     callback();
   }
 };
 
 export const deleteAccount = () => async dispatch => {
-  await removeAccount();
-  clearToken();
-  dispatch({ type: LOGOUT_SUCCESS });
-  dispatch(fetchUserInfo());
-  dispatch(push('/'));
+  const resp = await errorHandler(removeAccount());
+  if (resp.token) {
+    clearToken();
+    dispatch({ type: LOGOUT_SUCCESS });
+    dispatch(fetchUserInfo());
+    dispatch(push('/'));
+  }
 };
 
 export const attachFacebook = (fb_id, fb_token) => async dispatch => {
-  try {
-    const token = await getNewTokenAfterLinkingFacebook(fb_id, fb_token);
-    changeToken(token);
+  const resp = await errorHandler(
+    getNewTokenAfterLinkingFacebook(fb_id, fb_token),
+  );
+  if (resp.token) {
+    changeToken(resp.token);
     dispatch(fetchUserInfo());
-  } catch (e) {
-    console.log(e);
   }
 };
 
 export const detachFacebook = () => async dispatch => {
-  try {
-    const token = await getNewTokenAfterUnlinkingFacebook();
-    changeToken(token);
+  const resp = await errorHandler(getNewTokenAfterUnlinkingFacebook());
+  if (resp.token) {
+    changeToken(resp.token);
     dispatch(fetchUserInfo());
-  } catch (e) {
-    console.log(e);
   }
 };
 
 export const attachLocal = (id, password, callback) => async dispatch => {
-  try {
-    const token = await getNewTokenAfterLinkingLocalAccount(id, password);
-    changeToken(token);
+  const resp = await errorHandler(
+    getNewTokenAfterLinkingLocalAccount(id, password),
+  );
+  if (resp.token) {
+    changeToken(resp.token);
     dispatch(fetchUserInfo());
     callback();
-  } catch (e) {
-    console.log(e);
   }
 };
 
@@ -131,15 +129,12 @@ export const changePassword = (
   new_password,
   callback,
 ) => async dispatch => {
-  try {
-    const token = await getNewTokenAfterChangePassword(
-      old_password,
-      new_password,
-    );
-    changeToken(token);
+  const resp = await errorHandler(
+    getNewTokenAfterChangePassword(old_password, new_password),
+  );
+  if (resp.token) {
+    changeToken(resp);
     dispatch(fetchUserInfo());
     callback();
-  } catch (e) {
-    console.log(e);
   }
 };

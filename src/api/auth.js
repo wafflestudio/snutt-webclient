@@ -28,4 +28,4 @@ export const getTokenWithFacebookToken = async (fb_id, fb_token) =>
       fb_token,
     }),
     urlEncodedFormConfig,
-  )).data.token;
+  )).data;
