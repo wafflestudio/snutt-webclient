@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
+import * as api from 'api';
 import * as types from './actionTypes';
-import { apiKey, baseUrl } from '../config.js';
 import { complement } from '../components/MakeTimetable/Search/TimeQuery.jsx';
 
 export function hoverCourse(course) {
@@ -71,22 +71,11 @@ export function runQuery(textQuery) {
   };
 }
 
-export function sendQuery(query) {
-  return function(dispatch) {
-    dispatch(startQuery(query));
-    fetch(`${baseUrl}search_query/`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'x-access-apikey': apiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(query),
-    })
-      .then(resp => resp.json())
-      .then(json => dispatch(showResult(json)));
-  };
-}
+export const sendQuery = query => async dispatch => {
+  dispatch(startQuery(query));
+  const courses = await api.getQueryResults(query);
+  dispatch(showResult(courses));
+};
 
 export function startQuery(query) {
   return { type: types.START_QUERY, sent: query };

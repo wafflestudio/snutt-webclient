@@ -10,21 +10,15 @@ export const createAccount = async (id, password) =>
     urlEncodedFormConfig,
   )).data;
 
-export const getTokenWithIdPassword = async (id, password) => {
-  try {
-    const resp = await client.post(
-      'auth/login_local',
-      encodeParams({
-        id,
-        password,
-      }),
-      urlEncodedFormConfig,
-    );
-    return resp.data;
-  } catch (e) {
-    return e.response.data;
-  }
-};
+export const getTokenWithIdPassword = async (id, password) =>
+  (await client.post(
+    'auth/login_local',
+    encodeParams({
+      id,
+      password,
+    }),
+    urlEncodedFormConfig,
+  )).data;
 
 export const getTokenWithFacebookToken = async (fb_id, fb_token) =>
   (await client.post(
@@ -34,4 +28,4 @@ export const getTokenWithFacebookToken = async (fb_id, fb_token) =>
       fb_token,
     }),
     urlEncodedFormConfig,
-  )).data.token;
+  )).data;

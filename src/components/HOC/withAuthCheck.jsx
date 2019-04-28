@@ -3,11 +3,11 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-const withAuthCheck = (Component, needAuth = true) => props => {
+const withAuthCheck = (Component, needLogin = true) => props => {
   const { loggedIn, dispatch, ...rest } = props;
   useEffect(() => {
-    if (loggedIn !== needAuth) {
-      const redirectPath = needAuth ? '/login' : '/';
+    if (loggedIn !== needLogin) {
+      const redirectPath = needLogin ? '/login' : '/';
       dispatch(push(redirectPath));
     }
   });

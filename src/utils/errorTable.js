@@ -60,8 +60,12 @@ const errorTable = [
   { code: 16389, message: '서버에서 색깔 테마를 찾을 수 없습니다' },
 ];
 
-export const getErrorMessage = code => {
+export const getErrorMessage = (code, needDefault = true) => {
   const matchingError = errorTable.find(e => e.code === code);
-  return matchingError ? matchingError.message : '에러가 발생했습니다';
+  return matchingError
+    ? matchingError.message
+    : needDefault
+    ? '에러가 발생했습니다'
+    : '';
 };
 export default errorTable;

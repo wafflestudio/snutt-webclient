@@ -1,4 +1,5 @@
-import { CALL_API } from '../middleware/api';
+import * as api from 'api';
+import err from 'utils/errorHandler';
 
 export const GET_MESSAGE_START = 'GET_MESSAGE_START';
 export const GET_MESSAGE_OK = 'GET_MESSAGE_OK';
@@ -12,27 +13,14 @@ export const NOTIFICATION_FAIL = 'NOTIFICATION_FAIL';
 export const openMessageBox = () => ({ type: OPEN_MESSAGE_BOX });
 export const closeMessageBox = () => ({ type: CLOSE_MESSAGE_BOX });
 
-export function fetchMessages(limit = 10, offset) {
-  console.log('fetch message', limit, offset);
-  return {
-    [CALL_API]: {
-      endpoint: `notification?limit=${Number(limit)}&${Number(
-        offset,
-      )}&explicit=1`,
-      config: { method: 'get' },
-      authenticated: true,
-      types: [GET_MESSAGE_START, GET_MESSAGE_OK, NOTIFICATION_FAIL],
-    },
-  };
-}
+export const fetchMessages = (limit = 10, offset) => async dispatch => {
+  const response = await err(api.getMessages(limit, offset));
 
-export function checkNewMessage() {
-  return {
-    [CALL_API]: {
-      endpoint: 'notification/count',
-      config: { method: 'get' },
-      authenticated: true,
-      types: [CHECK_NEW_MESSAGE_START, CHECK_NEW_MESSAGE_OK, NOTIFICATION_FAIL],
-    },
-  };
-}
+  !response.error && dispatch({ type: GET_MESSAGE_OK, response });
+};
+
+export const checkNewMessages = () => async dispatch => {
+  const response = await err(api.getNewMessageCount());
+
+  !response.error && dispatch({ type: CHECK_NEW_MESSAGE_OK, response });
+};
