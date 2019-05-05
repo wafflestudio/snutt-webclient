@@ -32,12 +32,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 require('stylesheets/style.scss');
 
-if (process.env.NODE_ENV !== 'production') {
-  console.log('Looks like we are in development mode!');
-}
-
-require('stylesheets/style.scss');
-
 const history = createHistory();
 
 const reducer = combineReducers({
@@ -56,6 +50,11 @@ export const store = createStore(
       : f => f,
   ),
 );
+if (window.Cypress) {
+  console.log("It seems I'm under Cypress");
+  window.store = store;
+  console.log(window.store);
+}
 
 const RouteApp = () => (
   <App>

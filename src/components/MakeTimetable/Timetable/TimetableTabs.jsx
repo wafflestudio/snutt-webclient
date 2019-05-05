@@ -90,6 +90,7 @@ class TimetableTabs extends Component {
         <DeleteIcon
           className="svg-icon icon-delete"
           onClick={this.handleDelete.bind(this, id)}
+          data-cy="timetable-tab-delete"
         />
       </li>
     );

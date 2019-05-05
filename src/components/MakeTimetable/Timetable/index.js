@@ -35,9 +35,13 @@ class Timetable extends Component {
   render() {
     const { viewTableId, viewTable, previewed, handleDelete } = this.props;
 
-    const creditSum = viewTable
-      ? viewTable.lecture_list.reduce((sum, lecture) => sum + lecture.credit, 0)
-      : 0;
+    const creditSum =
+      viewTable && viewTable.lecture_list
+        ? viewTable.lecture_list.reduce(
+            (sum, lecture) => sum + lecture.credit,
+            0,
+          )
+        : 0;
     const courses = (viewTable && viewTable.lecture_list) || [];
 
     return (
