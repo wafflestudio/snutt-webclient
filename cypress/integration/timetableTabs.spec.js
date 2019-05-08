@@ -1,23 +1,29 @@
-import { cyan } from 'ansi-colors';
+import { createTable } from '../../src/actions/tableActions';
+const dispatch = action =>
+  cy
+    .window()
+    .its('store')
+    .invoke('dispatch', action);
 
 describe('Timetable Tabs', () => {
-  it('should have default table with given name', () => {
-    const defaultTableName = '나의 시간표';
+  it('should have default table', () => {
     cy.visit('/');
-    cy.get('.timetable-tabs > .tab-button:first-child .table-title').contains(
-      defaultTableName,
-    );
+    cy.get('.timetable-tabs > .tab-button:first-child').contains('나의 시간표');
   });
 
   describe('Add button', () => {
     it('should add new table at the last', () => {
+      cy.wait(5000);
+
       const newTableName = '너의 시간표';
       cy.visit('/', {
         onBeforeLoad(win) {
           cy.stub(win, 'prompt').returns(newTableName);
         },
       });
-      cy.wait(3000);
+      const defaultName = '나의 시간표';
+      cy.get('[data-cy=timetable-tab]').contains(defaultName);
+
       cy.get('[data-cy=add-new-timetable]').click();
       cy.window()
         .its('prompt')
@@ -30,6 +36,18 @@ describe('Timetable Tabs', () => {
   });
 
   describe('Tab button', () => {
+    beforeEach(() => {
+      cy.visit('/');
+      cy.get('.timetable-tabs > .tab-button:first-child').contains(
+        '나의 시간표',
+      );
+
+      dispatch(createTable('test table 2'));
+      cy.get('.timetable-tabs > .tab-button:nth-child(2').contains(
+        'test table 2',
+      );
+    });
+
     it('should change active table when clicked', () => {
       cy.get('.timetable-tabs > .tab-button:nth-child(2)').click();
       cy.get('.timetable-tabs > .tab-button:nth-child(2)').should(
@@ -45,14 +63,12 @@ describe('Timetable Tabs', () => {
     });
 
     it('should delete the table when delete button is clicked', () => {
-      cy.visit('/');
-      cy.get('.timetable-tabs > .tab-button:first-child svg', {
-        timeout: 20000,
-      }).click();
-      const remainingTableName = '너의 시간표';
-      cy.get('.timetable-tabs > .tab-button:first-child .table-title').should(
-        'not.exist',
-      );
+      cy.get('[data-cy=timetable-tab-delete]')
+        .first()
+        .click();
+      const remainingTableName = 'test table 2';
+      cy.get('[data-cy=timetable-tab]').contains(remainingTableName);
+      cy.get('[data-cy=timetable-tab]').should('have.length', 1);
     });
   });
 });

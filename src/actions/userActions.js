@@ -32,11 +32,9 @@ export const encodeParams = params =>
     .join('&');
 
 export const registerUser = (id, password) => async dispatch => {
-  const resp = await createAccount(id, password);
+  const resp = await err(createAccount(id, password));
   if (resp.message && resp.message === 'ok') {
     dispatch(loginLocal(id, password));
-  } else {
-    dispatch({ type: REGISTER_FAILURE, message: resp.message });
   }
 };
 
@@ -87,12 +85,12 @@ export const leaveFeedback = async (email, message, callback) => {
 
 export const deleteAccount = () => async dispatch => {
   const resp = await err(removeAccount());
-  if (resp.token) {
-    clearToken();
-    dispatch({ type: LOGOUT_SUCCESS });
-    dispatch(fetchUserInfo());
-    dispatch(push('/'));
-  }
+  if (resp.error) return;
+
+  clearToken();
+  dispatch(push('/'));
+  dispatch({ type: LOGOUT_SUCCESS });
+  dispatch(fetchUserInfo());
 };
 
 export const attachFacebook = (fb_id, fb_token) => async dispatch => {

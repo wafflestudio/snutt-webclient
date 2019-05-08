@@ -22,7 +22,7 @@ const mapStateToProps = ({
   }
 
   const viewTable = viewTableId && tableMap[viewTableId];
-  if (viewTable) {
+  if (viewTable && viewTable.lecture_list) {
     viewTable.lecture_list.forEach(lecture => {
       if (lecture.colorIndex && lecture.colorIndex < colorScheme.length) {
         lecture.color = colorScheme[lecture.colorIndex - 1];

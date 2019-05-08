@@ -79,6 +79,7 @@ class TimetableTabs extends Component {
         className={`tab-button${isActive ? ' active' : ''}`}
         key={id}
         onClick={this.handleSelect.bind(this, id)}
+        data-cy="timetable-tab"
       >
         <span
           onClick={isActive ? this.handleTitleUpdate : null}
@@ -89,6 +90,7 @@ class TimetableTabs extends Component {
         <DeleteIcon
           className="svg-icon icon-delete"
           onClick={this.handleDelete.bind(this, id)}
+          data-cy="timetable-tab-delete"
         />
       </li>
     );
@@ -110,7 +112,11 @@ class TimetableTabs extends Component {
         />
       </li>,
     );
-    return <ul className="tab-list timetable-tabs">{buttons}</ul>;
+    return (
+      <ul className="tab-list timetable-tabs" data-cy="timetable-tabs">
+        {buttons}
+      </ul>
+    );
   }
 }
 

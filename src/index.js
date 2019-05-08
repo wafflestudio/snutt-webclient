@@ -18,7 +18,6 @@ import * as serviceWorker from './serviceWorker';
 import {
   App,
   MakeTimetable,
-  About,
   Login,
   SignUp,
   MyPage,
@@ -26,12 +25,6 @@ import {
   withAuthCheck,
   Feedback,
 } from './components';
-
-if (process.env.NODE_ENV !== 'production') {
-  console.log('Looks like we are in development mode!');
-}
-
-require('stylesheets/style.scss');
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
@@ -57,12 +50,16 @@ export const store = createStore(
       : f => f,
   ),
 );
+if (window.Cypress) {
+  console.log("It seems I'm under Cypress");
+  window.store = store;
+  console.log(window.store);
+}
 
 const RouteApp = () => (
   <App>
     <Switch>
       <Route exact path="/" component={MakeTimetable} />
-      <Route exact path="/about" component={About} />
       <Route exact path="/login" component={withAuthCheck(Login, false)} />
       <Route exact path="/signup" component={withAuthCheck(SignUp, false)} />
       <Route exact path="/findPassword" component={FindPassword} />

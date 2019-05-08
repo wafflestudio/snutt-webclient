@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import errorHandler from '../utils/errorHandler';
 
-describe('Error handler util', () => {
+describe('Utils/ Error handler util', () => {
   it('returns resolved value of input promise', async () => {
     const value = 'hi';
     const inputPromise = new Promise(resolve => resolve(value));
@@ -38,7 +38,7 @@ describe('Error handler util', () => {
       expect(window.alert.mock.calls[0][0]).toBe(ERROR_MESSAGE_KR);
     });
 
-    it('with no alert if option is passed', async () => {
+    it('without alert if option is passed', async () => {
       window.alert = jest.fn();
       await errorHandler(axios.get('/login_local'), false);
 
