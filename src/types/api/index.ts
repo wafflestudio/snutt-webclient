@@ -1,8 +1,3 @@
-import { LectureColor, CourseBook } from '../index';
-
-export interface PaletteResponse {
+export interface FeedbackResp {
   message: string;
-  colors: LectureColor[];
 }
-
-export type CourseBookResponse = Array<CourseBook>;
