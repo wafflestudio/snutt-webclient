@@ -1,4 +1,4 @@
-module.exports = {
+const sampleCourse = {
   year: 2016,
   semester: 1,
   classification: '교양',
@@ -47,3 +47,5 @@ module.exports = {
     fg: '#1A1413',
   },
 };
+
+export default sampleCourse;

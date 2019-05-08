@@ -1,3 +1,5 @@
+import { LectureColor } from 'types';
+
 import client, { encodeParams, urlEncodedFormConfig } from './client';
 export * from './user';
 export * from './auth';

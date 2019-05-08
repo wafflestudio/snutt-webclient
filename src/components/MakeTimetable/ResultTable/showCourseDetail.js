@@ -1,5 +1,4 @@
-module.exports = function(year, semester, course_number, lecture_number) {
-  console.log(arguments);
+export default (year, semester, course_number, lecture_number) => {
   let openShtmFg = null,
     openDetaShtmFg = null;
   if (semester === '1') {
