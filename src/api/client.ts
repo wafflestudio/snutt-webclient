@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { apiKey, baseUrl } from '../config';
 import { getToken } from 'utils/auth';
 
@@ -7,7 +8,7 @@ const client = axios.create({
 });
 
 // Code snippet from https://github.com/github/fetch/issues/263
-export const encodeParams = params =>
+export const encodeParams = (params: { [key: string]: string }) =>
   Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     .join('&');
