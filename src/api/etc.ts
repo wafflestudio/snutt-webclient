@@ -2,7 +2,7 @@ import {
   Lecture,
   LectureColor,
   CourseBook,
-  FeedbackResp,
+  FeedbackResponse,
   LectureQuery,
 } from 'types';
 import client, { encodeParams, urlEncodedFormConfig } from './client';
@@ -19,7 +19,7 @@ export const getCoursebooks = async (): Promise<CourseBook[]> => {
 export const postFeedback = async (
   email: string,
   message: string,
-): Promise<FeedbackResp> =>
+): Promise<FeedbackResponse> =>
   (await client.post(
     'feedback/',
     encodeParams({ email, message }),

@@ -2,7 +2,8 @@ interface SimpleResultResposne {
   message: string;
 }
 
-export interface FeedbackResp extends SimpleResultResposne {}
+export interface FeedbackResponse extends SimpleResultResposne {}
+export interface UnregisterResponse extends SimpleResultResposne {}
 
 export interface NotificationCountResponse {
   count: number;
