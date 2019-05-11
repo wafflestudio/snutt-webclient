@@ -8,9 +8,12 @@ const client = axios.create({
 });
 
 // Code snippet from https://github.com/github/fetch/issues/263
-export const encodeParams = (params: { [key: string]: string }) =>
+export const encodeParams = (params: { [key: string]: string | number }) =>
   Object.keys(params)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    .map(
+      key =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(String(params[key]))}`,
+    )
     .join('&');
 
 export const urlEncodedFormConfig = {

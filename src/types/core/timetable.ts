@@ -1,15 +1,5 @@
 import { Lecture } from './lecture';
 
-export interface Timetable {
-  _id?: string;
-  user_id: string;
-  year: number;
-  semester: number;
-  title: string;
-  lecture_list: UserLecture[];
-  updated_at: number;
-}
-
 export interface AbstractTimetable {
   _id: string;
   year: number;
@@ -18,16 +8,14 @@ export interface AbstractTimetable {
   updated_at: Date;
 }
 
+export interface Timetable extends AbstractTimetable {
+  user_id: string;
+  lecture_list: UserLecture[];
+}
+
 export interface LectureColor {
   fg: string;
   bg: string;
-}
-
-export interface TimePlace {
-  day: number;
-  start: number;
-  len: number;
-  place: string;
 }
 
 export interface UserLecture extends Lecture {

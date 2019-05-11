@@ -1,5 +1,3 @@
-import { TimePlace } from './timetable';
-
 export interface Lecture {
   _id?: string;
   classification: string; // 교과 구분
@@ -21,4 +19,11 @@ export interface RefLecture extends Lecture {
   semester: number; // 학기
   course_number: string; // 교과목 번호
   lecture_number: string; // 강좌 번호
+}
+
+export interface TimePlace {
+  day: number;
+  start: number;
+  len: number;
+  place: string;
 }
