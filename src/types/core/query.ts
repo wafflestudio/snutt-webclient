@@ -1,5 +1,4 @@
 import { Semester } from './coursebook';
-import { TimePlace } from './timetable';
 
 // https://github.com/wafflestudio/snutt/wiki/API-Search-Query
 export interface LectureQuery {
