@@ -1,3 +1,5 @@
+import { Reducer } from 'redux';
+
 import {
   NotificationState,
   NotficationActionTypes,
@@ -15,10 +17,10 @@ const initialState: NotificationState = {
   hasNew: false,
 };
 
-export const notificationReducer = (
-  state = initialState,
-  action: NotficationActionTypes,
-) => {
+export const notificationReducer: Reducer<
+  NotificationState,
+  NotficationActionTypes
+> = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_MESSAGE_BOX:
       return { ...state, opened: true };

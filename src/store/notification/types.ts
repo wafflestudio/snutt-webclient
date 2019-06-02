@@ -32,7 +32,7 @@ export type NotficationActionTypes =
 export interface NotificationState {
   fetching: boolean;
   offset: number;
-  messages: [];
+  messages: Notification[];
   opened: boolean;
   hasNew: boolean;
 }

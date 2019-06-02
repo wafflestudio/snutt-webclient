@@ -55,6 +55,6 @@ export const updateLecture = async (
   tableId: string,
   lectureId: string,
   updatedLecture: Partial<Lecture>,
-) =>
+): Promise<Timetable> =>
   (await client.put(`tables/${tableId}/lecture/${lectureId}`, updatedLecture))
     .data;
