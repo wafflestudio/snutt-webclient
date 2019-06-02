@@ -2,7 +2,8 @@ import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
 import { tableList, tagList } from './timetables';
 import user from './user';
-import notification from './notification';
+// import notification from './notification';
+import { notificationReducer } from '../store/notification/reducers';
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
@@ -173,7 +174,7 @@ const reducer = {
   tableList,
   tagList,
   courseEditor,
-  notification,
+  notification: notificationReducer,
 };
 
 // This file exports a mere object, which is to be combined at src/index.js later.

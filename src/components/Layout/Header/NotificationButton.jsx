@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  fetchMessages,
+  getMessagesThunk,
   openMessageBox,
   closeMessageBox,
-} from '../../../actions/notification';
+} from 'store/notification/actions';
 import NotificationMessages from './NotificationMessages.jsx';
 import { visitChecker, welcomeMessage } from './visitorChecker';
 
@@ -32,7 +32,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateMessage: offset => dispatch(fetchMessages(AMOUNT_PER_REQUEST, offset)),
+  updateMessage: offset =>
+    dispatch(getMessagesThunk(AMOUNT_PER_REQUEST, offset)),
   openMessageBox: () => dispatch(openMessageBox()),
   closeMessageBox: () => {
     visitChecker.markUserVisited();
