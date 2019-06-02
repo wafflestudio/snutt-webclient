@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+
+import { closeCourse } from 'store/courseEditor/actions';
+import { updateLecture, addCustomLecture } from 'store/timetable/actions';
+
 import ColorPicker from './ColorPicker.jsx';
 import timeJsonToMask from './maskConverter';
-import {
-  addCustomLecture,
-  updateLecture,
-  closeCourse,
-} from '../../../actions/tableActions';
 import JsonEditor from './JsonEditor.jsx';
 
 const mapStateToProps = state => {
@@ -35,11 +34,11 @@ class CourseEditor extends React.PureComponent {
 
     const { course } = props;
     const colorIndex =
-      course.colorIndex > 0 || course.color
+      course && course.colorIndex > 0
         ? course.colorIndex
         : Math.ceil(Math.random() * props.colorScheme.length);
     const color =
-      colorIndex > 0 ? props.colorScheme[colorIndex - 1] : course.color;
+      course && course.color ? course.color : props.colorScheme[colorIndex - 1];
     this.state = {
       isNew: Object.keys(course).length === 0,
       _id: course._id || '', // || for new course
@@ -90,6 +89,7 @@ class CourseEditor extends React.PureComponent {
     } else {
       this.props.onUpdateLecture(this.state._id, editedLecture);
     }
+    this.props.onCourseClose();
   }
 
   handleClose(e) {

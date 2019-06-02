@@ -1,11 +1,11 @@
 import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
-import { tableList, tagList } from './timetables';
 import user from './user';
-// import notification from './notification';
-import { notificationReducer } from '../store/notification/reducers';
-import { courseEditorReducer } from '../store/courseEditor/reducers';
-import { courseBook, courseBookReducer } from '../store/courseBook/reducers';
+
+import { notificationReducer } from 'store/notification/reducers';
+import { courseEditorReducer } from 'store/courseEditor/reducers';
+import { timetableReducer } from 'store/timetable/reducers';
+import { courseBookReducer } from 'store/courseBook/reducers';
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
@@ -136,8 +136,7 @@ const reducer = {
   filter,
   leftTabSearching,
   user,
-  tableList,
-  tagList,
+  tableList: timetableReducer,
   courseEditor: courseEditorReducer,
   notification: notificationReducer,
 };

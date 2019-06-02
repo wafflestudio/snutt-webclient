@@ -1,4 +1,4 @@
-import { createTable } from '../../src/actions/tableActions';
+import { createTable } from '../../src/store/timetable/actions';
 const dispatch = action =>
   cy
     .window()

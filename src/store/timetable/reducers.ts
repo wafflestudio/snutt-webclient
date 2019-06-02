@@ -65,7 +65,7 @@ export const timetableReducer: Reducer<
       };
     }
 
-    case getType(actions.switchTable): {
+    case getType(actions.updateViewTable): {
       const updatedTable = action.payload.table;
       if (updatedTable._id) {
         const { tableMap: oldTableMap } = state;

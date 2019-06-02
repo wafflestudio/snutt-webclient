@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  addLecture,
-  deleteLecture,
-  editCourse,
-} from '../../../actions/tableActions';
+import { deleteLecture, addLecture } from 'store/timetable/actions';
+import { editCourse } from 'store/courseEditor/actions';
 import showCourseDetail from './showCourseDetail.js';
 
 function mapStateToProps(state) {

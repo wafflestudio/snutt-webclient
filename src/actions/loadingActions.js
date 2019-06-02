@@ -7,8 +7,13 @@ import {
   getNewMessageCount,
   postNewTable,
 } from 'api';
+
 import * as types from 'actions/actionTypes';
-import { switchTable } from 'actions/tableActions';
+import {
+  switchTable,
+  updateTimetableList,
+  updateColorScheme,
+} from 'store/timetable/actions';
 import { checkNewMessages } from 'store/notification/actions';
 import { loadCourseBook, changeCourseBook } from 'store/courseBook/actions';
 import { getToken, saveToken } from 'utils/auth';
@@ -20,19 +25,13 @@ import err from 'utils/errorHandler';
  * Then invoke loading timetables of user
  */
 export const initialize = () => async dispatch => {
-  const resp = await err(Promise.all([getColorPalette(), getCoursebooks()]));
-  if (resp.error) return;
-
+  const resp = await Promise.all([getColorPalette(), getCoursebooks()]);
   const [colors, courseBooks] = resp;
 
   const recentCourseBook = courseBooks[0];
   dispatch(changeCourseBook(recentCourseBook));
   dispatch(loadCourseBook(courseBooks));
-  dispatch({
-    type: types.LOAD_OK,
-    colors,
-  });
-
+  dispatch(updateColorScheme(colors));
   dispatch(fetchUserInfo());
 };
 
@@ -64,7 +63,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
     }
 
     dispatch({ type: types.LOGIN_OK, userInfo });
-    dispatch({ type: types.GET_TABLELIST, tableList });
+    dispatch(updateTimetableList(tableList));
     dispatch(switchTable(viewTableId));
     dispatch(checkNewMessages(notiCount.count));
   } catch (e) {

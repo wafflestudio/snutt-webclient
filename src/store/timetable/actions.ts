@@ -5,7 +5,7 @@ import { Action } from 'redux';
 import { AppState } from '../index';
 import * as api from 'api';
 import { Lecture, Timetable, AbstractTimetable, LectureColor } from 'types';
-import { findViewTableIdForSemester } from 'actions/loadingActions';
+import { findViewTableIdForSemester } from './utils';
 
 /**
  * Action creators
@@ -32,8 +32,8 @@ export const updateColorScheme = createAction(
   action => (colorScheme: LectureColor[]) => action({ colorScheme }),
 );
 
-export const switchTable = createAction(
-  '@table/switchTable',
+export const updateViewTable = createAction(
+  '@table/updateViewTable',
   action => (table: Timetable) => action({ table }),
 );
 
@@ -42,7 +42,7 @@ export type TimetableActionTypes =
   | ReturnType<typeof updateTimetable>
   | ReturnType<typeof updateTimetableList>
   | ReturnType<typeof updateColorScheme>
-  | ReturnType<typeof switchTable>;
+  | ReturnType<typeof updateViewTable>;
 
 /**
  * Thunk actions
@@ -81,7 +81,8 @@ export const deleteLecture = (
   const { viewTableId } = getState().tableList;
   const response =
     viewTableId && (await api.deleteLecture(viewTableId, lectureId));
-  response && dispatch(updateTimetableList(response));
+
+  response && dispatch(updateTimetable(response));
 };
 
 export const updateLecture = (
@@ -111,20 +112,31 @@ export const createTable = (
   year: number,
   semester: number,
 ): ThunkAction<void, AppState, null, Action> => async (dispatch, getState) => {
-  const resp = await api.postNewTable(year, semester, newTitle);
+  const currentBook = getState().courseBook.current;
+  if (!currentBook) return;
+  const { year, semester } = currentBook;
 
+  const resp = await api.postNewTable(year, semester, newTitle);
   resp && dispatch(updateTimetableList(resp));
 };
 
 export const deleteTable = (
   _id: string,
 ): ThunkAction<void, AppState, null, Action> => async (dispatch, getState) => {
+  const currentBook = getState().courseBook.current;
+  if (!currentBook) return;
+  const { year, semester } = currentBook;
+
   const tableList = await api.deleteTableById(_id);
+  // find another table to show
+  const nextViewTableId = findViewTableIdForSemester(year, semester, tableList);
+  nextViewTableId && dispatch(switchTable(nextViewTableId));
+  dispatch(updateTimetableList(tableList));
+};
 
-  // check if current table is remaining
-  // const { year, semester } = getState().courseBook.current
-  // const nextViewTableId = findViewTableIdForSemester(year, semester, tableList);
-
-  // dispatch({ type: SWITCH_TABLE_OK, response: { _id: nextViewTableId } });
-  // dispatch({ type: DELETE_TABLE_OK, tableList });
+export const switchTable = (
+  tableId: string,
+): ThunkAction<void, AppState, null, Action> => async dispatch => {
+  const table = await api.getTable(tableId);
+  table && dispatch(updateViewTable(table));
 };

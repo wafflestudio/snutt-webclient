@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import {
-  switchTable,
   createTable,
-  deleteTable,
   updateTitle,
-} from '../../../actions/tableActions';
+  deleteTable,
+  switchTable,
+} from 'store/timetable/actions';
 
 import IconWrapper from '../../Common/IconWrapper.jsx';
 import { ReactComponent as AddIconNormal } from 'assets/ic-addtab-normal.svg';

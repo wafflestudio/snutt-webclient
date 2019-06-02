@@ -48,7 +48,7 @@ export const addCustomLecture = async (
 export const deleteLecture = async (
   tableId: string,
   lectureId: string,
-): Promise<AbstractTimetable[]> =>
+): Promise<Timetable> =>
   (await client.delete(`tables/${tableId}/lecture/${lectureId}`)).data;
 
 export const updateLecture = async (

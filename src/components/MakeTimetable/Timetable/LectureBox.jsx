@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { editCourse } from '../../../actions/tableActions';
+import { editCourse } from 'store/courseEditor/actions';
+import { deleteLecture } from 'store/timetable/actions';
 import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
 
 import IconWrapper from '../../Common/IconWrapper';
@@ -24,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
   onHover: course => dispatch(tableHoverCourse(course)),
   onUnhover: () => dispatch(tableUnhoverCourse()),
   onEdit: course => dispatch(editCourse(course)),
+  onDelete: id => dispatch(deleteLecture(id)),
 });
 
 const DEFAULT_COLOR = { fg: '#1579C2', bg: '#94E6FE' };

@@ -6,12 +6,12 @@ import * as actions from './actions';
 
 interface CourseEditorState {
   isOpen: boolean;
-  course: Partial<Lecture> | null;
+  course: Partial<Lecture>;
 }
 
 const initialState: CourseEditorState = {
   isOpen: false,
-  course: null,
+  course: {},
 };
 
 export const courseEditorReducer: Reducer<
@@ -22,7 +22,7 @@ export const courseEditorReducer: Reducer<
     case getType(actions.createNewCourse): {
       return {
         isOpen: true,
-        course: null,
+        course: {},
       };
     }
     case getType(actions.editCourse): {
