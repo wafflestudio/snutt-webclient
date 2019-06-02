@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
-import { changeCoursebook } from '../../../actions/loadingActions';
+import { changeCoursebookAndTimetable } from 'actions/loadingActions';
 import DropdownArrow from '../../Common/DropdownArrow.jsx';
 
 const mapStateToProps = ({ courseBook }) => {
-  const courseBookJS = courseBook.toJS();
   return {
-    courseBooks: courseBookJS.available,
-    currentBook: courseBookJS.current,
+    courseBooks: courseBook.available,
+    currentBook: courseBook.current,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   selectCoursebook: ({ year, semester }) =>
-    dispatch(changeCoursebook({ year, semester })),
+    dispatch(changeCoursebookAndTimetable({ year, semester })),
 });
 
 // Utils for labels

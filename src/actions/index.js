@@ -43,7 +43,7 @@ export function runQuery(textQuery) {
       filter: { useTime, searchEmptySlot },
       tableList: { viewLectures },
     } = getState();
-    const { year, semester } = courseBook.get('current');
+    const { year, semester } = courseBook.current;
     const queries = query.toJS();
 
     const validQuery = { year, semester, title: textQuery, limit: 200 };

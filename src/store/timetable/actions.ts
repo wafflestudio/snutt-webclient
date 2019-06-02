@@ -122,7 +122,7 @@ export const deleteTable = (
   const tableList = await api.deleteTableById(_id);
 
   // check if current table is remaining
-  // const { year, semester } = getState().courseBook.get('current');
+  // const { year, semester } = getState().courseBook.current
   // const nextViewTableId = findViewTableIdForSemester(year, semester, tableList);
 
   // dispatch({ type: SWITCH_TABLE_OK, response: { _id: nextViewTableId } });

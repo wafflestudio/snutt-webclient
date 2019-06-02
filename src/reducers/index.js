@@ -4,6 +4,8 @@ import { tableList, tagList } from './timetables';
 import user from './user';
 // import notification from './notification';
 import { notificationReducer } from '../store/notification/reducers';
+import { courseEditorReducer } from '../store/courseEditor/reducers';
+import { courseBook, courseBookReducer } from '../store/courseBook/reducers';
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
@@ -70,25 +72,6 @@ function searchResults(state = null, action) {
   }
 }
 
-const defaultCoursebook = Immutable.fromJS({
-  available: [],
-  current: null,
-});
-
-function courseBook(state = defaultCoursebook, action) {
-  switch (action.type) {
-    case types.LOAD_OK:
-      const { courseBooks } = action;
-      return state.set('available', courseBooks);
-    case types.FETCH_COURSEBOOK:
-      return state.set('available', action.courseBooks);
-    case types.CHANGE_COURSEBOOK:
-      return state.set('current', action.newCourseBook);
-    default:
-      return state;
-  }
-}
-
 function isQuerying(state = false, action) {
   switch (action.type) {
     case types.START_QUERY:
@@ -143,37 +126,19 @@ function leftTabSearching(state = false, action) {
   }
 }
 
-const courseEditorDefault = {
-  isOpen: false,
-  course: null,
-};
-function courseEditor(state = courseEditorDefault, action) {
-  switch (action.type) {
-    case types.CREATE_COURSE:
-    case types.EDIT_COURSE:
-      return { isOpen: true, course: action.course };
-    case types.ADD_LECTURE_OK:
-    case types.UPDATE_LECTURE_OK:
-    case types.CLOSE_COURSE:
-      return courseEditorDefault;
-    default:
-      return state;
-  }
-}
-
 const reducer = {
   hoveredCourse,
   tableHoveredCourse,
   query,
   searchResults,
-  courseBook,
+  courseBook: courseBookReducer,
   isQuerying,
   filter,
   leftTabSearching,
   user,
   tableList,
   tagList,
-  courseEditor,
+  courseEditor: courseEditorReducer,
   notification: notificationReducer,
 };
 

@@ -12,7 +12,7 @@ function mapStateToProps(state) {
   if (!state.courseBook) {
     return { searching: state.leftTabSearching };
   }
-  const { year, semester } = state.courseBook.get('current');
+  const { year, semester } = state.courseBook.current;
   const semesterStr = ['_', '1', 'S', '2', 'W'][semester];
   return { searching: state.leftTabSearching, year, semesterStr };
 }
