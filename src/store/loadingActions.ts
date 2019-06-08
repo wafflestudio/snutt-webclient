@@ -1,3 +1,6 @@
+import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+
 import {
   getColorPalette,
   getCoursebooks,
@@ -7,8 +10,9 @@ import {
   getNewMessageCount,
   postNewTable,
 } from 'api';
+import { AbstractTimetable, CourseBook } from 'types';
 
-import * as types from 'actions/actionTypes';
+import { AppState } from 'store';
 import {
   switchTable,
   updateTimetableList,
@@ -16,6 +20,7 @@ import {
 } from 'store/timetable/actions';
 import { checkNewMessages } from 'store/notification/actions';
 import { loadCourseBook, changeCourseBook } from 'store/courseBook/actions';
+import { login } from 'store/user/actions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';
 
@@ -24,7 +29,12 @@ import err from 'utils/errorHandler';
  * Load list of coursebook, tags, and color palettes.
  * Then invoke loading timetables of user
  */
-export const initialize = () => async dispatch => {
+export const initialize = (): ThunkAction<
+  void,
+  AppState,
+  null,
+  Action
+> => async dispatch => {
   const resp = await Promise.all([getColorPalette(), getCoursebooks()]);
   const [colors, courseBooks] = resp;
 
@@ -35,15 +45,20 @@ export const initialize = () => async dispatch => {
   dispatch(fetchUserInfo());
 };
 
-export const fetchUserInfo = () => async (dispatch, getState) => {
+export const fetchUserInfo = (): ThunkAction<
+  void,
+  AppState,
+  null,
+  Action
+> => async (dispatch, getState) => {
   try {
     // Find existing token or get new token
     let token = getToken();
-    token && console.log(`found existing token ${token}`);
-    if (!token || token === 'undefined') {
-      console.log('issuing new temp token');
+    token && console.debug(`found existing token ${token}`);
+    if (!token) {
+      console.debug('issuing new temp token');
       const resp = await getTemporaryToken();
-      resp.token && saveToken(resp.token);
+      if ('token' in resp) resp.token && saveToken(resp.token);
     }
 
     // Fetch user info and saved tables
@@ -54,17 +69,19 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
     ]);
 
     // set viewTableId
-    const { year, semester } = getState().courseBook.current;
+    const currentCoursebook = getState().courseBook.current;
+    if (!currentCoursebook) return;
+    const { year, semester } = currentCoursebook;
     let viewTableId = findViewTableIdForSemester(year, semester, tableList);
 
     if (!viewTableId) {
       tableList = await postNewTable(year, semester, '나의 시간표');
+      // Now we can assure that there is at least one viewTable for this semester
       viewTableId = findViewTableIdForSemester(year, semester, tableList);
     }
-
-    dispatch({ type: types.LOGIN_OK, userInfo });
+    dispatch(login(userInfo));
     dispatch(updateTimetableList(tableList));
-    dispatch(switchTable(viewTableId));
+    dispatch(switchTable(viewTableId as string));
     dispatch(checkNewMessages(notiCount.count));
   } catch (e) {
     alert('초기화 중 에러가 발생했습니다');
@@ -73,13 +90,12 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
 };
 
 // Set of actions that should be along with new coursebook
-export const changeCoursebookAndTimetable = newCourseBook => async (
-  dispatch,
-  getState,
-) => {
+export const changeCoursebookAndTimetable = (
+  newCourseBook: CourseBook,
+): ThunkAction<void, AppState, null, Action> => async (dispatch, getState) => {
   dispatch(changeCourseBook(newCourseBook));
   const { user, tableList } = getState();
-  if (!user.id) return;
+  if (!user.user) return;
   const { year, semester } = newCourseBook;
   let newViewTableId = findViewTableIdForSemester(
     year,
@@ -87,22 +103,24 @@ export const changeCoursebookAndTimetable = newCourseBook => async (
     Object.values(tableList.tableMap),
   );
 
-  // If table for new semester do not exists, create new one
   if (!newViewTableId) {
     const newTableList = await err(postNewTable(year, semester, '나의 시간표'));
     if (!newTableList.error) {
-      dispatch({ type: types.CREATE_TABLE_OK, tableList: newTableList });
+      dispatch(updateTimetableList(newTableList));
       newViewTableId = findViewTableIdForSemester(year, semester, newTableList);
     }
   }
-
-  dispatch(switchTable(newViewTableId));
+  dispatch(switchTable(newViewTableId as string));
 };
 
 /**
  * Helper
  */
-export const findViewTableIdForSemester = (year, semester, tableList) => {
+export const findViewTableIdForSemester = (
+  year: number,
+  semester: number,
+  tableList: AbstractTimetable[],
+) => {
   const tablesForSemester = tableList.filter(
     t => t.year === year && t.semester === semester,
   );

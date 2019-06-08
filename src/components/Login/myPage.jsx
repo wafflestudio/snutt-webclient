@@ -10,7 +10,7 @@ import {
   detachFacebook,
   attachLocal,
   changePassword,
-} from '../../actions/userActions';
+} from 'store/user/actions';
 import { fbAppId } from '../../config';
 
 const mapStateToProps = state => {

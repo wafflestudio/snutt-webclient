@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import { leaveFeedback } from '../../actions/userActions';
+import { leaveFeedback } from 'store/user/actions';
 
 class FeedbackForm extends Component {
   constructor() {
@@ -15,9 +15,11 @@ class FeedbackForm extends Component {
 
   handleEmailChange = e => this.setState({ email: e.target.value });
   handleContentChange = e => this.setState({ content: e.target.value });
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-    leaveFeedback(this.state.email, this.state.content, () => this.props.dispatch(push('/')));
+    leaveFeedback(this.state.email, this.state.content, () =>
+      this.props.dispatch(push('/')),
+    );
   };
 
   render() {

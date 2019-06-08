@@ -8,7 +8,7 @@ export const clearToken = () => {
   localStorage.removeItem('snutt_token');
 };
 
-export const saveToken = (token, atLocal = true) => {
+export const saveToken = (token: string, atLocal = true) => {
   clearToken();
   if (atLocal) {
     localStorage.setItem('snutt_token', token);
@@ -17,18 +17,18 @@ export const saveToken = (token, atLocal = true) => {
   }
 };
 
-export const changeToken = newToken => {
+export const changeToken = (newToken: string) => {
   const storage = sessionStorage.getItem('snutt_token')
     ? sessionStorage
     : localStorage;
   clearToken();
-  console.log(
+  console.debug(
     'OLD',
     sessionStorage.getItem('snutt_token'),
     localStorage.getItem('snutt_token'),
   );
   storage.setItem('snutt_token', newToken);
-  console.log(
+  console.debug(
     'NEW',
     sessionStorage.getItem('snutt_token'),
     localStorage.getItem('snutt_token'),

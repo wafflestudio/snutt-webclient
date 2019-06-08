@@ -9,6 +9,7 @@
     "@storybook/addons": "^4.1.11",
     "@storybook/react": "^4.1.11",
     "@types/react-redux": "^7.0.9",
+    "@types/react-router-redux": "^5.0.18",
     "babel-loader": "8.0.4",
     "concurrently": "^4.1.0",
     "customize-cra": "^0.2.11",

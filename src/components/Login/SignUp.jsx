@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import RuledInput from './RuledInput.jsx';
-import { registerUser } from '../../actions/userActions';
+import { registerUser } from 'store/user/actions';
 
 const mapStateToProps = state => ({ user: state.user });
 

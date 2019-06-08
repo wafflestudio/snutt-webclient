@@ -1,11 +1,11 @@
 import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
-import user from './user';
 
 import { notificationReducer } from 'store/notification/reducers';
 import { courseEditorReducer } from 'store/courseEditor/reducers';
 import { timetableReducer } from 'store/timetable/reducers';
 import { courseBookReducer } from 'store/courseBook/reducers';
+import { userReducer } from 'store/user/reducers';
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
@@ -135,7 +135,7 @@ const reducer = {
   isQuerying,
   filter,
   leftTabSearching,
-  user,
+  user: userReducer,
   tableList: timetableReducer,
   courseEditor: courseEditorReducer,
   notification: notificationReducer,
