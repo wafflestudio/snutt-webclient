@@ -31,4 +31,14 @@ client.interceptors.request.use(function(config) {
   return config;
 });
 
+client.interceptors.response.use(
+  r => r,
+  e => {
+    if (e.response) {
+      return Promise.resolve(e.response);
+    }
+    return Promise.resolve(null);
+  },
+);
+
 export default client;
