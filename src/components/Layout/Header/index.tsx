@@ -1,23 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { AppState } from 'store';
 import CourseSelector from './CourseSelector.jsx';
 import SearchBar from './SearchBar.jsx';
 import Notification from './NotificationButton.jsx';
 
 import { ReactComponent as Logo } from 'assets/logo.svg';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState) => {
   const {
-    user: { loggedIn, id },
+    user: { user },
   } = state;
-  return { loggedIn, id };
+  const username = (user && (user.fb_name || user.local_id)) || null;
+  return { username };
 };
 
-const LoginStatus = ({ loggedIn, id }) =>
-  loggedIn ? (
+interface Props {
+  username: string | null;
+}
+
+const LoginStatus: React.FC<Props> = ({ username }) =>
+  username ? (
     <Link to="/myPage">
-      <div data-cy="profile" id="profile">{`${id}님`}</div>
+      <div data-cy="profile" id="profile">{`${username}님`}</div>
     </Link>
   ) : (
     <Link to="/login">
@@ -27,16 +34,15 @@ const LoginStatus = ({ loggedIn, id }) =>
     </Link>
   );
 
-const Header = ({ loggedIn, id }) => (
+const Header: React.FC<Props> = ({ username }) => (
   <div id="header">
     <div id="header-container">
-      {/* Brand  */}
       <Link to="/">
         <Logo id="logo" />
         <div id="brand">SNUTT</div>
       </Link>
       <CourseSelector />
-      <LoginStatus loggedIn={loggedIn} id={id} />
+      <LoginStatus username={username} />
       <Notification />
       <SearchBar />
     </div>
