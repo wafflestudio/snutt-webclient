@@ -9,20 +9,22 @@ export interface NotificationCountResponse {
   count: number;
 }
 
-export interface TokenSuccessfulResponse extends SimpleResultResposne {
+export interface TokenSuccessResponse {
+  token: string;
+}
+
+export interface RegisterSuccessResponse extends SimpleResultResposne {
   token: string;
   user_id: string;
 }
 
-export interface AuthenticationErrorResponse {
+export interface ErrorResponse {
   message: string;
   errcode: number;
 }
 
-export type TokenResponse =
-  | TokenSuccessfulResponse
-  | AuthenticationErrorResponse;
+export type TokenResponse = TokenSuccessResponse | ErrorResponse;
 
-export type RegistalLocalResponse = TokenResponse;
+export type RegistalLocalResponse = RegisterSuccessResponse | ErrorResponse;
 
 export interface LogoutResponse extends SimpleResultResposne {}

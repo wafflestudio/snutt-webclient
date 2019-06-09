@@ -35,11 +35,21 @@ client.interceptors.request.use(function(config) {
 client.interceptors.response.use(
   r => r,
   e => {
+    console.debug(e);
     if (e.response) {
-      if (e.response.errcode && getErrorMessage(e.response.errcode)) {
+      console.debug(e.response);
+      if (
+        e.response.data &&
+        e.response.data.errcode &&
+        getErrorMessage(e.response.data.errcode)
+      ) {
+        const messageKorean = getErrorMessage(e.response.data.errcode);
         return Promise.resolve({
           ...e.response,
-          message: getErrorMessage(e.response.errcode),
+          data: {
+            ...e.response.data,
+            message: messageKorean,
+          },
         });
       }
       return Promise.resolve(e.response);

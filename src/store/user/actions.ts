@@ -3,12 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import { createAction } from 'typesafe-actions';
 import { push } from 'react-router-redux';
 
-import {
-  TokenSuccessfulResponse,
-  AuthenticationErrorResponse,
-  Error,
-  User,
-} from 'types';
+import { TokenSuccessResponse, ErrorResponse, Error, User } from 'types';
 import { saveToken, clearToken, changeToken } from 'utils/auth';
 import { AppState } from '../index';
 import { encodeParams } from './utils';
@@ -47,16 +42,6 @@ export type UserActionTypes =
 /**
  * Thunk actions
  */
-export const registerUser = (
-  id: string,
-  password: string,
-): ThunkAction<void, AppState, null, Action> => async dispatch => {
-  const resp = await createAccount(id, password);
-  if (resp.message && resp.message === 'ok') {
-    dispatch(loginLocal(id, password));
-  }
-};
-
 export const loginLocal = (
   id: string,
   password: string,
@@ -65,8 +50,20 @@ export const loginLocal = (
   const resp = await getTokenWithIdPassword(id, password);
   if ('token' in resp) {
     dispatch(loginWithToken(resp.token));
-  } else {
-    dispatch(failLogin({ errorCode: resp.errcode, message: resp.message }));
+  } else if ('message' in resp) {
+    alert(resp.message);
+  }
+};
+
+export const registerUser = (
+  id: string,
+  password: string,
+): ThunkAction<void, AppState, null, Action> => async dispatch => {
+  const resp = await createAccount(id, password);
+  if (resp.message && resp.message === 'ok') {
+    dispatch(loginLocal(id, password));
+  } else if ('errcode' in resp) {
+    alert(resp.message);
   }
 };
 
@@ -77,8 +74,8 @@ export const loginFacebook = (
   const resp = await getTokenWithFacebookToken(fb_id, fb_token);
   if ('token' in resp) {
     dispatch(loginWithToken(resp.token));
-  } else {
-    dispatch(failLogin({ message: resp.message, errorCode: resp.errcode }));
+  } else if ('errcode' in resp) {
+    alert(resp.message);
   }
 };
 
