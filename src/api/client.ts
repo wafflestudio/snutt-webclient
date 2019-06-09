@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { apiKey, baseUrl } from '../config';
 import { getToken } from 'utils/auth';
+import { getErrorMessage } from 'utils/errorTable';
 
 const client = axios.create({
   baseURL: baseUrl,
@@ -35,6 +36,12 @@ client.interceptors.response.use(
   r => r,
   e => {
     if (e.response) {
+      if (e.response.errcode && getErrorMessage(e.response.errcode)) {
+        return Promise.resolve({
+          ...e.response,
+          message: getErrorMessage(e.response.errcode),
+        });
+      }
       return Promise.resolve(e.response);
     }
     return Promise.resolve(null);
