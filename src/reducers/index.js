@@ -6,6 +6,7 @@ import { courseEditorReducer } from 'store/courseEditor/reducers';
 import { timetableReducer } from 'store/timetable/reducers';
 import { courseBookReducer } from 'store/courseBook/reducers';
 import { userReducer } from 'store/user/reducers';
+import { searchReducer } from 'store/search/reducers';
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
@@ -139,6 +140,7 @@ const reducer = {
   tableList: timetableReducer,
   courseEditor: courseEditorReducer,
   notification: notificationReducer,
+  search: searchReducer,
 };
 
 // This file exports a mere object, which is to be combined at src/index.js later.

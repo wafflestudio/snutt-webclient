@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { AppState } from 'store';
 import CourseSelector from './CourseSelector.jsx';
-import SearchBar from './SearchBar.jsx';
+import { SearchBar } from 'components/Search';
 import Notification from './NotificationButton.jsx';
 
 import { ReactComponent as Logo } from 'assets/logo.svg';
