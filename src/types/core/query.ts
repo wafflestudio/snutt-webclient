@@ -2,8 +2,8 @@ import { Semester } from './coursebook';
 
 // https://github.com/wafflestudio/snutt/wiki/API-Search-Query
 export interface LectureQuery {
-  year: Number;
-  semester: Number;
+  year: number;
+  semester: number;
   title: string;
   classification?: string[]; // 교과 구분
   credit?: number[];
