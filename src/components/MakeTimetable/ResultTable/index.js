@@ -11,8 +11,12 @@ function mapStateToProps(state) {
     isQuerying,
     searchResults,
     leftTabSearching,
-    tableList: { viewLectures },
+    tableList: { viewTableId, tableMap },
   } = state;
+  const viewLectures =
+    viewTableId && tableMap[viewTableId]
+      ? tableMap[viewTableId].lecture_list
+      : [];
   return {
     isQuerying,
     searchResults,
