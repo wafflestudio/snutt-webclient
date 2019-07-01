@@ -13,6 +13,11 @@ export const getCoursebooks = async () => {
   return resp.data;
 };
 
+export const getTags = async (year, semester) => {
+  const resp = await client.get(`tags/${year}/${semester}`);
+  return resp.data;
+};
+
 export const postFeedback = async (email, message) =>
   (await client.post(
     'feedback/',

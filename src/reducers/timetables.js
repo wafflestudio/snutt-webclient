@@ -86,7 +86,7 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
 export function tagList(state = {}, action) {
   switch (action.type) {
     case types.GET_TAG:
-      return action.response;
+      return action.tags;
     default:
       return state;
   }
