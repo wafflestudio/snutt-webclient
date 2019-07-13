@@ -41,7 +41,7 @@ export function runQuery(textQuery) {
       courseBook,
       query,
       filter: { useTime, searchEmptySlot },
-      tableList: { viewLectures },
+      tableList: { viewTableId, tableMap },
     } = getState();
     const { year, semester } = courseBook.get('current');
     const queries = query.toJS();
@@ -61,6 +61,7 @@ export function runQuery(textQuery) {
       delete validQuery.time_mask;
     } else if (searchEmptySlot) {
       // use free time as query
+      const viewLectures = tableMap[viewTableId].lecture_list;
       const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);
       const invertedMasks = complement(currentMasks);
       validQuery.time_mask = invertedMasks;
