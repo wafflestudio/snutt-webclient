@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import { addQuery, removeQuery } from '../../../actions';
+import { addQuery, removeQuery } from 'store/search/actions';
 import { ReactComponent as DeleteButton } from 'assets/btn-delete-normal.svg';
 
 const MAX_DEPARTMENT = 3;
@@ -39,8 +39,10 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { query, tagList } = state;
-  const selectedDepartments = query.get('department');
+  const {
+    search: { query, tagList },
+  } = state;
+  const selectedDepartments = query.department;
   const departmentTags = tagList.department || []; // Inject empty list before loading
   return { selectedDepartments, departmentTags };
 }

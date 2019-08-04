@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 import * as api from 'api';
 import * as types from './actionTypes';
-import { complement } from '../components/MakeTimetable/Search/TimeQuery.jsx';
+import { complement } from 'components/Search/TimeQuery.jsx';
 
 export function hoverCourse(course) {
   return { type: types.HOVER_COURSE, course };

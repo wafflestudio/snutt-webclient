@@ -4,6 +4,7 @@ import {
   CourseBook,
   FeedbackResponse,
   LectureQuery,
+  TagList,
 } from 'types';
 import client, { encodeParams, urlEncodedFormConfig } from './client';
 
@@ -11,8 +12,17 @@ export const getColorPalette = async (): Promise<LectureColor[]> => {
   const resp = await client.get('colors/vivid_ios');
   return resp.data.colors;
 };
+
 export const getCoursebooks = async (): Promise<CourseBook[]> => {
   const resp = await client.get('course_books');
+  return resp.data;
+};
+
+export const getTags = async (
+  year: number,
+  semester: number,
+): Promise<TagList> => {
+  const resp = await client.get(`tags/${year}/${semester}`);
   return resp.data;
 };
 

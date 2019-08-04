@@ -3,10 +3,18 @@ import { ThunkAction } from 'redux-thunk';
 import { Action } from 'redux';
 
 import * as api from 'api';
-import { Timetable, CourseBook, Lecture, LectureQuery } from 'types';
+import {
+  Timetable,
+  CourseBook,
+  Lecture,
+  LectureQuery,
+  LectureQueryFilter,
+  TagList,
+} from 'types';
 import { AppState } from '../index';
-import { complement } from 'components/MakeTimetable/Search/TimeQuery';
+import { complement } from 'components/Search/TimeQuery';
 import { UPDATE_TITLE_FAIL } from 'src/actions/actionTypes';
+import { create } from 'domain';
 
 /**
  * Action creators
@@ -32,8 +40,26 @@ export const tableUnhoverCourse = createAction(
 );
 
 export const updateQuery = createAction(
-  '@search/addQuery',
+  '@search/updateQuery',
   action => (partialQuery: Partial<LectureQuery>) => action({ partialQuery }),
+);
+
+export const addQuery = createAction(
+  '@search/addQuery',
+  action => (field: keyof LectureQueryFilter, value: string | number) =>
+    action({ field, value }),
+);
+
+export const removeQuery = createAction(
+  '@search/removeQuery',
+  action => (field: keyof LectureQueryFilter, value: string | number) =>
+    action({ field, value }),
+);
+
+export const toggleQuery = createAction(
+  '@search/toggleQuery',
+  action => (field: keyof LectureQueryFilter, value: string | number) =>
+    action({ field, value }),
 );
 
 export const resetQuery = createAction('@search/resetQuery', action => () =>
@@ -74,12 +100,20 @@ export const setLeftTab = createAction(
   action => (searching: boolean) => action({ searching }),
 );
 
+export const setTags = createAction(
+  '@search/setTags',
+  action => (tags: TagList) => action({ tags }),
+);
+
 export type searchActionTypes =
   | ReturnType<typeof hoverCourse>
   | ReturnType<typeof unhoverCourse>
   | ReturnType<typeof tableHoverCourse>
   | ReturnType<typeof tableUnhoverCourse>
   | ReturnType<typeof updateQuery>
+  | ReturnType<typeof toggleQuery>
+  | ReturnType<typeof addQuery>
+  | ReturnType<typeof removeQuery>
   | ReturnType<typeof resetQuery>
   | ReturnType<typeof startQuery>
   | ReturnType<typeof showResult>
@@ -87,7 +121,8 @@ export type searchActionTypes =
   | ReturnType<typeof toggleTimePanel>
   | ReturnType<typeof toggleUseTime>
   | ReturnType<typeof selectTimeMode>
-  | ReturnType<typeof setLeftTab>;
+  | ReturnType<typeof setLeftTab>
+  | ReturnType<typeof setTags>;
 
 /**
  * Thunk actions
@@ -107,7 +142,7 @@ export const runQuery = (
 
   const { year, semester } = courseBook.current;
 
-  let query: Partial<LectureQuery> & {
+  let query: LectureQuery & {
     year: number;
     semester: number;
     title: string;
@@ -116,10 +151,6 @@ export const runQuery = (
     semester,
     title: userQuery.title || '',
     limit: 200,
-  };
-
-  query = {
-    ...query,
     ...userQuery,
   };
 

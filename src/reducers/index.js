@@ -130,7 +130,7 @@ function leftTabSearching(state = false, action) {
 const reducer = {
   hoveredCourse,
   tableHoveredCourse,
-  query,
+  // query,
   searchResults,
   courseBook: courseBookReducer,
   isQuerying,

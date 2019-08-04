@@ -1,6 +1,8 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { CourseBook, Lecture, LectureQuery } from 'types';
+import update from 'immutability-helper';
+
+import { CourseBook, Lecture, LectureQuery, TagList } from 'types';
 import { tableHoverCourse, hoverCourse } from 'src/actions';
 import * as actions from './actions';
 
@@ -13,14 +15,24 @@ interface SearchState {
     useTime: boolean;
     searchEmptySlot: boolean;
   };
-  query: Partial<LectureQuery>;
+  query: LectureQuery;
   searchResults: Lecture[];
   isQuerying: boolean;
   leftTabSearching: boolean;
+  tagList: TagList | null;
 }
 
 const initialQuery = {
   title: '',
+  classification: [],
+  credit: [],
+  course_number: [],
+  academic_year: [],
+  instructor: [],
+  department: [],
+  category: [],
+  etc: [],
+  class_time_mask: [],
 };
 
 const initialState: SearchState = {
@@ -36,6 +48,7 @@ const initialState: SearchState = {
   searchResults: [],
   isQuerying: false,
   leftTabSearching: false,
+  tagList: null,
 };
 
 export const searchReducer: Reducer<SearchState, actions.searchActionTypes> = (
@@ -75,6 +88,58 @@ export const searchReducer: Reducer<SearchState, actions.searchActionTypes> = (
           ...action.payload.partialQuery,
         },
       };
+    }
+    case getType(actions.addQuery): {
+      const { field, value } = action.payload;
+      const filterValues = state.query[field] as (typeof value)[];
+      const valueIndex = filterValues.findIndex(item => item === value);
+      if (valueIndex === -1) {
+        return {
+          ...state,
+          query: {
+            ...state.query,
+            [field]: update(filterValues, { $push: [value] }),
+          },
+        };
+      }
+      return state;
+    }
+    case getType(actions.removeQuery): {
+      const { field, value } = action.payload;
+      const filterValues = state.query[field] as (typeof value)[];
+      const valueIndex = filterValues.findIndex(item => item === value);
+      if (valueIndex !== -1) {
+        return {
+          ...state,
+          query: {
+            ...state.query,
+            [field]: update(filterValues, { $splice: [[valueIndex, 1]] }),
+          },
+        };
+      }
+      return state;
+    }
+    case getType(actions.toggleQuery): {
+      const { field, value } = action.payload;
+      const filterValues = state.query[field] as (typeof value)[];
+      const valueIndex = filterValues.findIndex(item => item === value);
+      if (valueIndex === -1) {
+        return {
+          ...state,
+          query: {
+            ...state.query,
+            [field]: update(filterValues, { $push: [value] }),
+          },
+        };
+      } else {
+        return {
+          ...state,
+          query: {
+            ...state.query,
+            [field]: update(filterValues, { $splice: [[valueIndex, 1]] }),
+          },
+        };
+      }
     }
     case getType(actions.resetQuery): {
       return {
@@ -128,6 +193,12 @@ export const searchReducer: Reducer<SearchState, actions.searchActionTypes> = (
           ...state.filter,
           searchEmptySlot: action.payload.mode,
         },
+      };
+    }
+    case getType(actions.setTags): {
+      return {
+        ...state,
+        tagList: action.payload.tags,
       };
     }
     default:

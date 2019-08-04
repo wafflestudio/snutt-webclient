@@ -9,6 +9,7 @@ import {
   getTableList,
   getNewMessageCount,
   postNewTable,
+  getTags,
 } from 'api';
 import { AbstractTimetable, CourseBook } from 'types';
 
@@ -21,6 +22,7 @@ import {
 import { checkNewMessages } from 'store/notification/actions';
 import { loadCourseBook, changeCourseBook } from 'store/courseBook/actions';
 import { login } from 'store/user/actions';
+import { setTags } from 'store/search/actions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';
 
@@ -43,6 +45,11 @@ export const initialize = (): ThunkAction<
   dispatch(loadCourseBook(courseBooks));
   dispatch(updateColorScheme(colors));
   dispatch(fetchUserInfo());
+  const tagLists = await getTags(
+    recentCourseBook.year,
+    recentCourseBook.semester,
+  );
+  dispatch(setTags(tagLists));
 };
 
 export const fetchUserInfo = (): ThunkAction<
@@ -111,6 +118,8 @@ export const changeCoursebookAndTimetable = (
     }
   }
   dispatch(switchTable(newViewTableId as string));
+  const tagLists = await getTags(year, semester);
+  dispatch(setTags(tagLists));
 };
 
 /**

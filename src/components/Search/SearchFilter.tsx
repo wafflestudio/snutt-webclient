@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
+import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 
+import { AppState } from 'store';
+import { Timetable, LectureQueryFilter, LectureQueryFilterOption } from 'types';
+import { SubType } from 'utils/typeHelper';
 import DepartmentForm from './DepartmentForm.jsx';
 import TimeQuery from './TimeQuery.jsx';
 import { ReactComponent as RefreshIcon } from 'assets/ic-reset-normal.svg';
 
 import {
-  addQuery,
-  removeQuery,
+  toggleSearchPanel,
   resetQuery,
-  toggleUseTime,
+  searchActionTypes,
   selectTimeMode,
   toggleTimePanel,
-  toggleSearchPanel,
-} from '../../../actions';
+  toggleUseTime,
+  toggleQuery,
+} from 'store/search/actions';
+
 import {
   credits,
   academicYears,
@@ -25,24 +30,36 @@ import {
   etcs,
 } from './options';
 
-function mapStateToProps(state) {
+const mapStateToProps = (state: AppState) => {
   const {
-    tableList: { currentId, tableMap },
-    query,
-    filter: { timePanel, useTime, searchEmptySlot },
+    tableList: { viewTableId, tableMap },
+    search: {
+      query,
+      filter: { panel, timePanel, useTime, searchEmptySlot },
+    },
   } = state;
   const currentLectures =
-    currentId == null ? [] : tableMap[currentId].lecture_list;
+    viewTableId &&
+    tableMap[viewTableId] &&
+    (tableMap[viewTableId] as Timetable).lecture_list
+      ? (tableMap[viewTableId] as Timetable).lecture_list
+      : [];
+
   // Deduct 7 because empty timemasks's count is 7
-  let activeFieldCounts =
-    query.valueSeq().reduce((prev, current) => prev + current.count(), 0) - 7;
+  let activeFieldCounts = Object.values(query).reduce<number>(
+    (acc, current) => {
+      if (current instanceof Array) {
+        return acc + current.length;
+      }
+      return acc;
+    },
+    0,
+  );
   if (useTime) {
     activeFieldCounts += 1;
   }
-  // if (!query.get('time_mask').equals(EMPTY_MASK) &&) {
-  //   activeFieldCounts += 1;
-  // }
   return {
+    isOpen: panel,
     query,
     activeFieldCounts,
     currentLectures,
@@ -50,16 +67,12 @@ function mapStateToProps(state) {
     useTime,
     searchingEmptySlot: searchEmptySlot,
   };
-}
+};
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<searchActionTypes>) => ({
   resetQuery: () => dispatch(resetQuery()),
-  toggleQuery: (name, value, checked) => {
-    if (checked) {
-      dispatch(removeQuery(name, value));
-    } else {
-      dispatch(addQuery(name, value));
-    }
+  toggleQuery: (name: keyof LectureQueryFilter, value: string | number) => {
+    toggleQuery(name, value);
   },
   toggleUseTime: () => dispatch(toggleUseTime()),
   toggleTimePanel: () => dispatch(toggleTimePanel()),
@@ -68,16 +81,18 @@ const mapDispatchToProps = dispatch => ({
   searchSelectedSlot: () => dispatch(selectTimeMode(false)),
 });
 
-class SearchFilter extends Component {
-  constructor() {
-    super();
-    this.toggleTimePanel = this.toggleTimePanel.bind(this);
-    this.freeslotsOnly = this.freeslotsOnly.bind(this);
-    this.renderCheckBoxes = this.renderCheckBoxes.bind(this);
-    this.renderTimeSelect = this.renderTimeSelect.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.state = { freeslotsOnly: false };
-  }
+interface OwnProps {}
+interface OwnState {
+  freeslotsOnly: boolean;
+}
+type StateProps = ReturnType<typeof mapStateToProps>;
+type Props = OwnProps & StateProps & ReturnType<typeof mapDispatchToProps>;
+
+class SearchFilter extends Component<Props, OwnState> {
+  state = {
+    freeslotsOnly: false,
+  };
+  node: Node | null = null;
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, false);
@@ -86,46 +101,51 @@ class SearchFilter extends Component {
     document.removeEventListener('click', this.handleClickOutside, false);
   }
 
-  handleClickOutside(e) {
+  handleClickOutside = (e: MouseEvent) => {
+    const target = e.target as Element;
     if (
-      e.target.className &&
-      e.target.className.includes &&
-      !this.node.contains(e.target) &&
+      target.className &&
+      this.node &&
+      !this.node.contains(target) &&
       !this.props.timePanel
     ) {
       if (
-        e.target.className.includes('btn-timeselector') ||
-        e.target.className.includes('department_item') ||
-        e.target.className.includes('tag-selected') ||
-        e.target.className.includes('span-selected')
+        target.className.includes('btn-timeselector') ||
+        target.className.includes('department_item') ||
+        target.className.includes('tag-selected') ||
+        target.className.includes('span-selected')
       ) {
         return;
       }
       this.props.toggleSearchPanel();
     }
-  }
+  };
 
-  toggleTimePanel(e) {
+  toggleTimePanel = (e: React.MouseEvent) => {
     e.preventDefault();
     console.log('Toggle Time Panel');
     this.props.toggleTimePanel();
-  }
+  };
 
-  freeslotsOnly(e) {
+  freeslotsOnly = (e: React.MouseEvent) => {
     e.preventDefault();
-    const { currentLectures } = this.props;
     const { freeslotsOnly } = this.state;
-    this.props.toggleFreetimeOnly(currentLectures, freeslotsOnly);
     this.setState({ freeslotsOnly: !freeslotsOnly });
-  }
+  };
 
-  renderCheckBoxes(label, items, memberName) {
+  renderCheckBoxes = (
+    label: string,
+    items: LectureQueryFilterOption[],
+    memberName: keyof LectureQueryFilter,
+  ) => {
     return (
       <div className="form-group">
         <label className="col-md-2 control-label field">{label}</label>
         <div className="col-md-10">
           {items.map((val, idx) => {
-            const checked = this.props.query.get(memberName).has(val.value);
+            const checked = this.props.query[memberName].includes(
+              val.value as (string & number),
+            );
             return (
               <label key={idx} className="checkbox-inline">
                 <input
@@ -147,9 +167,9 @@ class SearchFilter extends Component {
         </div>
       </div>
     );
-  }
+  };
 
-  renderTimeSelect() {
+  renderTimeSelect = () => {
     const { useTime, searchEmptySlot, searchingEmptySlot } = this.props;
     return (
       <div className="form-group">
@@ -202,9 +222,9 @@ class SearchFilter extends Component {
         </div>
       </div>
     );
-  }
+  };
 
-  renderDepartment() {
+  renderDepartment = () => {
     return (
       <div className="form-group">
         <label className="col-md-2 control-label">학과명 선택</label>
@@ -213,7 +233,7 @@ class SearchFilter extends Component {
         </div>
       </div>
     );
-  }
+  };
 
   render() {
     const { timePanel, activeFieldCounts } = this.props;
@@ -235,7 +255,7 @@ class SearchFilter extends Component {
         <hr />
         <form
           className="form-horizontal search-filter"
-          id={this.props.on ? 'filter-active' : ''}
+          id={this.props.isOpen ? 'filter-active' : ''}
           onSubmit={e => e.preventDefault()}
         >
           {this.renderDepartment()}

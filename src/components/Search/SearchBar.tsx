@@ -9,7 +9,7 @@ import {
   toggleSearchPanel,
   searchActionTypes,
 } from 'store/search/actions';
-import SearchFilter from 'components/MakeTimetable/Search/SearchFilter.jsx';
+import SearchFilter from './SearchFilter';
 import IconWrapper from 'components/Common/IconWrapper.jsx';
 
 import { ReactComponent as SearchIconNormal } from 'assets/ic-search-normal.svg';
