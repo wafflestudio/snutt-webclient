@@ -72,7 +72,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<searchActionTypes>) => ({
   resetQuery: () => dispatch(resetQuery()),
   toggleQuery: (name: keyof LectureQueryFilter, value: string | number) => {
-    toggleQuery(name, value);
+    dispatch(toggleQuery(name, value));
   },
   toggleUseTime: () => dispatch(toggleUseTime()),
   toggleTimePanel: () => dispatch(toggleTimePanel()),

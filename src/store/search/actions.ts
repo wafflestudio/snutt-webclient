@@ -15,6 +15,7 @@ import { AppState } from '../index';
 import { complement } from 'components/Search/TimeQuery';
 import { UPDATE_TITLE_FAIL } from 'src/actions/actionTypes';
 import { create } from 'domain';
+import { array } from 'prop-types';
 
 /**
  * Action creators
@@ -70,6 +71,10 @@ export const startQuery = createAction('@search/startQuery', action => () =>
   action(),
 );
 
+export const endQuery = createAction('@search/endQuery', action => () =>
+  action(),
+);
+
 export const showResult = createAction(
   '@search/showResult',
   action => (courses: Lecture[]) => action({ courses }),
@@ -116,6 +121,7 @@ export type searchActionTypes =
   | ReturnType<typeof removeQuery>
   | ReturnType<typeof resetQuery>
   | ReturnType<typeof startQuery>
+  | ReturnType<typeof endQuery>
   | ReturnType<typeof showResult>
   | ReturnType<typeof toggleSearchPanel>
   | ReturnType<typeof toggleTimePanel>
@@ -127,6 +133,7 @@ export type searchActionTypes =
 /**
  * Thunk actions
  */
+
 export const runQuery = (
   textQuery: string,
 ): ThunkAction<void, AppState, null, Action> => async (dispatch, getState) => {
@@ -142,11 +149,7 @@ export const runQuery = (
 
   const { year, semester } = courseBook.current;
 
-  let query: LectureQuery & {
-    year: number;
-    semester: number;
-    title: string;
-  } = {
+  let query = {
     year,
     semester,
     title: userQuery.title || '',
@@ -168,7 +171,17 @@ export const runQuery = (
     }
   }
 
+  // remove empty filter
+  for (let field in query) {
+    if ((query as { [key: string]: any })[field].length === 0) {
+      delete (query as { [key: string]: any })[field];
+    }
+  }
+
   dispatch(startQuery());
   const courses = await api.getQueryResults(query);
   courses && dispatch(showResult(courses));
+  dispatch(endQuery());
+  dispatch(setLeftTab(true));
+  dispatch(toggleSearchPanel());
 };

@@ -4,13 +4,11 @@ import Loading from 'react-loading';
 
 import ResultTabs from './ResultTabs.jsx';
 import ResultRow from './ResultRow.jsx';
-import { setLeftTab } from '../../../actions';
+import { setLeftTab } from 'store/search/actions';
 
 function mapStateToProps(state) {
   const {
-    isQuerying,
-    searchResults,
-    leftTabSearching,
+    search: { searchResults, isQuerying, leftTabSearching },
     tableList: { viewLectures },
   } = state;
   return {

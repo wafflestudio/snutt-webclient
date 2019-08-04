@@ -153,6 +153,12 @@ export const searchReducer: Reducer<SearchState, actions.searchActionTypes> = (
         isQuerying: true,
       };
     }
+    case getType(actions.endQuery): {
+      return {
+        ...state,
+        isQuerying: false,
+      };
+    }
     case getType(actions.showResult): {
       return {
         ...state,
@@ -199,6 +205,12 @@ export const searchReducer: Reducer<SearchState, actions.searchActionTypes> = (
       return {
         ...state,
         tagList: action.payload.tags,
+      };
+    }
+    case getType(actions.setLeftTab): {
+      return {
+        ...state,
+        leftTabSearching: action.payload.searching,
       };
     }
     default:
