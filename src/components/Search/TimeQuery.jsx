@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
 
-import { updateQuery, toggleTimePanel } from '../../actions';
+// import { updateQuery, toggleTimePanel } from '../../actions';
+import { toggleTimePanel, updateQuery } from 'store/search/actions';
 import CellSelector from './CellSelector.jsx';
 
 /**
@@ -63,21 +64,19 @@ class TimeQuery extends Component {
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
-    this.state = { cells: maskToCells(props.masks.toJS()) };
+    this.state = { cells: maskToCells(props.masks) };
   }
 
   handleSave(e) {
     e.preventDefault();
-    const { dispatch } = this.props;
     const newMasks = cellsToMask(this.state.cells);
-    dispatch(toggleTimePanel());
-    dispatch(updateQuery('time_mask', () => Immutable.List(newMasks)));
+    this.props.toggleTimePanel();
+    this.props.updateQuery({ time_mask: newMasks });
   }
 
   handleCancel(e) {
     e.preventDefault();
-    const { dispatch } = this.props;
-    dispatch(toggleTimePanel());
+    this.props.toggleTimePanel();
   }
 
   handleUpdate(newCells) {
@@ -121,8 +120,14 @@ class TimeQuery extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { masks: state.query.get('time_mask') };
-}
+const mapStateToProps = ({ search: { query } }) => {
+  return { masks: query.time_mask };
+};
 
-export default connect(mapStateToProps)(TimeQuery);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ toggleTimePanel, updateQuery }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TimeQuery);

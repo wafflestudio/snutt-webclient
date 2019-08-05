@@ -61,7 +61,7 @@ export function runQuery(textQuery) {
       delete validQuery.time_mask;
     } else if (searchEmptySlot) {
       // use free time as query
-      const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);
+      const currentMasks = viewLectures.map(lecture => lecture.time_mask);
       const invertedMasks = complement(currentMasks);
       validQuery.time_mask = invertedMasks;
     } else {

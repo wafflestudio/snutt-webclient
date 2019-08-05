@@ -7,7 +7,7 @@ export interface Lecture {
   credit: number; // 학점
   class_time: string;
   class_time_json: TimePlace[];
-  class_time_mask: number[];
+  time_mask: number[];
   instructor: string; // 강사
   quota: number; // 정원
   remark: string; // 비고

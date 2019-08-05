@@ -16,7 +16,7 @@ export interface LectureQueryFilter {
   department: string[]; // 학부
   category: string[];
   etc: string[];
-  class_time_mask: number[];
+  time_mask: number[];
 }
 
 export interface LectureQueryFilterOption {

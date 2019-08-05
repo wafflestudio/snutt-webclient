@@ -25,4 +25,5 @@ export interface UserLecture extends Lecture {
   colorIndex: number;
   course_number?: string; // 교과목 번호
   lecture_number?: string; // 강좌 번호
+  class_time_mask: number[];
 }

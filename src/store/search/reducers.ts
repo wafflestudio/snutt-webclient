@@ -31,7 +31,7 @@ const initialQuery = {
   department: [],
   category: [],
   etc: [],
-  class_time_mask: [],
+  time_mask: [0, 0, 0, 0, 0, 0, 0],
 };
 
 const initialState: SearchState = {

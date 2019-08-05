@@ -158,7 +158,7 @@ export const runQuery = (
   };
 
   if (!useTime) {
-    delete query.class_time_mask;
+    delete query.time_mask;
   } else if (searchEmptySlot) {
     if (!viewTableId) return;
     const currentLectures = tableMap[viewTableId];
@@ -167,7 +167,7 @@ export const runQuery = (
         l => l.class_time_mask,
       );
       const invertedMasks = complement(masks);
-      query.class_time_mask = invertedMasks;
+      query.time_mask = invertedMasks;
     }
   }
 
