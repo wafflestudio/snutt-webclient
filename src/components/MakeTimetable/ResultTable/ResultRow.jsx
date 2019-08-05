@@ -78,7 +78,9 @@ class ResultRow extends Component {
 }
 
 const printTime = timeString => {
-  if (timeString === undefined) timeString = '';
+  if (!timeString) {
+    return '';
+  }
   const days = timeString.split('/').map(val => {
     try {
       const splitted = val.split('(');
@@ -86,8 +88,7 @@ const printTime = timeString => {
       const start = Number(splitted[1].split('-')[0]) + 8;
       return day + start;
     } catch (ex) {
-      console.log(ex);
-      return '-1';
+      return timeString;
     }
   });
   return [...new Set(days)].join('-');
