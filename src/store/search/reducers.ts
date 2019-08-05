@@ -23,7 +23,6 @@ interface SearchState {
 }
 
 const initialQuery = {
-  title: '',
   classification: [],
   credit: [],
   course_number: [],
@@ -166,11 +165,15 @@ export const searchReducer: Reducer<SearchState, actions.searchActionTypes> = (
       };
     }
     case getType(actions.toggleSearchPanel): {
+      const nextPanelState =
+        action.payload.on === undefined
+          ? !state.filter.panel
+          : action.payload.on;
       return {
         ...state,
         filter: {
           ...state.filter,
-          panel: !state.filter.panel,
+          panel: nextPanelState,
         },
       };
     }

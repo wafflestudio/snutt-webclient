@@ -3,7 +3,6 @@ import { SubType } from 'utils/typeHelper';
 
 // https://github.com/wafflestudio/snutt/wiki/API-Search-Query
 export interface LectureQuery extends LectureQueryFilter {
-  title: string;
   offset?: number;
   limit?: number;
 }

@@ -82,7 +82,7 @@ export const showResult = createAction(
 
 export const toggleSearchPanel = createAction(
   '@search/toggleSearchPanel',
-  action => () => action(),
+  action => (on?: boolean) => action({ on }),
 );
 
 export const toggleTimePanel = createAction(
@@ -152,7 +152,7 @@ export const runQuery = (
   let query = {
     year,
     semester,
-    title: userQuery.title || '',
+    title: textQuery || '',
     limit: 200,
     ...userQuery,
   };
@@ -183,5 +183,5 @@ export const runQuery = (
   courses && dispatch(showResult(courses));
   dispatch(endQuery());
   dispatch(setLeftTab(true));
-  dispatch(toggleSearchPanel());
+  dispatch(toggleSearchPanel(false));
 };
