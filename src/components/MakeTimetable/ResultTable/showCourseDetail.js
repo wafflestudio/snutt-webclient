@@ -1,16 +1,16 @@
 export default (year, semester, course_number, lecture_number) => {
   let openShtmFg = null,
     openDetaShtmFg = null;
-  if (semester === '1') {
+  if (String(semester) === '1') {
     openShtmFg = 'U000200001';
     openDetaShtmFg = 'U000300001';
-  } else if (semester === '2') {
+  } else if (String(semester) === '2') {
     openShtmFg = 'U000200002';
     openDetaShtmFg = 'U000300001';
-  } else if (semester === 'S') {
+  } else if (String(semester) === 'S') {
     openShtmFg = 'U000200001';
     openDetaShtmFg = 'U000300002';
-  } else if (semester === 'W') {
+  } else if (String(semester) === 'W') {
     openShtmFg = 'U000200002';
     openDetaShtmFg = 'U000300002';
   }

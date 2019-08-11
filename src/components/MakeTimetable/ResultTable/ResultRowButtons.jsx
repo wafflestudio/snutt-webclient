@@ -5,14 +5,19 @@ import { deleteLecture, addLecture } from 'store/timetable/actions';
 import { editCourse } from 'store/courseEditor/actions';
 import showCourseDetail from './showCourseDetail.js';
 
-function mapStateToProps(state) {
-  if (!state.courseBook) {
-    return { searching: state.leftTabSearching };
-  }
-  const { year, semester } = state.courseBook.current;
+const mapStateToProps = ({
+  search: { leftTabSearching },
+  courseBook: {
+    current: { year, semester },
+  },
+}) => {
   const semesterStr = ['_', '1', 'S', '2', 'W'][semester];
-  return { searching: state.leftTabSearching, year, semesterStr };
-}
+  return {
+    searching: leftTabSearching,
+    year: String(year) | 2019,
+    semesterStr: semesterStr | '2',
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   onAddLecture: course => dispatch(addLecture(course)),

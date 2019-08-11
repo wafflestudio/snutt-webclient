@@ -9,12 +9,13 @@ import { setLeftTab } from 'store/search/actions';
 function mapStateToProps(state) {
   const {
     search: { searchResults, isQuerying, leftTabSearching },
-    tableList: { viewLectures },
+    tableList: { viewTableId, tableMap },
   } = state;
+  const viewLectures = viewTableId ? tableMap[viewTableId].lecture_list : [];
   return {
     isQuerying,
     searchResults,
-    viewLectures,
+    viewLectures: viewLectures || [],
     searching: leftTabSearching,
   };
 }
