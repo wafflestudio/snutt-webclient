@@ -7,7 +7,7 @@ import TimetableTabs from './Timetable/TimetableTabs.jsx';
 import Timetable from './Timetable';
 
 const mapStateToProps = ({
-  hoveredCourse: previewed,
+  search: { hoveredCourse: previewed },
   courseEditor,
   courseBook,
   tableList: { viewTableId, tableMap, colorScheme },

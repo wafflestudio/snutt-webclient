@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { editCourse } from 'store/courseEditor/actions';
 import { deleteLecture } from 'store/timetable/actions';
-import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
+import { tableHoverCourse, tableUnhoverCourse } from 'store/search/actions';
 
 import IconWrapper from '../../Common/IconWrapper';
 import { ReactComponent as DeleteIconNormal } from 'assets/ic-delete-white-normal.svg';
@@ -14,7 +14,7 @@ import { ReactComponent as EditIconHover } from 'assets/ic-edit-white-over.svg';
 import { ReactComponent as EditIconFocus } from 'assets/ic-edit-white-pressed.svg';
 
 const mapStateToProps = ({
-  tableHoveredCourse,
+  search: { tableHoveredCourse },
   courseEditor: { isOpen: courseEditorOpened },
 }) => ({
   courseEditorOpened,

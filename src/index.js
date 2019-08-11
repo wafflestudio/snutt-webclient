@@ -12,7 +12,7 @@ import {
 } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
-import rootReducer from './reducers';
+import { rootReducer } from './store';
 import * as serviceWorker from './serviceWorker';
 
 import {

@@ -6,13 +6,14 @@ import { courseBookReducer } from './courseBook/reducers';
 import { userReducer } from './user/reducers';
 import { searchReducer } from './search/reducers';
 
-const rootReducer = combineReducers({
+export const rootReducer = {
   notification: notificationReducer,
   tableList: timetableReducer,
   courseEditor: courseEditorReducer,
   courseBook: courseBookReducer,
   user: userReducer,
   search: searchReducer,
-});
+};
 
-export type AppState = ReturnType<typeof rootReducer>;
+const combinedReducers = combineReducers(rootReducer);
+export type AppState = ReturnType<typeof combinedReducers>;

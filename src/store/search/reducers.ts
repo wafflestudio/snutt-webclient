@@ -3,7 +3,6 @@ import { getType } from 'typesafe-actions';
 import update from 'immutability-helper';
 
 import { CourseBook, Lecture, LectureQuery, TagList } from 'types';
-import { tableHoverCourse, hoverCourse } from 'src/actions';
 import * as actions from './actions';
 
 interface SearchState {

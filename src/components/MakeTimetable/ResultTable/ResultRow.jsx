@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ResultRowButtons from './ResultRowButtons.jsx';
 
-import { hoverCourse, unhoverCourse } from '../../../actions';
-import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
+import {
+  hoverCourse,
+  unhoverCourse,
+  tableHoverCourse,
+  tableUnhoverCourse,
+} from 'store/search/actions';
 
 const mapDispatchToProps = dispatch => ({
   onHoverCourse: course => dispatch(hoverCourse(course)),

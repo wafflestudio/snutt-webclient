@@ -13,7 +13,6 @@ import {
 } from 'types';
 import { AppState } from '../index';
 import { complement } from 'components/Search/TimeQuery';
-import { UPDATE_TITLE_FAIL } from 'src/actions/actionTypes';
 import { create } from 'domain';
 import { array } from 'prop-types';
 
