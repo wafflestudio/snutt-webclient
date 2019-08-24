@@ -18,7 +18,7 @@ export interface LectureColor {
   bg: string;
 }
 
-export interface UserLecture extends Lecture {
+export interface UserLecture extends Partial<Lecture> {
   created_at: Date;
   updated_at: Date;
   color?: LectureColor;

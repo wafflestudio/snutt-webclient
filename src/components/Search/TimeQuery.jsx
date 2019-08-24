@@ -7,22 +7,6 @@ import { toggleTimePanel, updateQuery } from 'store/search/actions';
 import CellSelector from './CellSelector.jsx';
 
 /**
- * Returns complement mask of given masks
- * @param {list of mask} masks
- * @return {mask}
- */
-export function complement(masks) {
-  const union = masks.reduce(
-    (prev, current) => current.map((val, index) => val | prev[index]),
-    [0, 0, 0, 0, 0, 0, 0],
-  );
-  const inversed = union.map(val => ~val);
-  // Our mask has 30 bits, and `inversed` has two unnecessary 1 at its head
-  const ret = inversed.map(val => (val << 2) >>> 2);
-  return ret;
-}
-
-/**
  * Converts 6 32bit masks to 30 x 6 2d array.
  * 1 -> 'SELECTED',
  * 0 -> 'EMPTY'
