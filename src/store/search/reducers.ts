@@ -5,7 +5,7 @@ import update from 'immutability-helper';
 import { CourseBook, Lecture, LectureQuery, TagList } from 'types';
 import * as actions from './actions';
 
-interface SearchState {
+export interface SearchState {
   hoveredCourse: Lecture | null; // the course hovered on left side
   tableHoveredCourse: Lecture | null; // the course hovered on the right side
   filter: {
@@ -21,7 +21,7 @@ interface SearchState {
   tagList: TagList | null;
 }
 
-const initialQuery = {
+export const initialQuery = {
   classification: [],
   credit: [],
   course_number: [],
@@ -33,7 +33,7 @@ const initialQuery = {
   time_mask: [0, 0, 0, 0, 0, 0, 0],
 };
 
-const initialState: SearchState = {
+export const initialState: SearchState = {
   hoveredCourse: null,
   tableHoveredCourse: null,
   filter: {

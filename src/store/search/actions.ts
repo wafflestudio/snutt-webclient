@@ -10,9 +10,10 @@ import {
   LectureQuery,
   LectureQueryFilter,
   TagList,
+  UserLecture,
 } from 'types';
 import { AppState } from '../index';
-import { complement } from 'components/Search/TimeQuery';
+import { complement } from 'utils/timemask';
 import { create } from 'domain';
 import { array } from 'prop-types';
 
@@ -147,28 +148,51 @@ export const runQuery = (
   if (!courseBook.current) return;
 
   const { year, semester } = courseBook.current;
+  const currentLectures =
+    (viewTableId &&
+      tableMap[viewTableId] &&
+      (tableMap[viewTableId] as Timetable).lecture_list) ||
+    [];
 
+  const courseTimemasks = currentLectures.map(l => l.class_time_mask);
+  const timemask = getQueryTimeMask(
+    useTime,
+    searchEmptySlot,
+    courseTimemasks,
+    userQuery.time_mask,
+  );
+
+  const queryRequest = makeQueryRequest(
+    userQuery,
+    year,
+    semester,
+    textQuery,
+    timemask,
+  );
+
+  dispatch(startQuery());
+  const courses = await api.getQueryResults(queryRequest);
+  courses && dispatch(showResult(courses));
+  dispatch(endQuery());
+  dispatch(setLeftTab(true));
+  dispatch(toggleSearchPanel(false));
+};
+
+export const makeQueryRequest = (
+  userQuery: LectureQuery,
+  year: number,
+  semester: number,
+  textQuery: string,
+  time_mask: number[],
+) => {
   let query = {
     year,
     semester,
     title: textQuery || '',
     limit: 200,
     ...userQuery,
+    time_mask,
   };
-
-  if (!useTime) {
-    delete query.time_mask;
-  } else if (searchEmptySlot) {
-    if (!viewTableId) return;
-    const currentLectures = tableMap[viewTableId];
-    if ((currentLectures as Timetable).lecture_list) {
-      const masks = (currentLectures as Timetable).lecture_list.map(
-        l => l.class_time_mask,
-      );
-      const invertedMasks = complement(masks);
-      query.time_mask = invertedMasks;
-    }
-  }
 
   // remove empty filter
   for (let field in query) {
@@ -177,10 +201,20 @@ export const runQuery = (
     }
   }
 
-  dispatch(startQuery());
-  const courses = await api.getQueryResults(query);
-  courses && dispatch(showResult(courses));
-  dispatch(endQuery());
-  dispatch(setLeftTab(true));
-  dispatch(toggleSearchPanel(false));
+  return query;
+};
+
+export const getQueryTimeMask = (
+  useTime: boolean,
+  searchEmptySlot: boolean,
+  courseTimemasks: number[][],
+  userTimemask: number[],
+) => {
+  if (!useTime) {
+    return [];
+  } else if (searchEmptySlot) {
+    const invertedMasks = complement(courseTimemasks);
+    return invertedMasks;
+  }
+  return userTimemask;
 };

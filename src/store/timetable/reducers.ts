@@ -12,7 +12,7 @@ interface TableState {
   colorScheme: LectureColor[];
 }
 
-const initialState: TableState = {
+export const initialState: TableState = {
   viewTableId: null,
   tableMap: {},
   colorScheme: [],
