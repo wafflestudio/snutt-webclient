@@ -14,10 +14,11 @@ cache:
 install:
   - yarn
 before_script:
-  - yarn build
-  - yarn serve -s build &
+  # - yarn build
+  # - yarn serve -s build &
 script:
-  - cypress run --record
+  - CI=true yarn test
+  # - cypress run --record
 # deploy:
 #   - provider: script
 #     skip_cleanup: true
