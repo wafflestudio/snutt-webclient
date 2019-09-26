@@ -5,7 +5,7 @@ export interface AbstractTimetable {
   year: number;
   semester: number;
   title: string;
-  updated_at: Date;
+  updated_at: string;
 }
 
 export interface Timetable extends AbstractTimetable {
@@ -19,8 +19,8 @@ export interface LectureColor {
 }
 
 export interface UserLecture extends Partial<Lecture> {
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   color?: LectureColor;
   colorIndex: number;
   course_number?: string; // 교과목 번호

@@ -10,9 +10,6 @@ import { findViewTableIdForSemester } from './utils';
 /**
  * Action creators
  */
-export const createCourse = createAction('@table/createCourse', action => () =>
-  action({}),
-);
 
 export const updateTimetable = createAction(
   '@table/updateTimetable',
@@ -38,7 +35,6 @@ export const updateViewTable = createAction(
 );
 
 export type TimetableActionTypes =
-  | ReturnType<typeof createCourse>
   | ReturnType<typeof updateTimetable>
   | ReturnType<typeof updateTimetableList>
   | ReturnType<typeof updateColorScheme>
@@ -109,8 +105,6 @@ export const updateTitle = (
 
 export const createTable = (
   newTitle: string = '나의 시간표',
-  year: number,
-  semester: number,
 ): ThunkAction<void, AppState, null, Action> => async (dispatch, getState) => {
   const currentBook = getState().courseBook.current;
   if (!currentBook) return;
