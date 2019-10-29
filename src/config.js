@@ -6,5 +6,5 @@ const getEnv = key =>
 module.exports = {
   baseUrl: getEnv('REACT_APP_BASE_URL'),
   apiKey: getEnv('REACT_APP_API_KEY'),
-  fbAppId: getEnv('REACT_APP_API_KEY'),
+  fbAppId: getEnv('REACT_APP_FB_APP_ID'),
 };
