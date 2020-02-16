@@ -1,9 +1,12 @@
 const populateColor = (colorScheme, lectures) => {
   return lectures.map(lecture => {
-    if (lecture.colorIndex && lecture.colorIndex <= colorScheme.length) {
-      lecture.color = colorScheme[lecture.colorIndex - 1];
+    const result = {
+      ...lecture
     }
-    return lecture;
+    if (lecture.colorIndex && lecture.colorIndex <= colorScheme.length) {
+      result.color = colorScheme[lecture.colorIndex - 1];
+    }
+    return result;
   });
 };
 

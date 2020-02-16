@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import populateColor from 'utils/populateColor'
 import CourseEditorLoader from './CourseEditor/Loader';
 import ResultTable from './ResultTable';
 import TimetableTabs from './Timetable/TimetableTabs.jsx';
@@ -22,20 +23,17 @@ const mapStateToProps = ({
   }
 
   const viewTable = viewTableId && tableMap[viewTableId];
-  if (viewTable && viewTable.lecture_list) {
-    viewTable.lecture_list.forEach(lecture => {
-      if (lecture.colorIndex && lecture.colorIndex < colorScheme.length) {
-        lecture.color = colorScheme[lecture.colorIndex - 1];
-      }
-    });
-  }
+  const lecture_list = (viewTable && viewTable.lecture_list && populateColor(colorScheme, viewTable.lecture_list)) || []
 
   return {
     viewTableId,
-    viewTable,
+    viewTable: {
+      ...viewTable,
+      lecture_list
+    },
     tables: semesterTables,
     courseEditorOpen: courseEditor.isOpen,
-    previewed,
+    previewed
   };
 };
 
