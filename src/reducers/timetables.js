@@ -39,8 +39,9 @@ export function tableList(state = DEFAULT_TABLELIST, action) {
     }
     case types.ADD_LECTURE_OK:
     case types.DELETE_LECTURE_OK:
-    case types.UPDATE_LECTURE_OK: {
-      const updated = action.response;
+    case types.UPDATE_LECTURE_OK:
+    {
+      const updated = action.response
       const tableMap = update(state.tableMap, {
         [updated._id]: { $set: updated },
       });

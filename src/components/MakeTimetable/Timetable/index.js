@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import Table from './Table';
 
 import {
-  createCourse,
   deleteLecture,
   switchTable,
   createTable,
 } from '../../../actions/tableActions';
+import {
+  startCourseEditor
+} from 'ducks/courseEditor'
 import { addCourse } from '../../../actions';
 const TableCapturer = lazy(() => import('./TableCapturer'));
 
@@ -17,7 +19,7 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
   handleDelete: _id => dispatch(deleteLecture(_id)),
   addCourse: course => dispatch(addCourse(course)),
-  openCourse: () => dispatch(createCourse()),
+  openCourse: () => dispatch(startCourseEditor()),
   setTable: _id => dispatch(switchTable(_id)),
   addTable: () => dispatch(createTable()),
 });

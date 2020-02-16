@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import {
   addLecture,
   deleteLecture,
-  editCourse,
 } from '../../../actions/tableActions';
+import {
+  startCourseEditor
+} from 'ducks/courseEditor'
 import showCourseDetail from './showCourseDetail.js';
 
 function mapStateToProps(state) {
@@ -20,7 +22,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   onAddLecture: course => dispatch(addLecture(course)),
   onDeleteLecture: id => dispatch(deleteLecture(id)),
-  onEditCourse: course => dispatch(editCourse(course)),
+  onEditCourse: course => dispatch(startCourseEditor(course)),
 });
 
 class ResultRowButtons extends Component {

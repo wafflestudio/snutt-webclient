@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
 import { tableList, tagList } from './timetables';
 import user from './user';
-import notification from 'ducks/notification'
+import { notification, courseEditor } from 'ducks';
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
@@ -137,24 +137,6 @@ function leftTabSearching(state = false, action) {
       return action.searching;
     case types.START_QUERY:
       return true;
-    default:
-      return state;
-  }
-}
-
-const courseEditorDefault = {
-  isOpen: false,
-  course: null,
-};
-function courseEditor(state = courseEditorDefault, action) {
-  switch (action.type) {
-    case types.CREATE_COURSE:
-    case types.EDIT_COURSE:
-      return { isOpen: true, course: action.course };
-    case types.ADD_LECTURE_OK:
-    case types.UPDATE_LECTURE_OK:
-    case types.CLOSE_COURSE:
-      return courseEditorDefault;
     default:
       return state;
   }

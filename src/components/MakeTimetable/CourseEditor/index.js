@@ -6,8 +6,10 @@ import timeJsonToMask from './maskConverter';
 import {
   addCustomLecture,
   updateLecture,
-  closeCourse,
 } from '../../../actions/tableActions';
+import {
+  closeCourseEditor
+} from 'ducks/courseEditor'
 import JsonEditor from './JsonEditor.jsx';
 
 const mapStateToProps = state => {
@@ -22,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
   onUpdateLecture: (id, lecture) => {
     dispatch(updateLecture(id, lecture));
   },
-  onCourseClose: () => dispatch(closeCourse()),
+  onCourseClose: () => dispatch(closeCourseEditor()),
 });
 
 class CourseEditor extends React.PureComponent {
@@ -33,9 +35,10 @@ class CourseEditor extends React.PureComponent {
     this.handleColorSelect = this.handleColorSelect.bind(this);
     this.renderInput = this.renderInput.bind(this);
 
-    const { course } = props;
+    let { course = {}} = props;
+
     const colorIndex =
-      course.colorIndex > 0 || course.color
+       (course.colorIndex > 0 || course.color)
         ? course.colorIndex
         : Math.ceil(Math.random() * props.colorScheme.length);
     const color =

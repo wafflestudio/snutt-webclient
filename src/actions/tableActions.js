@@ -1,21 +1,15 @@
 import {
   ADD_LECTURE_OK,
+  UPDATE_LECTURE_OK,
   DELETE_LECTURE_OK,
   UPDATE_TITLE_OK,
-  UPDATE_LECTURE_OK,
   CREATE_TABLE_OK,
   DELETE_TABLE_OK,
   SWITCH_TABLE_OK,
-  CREATE_COURSE,
-  EDIT_COURSE,
-  CLOSE_COURSE,
 } from 'actions/actionTypes';
-
 import * as api from 'api';
 import { findViewTableIdForSemester } from 'actions/loadingActions';
 import err from 'utils/errorHandler';
-
-export const createCourse = () => ({ type: CREATE_COURSE, course: {} });
 
 export const addLecture = lecture => async (dispatch, getState) => {
   const { viewTableId } = getState().tableList;
@@ -59,8 +53,6 @@ export const updateLecture = (lectureId, updatedPart) => async (
   !response.error && dispatch({ type: UPDATE_LECTURE_OK, response });
 };
 
-export const editCourse = course => ({ type: EDIT_COURSE, course });
-export const closeCourse = course => ({ type: CLOSE_COURSE });
 
 export const updateTitle = newTitle => async (dispatch, getState) => {
   const { viewTableId } = getState().tableList;
