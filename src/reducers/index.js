@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
 import { tableList, tagList } from './timetables';
 import user from './user';
-import notification from './notification';
+import notification from 'ducks/notification'
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {

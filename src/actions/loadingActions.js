@@ -9,6 +9,7 @@ import {
   postNewTable,
 } from 'api';
 import * as types from 'actions/actionTypes';
+import {checkNewMessage} from 'ducks/notification'
 import { switchTable } from 'actions/tableActions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';
@@ -70,10 +71,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
     dispatch({ type: types.LOGIN_OK, userInfo });
     dispatch({ type: types.GET_TABLELIST, tableList });
     dispatch(switchTable(viewTableId));
-    dispatch({
-      type: types.UPDATE_NEW_MESSAGE_COUNT,
-      count: notiCount.count,
-    });
+    dispatch(checkNewMessage({ hasNew: true }))
   } catch (e) {
     alert('초기화 중 에러가 발생했습니다');
     console.log(e);

@@ -19,6 +19,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.2.5",
     "axios": "^0.18.0",
     "axios-mock-adapter": "^1.16.0",
     "color": "^2.0.0",

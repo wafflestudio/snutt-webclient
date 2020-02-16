@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchMessages,
-  openMessageBox,
-  closeMessageBox,
-} from '../../../actions/notification';
+import {openMessageBox, closeMessageBox, fetchMessages} from 'ducks/notification'
 import NotificationMessages from './NotificationMessages.jsx';
 import { visitChecker, welcomeMessage } from './visitorChecker';
 
