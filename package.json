@@ -22,10 +22,10 @@
     "node-sass": "^4.11.0",
     "prop-types": "^15.6.1",
     "radium": "^0.19.5",
-    "react": "^16.8.6",
+    "react": "^16.12.0",
     "react-autocomplete": "^1.8.1",
     "react-color": "^2.13.8",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.12.0",
     "react-edit-inline": "^1.0.7",
     "react-facebook-login": "^4.0.1",
     "react-loading": "^2.0.2",
@@ -49,8 +49,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public",
     "cypress:open": "concurrently -n dev,cypress -c blue,red \"yarn start\"  \"yarn cypress open --config baseUrl=https://localhost:3000\""
   },
   "browserslist": [
