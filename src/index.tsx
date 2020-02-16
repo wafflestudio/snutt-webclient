@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-
 import createHistory from 'history/createBrowserHistory';
 import {
   ConnectedRouter,
@@ -14,7 +13,6 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
-
 import {
   App,
   MakeTimetable,
@@ -25,6 +23,15 @@ import {
   withAuthCheck,
   Feedback,
 } from './components';
+
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION__: any,
+    Cypress: any,
+    store: any
+  }
+}
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
@@ -69,6 +76,7 @@ const RouteApp = () => (
 );
 
 ReactDOM.render(
+  // @ts-ignore
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
