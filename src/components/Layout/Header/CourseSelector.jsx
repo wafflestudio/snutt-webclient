@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
-import { changeCoursebook } from '../../../actions/loadingActions';
+import { changeCoursebook } from 'actions/loadingActions';
 import DropdownArrow from '../../Common/DropdownArrow.jsx';
-
-const mapStateToProps = ({ courseBook }) => {
-  const courseBookJS = courseBook.toJS();
-  return {
-    courseBooks: courseBookJS.available,
-    currentBook: courseBookJS.current,
-  };
-};
 
 // Utils for labels
 const idxToString = [null, '1', 'S', '2', 'W'];
 const courseBookToString = b => `${b.year}-${idxToString[b.semester]}`;
 
 class CourseSelector extends Component {
-  selectCoursebook = selected =>
+  changeCoursebook = selected =>
     this.props.changeCoursebook(this.props.courseBooks[selected.value]);
 
   render() {
@@ -38,7 +30,7 @@ class CourseSelector extends Component {
           name="coursebook-selector"
           value={currentBookIndex}
           options={courseBookOptions}
-          onChange={this.selectCoursebook}
+          onChange={this.changeCoursebook}
           searchable={false}
           clearable={false}
           arrowRenderer={DropdownArrow}
@@ -47,6 +39,13 @@ class CourseSelector extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ courseBook }) => {
+  return {
+    courseBooks: courseBook.available,
+    currentBook: courseBook.current,
+  };
+};
 
 export default connect(
   mapStateToProps,

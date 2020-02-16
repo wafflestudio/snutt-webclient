@@ -17,7 +17,7 @@ const mapStateToProps = ({
   filter: { panel: filterOn },
   query,
 }) => ({
-  currentBook: courseBook.get('current'),
+  currentBook: courseBook.current,
   filterOn,
   queries: query.toJS(),
 });

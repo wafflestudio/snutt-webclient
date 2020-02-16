@@ -14,7 +14,7 @@ const mapStateToProps = ({
   tableList: { viewTableId, tableMap, colorScheme },
 }) => {
   let semesterTables = [];
-  const currentBook = courseBook.toJS().current;
+  const currentBook = courseBook.current;
   if (currentBook) {
     const { year, semester } = currentBook;
     semesterTables = Object.values(tableMap).filter(

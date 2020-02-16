@@ -42,20 +42,6 @@ class ResultTable extends Component {
   render() {
     const { searching, searchResults, viewLectures } = this.props;
     const data = searching ? searchResults : viewLectures || [];
-    const rows =
-      data.length > 0 ? (
-        data.map(row => (
-          <ResultRow key={row._id} lecture={row} searching={searching} />
-        ))
-      ) : searching ? (
-        <tr>
-          <td>검색 결과가 없습니다.</td>
-        </tr>
-      ) : (
-        <tr>
-          <td>추가된 강의가 없습니다.</td>
-        </tr>
-      );
     return (
       <div>
         <ResultTabs
@@ -75,7 +61,19 @@ class ResultTable extends Component {
                   </td>
                 </tr>
               ) : (
-                rows
+                data.length > 0 ? (
+                  data.map(row => (
+                    <ResultRow key={row._id} lecture={row} searching={searching} />
+                  ))
+                ) : searching ? (
+                  <tr>
+                    <td>검색 결과가 없습니다.</td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td>추가된 강의가 없습니다.</td>
+                  </tr>
+                )
               )}
             </tbody>
           </table>

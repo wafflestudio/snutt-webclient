@@ -10,6 +10,7 @@ import {
 } from 'api';
 import * as types from 'actions/actionTypes';
 import {checkNewMessage} from 'ducks/notification'
+import {changeCoursebook as changeCoursebookAction} from 'ducks/coursebook'
 import { switchTable } from 'actions/tableActions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';
@@ -26,7 +27,7 @@ export const initialize = () => async dispatch => {
   const [colors, courseBooks] = resp;
 
   const recentCourseBook = courseBooks[0];
-  dispatch({ type: types.CHANGE_COURSEBOOK, newCourseBook: recentCourseBook });
+  dispatch(changeCoursebookAction(recentCourseBook))
   dispatch({
     type: types.LOAD_OK,
     colors,
@@ -60,7 +61,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
     ]);
 
     // set viewTableId
-    const { year, semester } = getState().courseBook.toJS().current;
+    const { year, semester } = getState().courseBook.current;
     let viewTableId = findViewTableIdForSemester(year, semester, tableList);
 
     if (!viewTableId) {
@@ -80,10 +81,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
 
 // Set of actions that should be along with new coursebook
 export const changeCoursebook = newCourseBook => async (dispatch, getState) => {
-  dispatch({
-    type: types.CHANGE_COURSEBOOK,
-    newCourseBook,
-  });
+  dispatch(changeCoursebookAction(newCourseBook));
   const { user, tableList } = getState();
   if (!user.id) return;
   const { year, semester } = newCourseBook;

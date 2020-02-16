@@ -1,8 +1,9 @@
 import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
+import { changeCoursebook } from 'ducks/coursebook'
 import { tableList, tagList } from './timetables';
 import user from './user';
-import { notification, courseEditor } from 'ducks';
+import { notification, courseEditor, courseBook } from 'ducks';
 
 // Hovering over resultTable on left side
 function hoveredCourse(state = null, action) {
@@ -62,27 +63,8 @@ function searchResults(state = null, action) {
       return [];
     case types.SHOW_RESULT:
       return action.courses;
-    case types.CHANGE_COURSEBOOK:
+    case changeCoursebook.type:
       return [];
-    default:
-      return state;
-  }
-}
-
-const defaultCoursebook = Immutable.fromJS({
-  available: [],
-  current: null,
-});
-
-function courseBook(state = defaultCoursebook, action) {
-  switch (action.type) {
-    case types.LOAD_OK:
-      const { courseBooks } = action;
-      return state.set('available', courseBooks);
-    case types.FETCH_COURSEBOOK:
-      return state.set('available', action.courseBooks);
-    case types.CHANGE_COURSEBOOK:
-      return state.set('current', action.newCourseBook);
     default:
       return state;
   }
@@ -131,7 +113,7 @@ function filter(
 
 function leftTabSearching(state = false, action) {
   switch (action.type) {
-    case types.CHANGE_COURSEBOOK:
+    case changeCoursebook.type:
       return false;
     case types.SET_LEFT_TAB:
       return action.searching;

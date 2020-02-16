@@ -65,7 +65,7 @@ export const createTable = (newTitle = '나의 시간표', year, semester) => as
   dispatch,
   getState,
 ) => {
-  const currentBook = getState().courseBook.get('current');
+  const currentBook = getState().courseBook.current
   if (!year || !semester) {
     year = currentBook.year;
     semester = currentBook.semester;
@@ -80,7 +80,7 @@ export const deleteTable = _id => async (dispatch, getState) => {
   if (tableList.error) return;
 
   // check if current table is remaining
-  const { year, semester } = getState().courseBook.get('current');
+  const { year, semester } = getState().courseBook.current
   const nextViewTableId = findViewTableIdForSemester(year, semester, tableList);
 
   dispatch({ type: SWITCH_TABLE_OK, response: { _id: nextViewTableId } });
