@@ -71,7 +71,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
     dispatch({ type: types.LOGIN_OK, userInfo });
     dispatch({ type: types.GET_TABLELIST, tableList });
     dispatch(switchTable(viewTableId));
-    dispatch(checkNewMessage({ hasNew: true }))
+    dispatch(checkNewMessage({ hasNew: notiCount.count > 0 }))
   } catch (e) {
     alert('초기화 중 에러가 발생했습니다');
     console.log(e);
