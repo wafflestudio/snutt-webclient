@@ -13,6 +13,7 @@
     "@types/react-router-redux": "^5.0.18",
     "concurrently": "^4.1.0",
     "cypress": "3.2.0",
+    "eslint-config-prettier": "^6.10.0",
     "redux-mock-store": "^1.5.3",
     "serve": "^10.1.2",
     "typescript": "^3.7.5"
@@ -73,7 +74,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
-      "prettier --write"
+      "prettier --write",
+      "eslint --fix"
     ]
   }
 }
