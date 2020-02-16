@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { startCourseEditor } from 'ducks/courseEditor';
-import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
+import { hoverCourseAtTable, unhoverCourseAtTable } from 'ducks/ui'
 
 import IconWrapper from '../../Common/IconWrapper';
 import { ReactComponent as DeleteIconNormal } from 'assets/ic-delete-white-normal.svg';
@@ -13,7 +13,7 @@ import { ReactComponent as EditIconHover } from 'assets/ic-edit-white-over.svg';
 import { ReactComponent as EditIconFocus } from 'assets/ic-edit-white-pressed.svg';
 
 const mapStateToProps = ({
-  tableHoveredCourse,
+  ui: {tableHoveredCourse},
   courseEditor: { isOpen: courseEditorOpened },
 }) => ({
   courseEditorOpened,
@@ -21,8 +21,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onHover: course => dispatch(tableHoverCourse(course)),
-  onUnhover: () => dispatch(tableUnhoverCourse()),
+  onHover: course => dispatch(hoverCourseAtTable(course)),
+  onUnhover: () => dispatch(unhoverCourseAtTable()),
   onEdit: course => dispatch(startCourseEditor(course)),
 });
 
@@ -56,13 +56,11 @@ class LectureBox extends Component {
       !courseEditorOpened && tableHoveredCourse
         ? this.props.tableHoveredCourse._id === this.props.course._id
         : false;
-    if (!course.color) {
-      course.color = DEFAULT_COLOR;
-    }
+    const courseColor = course.color || DEFAULT_COLOR
     const divStyle = {
       height: `${length * 20}px`,
-      color: course.color.fg,
-      backgroundColor: course.color.bg,
+      color: courseColor.fg,
+      backgroundColor: courseColor.bg,
     };
     return (
       <div

@@ -4,13 +4,12 @@ import Loading from 'react-loading';
 
 import ResultTabs from './ResultTabs.jsx';
 import ResultRow from './ResultRow.jsx';
-import { setLeftTab } from '../../../actions';
+import {setIsLeftTabSearching} from 'ducks/ui'
 
 function mapStateToProps(state) {
   const {
-    isQuerying,
+    ui: {isQuerying, isLeftTabSearching},
     searchResults,
-    leftTabSearching,
     tableList: { viewTableId, tableMap },
   } = state;
   const viewLectures =
@@ -21,12 +20,12 @@ function mapStateToProps(state) {
     isQuerying,
     searchResults,
     viewLectures,
-    searching: leftTabSearching,
+    searching: isLeftTabSearching,
   };
 }
 
 const mapDispatchToProps = dispatch => ({
-  onSetLeftTab: isSearching => dispatch(setLeftTab(!isSearching)),
+  onSetLeftTab: isSearching => dispatch(setIsLeftTabSearching(!isSearching)),
 });
 
 class ResultTable extends Component {

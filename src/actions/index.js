@@ -5,22 +5,6 @@ import { uniqBy } from 'lodash/array';
 import * as types from './actionTypes';
 import { complement } from '../components/MakeTimetable/Search/TimeQuery.jsx';
 
-export function hoverCourse(course) {
-  return { type: types.HOVER_COURSE, course };
-}
-
-export function unhoverCourse() {
-  return { type: types.UNHOVER_COURSE };
-}
-
-export function tableHoverCourse(course) {
-  return { type: types.TABLE_HOVER_COURSE, course };
-}
-
-export function tableUnhoverCourse() {
-  return { type: types.TABLE_UNHOVER_COURSE };
-}
-
 export function addQuery(member, item) {
   return { type: types.ADD_QUERY, member, item };
 }
@@ -123,6 +107,3 @@ export function toggleModal() {
   return { type: types.TOGGLE_MODAL };
 }
 
-export function setLeftTab(searching) {
-  return { type: types.SET_LEFT_TAB, searching };
-}

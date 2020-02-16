@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ResultRowButtons from './ResultRowButtons.jsx';
 
-import { hoverCourse, unhoverCourse } from '../../../actions';
-import { tableHoverCourse, tableUnhoverCourse } from '../../../actions';
+import { hoverCourseAtList, hoverCourseAtTable, unhoverCourseAtList, unhoverCourseAtTable} from 'ducks/ui'
 
 const mapDispatchToProps = dispatch => ({
-  onHoverCourse: course => dispatch(hoverCourse(course)),
-  onUnhoverCourse: () => dispatch(unhoverCourse()),
-  onTableHover: course => dispatch(tableHoverCourse(course)),
-  onTableUnhover: () => dispatch(tableUnhoverCourse()),
+  onHoverCourse: course => dispatch(hoverCourseAtList(course)),
+  onUnhoverCourse: () => dispatch(unhoverCourseAtList()),
+  onTableHover: course => dispatch(hoverCourseAtTable(course)),
+  onTableUnhover: () => dispatch(unhoverCourseAtTable()),
 });
 
 class ResultRow extends Component {

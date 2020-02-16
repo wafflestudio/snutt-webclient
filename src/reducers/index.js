@@ -1,33 +1,9 @@
 import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
-import { changeCoursebook } from 'ducks/coursebook'
+import { changeCoursebook } from 'ducks/coursebook';
 import { tableList, tagList } from './timetables';
 import user from './user';
-import { notification, courseEditor, courseBook } from 'ducks';
-
-// Hovering over resultTable on left side
-function hoveredCourse(state = null, action) {
-  switch (action.type) {
-    case types.HOVER_COURSE:
-      return action.course;
-    case types.UNHOVER_COURSE:
-      return null;
-    default:
-      return state;
-  }
-}
-
-// Hovering over timetable on right side
-function tableHoveredCourse(state = null, action) {
-  switch (action.type) {
-    case types.TABLE_HOVER_COURSE:
-      return action.course;
-    case types.TABLE_UNHOVER_COURSE:
-      return null;
-    default:
-      return state;
-  }
-}
+import { notification, courseEditor, courseBook, ui } from 'ducks';
 
 // It's something more like filter...I have to rename all the variables someday
 export const defaultQuery = Immutable.Map({
@@ -70,15 +46,6 @@ function searchResults(state = null, action) {
   }
 }
 
-function isQuerying(state = false, action) {
-  switch (action.type) {
-    case types.START_QUERY:
-      return true;
-    default:
-      return false;
-  }
-}
-
 function filter(
   state = {
     panel: false,
@@ -111,33 +78,17 @@ function filter(
   }
 }
 
-function leftTabSearching(state = false, action) {
-  switch (action.type) {
-    case changeCoursebook.type:
-      return false;
-    case types.SET_LEFT_TAB:
-      return action.searching;
-    case types.START_QUERY:
-      return true;
-    default:
-      return state;
-  }
-}
-
 const reducer = {
-  hoveredCourse,
-  tableHoveredCourse,
   query,
   searchResults,
   courseBook,
-  isQuerying,
   filter,
-  leftTabSearching,
   user,
   tableList,
   tagList,
   courseEditor,
   notification,
+  ui,
 };
 
 // This file exports a mere object, which is to be combined at src/index.js later.
