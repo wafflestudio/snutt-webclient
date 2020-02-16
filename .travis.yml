@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 8
+  - 10
 addons:
   apt:
     packages:
@@ -13,11 +13,11 @@ cache:
     - node_modules
 install:
   - yarn
-before_script:
-  - yarn build
-  - yarn serve -s build &
+# before_script:
+#   - yarn build
+#   - yarn serve -s build &
 script:
-  - cypress run --record
+  - yarn build
 # deploy:
 #   - provider: script
 #     skip_cleanup: true
