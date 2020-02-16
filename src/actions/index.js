@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
 import * as api from 'api';
+import { uniqBy } from 'lodash/array';
+
 import * as types from './actionTypes';
 import { complement } from '../components/MakeTimetable/Search/TimeQuery.jsx';
 
@@ -38,12 +40,11 @@ export function resetQuery() {
 export function runQuery(textQuery) {
   return (dispatch, getState) => {
     const {
-      courseBook,
+      courseBook: {current: { year, semester }},
       query,
       filter: { useTime, searchEmptySlot },
       tableList: { viewTableId, tableMap },
     } = getState();
-    const { year, semester } = courseBook.get('current');
     const queries = query.toJS();
 
     const validQuery = { year, semester, title: textQuery, limit: 200 };
@@ -75,7 +76,8 @@ export function runQuery(textQuery) {
 export const sendQuery = query => async dispatch => {
   dispatch(startQuery(query));
   const courses = await api.getQueryResults(query);
-  dispatch(showResult(courses));
+  const uniqueCourses = uniqBy(courses, '_id')
+  dispatch(showResult(uniqueCourses));
 };
 
 export function startQuery(query) {
