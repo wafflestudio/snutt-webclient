@@ -4,9 +4,7 @@
   "private": true,
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "customize-cra": "^0.2.11",
     "cypress": "3.2.0",
-    "eslint-config-prettier": "^3.6.0",
     "redux-mock-store": "^1.5.3",
     "serve": "^10.1.2"
   },
@@ -17,7 +15,6 @@
     "es6-symbol": "^3.1.0",
     "history": "^4.7.2",
     "html2canvas": "^1.0.0-alpha.12",
-    "husky": "^2.1.0",
     "immutability-helper": "^2.7.0",
     "immutable": "^3.7.6",
     "lodash": "^4.17.11",
@@ -61,5 +58,15 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "prettier --write"
+    ]
+  }
 }
