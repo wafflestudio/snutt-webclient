@@ -13,18 +13,13 @@ const mapStateToProps = ({ courseBook }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  selectCoursebook: ({ year, semester }) =>
-    dispatch(changeCoursebook({ year, semester })),
-});
-
 // Utils for labels
 const idxToString = [null, '1', 'S', '2', 'W'];
 const courseBookToString = b => `${b.year}-${idxToString[b.semester]}`;
 
 class CourseSelector extends Component {
   selectCoursebook = selected =>
-    this.props.selectCoursebook(this.props.courseBooks[selected.value]);
+    this.props.changeCoursebook(this.props.courseBooks[selected.value]);
 
   render() {
     const { courseBooks, currentBook } = this.props;
@@ -55,5 +50,7 @@ class CourseSelector extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  {
+    changeCoursebook
+  },
 )(CourseSelector);

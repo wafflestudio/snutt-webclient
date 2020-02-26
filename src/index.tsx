@@ -1,3 +1,6 @@
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
@@ -24,12 +27,11 @@ import {
   Feedback,
 } from './components';
 
-
 declare global {
   interface Window {
-    __REDUX_DEVTOOLS_EXTENSION__: any,
-    Cypress: any,
-    store: any
+    __REDUX_DEVTOOLS_EXTENSION__: any;
+    Cypress: any;
+    store: any;
   }
 }
 
