@@ -90,7 +90,7 @@ class SearchFilter extends Component {
     if (
       e.target.className &&
       e.target.className.includes &&
-      !this.node.contains(e.target) &&
+      !this.node?.contains(e.target) &&
       !this.props.timePanel
     ) {
       if (
