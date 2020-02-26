@@ -64,7 +64,7 @@ class ResultRow extends Component {
             </div>
           ) : null}
           {/* https://stackoverflow.com/questions/8501727/table-row-wont-contain-elements-with-positionabsolute */}
-          {hovered && lecture.remark.length > 0 ? (
+          {hovered && lecture?.remark?.length > 0 ? (
             <div className="remark">
               <hr />
               <span>{lecture.remark}</span>
