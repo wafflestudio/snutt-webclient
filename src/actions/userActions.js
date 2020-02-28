@@ -16,14 +16,8 @@ import {
   getNewTokenAfterChangePassword,
 } from '../api';
 import { saveToken, clearToken, changeToken } from '../utils/auth';
+import { loginFail, logout as logoutAction} from 'ducks/user'
 
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILURE = 'REGISTER_FAILURE';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGIN_TEMP = 'LOGIN_TEMP';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const GET_USER_INFO = 'GET_USER_INFO';
 
 // Code snippet from https://github.com/github/fetch/issues/263
 export const encodeParams = params =>
@@ -47,7 +41,7 @@ export const loginLocal = (
   if (resp.token) {
     dispatch(loginWithToken(resp.token, keepLogin));
   } else if (resp.error.errorCode) {
-    dispatch(failLogin(resp.error.errorCode));
+    dispatch(loginFail({errcode: resp.error.errorCode}));
   }
 };
 
@@ -56,7 +50,7 @@ export const loginFacebook = (fb_id, fb_token) => async dispatch => {
   if (resp.token) {
     dispatch(loginWithToken(resp.token));
   } else if (resp.error.errorCode) {
-    dispatch(failLogin(resp.error.errorCode));
+    dispatch(loginFail({errcode: resp.error.errorCode}));
   }
 };
 
@@ -68,13 +62,12 @@ export const loginWithToken = (token, keepLogin = true) => dispatch => {
 
 export const logout = () => dispatch => {
   clearToken();
-  dispatch({ type: LOGOUT_SUCCESS });
+  dispatch(logoutAction());
   dispatch(fetchUserInfo());
   dispatch(push('/'));
   return;
 };
 
-export const failLogin = errcode => ({ type: LOGIN_FAILURE, errcode });
 
 export const leaveFeedback = async (email, message, callback) => {
   const resp = await err(postFeedback(email, message));
@@ -89,7 +82,7 @@ export const deleteAccount = () => async dispatch => {
 
   clearToken();
   dispatch(push('/'));
-  dispatch({ type: LOGOUT_SUCCESS });
+  dispatch(logoutAction());
   dispatch(fetchUserInfo());
 };
 
@@ -127,7 +120,7 @@ export const changePassword = (
     getNewTokenAfterChangePassword(old_password, new_password),
   );
   if (resp.token) {
-    changeToken(resp);
+    changeToken(resp.token);
     dispatch(fetchUserInfo());
     callback();
   }

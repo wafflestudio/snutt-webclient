@@ -11,6 +11,7 @@ import {
 import * as types from 'actions/actionTypes';
 import {checkNewMessage} from 'ducks/notification'
 import {changeCoursebook as changeCoursebookAction} from 'ducks/coursebook'
+import { loginSuccess } from 'ducks/user'
 import { switchTable } from 'actions/tableActions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';
@@ -69,7 +70,7 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
       viewTableId = findViewTableIdForSemester(year, semester, tableList);
     }
 
-    dispatch({ type: types.LOGIN_OK, userInfo });
+    dispatch(loginSuccess({info: userInfo}))
     dispatch({ type: types.GET_TABLELIST, tableList });
     dispatch(switchTable(viewTableId));
     dispatch(checkNewMessage({ hasNew: notiCount.count > 0 }))

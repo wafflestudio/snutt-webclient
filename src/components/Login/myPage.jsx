@@ -75,7 +75,7 @@ class MyPage extends Component {
 
   renderLocalAccountManager = () => {
     const { info } = this.props;
-    if (info.local_id) {
+    if (info?.local_id) {
       // User had id and password
       return (
         <div>
@@ -181,7 +181,7 @@ class MyPage extends Component {
 
   renderFacebookManager = () => {
     const { info } = this.props;
-    if (info.fb_name) {
+    if (info?.fb_name) {
       return (
         <button className="btn login-fb" onClick={this.props.detachFacebook}>
           페이스북 연동 해지하기

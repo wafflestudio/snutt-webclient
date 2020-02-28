@@ -1,9 +1,9 @@
 import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
 import { changeCoursebook } from 'ducks/coursebook';
+import { notification, courseEditor, courseBook, ui, user } from 'ducks';
+
 import { tableList, tagList } from './timetables';
-import user from './user';
-import { notification, courseEditor, courseBook, ui } from 'ducks';
 
 // It's something more like filter...I have to rename all the variables someday
 export const defaultQuery = Immutable.Map({
