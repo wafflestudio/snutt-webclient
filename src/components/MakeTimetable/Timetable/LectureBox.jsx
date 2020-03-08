@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { startCourseEditor } from 'ducks/courseEditor';
-import { hoverCourseAtTable, unhoverCourseAtTable } from 'ducks/ui'
+import { startCourseEditor } from 'slices/courseEditor';
+import { hoverCourseAtTable, unhoverCourseAtTable } from 'slices/ui'
 
 import IconWrapper from '../../Common/IconWrapper';
 import { ReactComponent as DeleteIconNormal } from 'assets/ic-delete-white-normal.svg';

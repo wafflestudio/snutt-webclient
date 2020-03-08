@@ -7,7 +7,7 @@ import {
 } from '../../../actions/tableActions';
 import {
   startCourseEditor
-} from 'ducks/courseEditor'
+} from 'slices/courseEditor'
 import showCourseDetail from './showCourseDetail.js';
 
 function mapStateToProps(state) {

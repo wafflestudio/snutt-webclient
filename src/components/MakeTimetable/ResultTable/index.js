@@ -4,7 +4,7 @@ import Loading from 'react-loading';
 
 import ResultTabs from './ResultTabs.jsx';
 import ResultRow from './ResultRow.jsx';
-import {setIsLeftTabSearching} from 'ducks/ui'
+import {setIsLeftTabSearching} from 'slices/ui'
 
 function mapStateToProps(state) {
   const {

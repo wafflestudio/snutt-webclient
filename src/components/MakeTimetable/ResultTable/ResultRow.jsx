@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ResultRowButtons from './ResultRowButtons.jsx';
 
-import { hoverCourseAtList, hoverCourseAtTable, unhoverCourseAtList, unhoverCourseAtTable} from 'ducks/ui'
+import { hoverCourseAtList, hoverCourseAtTable, unhoverCourseAtList, unhoverCourseAtTable} from 'slices/ui'
 
 const mapDispatchToProps = dispatch => ({
   onHoverCourse: course => dispatch(hoverCourseAtList(course)),

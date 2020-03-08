@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { changeCoursebook } from 'ducks/coursebook';
+import { changeCoursebook } from 'slices/coursebook';
 import { Lecture } from 'types';
 
 import * as actionTypes from '../actions/actionTypes';

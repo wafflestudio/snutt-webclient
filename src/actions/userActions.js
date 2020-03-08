@@ -16,7 +16,7 @@ import {
   getNewTokenAfterChangePassword,
 } from '../api';
 import { saveToken, clearToken, changeToken } from '../utils/auth';
-import { loginFail, logout as logoutAction} from 'ducks/user'
+import { loginFail, logout as logoutAction} from 'slices/user'
 
 
 // Code snippet from https://github.com/github/fetch/issues/263

@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import * as types from '../actions/actionTypes';
-import { changeCoursebook } from 'ducks/coursebook';
-import { notification, courseEditor, courseBook, ui, user } from 'ducks';
+import { changeCoursebook } from 'slices/coursebook';
+import { notification, courseEditor, courseBook, ui, user } from 'slices';
 
 import { tableList, tagList } from './timetables';
 

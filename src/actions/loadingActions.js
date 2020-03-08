@@ -9,9 +9,9 @@ import {
   postNewTable,
 } from 'api';
 import * as types from 'actions/actionTypes';
-import {checkNewMessage} from 'ducks/notification'
-import {changeCoursebook as changeCoursebookAction} from 'ducks/coursebook'
-import { loginSuccess } from 'ducks/user'
+import {checkNewMessage} from 'slices/notification'
+import {changeCoursebook as changeCoursebookAction} from 'slices/coursebook'
+import { loginSuccess } from 'slices/user'
 import { switchTable } from 'actions/tableActions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';

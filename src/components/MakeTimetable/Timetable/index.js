@@ -10,7 +10,7 @@ import {
 } from '../../../actions/tableActions';
 import {
   startCourseEditor
-} from 'ducks/courseEditor'
+} from 'slices/courseEditor'
 import { addCourse } from '../../../actions';
 const TableCapturer = lazy(() => import('./TableCapturer'));
 

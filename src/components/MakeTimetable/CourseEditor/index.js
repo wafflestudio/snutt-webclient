@@ -9,7 +9,7 @@ import {
 } from '../../../actions/tableActions';
 import {
   closeCourseEditor
-} from 'ducks/courseEditor'
+} from 'slices/courseEditor'
 import JsonEditor from './JsonEditor.jsx';
 
 const mapStateToProps = state => {
