@@ -3,18 +3,13 @@ import 'react-app-polyfill/stable';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import {
-  ConnectedRouter,
-  routerReducer,
-  routerMiddleware,
-} from 'react-router-redux';
-import thunk from 'redux-thunk';
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
-import rootReducer from './reducers';
+import rootReducer from 'slices';
 import * as serviceWorker from './serviceWorker';
 import {
   App,
@@ -43,22 +38,11 @@ require('stylesheets/style.scss');
 
 const history = createHistory();
 
-const reducer = combineReducers({
-  ...rootReducer,
-  routing: routerReducer,
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: [...getDefaultMiddleware(), routerMiddleware(history)],
 });
 
-const middleware = applyMiddleware(routerMiddleware(history), thunk);
-
-export const store = createStore(
-  reducer,
-  compose(
-    middleware,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && process.env.NODE_ENV !== 'production'
-      ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : f => f,
-  ),
-);
 if (window.Cypress) {
   console.log("It seems I'm under Cypress");
   window.store = store;
