@@ -12,6 +12,7 @@ import * as types from 'actions/actionTypes';
 import {checkNewMessage} from 'slices/notification'
 import {changeCoursebook as changeCoursebookAction} from 'slices/coursebook'
 import { loginSuccess } from 'slices/user'
+import {setTagList} from 'slices/search'
 import { switchTable } from 'actions/tableActions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';
@@ -37,10 +38,7 @@ export const initialize = () => async dispatch => {
 
   dispatch(fetchUserInfo());
   const tags = await getTags(recentCourseBook.year, recentCourseBook.semester);
-  dispatch({
-    type: types.GET_TAG,
-    tags,
-  });
+  dispatch(setTagList(tags))
 };
 
 export const fetchUserInfo = () => async (dispatch, getState) => {
@@ -103,10 +101,7 @@ export const changeCoursebook = newCourseBook => async (dispatch, getState) => {
 
   dispatch(switchTable(newViewTableId));
   const tags = await getTags(year, semester);
-  dispatch({
-    type: types.GET_TAG,
-    tags,
-  });
+  dispatch(setTagList(tags))
 };
 
 /**

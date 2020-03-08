@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Loading from 'react-loading';
 
+import {setIsLeftTabSearching} from 'slices/ui'
 import ResultTabs from './ResultTabs.jsx';
 import ResultRow from './ResultRow.jsx';
-import {setIsLeftTabSearching} from 'slices/ui'
 
 function mapStateToProps(state) {
   const {
     ui: {isQuerying, isLeftTabSearching},
-    searchResults,
+    search: {
+      result
+    },
     tableList: { viewTableId, tableMap },
   } = state;
   const viewLectures =
@@ -18,7 +20,7 @@ function mapStateToProps(state) {
       : [];
   return {
     isQuerying,
-    searchResults,
+    searchResults: result,
     viewLectures,
     searching: isLeftTabSearching,
   };

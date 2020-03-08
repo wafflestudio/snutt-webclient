@@ -1,40 +1,15 @@
 export const LOAD_OK = 'loading/LOAD_OK';
 export const LOGIN_OK = 'user/LOGIN_OK';
 
-export const HOVER_COURSE = 'HOVER_COURSE';
-export const UNHOVER_COURSE = 'UNHOVER_COURSE';
-
-export const TABLE_HOVER_COURSE = 'TABLE_HOVER_COURSE';
-export const TABLE_UNHOVER_COURSE = 'TABLE_UNHOVER_COURSE';
-
-export const SET_LEFT_TAB = 'SET_LEFT_TAB';
-
-export const ADD_QUERY = 'ADD_QUERY';
-export const UPDATE_QUERY = 'UPDATE_QUERY';
-export const REMOVE_QUERY = 'REMOVE_QUERY';
-export const RESET_QUERY = 'RESET_QUERY';
-
-export const SEND_QUERY = 'SEND_QUERY';
-export const START_QUERY = 'START_QUERY';
-export const SHOW_RESULT = 'SHOW_RESULT';
-
 export const ADD_COURSE = 'ADD_COURSE';
 export const DELETE_COURSE = 'DELETE_COURSE';
 export const EDIT_COURSE = 'EDIT_COURSE';
 export const CLOSE_COURSE = 'CLOSE_COURSE';
 
-export const TOGGLE_SEARCHPANEL = 'TOGGLE_SEARCHPANEL';
-export const TOGGLE_TIMEPANEL = 'TOGGLE_TIMEPANEL';
-export const TOGGLE_USETIME = 'TOGGLE_USETIME';
-export const SELECT_TIMEMODE = 'SELECT_TIMEMODE';
 
 export const REQUEST_TABLELIST = 'REQUEST_TABLELIST';
 export const GET_TABLELIST = 'GET_TABLELIST';
 export const FAIL_TABLELIST = 'FAIL_TABLELIST';
-
-export const REQUEST_TAG = 'REQUEST_TAG';
-export const GET_TAG = 'GET_TAG';
-export const FAIL_TAG = 'FAIL_TAG';
 
 export const ADD_LECTURE_START = 'ADD_LECTURE_START';
 export const ADD_LECTURE_OK = 'ADD_LECTURE_OK';
@@ -72,6 +47,5 @@ export const ADD_TIMETABLE = 'ADD_TIMETABLE';
 export const CHANGE_TIMETABLE = 'CHANGE_TIMETABLE';
 export const DELETE_TIMETABLE = 'DELETE_TIMETABLE';
 
-export const FETCH_TAG = 'FETCH_TAG';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';

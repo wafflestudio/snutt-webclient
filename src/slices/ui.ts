@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { changeCoursebook } from 'slices/coursebook';
+import { startSearch, showSearchResult } from 'slices/search';
 import { Lecture } from 'types';
-
-import * as actionTypes from '../actions/actionTypes';
 
 interface UIState {
   hoveredCourse: Lecture | null;
@@ -43,11 +42,11 @@ const uiSlice = createSlice({
     [changeCoursebook.type]: state => {
       state.isLeftTabSearching = false;
     },
-    [actionTypes.START_QUERY]: state => {
+    [startSearch.type]: state => {
       state.isQuerying = true;
       state.isLeftTabSearching = true;
     },
-    [actionTypes.SHOW_RESULT]: state => {
+    [showSearchResult.type]: state => {
       state.isQuerying = false;
       state.isLeftTabSearching = true;
     },

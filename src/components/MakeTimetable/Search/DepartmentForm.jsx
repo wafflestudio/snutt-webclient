@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import { addQuery, removeQuery } from '../../../actions';
 import { ReactComponent as DeleteButton } from 'assets/btn-delete-normal.svg';
+import {addQuery, removeQuery} from 'slices/search'
 
 const MAX_DEPARTMENT = 3;
 
@@ -39,15 +39,15 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { query, tagList } = state;
-  const selectedDepartments = query.get('department');
-  const departmentTags = tagList.department || []; // Inject empty list before loading
+  const { search: {query, tagList}  } = state;
+  const selectedDepartments = query['department'] || [];
+  const departmentTags = tagList?.department || []; // Inject empty list before loading
   return { selectedDepartments, departmentTags };
 }
 
 const mapDispatchToProps = dispatch => ({
-  addQuery: value => dispatch(addQuery('department', value)),
-  removeQuery: value => dispatch(removeQuery('department', value)),
+  addQuery: value => dispatch(addQuery({key:'department', value})),
+  removeQuery: value => dispatch(removeQuery({key:'department', value})),
 });
 
 class DeparmentForm extends Component {
@@ -101,7 +101,7 @@ class DeparmentForm extends Component {
             <DeleteButton />
           </div>
         ))}
-        {selectedDepartments.size < MAX_DEPARTMENT ? (
+        {selectedDepartments.length < MAX_DEPARTMENT ? (
           <Autocomplete
             value={this.state.value}
             items={departmentTags}

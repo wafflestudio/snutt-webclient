@@ -1,5 +1,6 @@
 import { routerReducer } from 'react-router-redux';
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, Action } from '@reduxjs/toolkit';
+import { ThunkAction } from 'redux-thunk';
 
 import courseEditor from './courseEditor';
 import courseBook from './coursebook';
@@ -23,3 +24,5 @@ const rootReducer = combineReducers({
 export default rootReducer;
 
 export type RootState = ReturnType<typeof rootReducer>;
+
+export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;

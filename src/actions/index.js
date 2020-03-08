@@ -1,76 +1,4 @@
-import 'whatwg-fetch';
-import * as api from 'api';
-import { uniqBy } from 'lodash/array';
-
 import * as types from './actionTypes';
-import { complement } from '../components/MakeTimetable/Search/TimeQuery.jsx';
-
-export function addQuery(member, item) {
-  return { type: types.ADD_QUERY, member, item };
-}
-
-export function updateQuery(member, func) {
-  return { type: types.UPDATE_QUERY, member, func };
-}
-
-export function removeQuery(member, item) {
-  return { type: types.REMOVE_QUERY, member, item };
-}
-
-export function resetQuery() {
-  return { type: types.RESET_QUERY };
-}
-
-export function runQuery(textQuery) {
-  return (dispatch, getState) => {
-    const {
-      courseBook: {current: { year, semester }},
-      query,
-      filter: { useTime, searchEmptySlot },
-      tableList: { viewTableId, tableMap },
-    } = getState();
-    const queries = query.toJS();
-
-    const validQuery = { year, semester, title: textQuery, limit: 200 };
-
-    // Add valid(?) fields to query
-    for (const key in queries) {
-      const value = queries[key];
-      if (typeof value === 'object' && value.length > 0) {
-        validQuery[key] = value;
-      }
-    }
-
-    // Handle times
-    if (!useTime) {
-      delete validQuery.time_mask;
-    } else if (searchEmptySlot) {
-      // use free time as query
-      const viewLectures = tableMap[viewTableId].lecture_list;
-      const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);
-      const invertedMasks = complement(currentMasks);
-      validQuery.time_mask = invertedMasks;
-    } else {
-      // Time selector already updated time_mask
-    }
-    dispatch(sendQuery(validQuery));
-  };
-}
-
-export const sendQuery = query => async dispatch => {
-  dispatch(startQuery(query));
-  const courses = await api.getQueryResults(query);
-  const uniqueCourses = uniqBy(courses, '_id')
-  dispatch(showResult(uniqueCourses));
-};
-
-export function startQuery(query) {
-  return { type: types.START_QUERY, sent: query };
-}
-
-export function showResult(courses) {
-  return { type: types.SHOW_RESULT, courses };
-}
 
 export function addCourse(course) {
   return { type: types.ADD_COURSE, course };
@@ -90,20 +18,5 @@ export function addTimeTable() {
 
 export function deleteTimeTable(index) {
   return { type: types.DELETE_TIMETABLE, index };
-}
-
-export function toggleSearchPanel() {
-  return { type: types.TOGGLE_SEARCHPANEL };
-}
-
-export function toggleTimePanel() {
-  return { type: types.TOGGLE_TIMEPANEL };
-}
-
-export const toggleUseTime = () => ({ type: types.TOGGLE_USETIME });
-export const selectTimeMode = mode => ({ type: types.SELECT_TIMEMODE, mode });
-
-export function toggleModal() {
-  return { type: types.TOGGLE_MODAL };
 }
 

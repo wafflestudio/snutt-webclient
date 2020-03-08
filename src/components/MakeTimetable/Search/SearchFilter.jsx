@@ -11,10 +11,10 @@ import {
   removeQuery,
   resetQuery,
   toggleUseTime,
-  selectTimeMode,
-  toggleTimePanel,
-  toggleSearchPanel,
-} from '../../../actions';
+  toggleTimeFilterPanel,
+  toggleFilterPanel,
+  setSearchEmptyTime,
+} from 'slices/search'
 import {
   credits,
   academicYears,
@@ -28,14 +28,20 @@ import {
 function mapStateToProps(state) {
   const {
     tableList: { currentId, tableMap },
-    query,
-    filter: { timePanel, useTime, searchEmptySlot },
+    search: {
+      query,
+      useTime,
+      searchEmptyTime,
+      ui: {
+        isTimeFilterPanelOn: timePanel,
+      }
+    },
   } = state;
   const currentLectures =
     currentId == null ? [] : tableMap[currentId].lecture_list;
   // Deduct 7 because empty timemasks's count is 7
   let activeFieldCounts =
-    query.valueSeq().reduce((prev, current) => prev + current.count(), 0) - 7;
+    Object.values(query).reduce((prev, current) => prev + Object.values(current).length, 0) -7;
   if (useTime) {
     activeFieldCounts += 1;
   }
@@ -48,24 +54,24 @@ function mapStateToProps(state) {
     currentLectures,
     timePanel,
     useTime,
-    searchingEmptySlot: searchEmptySlot,
+    searchingEmptySlot: searchEmptyTime,
   };
 }
 
 const mapDispatchToProps = dispatch => ({
   resetQuery: () => dispatch(resetQuery()),
-  toggleQuery: (name, value, checked) => {
+  toggleQuery: (key, value, checked) => {
     if (checked) {
-      dispatch(removeQuery(name, value));
+      dispatch(removeQuery({key, value}));
     } else {
-      dispatch(addQuery(name, value));
+      dispatch(addQuery({key, value}));
     }
   },
   toggleUseTime: () => dispatch(toggleUseTime()),
-  toggleTimePanel: () => dispatch(toggleTimePanel()),
-  toggleSearchPanel: () => dispatch(toggleSearchPanel()),
-  searchEmptySlot: () => dispatch(selectTimeMode(true)),
-  searchSelectedSlot: () => dispatch(selectTimeMode(false)),
+  toggleTimePanel: () => dispatch(toggleTimeFilterPanel()),
+  toggleSearchPanel: () => dispatch(toggleFilterPanel()),
+  searchEmptySlot: () => dispatch(setSearchEmptyTime(true)),
+  searchSelectedSlot: () => dispatch(setSearchEmptyTime(false)),
 });
 
 class SearchFilter extends Component {
@@ -125,7 +131,7 @@ class SearchFilter extends Component {
         <label className="col-md-2 control-label field">{label}</label>
         <div className="col-md-10">
           {items.map((val, idx) => {
-            const checked = this.props.query.get(memberName).has(val.value);
+            const checked = this.props.query[memberName].includes(val.value);
             return (
               <label key={idx} className="checkbox-inline">
                 <input

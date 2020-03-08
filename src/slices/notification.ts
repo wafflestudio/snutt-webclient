@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as api from 'api';
 import { Notification } from 'types';
-import { TOGGLE_SEARCHPANEL } from '../actions/actionTypes';
+import { toggleFilterPanel } from 'slices/search';
 
 interface GetMessagePayload {
   messages: Notification[];
@@ -52,7 +52,7 @@ const notificationSlice = createSlice({
     },
   },
   extraReducers: {
-    [TOGGLE_SEARCHPANEL]: state => {
+    [toggleFilterPanel.type]: state => {
       state.opened = false;
     },
   },

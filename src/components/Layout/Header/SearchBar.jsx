@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { runQuery, toggleSearchPanel } from '../../../actions/index.js';
+import { runQuery, toggleFilterPanel } from 'slices/search';
 import SearchFilter from '../../MakeTimetable/Search/SearchFilter.jsx';
 import IconWrapper from '../../Common/IconWrapper.jsx';
 import { ReactComponent as SearchIconNormal } from 'assets/ic-search-normal.svg';
@@ -14,17 +14,14 @@ import { ReactComponent as FilterIconFocusedHovered } from 'assets/ic-condition-
 
 const mapStateToProps = ({
   courseBook,
-  filter: { panel: filterOn },
-  query,
+  search: {
+    query,
+    ui: {isFilterPanelOn: filterOn}
+  },
 }) => ({
   currentBook: courseBook.current,
   filterOn,
-  queries: query.toJS(),
-});
-
-const mapDispatchToProps = dispatch => ({
-  toggleFilter: () => dispatch(toggleSearchPanel()),
-  runQuery: txt => dispatch(runQuery(txt)),
+  queries: query
 });
 
 const formatLastUpdate = currentBook => {
@@ -37,8 +34,8 @@ const formatLastUpdate = currentBook => {
 };
 
 class SearchBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { text: '', focused: false };
     this.onTextChange = e => this.setState({ text: e.target.value });
     this.handleQuery = this.handleQuery.bind(this);
@@ -55,7 +52,7 @@ class SearchBar extends Component {
   handleBlur = () => this.setState({ focused: false });
 
   render() {
-    const { filterOn, toggleFilter } = this.props;
+    const { filterOn, toggleFilterPanel } = this.props;
     return (
       <div
         className={`searchbar-wrapper ${this.state.focused ? 'focused' : ''}`}
@@ -85,7 +82,7 @@ class SearchBar extends Component {
             focusedIcon={<FilterIconFocused />}
             focusedHoveredIcon={<FilterIconFocusedHovered />}
             focused={filterOn}
-            onClick={toggleFilter}
+            onClick={toggleFilterPanel}
           />
         </div>
         {filterOn ? <SearchFilter /> : null}
@@ -94,7 +91,7 @@ class SearchBar extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SearchBar);
+export default connect(mapStateToProps, {
+  runQuery,
+  toggleFilterPanel,
+})(SearchBar);
