@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ADD_LECTURE_OK, UPDATE_LECTURE_OK } from 'actions/actionTypes';
+import { updateTable } from 'slices/timetable';
 import { Lecture } from '../types';
 
 interface CourseEditorState {
@@ -28,8 +28,7 @@ const courseEditorSlice = createSlice({
     closeCourseEditor: closeCourseReducer,
   },
   extraReducers: {
-    [UPDATE_LECTURE_OK]: closeCourseReducer,
-    [ADD_LECTURE_OK]: closeCourseReducer,
+    [updateTable.type]: closeCourseReducer,
   },
 });
 

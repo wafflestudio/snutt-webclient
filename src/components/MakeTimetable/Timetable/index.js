@@ -3,25 +3,17 @@ import { connect } from 'react-redux';
 
 import Table from './Table';
 
-import {
-  deleteLecture,
-  switchTable,
-  createTable,
-} from '../../../actions/tableActions';
+import { deleteLecture } from 'slices/timetable/actions'
 import {
   startCourseEditor
 } from 'slices/courseEditor'
-import { addCourse } from '../../../actions';
 const TableCapturer = lazy(() => import('./TableCapturer'));
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   handleDelete: _id => dispatch(deleteLecture(_id)),
-  addCourse: course => dispatch(addCourse(course)),
   openCourse: () => dispatch(startCourseEditor()),
-  setTable: _id => dispatch(switchTable(_id)),
-  addTable: () => dispatch(createTable()),
 });
 
 class Timetable extends Component {

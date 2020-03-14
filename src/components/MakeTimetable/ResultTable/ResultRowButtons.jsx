@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  addLecture,
-  deleteLecture,
-} from '../../../actions/tableActions';
+import {addLecture, deleteLecture} from 'slices/timetable/actions'
 import {
   startCourseEditor
 } from 'slices/courseEditor'

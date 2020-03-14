@@ -35,7 +35,7 @@ export const runQuery = (textQuery: string): AppThunk => async (
   // Handle times
   if (!useTime) {
     delete fullQuery.time_mask;
-  } else if (searchEmptyTime) {
+  } else if (searchEmptyTime && viewTableId) {
     // use free time as query
     const viewLectures = tableMap[viewTableId].lecture_list;
     const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);

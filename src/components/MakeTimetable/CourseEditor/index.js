@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import ColorPicker from './ColorPicker.jsx';
 import timeJsonToMask from './maskConverter';
-import {
-  addCustomLecture,
-  updateLecture,
-} from '../../../actions/tableActions';
+import { addCustomLecture, updateLecture} from 'slices/timetable/actions'
 import {
   closeCourseEditor
 } from 'slices/courseEditor'

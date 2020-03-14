@@ -8,7 +8,7 @@ import notification from './notification';
 import ui from './ui';
 import user from './user';
 import search from './search';
-import { tableList } from 'reducers/timetables';
+import tableList from './timetable';
 
 const rootReducer = combineReducers({
   search,

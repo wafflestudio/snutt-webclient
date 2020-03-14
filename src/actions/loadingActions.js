@@ -9,11 +9,11 @@ import {
   postNewTable,
 } from 'api';
 import * as types from 'actions/actionTypes';
+import {updateTableList, switchTable} from 'slices/timetable'
 import {checkNewMessage} from 'slices/notification'
 import {changeCoursebook as changeCoursebookAction} from 'slices/coursebook'
 import { loginSuccess } from 'slices/user'
 import {setTagList} from 'slices/search'
-import { switchTable } from 'actions/tableActions';
 import { getToken, saveToken } from 'utils/auth';
 import err from 'utils/errorHandler';
 
@@ -69,8 +69,8 @@ export const fetchUserInfo = () => async (dispatch, getState) => {
     }
 
     dispatch(loginSuccess({info: userInfo}))
-    dispatch({ type: types.GET_TABLELIST, tableList });
-    dispatch(switchTable(viewTableId));
+    dispatch(updateTableList(tableList))
+    dispatch(switchTable(viewTableId))
     dispatch(checkNewMessage({ hasNew: notiCount.count > 0 }))
   } catch (e) {
     alert('초기화 중 에러가 발생했습니다');
@@ -94,7 +94,7 @@ export const changeCoursebook = newCourseBook => async (dispatch, getState) => {
   if (!newViewTableId) {
     const newTableList = await err(postNewTable(year, semester, '나의 시간표'));
     if (!newTableList.error) {
-      dispatch({ type: types.CREATE_TABLE_OK, tableList: newTableList });
+      dispatch(updateTableList(newTableList))
       newViewTableId = findViewTableIdForSemester(year, semester, newTableList);
     }
   }

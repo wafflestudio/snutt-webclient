@@ -14,7 +14,7 @@ export const getTable = async (tableId: string): Promise<Timetable> =>
 export const postNewTable = async (
   year: number,
   semester: number,
-  title: number,
+  title: string,
 ): Promise<AbstractTimetable[]> =>
   (await client.post('tables/', encodeParams({ title, year, semester }))).data;
 
