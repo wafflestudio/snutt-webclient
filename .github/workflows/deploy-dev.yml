@@ -24,7 +24,11 @@ jobs:
       - name: Build & Export
         run: |
           yarn install
-          REACT_APP_GIT_SHA=$(git rev-parse HEAD) yarn build
+          cp .env.dev .env.production
+          REACT_APP_GIT_SHA=$(git rev-parse HEAD) \
+            REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY_DEV }} \
+            REACT_APP_FB_APP_ID=${{ secrets.REACT_APP_FB_APP_ID_DEV }} \
+            yarn build
 
       - name: Deploy to S3 and Invalidate Cloudfront
         id: deploy-s3
