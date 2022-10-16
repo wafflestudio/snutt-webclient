@@ -29,7 +29,6 @@
     "lodash": "^4.17.11",
     "mobile-detect": "^1.4.1",
     "prop-types": "^15.6.1",
-    "radium": "^0.19.5",
     "react": "^16.12.0",
     "react-autocomplete": "^1.8.1",
     "react-color": "^2.13.8",
