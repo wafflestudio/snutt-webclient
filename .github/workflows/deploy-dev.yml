@@ -14,10 +14,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build & Export Next App
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Build & Export
         run: |
           yarn install
-          yarn build
+          REACT_APP_GIT_SHA=$(git rev-parse HEAD) yarn build
 
       - name: Deploy to S3 and Invalidate Cloudfront
         id: deploy-s3
@@ -25,5 +32,5 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_DEV }}
           AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_DEV }}
         run: |
-          aws s3 sync ./out $AWS_S3_BUCKET --delete
+          aws s3 sync ./build $AWS_S3_BUCKET --delete
           aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
