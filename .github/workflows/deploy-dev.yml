@@ -1,0 +1,29 @@
+name: deploy-dev
+
+on:
+  push:
+    tags:
+      - dev/*
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build & Export Next App
+        run: |
+          yarn install
+          yarn build
+
+      - name: Deploy to S3 and Invalidate Cloudfront
+        id: deploy-s3
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_DEV }}
+          AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_DEV }}
+        run: |
+          aws s3 sync ./out $AWS_S3_BUCKET --delete
+          aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
