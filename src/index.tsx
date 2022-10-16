@@ -32,12 +32,15 @@ declare global {
     __REDUX_DEVTOOLS_EXTENSION__: any;
     Cypress: any;
     store: any;
+    git: string;
   }
 }
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
 }
+
+window.git = process.env.REACT_APP_GIT_SHA ?? '';
 
 require('stylesheets/style.scss');
 
@@ -56,7 +59,7 @@ export const store = createStore(
     middleware,
     window.__REDUX_DEVTOOLS_EXTENSION__ && process.env.NODE_ENV !== 'production'
       ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : f => f,
+      : (f) => f,
   ),
 );
 if (window.Cypress) {
