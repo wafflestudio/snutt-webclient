@@ -62,7 +62,9 @@ export function runQuery(textQuery) {
     } else if (searchEmptySlot) {
       // use free time as query
       const viewLectures = tableMap[viewTableId].lecture_list;
-      const currentMasks = viewLectures.map(lecture => lecture.class_time_mask);
+      const currentMasks = viewLectures.map(
+        (lecture) => lecture.class_time_mask,
+      );
       const invertedMasks = complement(currentMasks);
       validQuery.time_mask = invertedMasks;
     } else {
@@ -72,7 +74,7 @@ export function runQuery(textQuery) {
   };
 }
 
-export const sendQuery = query => async dispatch => {
+export const sendQuery = (query) => async (dispatch) => {
   dispatch(startQuery(query));
   const courses = await api.getQueryResults(query);
   dispatch(showResult(courses));
@@ -115,7 +117,7 @@ export function toggleTimePanel() {
 }
 
 export const toggleUseTime = () => ({ type: types.TOGGLE_USETIME });
-export const selectTimeMode = mode => ({ type: types.SELECT_TIMEMODE, mode });
+export const selectTimeMode = (mode) => ({ type: types.SELECT_TIMEMODE, mode });
 
 export function toggleModal() {
   return { type: types.TOGGLE_MODAL };
