@@ -27,6 +27,8 @@ import {
   Feedback,
 } from './components';
 
+import 'stylesheets/style.scss';
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION__: any;
@@ -40,9 +42,7 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
 }
 
-window.git = process.env.REACT_APP_GIT_SHA ?? '';
-
-require('stylesheets/style.scss');
+window.git = '';
 
 const history = createHistory();
 

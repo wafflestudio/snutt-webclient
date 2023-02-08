@@ -1,4 +1,4 @@
-module.exports = function(year, semester, course_number, lecture_number) {
+export default function (year, semester, course_number, lecture_number) {
   console.log(arguments);
   let openShtmFg = null,
     openDetaShtmFg = null;
@@ -19,4 +19,4 @@ module.exports = function(year, semester, course_number, lecture_number) {
   const url = `http://sugang.snu.ac.kr/sugang/cc/cc103.action?openSchyy=${year}&openShtmFg=${openShtmFg}&openDetaShtmFg=${openDetaShtmFg}&sbjtCd=${course_number}&ltNo=${lecture_number}&sbjtSubhCd=000`;
 
   window.open(url);
-};
+}

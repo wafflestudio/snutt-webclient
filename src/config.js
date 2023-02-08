@@ -1,10 +1,9 @@
-const getEnv = key =>
+const getEnv = (key) =>
   process.env[key] ||
   (window.Cypress && window.Cypress.env(key)) ||
   console.log(`Environment variable ${key} is not set `);
 
-module.exports = {
-  baseUrl: getEnv('REACT_APP_BASE_URL'),
-  apiKey: getEnv('REACT_APP_API_KEY'),
-  fbAppId: getEnv('REACT_APP_FB_APP_ID'),
-};
+export const baseUrl = 'https://snutt-api-dev.wafflestudio.com';
+export const apiKey =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdHJpbmciOiJhbmRyb2lkIiwia2V5X3ZlcnNpb24iOiIwIiwiaWF0IjoxNTA3NzIzNzA3fQ.XVhn7m0CnPvIWeZ36PEMqm_oROQj-iPy4gAgg62N97A';
+export const fbAppId = 'qer';
